@@ -1,0 +1,302 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<body class="easyui-layout">
+    <div region="south" split="true" style="height:230px;background:#FFFFFF;">
+        <div id="userTab" fit="true">
+            <div title="厂家账户" style="padding: 2px; overflow: hidden;">
+                <table id="account"></table>
+            </div>
+            @*<div title="品牌负责人" style="padding: 2px; overflow: hidden;">
+                   <table id="brandman"></table>
+                </div>*@
+        </div>
+    </div>
+    <div region="north" border="false" split="true" class="datagrid-toolbar">
+        <div style="height:35px">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+    </div>
+    <div region="center" border="false" split="true">
+        <table id="userGrid" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+
+
+    $(function () {
+        //var size = { width: $(window).width(), height: $(window).height() };
+        //mylayout.init(size);
+
+        //autoResize({ dataGrid: '#userGrid', gridType: 'datagrid', callback: mygrid.databind });
+
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.update);
+        $('#a_delete').click(crud.del);
+
+        $('#a_search').click(function () {
+            search.go('userGrid');
+        });
+        //$(window).resize(function () {
+        //    size = { width: $(window).width(), height: $(window).height() };
+        //    mylayout.resize(size);
+        //});
+
+        mygrid.databind();
+        account.databind();
+
+        $('#userTab').tabs({
+            onLoad: function () {
+                $('.validatebox-tip').remove();
+            }
+        });
+    });
+
+    var mylayout = {
+        init: function (size) {
+            $('#layout').width(size.width - 4).height(size.height - 4).layout();
+            var center = $('#layout').layout('panel', 'center');
+            center.panel({
+                onResize: function (w, h) {
+                    $('#userGrid').datagrid('resize', { width: w - 6, height: h - 36 });
+                }
+            });
+        },
+        resize: function (size) {
+            mylayout.init(size);
+            $('#layout').layout('resize');
+        }
+    };
+
+    function createParam(action, FID, isDel) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+
+        if (form && !isDel) {
+
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+        }
+        o.action = action;
+        o.FID = FID;
+        return JSON.stringify(o);
+    }
+
+
+    var mygrid = {
+        databind: function () {
+            $('#userGrid').datagrid({
+                url: '/Brand/List',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                { title: '品牌代码', field: 'FNUMBER', width: 100, sortable: true },
+                { title: '品牌', field: 'FNAME', width: 100, sortable: true },
+                { title: '厂家名称', field: 'FFACTORY', width: 120, sortable: true },
+                { title: '品类', field: 'FTYPE', width: 100, sortable: true },
+                { title: '厂家品牌代码', field: 'FFACTORYNO', width: 100, sortable: true },
+                { title: '接口地址', field: 'FINTERFACEADD', width: 200, sortable: true },
+                { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.update();
+                },
+                onClickRow: function (index, row) {
+                    if (row) {
+                        $('#account').datagrid('reload', {
+                            FBRANDID: row.FID
+                        });
+                    }
+                }
+            });
+        },
+        reload: function () {
+            $('#userGrid').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#userGrid').datagrid('getSelected');
+        }
+    };
+
+    var account = {
+        databind: function () {
+            $('#account').datagrid({
+                url: '/Brand/Account',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                { title: '厂家账号', field: 'FACCOUNT', width: 80, sortable: true },
+                { title: '账号名称', field: 'FNAME', width: 400, sortable: true },
+                { title: '所属品牌', field: 'FBRANDNAME', width: 100, sortable: true },
+                { title: '负责人', field: 'FUSERNAME', width: 80, sortable: true },
+                {
+                    title: '状态', field: 'FSTATUS', width: 60, sortable: true,align:'center',
+                    formatter: function (v, d, i) {
+                        if (v == 0) {
+                            return '禁用';
+                        }
+                        else if (v == 1) {
+                            return '启用';
+                        }
+                    }
+                },
+                { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                ]],
+                pagination: false,
+                pageSize: PAGESIZE,
+                //onDblClickRow: function (rowIndex, rowData) {
+                //    crud.update();
+                //},
+            });
+        },
+        reload: function () {
+            $('#account').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#account').datagrid('getSelected');
+        }
+    };
+
+    var crud = {
+        initData: function () {
+
+        },
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/Brand/Edit' + '?v=' + Math.random(),
+                width: 700,
+                height: 300,
+                title: '添加厂家品牌',
+                iconCls: 'icon-user_add',
+                onLoad: function () {
+
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [
+                    {
+                        text: '新增',
+                        iconCls: 'icon-database_add',
+                        handler: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = createParam('add', 0);
+
+                                $.ajaxjson('/Brand/Add', { json: query }, function (d) {
+                                    if (d.Success) {
+                                        parent.layer.alert(d.Message, { icon: 1 });
+                                        mygrid.reload();
+                                        top.$('#txtFNumber').textbox('setValue', '');
+                                        top.$('#txtFName').textbox('setValue', '');
+                                        top.$('#txtFFactory').textbox('setValue', '');
+                                        top.$('#txtFInterfaceAdd').textbox('setValue', '');
+                                        top.$('#txtFRemark').textbox('setValue', '');
+                                        //addDialog.dialog('close');
+                                    } else {
+                                        parent.layer.alert(d.Message, { icon: 0 });
+                                    }
+                                });
+                            } else {
+                                if (index > 0)
+                                    top.$('#userTab').tabs('select', 0);
+                            }
+                        }
+                    },
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam('add', 0);
+
+                            $.ajaxjson('/Brand/Add', { json: query }, function (d) {
+                                if (d.Success) {
+                                    parent.layer.alert(d.Message, { icon: 1 });
+                                    mygrid.reload();
+                                    addDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(d.Message, { icon: 0 });
+                                }
+                            });
+                        } else {
+                            if (index > 0)
+                                top.$('#userTab').tabs('select', 0);
+                        }
+                    }
+                },
+                 {
+                     text: '关闭',
+                     iconCls: 'icon-cancel',
+                     handler: function () {
+                         addDialog.dialog('close');
+                     }
+                 }]
+            });
+        },
+        update: function () {
+            var row = mygrid.selectRow();
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    href: '/Brand/Edit?id=' + row.FID,
+                    width: 700,
+                    height: 300,
+                    title: '修改厂家品牌',
+                    iconCls: 'icon-user_add',
+                    onLoad: function () {
+                    },
+                    submit: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam('update', row.FID);
+                            //alert(query);
+                            $.ajaxjson('/Brand/Edit', { json: query }, function (d) {
+                                if (d.Success) {
+                                    parent.layer.alert(d.Message, { icon: 1 });
+                                    mygrid.reload();
+                                    editDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(d.Message, { icon: 0 });
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                parent.layer.alert('请选择要修改的厂家品牌。', { icon: 0 });
+            }
+        },
+        del: function () {
+            var row = mygrid.selectRow();
+            if (row) {
+                var query = createParam('delete', row.FID, true);
+                parent.layer.confirm('确认要删除选中的厂家品牌吗?', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+                    $.ajaxjson('/Brand/Delete', { json: query }, function (d) {
+                        if (parseInt(d) > 0) {
+                            parent.layer.msg('删除成功');
+                            mygrid.reload();
+                        } else {
+                            parent.layer.alert('删除失败', { icon: 2 });
+                        }
+                    });
+                });
+            } else {
+                parent.layer.alert('请选择要删除的厂家品牌。');
+            }
+        }
+    };
+
+</script>

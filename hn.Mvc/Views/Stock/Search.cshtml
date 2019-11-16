@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<!-- 引入多功能查询js -->
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.min.js"></script>
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.jquery.js"></script>
+
+<div id="layout">
+    <div region="center" iconcls="icon-users" style="overflow: hidden">
+        @*<div id="toolbar4" style="padding:1px 2px 0px;">
+            <div style="float: left; padding-top: 2px;width:100%; margin-bottom:2px;">
+                仓库名称：
+                <input type="text" name="txtSotckName" id="txtSotckName" class="txt03 easyui-textbox" />
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+            </div>
+        </div>*@
+        <table id="userGrid" toolbar="#toolbar4"></table>
+    </div>
+
+</div>
+
+

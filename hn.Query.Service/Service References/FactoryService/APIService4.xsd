@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/hn.APIService.DataAccess.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/hn.APIService.DataAccess.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ICPOBILLENTRYModel_MHLS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FACCOUNT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FAUDQTY" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FBILLNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCOLORNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDesBillNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FENTRYID" type="xs:int" />
+      <xs:element minOccurs="0" name="FERR_MESSAGE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FITEMID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPOtype" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FREMARK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSRCCODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSRCMODEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSRCNAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSTATUS" type="xs:int" />
+      <xs:element minOccurs="0" name="FSYNCSTATUS" type="xs:int" />
+      <xs:element minOccurs="0" name="FTIMESTAMP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Famount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Fcompany" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FcontractNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fdesbillentry" type="xs:int" />
+      <xs:element minOccurs="0" name="FentryTotal" type="xs:int" />
+      <xs:element minOccurs="0" name="Flevel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fnote" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fpricepolicy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FprojectNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FstockNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Funit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fprice" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ICPOBILLENTRYModel_MHLS" nillable="true" type="tns:ICPOBILLENTRYModel_MHLS" />
+  <xs:complexType name="ArrayOfICPO_BOLentryModel_MNLS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ICPO_BOLentryModel_MNLS" nillable="true" type="tns:ICPO_BOLentryModel_MNLS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfICPO_BOLentryModel_MNLS" nillable="true" type="tns:ArrayOfICPO_BOLentryModel_MNLS" />
+  <xs:complexType name="ICPO_BOLentryModel_MNLS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FACCOUNT" type="xs:int" />
+      <xs:element minOccurs="0" name="FAUDQTY" type="xs:int" />
+      <xs:element minOccurs="0" name="FCOLORNO" type="xs:int" />
+      <xs:element minOccurs="0" name="FDATE" type="xs:int" />
+      <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FITEMID" type="xs:int" />
+      <xs:element minOccurs="0" name="FPObillno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FREMARK" type="xs:int" />
+      <xs:element minOccurs="0" name="FSRCCODE" type="xs:int" />
+      <xs:element minOccurs="0" name="FSRCMODEL" type="xs:int" />
+      <xs:element minOccurs="0" name="FSRCNAME" type="xs:int" />
+      <xs:element minOccurs="0" name="FSYNCSTATUS" type="xs:int" />
+      <xs:element minOccurs="0" name="FTIMESTAMP" type="xs:int" />
+      <xs:element minOccurs="0" name="Famount" type="xs:int" />
+      <xs:element minOccurs="0" name="FcommitQTY" type="xs:int" />
+      <xs:element minOccurs="0" name="FcontractNO" type="xs:int" />
+      <xs:element minOccurs="0" name="Ficbolentry" type="xs:int" />
+      <xs:element minOccurs="0" name="Ficbolno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Flevel" type="xs:int" />
+      <xs:element minOccurs="0" name="Fpobillentry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FprojectNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FstockNO" type="xs:int" />
+      <xs:element minOccurs="0" name="Funit" type="xs:int" />
+      <xs:element minOccurs="0" name="fprice" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ICPO_BOLentryModel_MNLS" nillable="true" type="tns:ICPO_BOLentryModel_MNLS" />
+</xs:schema>

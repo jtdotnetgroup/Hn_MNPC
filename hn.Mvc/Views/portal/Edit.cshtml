@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+@model hn.DataAccess.Model.TB_BrandModel
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td style="width:100px">
+                品牌名称：
+            </td>
+            <td style="width:250px">
+                <input type="text" name="FName" class="easyui-textbox"
+                       data-options="required:true,missingMessage:'请输入品牌名称'" id="txtFName" style="width:200px" value="@Model.FName" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+            <td style="width:100px">
+                英文名称：
+            </td>
+            <td style="width:250px">
+                <input type="text" name="FEnName" class="easyui-textbox"
+                       data-options="required:true,missingMessage:'请输入英文名称'" id="txtFEnName" style="width:200px" value="@Model.FEnName" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                厂家：
+            </td>
+            <td>
+                <input type="text" name="FFactory" class="easyui-textbox" id="txtFFactory" style="width:200px" value="@Model.FFactory" />
+            </td>
+            <td>
+                客服电话：
+            </td>
+            <td colspan="3" style="border-top:1px dotted transparent;">
+                <input type="text" name="FTelephone" class="easyui-textbox" id="txtFTelephone" style="width:200px" value="@Model.FTelephone" />
+            </td>
+
+
+        </tr>
+        <tr>
+            <td>
+                厂家地址：
+            </td>
+            <td colspan="3">
+                <input type="text" name="FAddress" class="easyui-textbox" id="txtFAddress" style="width:650px" value="@Model.FAddress" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                备注：
+            </td>
+            <td colspan="3">
+                <textarea rows="3" name="FNote" style="width:100%;height:100px" class="easyui-textbox"
+                          data-options="multiline:true,value:'@Model.FNote'" id="txtFNote"></textarea>
+            </td>
+        </tr>
+    </table>
+
+</form>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //名称校验
+        $('#txtFName').textbox({
+            onChange: function () {
+                var name = $('#txtFName').textbox('getValue');
+                //alert(name);
+                $.ajax({
+                    url: "/Brand/CheckName",
+                    data: { name: name, id: @Model.FID },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (e) {
+                        if (e.errCode != 0) {
+                            parent.layer.alert("品牌名称已存在，请重新输入！");
+                        }
+                    }
+                })
+            }
+        });
+
+    });
+
+</script>

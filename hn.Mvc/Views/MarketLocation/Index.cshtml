@@ -1,0 +1,284 @@
+﻿@{
+    ViewBag.Title = "经营场所";
+}
+
+<body class="easyui-layout">
+
+    <div region="center" border="false" split="true">
+        <div id="toolbar" style="padding: 1px 2px 0px;" class="datagrid-toolbar">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <div>
+                关键字:
+                <input class="easyui-textbox" style="width: 200px" id="txtKeyword" />
+                <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+            </div>
+        </div>
+        <table id="userGrid" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.update);
+        $('#a_delete').click(crud.del);
+        mygrid.databind();
+
+        $("#a_search").click(function () {
+            $('#userGrid').datagrid('load', { keywords: $('#txtKeyword').val() });
+        });
+
+        $("#a_reset").click(function () {
+            $('#txtKeyword').textbox('setValue', '');
+            $('#userGrid').datagrid('load', {});
+        });
+
+        $("#toolbar").css("height", "60px");
+    });
+
+    var mygrid = {
+        databind: function () {
+            $('#userGrid').datagrid({
+                url: '/MarketLocation/List',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                checkOnSelect: true,
+                selectOnCheck: true,
+                striped: true,
+                rownumbers: true,
+                columns: [[
+                //{ field: 'FID', checkbox: true },
+                { title: '场所编号', field: 'FCODE', width: 90, sortable: true },
+                { title: '场所名称', field: 'FNAME', width: 250, sortable: true },
+
+                { title: '所属组织ID', field: 'FORGID', width: 120, hidden: true },
+                { title: '一级销区ID', field: 'FCLASSAREA1', width: 120, hidden: true },
+                { title: '二级销区ID', field: 'FCLASSAREA2', width: 120, hidden: true },
+                { title: '品牌部iID', field: 'FBRAND', width: 120, hidden: true },
+
+                { title: '所属组织', field: 'FORGNAME', width: 200, sortable: true },
+                { title: '一级销区', field: 'FCLASSAREA1NAME', width: 150, sortable: true },
+                { title: '二级销区', field: 'FCLASSAREA2NAME', width: 150, sortable: true },
+                { title: '品牌部', field: 'FBRANDNAME', width: 180, sortable: true },
+                { title: '公司', field: 'FCOMPANY', width: 180, sortable: true },
+                {
+                    title: '是否开票', field: 'FISTICKET', width: 60, sortable: true, align: 'center',
+                    formatter: function (value, row, index) {
+                        if (value == 1) {
+                            return "是";
+                        }
+                        else {
+                            return "否";
+                        }
+                    }
+                },
+                {
+                    title: '状态', field: 'FSTATUS', width: 60, sortable: true, align: 'center',
+                    formatter: function (value, row, index) {
+                        if (value=="0") {
+                            return "启用";
+                        }
+                        else {
+                            return "禁用";
+                        }
+                    }
+                },
+                { title: '备注', field: 'FREMARK', width: 250, sortable: false }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.update();
+                },
+                onClickRow: function (index, row) {
+                    if (row) {
+
+                    }
+                }
+            });
+        },
+        reload: function () {
+            $('#userGrid').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#userGrid').datagrid('getSelected');
+        }
+    };
+
+    var crud = {
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/MarketLocation/Add' + '?v=' + Math.random(),
+                width: 700,
+                height: 330,
+                title: '添加经营场所',
+                iconCls: 'icon-user_add',
+                onLoad: function () {
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [
+                    {
+                        text: '新增',
+                        iconCls: 'icon-database_add',
+                        handler: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = createParam('add', 0);
+                                $.ajaxjson('/MarketLocation/Add', query, function (d) {
+                                    if (d.Success) {
+                                        $('#userGrid').datagrid('clearSelections').datagrid('reload');
+                                        parent.layer.alert(d.Message, { icon: 1 });
+                                    } else {
+                                        parent.layer.alert(d.Message, { icon: 0 });
+                                    }
+                                });
+                            }
+                            else {
+
+                            }
+                        }
+                    },
+                    {
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = createParam('add', 0);
+                                $.ajaxjson('/MarketLocation/Add', { json: query }, function (d) {
+                                    if (d.Success) {
+                                        //alert("success");
+                                        $('#userGrid').datagrid('clearSelections').datagrid('reload');
+                                        parent.layer.msg(d.Message);
+                                        addDialog.dialog('close');
+                                    } else {
+                                        parent.layer.alert(d.Message, { icon: 0 });
+                                    }
+                                });
+                            }
+                            else {
+
+                            }
+                        }
+                    },
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            addDialog.dialog('close');
+                        }
+                    }]
+            });
+        },
+        update: function () {
+            var row = mygrid.selectRow();
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    href: '/MarketLocation/Add?id=' + row.FID,
+                    width: 700,
+                    height: 330,
+                    title: '修改经营场所',
+                    iconCls: 'icon-user_add',
+                    onLoad: function () {
+                        top.$('#FCODE').textbox('setValue', row.FCODE);
+                        top.$('#FNAME').textbox('setValue', row.FNAME);
+                        top.$('#FCOMPANY').textbox('setValue', row.FCOMPANY);
+                        top.$('#FORGNAME').textbox('setValue', row.FORGNAME);
+                        top.$('#cboSale1').searchbox('setValue', row.FCLASSAREA1NAME);
+                        top.$('#cboSale2').searchbox('setValue', row.FCLASSAREA2NAME);
+                        top.$('#cboBrand').searchbox('setValue', row.FBRANDNAME);
+
+                        if (row.FSTATUS == "0") {
+                            top.$('#FSTATUS').combobox('setValue', 0);
+                        }
+                        else {
+                            top.$('#FSTATUS').combobox('setValue', 1);
+                        }
+
+                        if (row.FISTICKET == 1) {
+                            top.$('#FISTICKET').combobox('setValue', 1);
+                        }
+                        else {
+                            top.$('#FISTICKET').combobox('setValue', 0);
+                        }
+
+                        top.$('#FID').val(row.FID);
+                        top.$('#FORGID').val(row.FORGID);
+                        top.$('#FCLASSAREA1').val(row.FCLASSAREA1);
+                        top.$('#FCLASSAREA2').val(row.FCLASSAREA2);
+                        top.$('#FBRAND').val(row.FBRAND);
+
+
+                    },
+                    closed: false,
+                    showBtns: false,
+                    submit: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam('update', row.FID);
+                            $.ajaxjson('/MarketLocation/Edit', { json: query }, function (d) {
+                                if (d.Success) {
+                                    parent.layer.msg(d.Message);
+                                    mygrid.reload();
+                                    editDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(d.Message, { icon: 0 });
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                parent.layer.alert('请选择要修改的经营场所。', { icon: 0 });
+            }
+        },
+        del: function () {
+            var row = mygrid.selectRow();
+            if (row) {
+                var query = createParam('delete', row.FID, true);
+                parent.layer.confirm('确认要删除选中的经营场所吗?', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+                    $.ajaxjson('/MarketLocation/Delete', { json: query }, function (d) {
+                        if (parseInt(d) > 0) {
+                            parent.layer.msg('删除成功');
+                            mygrid.reload();
+                        } else {
+                            parent.layer.alert('删除失败', { icon: 2 });
+                        }
+                    });
+                });
+            } else {
+                parent.layer.alert('请选择要删除的经营场所。');
+            }
+        }
+    };
+
+
+
+    function createParam(action, FID, isDel) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+
+        if (form && !isDel) {
+
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+        }
+        o.action = action;
+        o.FID = FID;
+        return JSON.stringify(o);
+    }
+
+
+
+
+</script>

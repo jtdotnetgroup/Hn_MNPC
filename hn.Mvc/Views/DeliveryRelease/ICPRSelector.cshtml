@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout" >
+
+    <div region="center" border="false" split="true">
+        <div id="toolbar2">
+            二级销区：
+            <input type="text" name="txtFCLASSAREA2NAME" id="txtFCLASSAREA2NAME" class="txt04" style="width:100px" readonly/>
+            品牌/厂家：
+            <input type="text" name="txtBRANDNAME" id="txtBRANDNAME" class="txt04" style="width:100px" readonly/>
+            商品名称：
+            <input type="text" name="txtPRODUCTNAME" id="txtPRODUCTNAME" class="easyui-textbox" style="width:100px" />   
+            品牌部：
+            <input type="text" name="txtFPREMISEBRANDNAME" id="txtFPREMISEBRANDNAME" class="easyui-textbox" style="width:100px" />      
+            发货时间:
+            <input class="easyui-datebox" style="width: 100px" id="txtDateFrom"> 至 <input class="easyui-datebox" style="width: 100px" id="txtDateTo">  
+            请购计划单号：
+            <input type="text" name="txtICPRBILLNO" id="txtICPRBILLNO" class="easyui-textbox" style="width:100px" />             
+            @*经营场所：
+            <input id="FPREMISEID2" name="FPREMISEID2" type="hidden" />
+            <input id="FPREMISENAME2" name="FPREMISENAME2" type="text" class="easyui-searchbox" data-options="editable:false,validType:'length[1,255]',invalidMessage:'最大长度255个字符'" style="width:150px" />
+            二级销区：
+            <input type="text" name="txtFCLASSAREA2NAME" id="txtFCLASSAREA2NAME" class="easyui-textbox" style="width:120px" />*@
+            <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-control_blank_blue" id="a_reset">重置</a>
+            <div style="float:right">
+            @*车载：<input class="txt04" style="width: 100px;text-align:right" id="txtFWEIGHT" readonly>*@
+            总重量：<input class="txt04" style="width: 100px;text-align:right" id="txtFWEIGHTTOTAL" readonly>
+            </div>
+        </div>
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar2"></table>
+    </div>
+    @*<div region="south" split="true" style="height:800px;background:#FFFFFF;margin-top:10px;">
+        <div id="userTab2" title="配柜明细" fit="true">
+            <div title="配柜明细" style="padding: 2px; overflow: hidden;">
+                <table id="conentry"></table>
+            </div>
+        </div>
+    </div>*@
+</body>
+
+<script type="text/javascript">
+    $('#a_search').click(function () {
+        onSearch();
+    });
+
+
+    $('#a_reset').click(function () {
+        $("#txtPRODUCTNAME").textbox("setValue", "");
+
+        $("#txtDateFrom").datebox("setValue", "");
+        $("#txtDateTo").datebox("setValue", "");
+
+        $("#txtFPREMISEBRANDNAME").textbox("setValue", "");
+        $("#txtICPRBILLNO").textbox("setValue", "");
+
+
+        onSearch();
+    });
+
+    $('#userTab2').tabs({
+        onLoad: function () {
+            $('.validatebox-tip').remove();
+        }
+    });
+
+    ////经营场所
+    //bindMarketLocationDialog($('#FPREMISENAME2'), function (row) {
+    //    $('#FPREMISEID2').val(row.FID);
+    //    $('#FPREMISENAME2').searchbox("setValue", row.FNAME);
+    //});
+
+    function onSearch() {
+        $('#gridView').datagrid('load', {
+            startDate: $("#txtDateFrom").datebox('getValue'),
+            endDate: $("#txtDateTo").datebox('getValue'),
+            productname: $("#txtPRODUCTNAME").textbox('getValue'),
+            brandid: '@Request.QueryString["brandid"]',
+            classarea2name: top.$('#txtFCLASSAREA2NAME').val(),
+            premisebrandname: $("#txtFPREMISEBRANDNAME").textbox('getValue'),
+            icprbillno: $("#txtICPRBILLNO").textbox('getValue'),
+        });
+    }
+
+
+    //=====================================
+    //列表界面上的Grid控件对象
+    //=====================================
+    @*var grid = {
+        databind: function (size) {
+
+            $('#gridView').datagrid({
+                url: '/ICSEOUTBILL/ICPRData?FStatus=2&brandid=@Request.QueryString["brandid"]&clientid=@Request.QueryString["clientid"]',
+                height: 330,
+                idField: 'FID',
+                singleSelect: true,
+                checkOnSelect: true,
+                selectOnCheck: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { field: 'FID', checkbox: true },
+                    //{ title: '所属系列', field: 'FPRODUCTTYPE', width: 120 },
+                    { title: '经营场所', field: 'FPREMISENAME', width: 180, sortable: true },
+                    { title: '二级销区', field: 'FCLASSAREA2NAME', width: 120, sortable: true },
+                    { title: '品牌部', field: 'FPREMISEBRANDNAME', width: 120, sortable: true },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 80 },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 150 },
+                    { title: '规格型号', field: 'FMODEL', width: 100 },
+                    { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center' },
+                    { title: '发货时间', field: 'FNEEDDATESTR', width: 95, align: 'center' },
+                    {
+                        title: '未发数量', field: 'FLEFTAMOUNT', width: 90, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    {
+                        title: '已配数量', field: 'FCOMMITQTY', width: 90, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                       {
+                           title: '已载重', field: 'FWEIGHTTOTAL', width: 90, align: 'right', formatter: function (v, d, i) {
+                               return fmoney(v, 2);
+                           }
+                       },
+                    //{ title: 'JDE地址号', field: 'FBATCHNO', width: 90 },
+                    { title: '色号', field: 'FCOLORNO', width: 90 },
+                    { title: '备注', field: 'FREMARK', width: 200 },
+                    { title: '请购计划单号', field: 'ICPRBILLNO', width: 150 },
+                ]],
+                pagination: true,
+                sortName: 'FDATE',
+                sortOrder: 'DESC',
+                onClickRow: function (index, row) {
+
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+    };
+
+    //=====================================
+    //计划明细列表界面上的Grid控件对象
+    //=====================================
+    var conentry = {
+        bind: function (winSize) {
+            $('#conentry').datagrid({
+                iconCls: 'icon icon-list',
+                height: 300,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                singleSelect: true, //单选
+                selectOnCheck: false,
+                checkOnSelect: false,
+                frozenColumns: [[]],
+                columns: [[
+                    //{ title: '序号', field: 'FENTRYID', width: 120 },
+                    //{ title: '所属系列', field: 'FPRODUCTTYPE', width: 120 },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 80 },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 150 },
+                    { title: '规格型号', field: 'FMODEL', width: 100 },
+                    { title: '主单位', field: 'FUNITNAME', width: 60,align:'center' },
+                    { title: '厂家代码', field: 'FSRCNAME', width: 90 },
+                    { title: '厂家名称', field: 'FSRCCODE', width: 120 },
+                    { title: '厂家规格', field: 'FSRCMODEL', width: 100 },
+                    { title: '厂家单位', field: 'FUNIT', width: 80,align:'center' },
+                    //{ title: 'JDE地址号', field: 'FBATCHNO', width: 100 },
+                    { title: '色号', field: 'FCOLORNO', width: 100 },
+                    { title: '仓库', field: 'FSTOCK', width: 100 },
+                    { title: '仓位', field: 'FSTOCKPLACE', width: 100 },
+                    {
+                        title: '发货数量', field: 'FCOMMITQTY', width: 100, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    { title: '备注', field: 'FREMARK', width: 300 },
+                    { title: '请购计划单号', field: 'ICPRBILLNO', width: 150 },
+                    //{ title: '分录号', field: 'FICPRENTRYID', width: 60 },
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#conentry').datagrid('getSelected');
+        },
+        reload: function (fid) {
+            $('#conentry').datagrid('load', { conid: fid });
+        }
+    };*@
+
+    //grid.databind();
+   // conentry.bind();
+</script>

@@ -1,0 +1,538 @@
+﻿
+<div id="layout">
+    <div region="west" style="width: 200px; border-right: 0px;" border="true">
+        <div class="easyui-panel" border="false" iconcls="icon-book_red">
+            <div class="toolbar" style="background: #efefef; border-bottom: 1px solid #ccc">
+                <a id="a_addSysDics" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton"
+                   icon="icon-add" title="添加字典类别">新增</a>
+                <a id="a_editSysDics" style="float: left"
+                   href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-edit" title="修改字典类别">
+                    修改
+                </a>
+                <a id="a_delSysDics" style="float: left" href="javascript:;" plain="true"
+                   class="easyui-linkbutton" icon="icon-delete" title="删除字典类别">删除</a>
+            </div>
+            <div style="padding: 5px;">
+                <ul id="dataDicType"></ul>
+            </div>
+        </div>
+        <div id="noCategoryInfo" style="font-family: 微软雅黑; font-size: 18px; color: #BCBCBC;
+            padding: 40px 5px; display: none;">
+            亲，还没有字典类别哦，点击 添加 按钮创建新的类别。
+        </div>
+    </div>
+    <div region="center" style="overflow: hidden;">
+        <div id="toolbar">@Html.Raw(ViewBag.ToolBar)</div>
+        <table id="dicGrid"></table>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    $(function () {
+        var size = { width: $(window).width(), height: $(window).height() };
+        mylayout.init(size);
+        $(window).resize(function () {
+            size = { width: $(window).width(), height: $(window).height() };
+            mylayout.resize(size);
+        });
+
+        sysDicsDataGrid.bindTree();
+        autoResize({
+            dataGrid: '#userGrid',
+            gridType: 'datagrid',
+            callback: mygrid.databind,
+            height: 4,
+            width: 204
+        });
+
+        $('#a_addSysDics').click(sysDicsDataGrid.addSysDics);
+        $('#a_delSysDics').click(sysDicsDataGrid.delSysDics);
+        $('#a_editSysDics').click(sysDicsDataGrid.editSysDics);
+
+        //字典数据
+        $('#a_add').click(mygrid.add);
+        $('#a_edit').click(mygrid.edit);
+        $('#a_delete').click(mygrid.del);
+        $('#a_refresh').click(function () {
+            var node = sysDicsDataGrid.getSelected();
+            if (node)
+                mygrid.reload(node.id);
+            else {
+                msg.warning('请选择字典类别。');
+            }
+        });
+    });
+
+    var mylayout = {
+        init: function (size) {
+            $('#layout').width(size.width - 4).height(size.height - 4).layout();
+            var center = $('#layout').layout('panel', 'center');
+            center.panel({
+                onResize: function (w, h) {
+                    $('#dicGrid').datagrid('resize', { width: w, height: h });
+                }
+            });
+        },
+        resize: function (size) {
+            mylayout.init(size);
+            $('#layout').layout('resize');
+        }
+    };
+
+    var sysDicsDataGrid = {
+        bindTree: function () {         //绑定数据字典分类
+            $('#dataDicType').tree({
+                url: '/TreeView/DicCategory',
+                onLoadSuccess: function (node, data) {
+                    if (data.length == 0)
+                        $('#noCategoryInfo').fadeIn();
+                    $('body').data('categoryData', data);
+                },
+                onClick: function (node) {
+                    //var cc = node.id;
+                    //filterObj = { "groupOp": "AND", "rules": [{ "field": "FClassID", "op": "=", "data": cc }] };
+                    $('#dicGrid').treegrid('load', {
+                        parentID: node.id
+                    });
+                }
+            });
+        },
+        reload: function () {
+            $('#dataDicType').tree('reload');
+        },
+        getSelected: function () {
+            return $('#dataDicType').tree('getSelected');
+        },
+        addSysDics: function () {
+            var addDialog = top.$.hDialog({
+                title: '添加字典类别',
+                iconCls: 'icon-add',
+                href: '/DataDictionary/addSysDics?n=' + Math.random(),
+                showBtns: false,
+                width: 400,
+                height: 300,
+                onLoad: function () {
+                    top.$('#txt_sortnum').numberspinner({ min: 0, max: 999 });
+                },
+                toolbar: [{
+                    text: '新增',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        var isValid = top.$('#SysdicsForm').form("validate");
+                        if (isValid) {
+                            $.ajaxjson('/DataDictionary/addSysDics', 'action=add_cate&' + top.$('#SysdicsForm').serialize(), function (d) {
+                                if (d.Data != "") {
+                                    parent.layer.alert('新增成功', { icon: 1 });
+                                    sysDicsDataGrid.reload();
+                                    //清除数据
+                                    top.$('#FCLASSCODE').textbox('setValue','');
+                                    top.$('#FCLASSNAME').textbox('setValue', '');
+                                    top.$('#FSYSDEFAULT').textbox('setValue', '1');
+                                    top.$('#FREMARK').textbox('setValue', '');
+                                } else {
+                                    parent.layer.alert(d.errMsg, { icon: 0 });
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        var isValid = top.$('#SysdicsForm').form("validate");
+                        if (isValid) {
+                            $.ajaxjson('/DataDictionary/addSysDics', 'action=add_cate&' + top.$('#SysdicsForm').serialize(), function (d) {
+                                if (d.Data != "") {
+                                    msg.ok('亲，字典类别添加成功。');
+                                    addDialog.dialog('close');
+                                    sysDicsDataGrid.reload();
+                                } else {
+                                    MessageOrRedirect(d);
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    }
+                }],
+                submit: function () {
+
+                }
+            });
+        },
+        editSysDics: function () {
+            var row = sysDicsDataGrid.getSelected();
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    title: '编辑字典类别',
+                    iconCls: 'icon-edit',
+                    href: '/DataDictionary/EditSysDics?n=' + Math.random(),
+                    width: 400,
+                    height: 300,
+                    onLoad: function () {
+                        $.ajax({
+                            url: '/DataDictionary/GetInfoBySysDics',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                id: row.id,
+                                math: Math.random()
+                            },//JSON.stringify(d),
+                            success: function (data) {
+                                top.$('#FID').val(data.FID);
+                                top.$('#FCLASSCODE').textbox('setValue', data.FCLASSCODE);
+                                top.$('#FCLASSNAME').textbox('setValue', data.FCLASSNAME);
+                                top.$('#FSYSDEFAULT').textbox('setValue', data.FSYSDEFAULT);
+                                top.$('#FREMARK').textbox('setValue', data.FREMARK);
+                            }
+                        });                                               
+                    },
+                    submit: function () {
+                        var isValid = top.$('#SysdicsForm').form("validate");
+                        if (isValid) {
+                            $.ajaxjson('/DataDictionary/editSysDics', 'action=edit_cate&' + top.$('#SysdicsForm').serialize(), function (d) {
+                                if (d.Success) {
+                                    parent.layer.alert('亲，字典类别编辑成功啦。', { icon: 2 });
+                                    editDialog.dialog('close');
+                                    sysDicsDataGrid.reload();
+                                } else {
+                                    parent.layer.alert(d.Message, { icon: 0 });
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                msg.warning('亲,请选择字典类别。');
+            }
+        },
+        delSysDics: function () {
+            var node = sysDicsDataGrid.getSelected();
+            if (node) {
+                parent.layer.confirm('亲,确认要删除此类别吗?', {
+                    icon:3,
+                    area: ['380px', 'auto'],
+                    btn: ['确认', '取消']
+                },
+                function () {
+                    parent.layer.confirm('删除类别会将该类别下的数据字典一起删除，确认是否要继续?', {
+                        icon: 3,
+                        area: ['380px', 'auto'],
+                        btn: ['是', '否']
+                    },
+                    function () {
+                        $.ajaxjson('/DataDictionary/DelSysDics', 'action=del_cate&id=' + node.id, function (d) {
+                            if (d.Success) {
+                                parent.layer.alert('亲，字典类别删除成功。', { icon: 1 });
+                                $('#dicGrid').treegrid('reload');
+                                sysDicsDataGrid.reload();
+                            }
+                            else if (d.Data == -2) {
+                                parent.layer.alert('亲，该字典类别正在使用中，无法删除！', { icon: 3 });
+                            }
+                        });
+                    }
+                    );
+                });
+            } else {
+                parent.layer.alert('亲,请选择字典类别。', {icon:0});
+            }
+        }
+    };
+
+    function createParam(action, FID) {
+        var o = {};
+        var query = top.$('#dicForm').serializeArray();
+        query = convertArray(query);
+        var node = sysDicsDataGrid.getSelected();
+        if (node) {
+            //alert(node.attributes.Code);
+            query.categorycode = node.attributes.Code;
+            query.categoryid = node.id;
+        }
+
+        o.jsonEntity = JSON.stringify(query);
+        o.action = action;
+        o.FID = FID;
+        return "json=" + JSON.stringify(o);
+    }
+
+    var dicDialog;
+    var mygrid = {
+        databind: function (winSize) {
+            $('#dicGrid').treegrid({
+                toolbar: '#toolbar',
+                title: "数据字典",
+                url: '/EasyUiTreeGrid/SYS_SUBDICS',
+                iconCls: 'icon icon-list',
+                width: winSize.width,
+                height: winSize.height,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                treeField: 'FNAME',
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                { field: 'FID', checkbox: true },
+                { title: '名称', field: 'FNAME', width: 200, sortable: true },
+                { title: '编码', field: 'FNUMBER', width: 140, sortable: true },
+                {
+                    title: '状态', field: 'FSTATUS', width: 100, sortable: true, formatter: function (v, d, i) {
+                        return '<img src="/images/' + (v == true ? 'checkmark.gif' : 'checknomark.gif') + '" />';
+                    }, align: 'center'
+                },
+                { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                ]],
+                onDblClickRow: function (rowIndex, rowData) {
+                    mygrid.edit();
+                }
+
+            });
+        },
+        reload: function (cc) {
+            filterObj = { "groupOp": "AND", "rules": [{ "field": "FClassID", "op": "=", "data": cc }] };
+            $('#dicGrid').treegrid('load', {
+                filter: JSON.stringify(filterObj)
+            });
+        },
+        GetSelectedRow: function () {
+            return $('#dicGrid').treegrid('getSelected');
+        },
+        initCtrl: function (dicId) {
+            top.$('#txt_status').combobox({ panelHeight: 'auto', editable: false });
+            top.$('#txt_sortnum').numberspinner({ min: 0, max: 999 });
+            var cateData = $('body').data('categoryData');
+            //alert(JSON.stringify(cateData));
+            var comboCategory = top.$('#txt_category').combobox({ data: cateData, valueField: 'id', textField: 'text', editable: false, required: true, missingMessage: '请选择类别', disabled: true });
+            var cnode = sysDicsDataGrid.getSelected();
+            if (cnode)
+                comboCategory.combobox('setValue', cnode.id);
+
+            var dicData = $("#dicGrid").treegrid('getData');
+            if (dicData) {
+                dicData = JSON.stringify(dicData).replace(/FID/g, "id").replace(/FNAME/g, "text");
+                dicData = '[{id:"",text:"== 请选择 =="},' + dicData.substr(1);
+            }
+            else
+                dicData = '[{id:"",text:"== 请选择 =="}]';
+
+            var parentTree = top.$('#FPARENTID').combotree({
+                data: eval(dicData),
+                valueField: 'id',
+                textField: 'text',
+                editable: false,
+                onSelect: function (item) {
+                    var nodeId = parentTree.combotree('getValue');
+                    if (item.id == dicId) {
+                        parentTree.combotree('setValue', nodeId);
+                        alert('上级不能与当前字典相同！');
+                        return false;
+                    }
+                }
+            });
+
+            var crow = mygrid.GetSelectedRow();
+            if (!dicId && crow) {
+                top.$('#FPARENTID').combotree('setValue', crow.FID);
+            } else
+                top.$('#FPARENTID').combotree('setValue', 0);
+        },
+        add: function () {
+
+            if (!sysDicsDataGrid.getSelected()) {
+                parent.layer.alert('请选择字典类别！', { icon: 0 });
+            } else {
+                dicDialog = top.$.hDialog({
+                    href: '/DataDictionary/Add?n=' + Math.random(),
+                    width: 400,
+                    height: 380,
+                    title: '新建字典',
+                    iconCls: 'icon-add',
+                    showBtns: false,
+                    onLoad: function () {
+                        mygrid.initCtrl();
+                        var node = sysDicsDataGrid.getSelected();
+                        top.$('#FCLASSID').val(node.id);
+                    },
+                    toolbar: [{
+                        text: '新增',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            var isValid = top.$('#dicForm').form("validate");
+                            if (isValid) {
+                                $.ajaxjson('/DataDictionary/Add', 'action=add&' + top.$('#dicForm').serialize(), function (d) {
+                                    if (d.Success) {
+                                        parent.layer.alert(d.Message, {
+                                            icon: 1, yes: function (index) {
+                                                var node = sysDicsDataGrid.getSelected();
+                                                $('#dicGrid').treegrid('load', {
+                                                    parentID: node.id
+                                                });
+                                                //清除数据
+                                                top.$('#FNUMBER').textbox('setValue', '');
+                                                top.$('#FNAME').textbox('setValue', '');
+                                                top.$('#STATUS').combobox('setValue', '1');
+                                                top.$('#FREMARK').textbox('setValue', '');
+                                                parent.layer.close(index);
+                                            }
+                                        });
+                                    } else {
+                                        parent.layer.alert(d.Message, {
+                                            icon: 0, yes: function (index) {
+                                                parent.layer.close(index);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    {
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            var isValid = top.$('#dicForm').form("validate");
+                            if (isValid) {
+                                $.ajaxjson('/DataDictionary/Add', 'action=add&' + top.$('#dicForm').serialize(), function (d) {
+                                    if (d.Success) {
+                                        parent.layer.alert(d.Message, {
+                                            icon: 1, yes: function (index) {
+                                                var node = sysDicsDataGrid.getSelected();
+                                                $('#dicGrid').treegrid('load', {
+                                                    parentID: node.id
+                                                });
+                                                dicDialog.dialog('close');
+                                                parent.layer.close(index);
+                                            }
+                                        });
+                                    } else {
+                                        parent.layer.alert(d.Message, {
+                                            icon: 0, yes: function (index) {
+                                                parent.layer.close(index);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            dicDialog.dialog('close');
+                        }
+                    }],
+                    submit: function () {
+
+                    }
+                });
+            }
+        },
+        edit: function () {
+            if (!sysDicsDataGrid.getSelected()) {
+                parent.layer.alert('请选择字典类别！', { icon: 0 });
+            } else {
+                var row = mygrid.GetSelectedRow();
+                if (row == null) {
+                    parent.layer.alert('请选择字典数据！', { icon: 0 });
+                } else {
+                    dicDialog = top.$.hDialog({
+                        href: '/DataDictionary/Edit?n=' + Math.random(),
+                        width: 400,
+                        height: 380,
+                        title: '编辑字典',
+                        iconCls: 'icon-edit',
+                        onLoad: function () {
+                            mygrid.initCtrl(row.FID);
+                            
+                            top.$('#FID').val(row.FID);
+                            top.$('#FCLASSID').val(row.FCLASSID);
+                            top.$('#FNUMBER').textbox('setValue', row.FNUMBER);
+                            top.$('#FNAME').textbox('setValue', row.FNAME);
+                            top.$('#FSTATUS').combobox('setValue', row.FSTATUS);
+                            top.$('#FREMARK').textbox('setValue', row.FREMARK);
+                            top.$('#FPARENTID').combotree('setValue', row.FPARENTID == null ? '' : row.FPARENTID);
+                        },
+                        submit: function () {
+                            var isValid = top.$('#dicForm').form("validate");
+                            if (isValid) {
+                                $.ajaxjson('/DataDictionary/Edit', 'action=add&' + top.$('#dicForm').serialize(), function (d) {
+                                    if (d.Success) {
+                                        parent.layer.alert(d.Message, {
+                                            icon: 1,
+                                            yes: function (index) {
+                                                var node = sysDicsDataGrid.getSelected();
+                                                dicDialog.dialog('close');
+                                                $('#dicGrid').treegrid('load', {
+                                                    parentID: node.id
+                                                });
+                                                parent.layer.close(index);
+                                            }
+                                        });
+                                    } else {
+                                        parent.layer.alert(d.Message, {
+                                            icon: 0, yes: function (index) {
+                                                parent.layer.close(index);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        },
+        del: function () {
+            var row = mygrid.GetSelectedRow();
+            if (row) {
+                //var childs = $('#dicGrid').treegrid('getChildren', row.FID);
+                //if (childs.length > 0) {
+                //    msg.warning('当前字典有下级数据，不能删除。<br> 请先删除子节点数据。');
+
+                //    return faZXse;
+                //}
+                //询问框
+                parent.layer.confirm('确认要删除此条字典数据吗？', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+                    $.ajaxjson('/DataDictionary/Delete?id=' + row.FID, {}, function (d) {
+                        if (d.Success) {
+                            parent.layer.alert(d.Message, {
+                                icon: 1, yes: function (index) {
+                                    var node = sysDicsDataGrid.getSelected();
+                                    $('#dicGrid').treegrid('load', {
+                                        parentID: node.id
+                                    });
+                                    parent.layer.close(index);
+                                }
+                            });
+
+                        } else {
+                            parent.layer.alert(d.Message, {
+                                icon: 0, yes: function (index) {                                    
+                                    parent.layer.close(index);
+                                }
+                            });
+                        }
+                    });
+                }, function () {
+                    
+                });
+            } else {
+                parent.layer.alert('请选择字典数据！', { icon: 0 });
+            }
+        }
+    }
+</script>

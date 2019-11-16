@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<form id="uiform2" method="post">
+    <div  fit="true" style="height: 180px; overflow: hidden;">
+        <div title="基本信息" style="overflow: hidden;">
+            <table class="grid">
+                <tr>
+                    <td>
+                        厂家代码：
+                    </td>
+                    <td>
+                        <input id="txtFSRCCODE" name="FSRCCODE" type="text" class="easyui-textbox" value="@Model.FSRCCODE" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入厂家代码',invalidMessage:'最大长度100个字符'" />
+                    </td>
+                    <td>
+                        厂家名称：
+                    </td>
+                    <td>
+                        <input id="txtFSRCNAME" name="FSRCNAME" type="text" class="easyui-textbox" value="@Model.FSRCNAME" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入厂家名称',invalidMessage:'最大长度100个字符'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        厂家规格型号：
+                    </td>
+                    <td>
+                        <input id="txtFSRCMODEL" name="FSRCMODEL" type="text" class="easyui-textbox" value="@Model.FSRCMODEL" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入厂家规格型号',invalidMessage:'最大长度100个字符'" />
+                    </td>
+                    <td>
+                        单位：
+                    </td>
+                    <td>
+                        <input id="txtFUNIT" name="FUNIT" type="text" class="easyui-textbox" value="@Model.FUNIT" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入单位',invalidMessage:'最大长度100个字符'" />
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>
+                        采购单位：
+                    </td>
+                    <td>
+                        <input id="txtFORDERUNIT" name="FORDERUNIT" type="text" class="easyui-textbox" value="@Model.FORDERUNIT" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入采购单位',invalidMessage:'最大长度100个字符'" />
+                    </td>
+                    <td>
+                        换算率：
+                    </td>
+                    <td>
+                        <input id="txtFRATE" name="FRATE" type="text" class="easyui-textbox" value="@Model.FRATE" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入换算率'" />
+                    </td>
+                    
+                    
+                </tr> 
+                <tr>
+                    <td>
+                        重量：
+                    </td>
+                    <td>
+                        <input id="txtFWEIGHT" name="FWEIGHT" type="text" class="easyui-textbox" value="@Model.FWEIGHT" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入重量'" />
+                    </td>
+
+
+                </tr>                 
+            </table>
+        </div>
+    </div>
+
+</form>
+
+<script type="text/javascript">
+    bindUnitDialog(top.$('#FORDERUNIT'), function (row) {
+        top.$('#FORDERUNIT').searchbox("setValue", row.FNUMBER);
+    });
+</script>

@@ -1,0 +1,1478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/hn.Core.Model" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api24" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi24" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/hn.Common.Cls_query" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api2" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi2" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api8" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api3" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.bll" />
+  <xs:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess" />
+  <xs:element name="Login">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="LoginResult" nillable="true" type="q1:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModifyPassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="oldpwd" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newpwd" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModifyPasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModifyPasswordResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDics">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="categorycode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="all" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDicsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetDicsResult" nillable="true" type="q2:ArrayOfSYS_SUBDICSMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_Get24">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/MApiModel.api24" minOccurs="0" name="getapi24" nillable="true" type="q3:Rootobject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_Get24Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/MApiModel.recApi24" minOccurs="0" name="Remote_Get24Result" nillable="true" type="q4:Rootobject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDics_Area">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="categorycode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="all" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDics_AreaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetDics_AreaResult" nillable="true" type="q5:ArrayOfSYS_SUBDICSMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getTHD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="thdbm" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getTHDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="getTHDResult" nillable="true" type="q6:v_thdModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZFICPOBILL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fEntryID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZFICPOBILLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ZFICPOBILLResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZFICPRBILLEntry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fEntryID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ZFICPRBILLEntryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ZFICPRBILLEntryResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getICPOBillCLientID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="thdbm" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getICPOBillCLientIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="getICPOBillCLientIDResult" nillable="true" type="q7:V_ICPOBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getLeftNum_THD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="thdbm" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getLeftNum_THDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="getLeftNum_THDResult" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPremiseList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPremiseListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetPremiseListResult" nillable="true" type="q8:ArrayOfV_PREMISEModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBrandList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q9:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBrandListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetBrandListResult" nillable="true" type="q10:ArrayOfTB_BrandModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientAccountList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="brandid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientAccountListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetClientAccountListResult" nillable="true" type="q11:ArrayOfV_CLIENTACCOUNTModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetExpressCompanyList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetExpressCompanyListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetExpressCompanyListResult" nillable="true" type="q12:ArrayOfTB_EXPRESSCOMPANYModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q13:User" />
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetProductListResult" nillable="true" type="q14:ArrayOfProductViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSrcList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSrcListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetSrcListResult" nillable="true" type="q15:ArrayOfSRCModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProvince">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProvinceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetProvinceResult" nillable="true" type="q16:ArrayOfTB_EBPLModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="provinceid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetCityResult" nillable="true" type="q17:ArrayOfTB_EBPLModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDistrict">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="cityid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDistrictResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetDistrictResult" nillable="true" type="q18:ArrayOfTB_EBPLModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getProductView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getProductViewResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="getProductViewResult" nillable="true" type="q19:ProductViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSingleDics">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSingleDicsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetSingleDicsResult" nillable="true" type="q20:SYS_SUBDICSMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliverBaseList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="brandid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliverBaseListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetDeliverBaseListResult" nillable="true" type="q21:ArrayOfTB_DELIVER_BASEModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientAccountSingle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="clientid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientAccountSingleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetClientAccountSingleResult" nillable="true" type="q22:V_CLIENTACCOUNTModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientByAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="faccount" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClientByAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetClientByAccountResult" nillable="true" type="q23:V_CLIENTACCOUNTModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q24:User" />
+        <xs:element minOccurs="0" name="classarea2name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="brand" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" type="xs:int" />
+        <xs:element minOccurs="0" name="premiseid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="billno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startdate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="enddate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="searchclose" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanListResult" nillable="true" type="q25:ArrayOfV_ICPRBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanImport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q26:User" />
+        <xs:element minOccurs="0" name="strQuery" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanImportResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanImportResult" nillable="true" type="q27:ArrayOfV_ICPRBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanImport2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q28:User" />
+        <xs:element minOccurs="0" name="strQuery" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="brandid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanImport2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanImport2Result" nillable="true" type="q29:ArrayOfV_ICPRBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanImport3">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q30:User" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/hn.Common.Cls_query" minOccurs="0" name="pquery" nillable="true" type="q31:P_QueryOrder" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanImport3Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanImport3Result" nillable="true" type="q32:ArrayOfV_ICPRBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanModel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="icprbillid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanModelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanModelResult" nillable="true" type="q33:V_ICPRBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetV_ICPRBILLENTRYMODEL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetV_ICPRBILLENTRYMODELResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetV_ICPRBILLENTRYMODELResult" nillable="true" type="q34:V_ICPRBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="V_ICPRBILLENTRYMODEL_List">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fpremisename" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="V_ICPRBILLENTRYMODEL_ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="V_ICPRBILLENTRYMODEL_ListResult" nillable="true" type="q35:ArrayOfV_ICPRBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanEntryList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="icprbillid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="statu" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bICPO" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanEntryListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanEntryListResult" nillable="true" type="q36:ArrayOfV_ICPRBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Delete_ICPO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Delete_ICPOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Delete_ICPOResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanEntryByDeliveryList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q37:User" />
+        <xs:element minOccurs="0" name="productinfo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="classarea2name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="premiseid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="brand" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="deliveryaddr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="typename" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="billno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" type="xs:int" />
+        <xs:element minOccurs="0" name="bHaveSL" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPurchasePlanEntryByDeliveryListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetPurchasePlanEntryByDeliveryListResult" nillable="true" type="q38:ArrayOfV_ICPRBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConfirmSave">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="action" nillable="true" type="xs:string" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="data" nillable="true" type="q39:ArrayOfICPRBILLENTRYMODEL" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q40:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConfirmSaveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConfirmSaveResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseSave">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="data" nillable="true" type="q41:ArrayOfICPRBILLENTRYMODEL" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q42:User" />
+        <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseSaveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CloseSaveResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="productname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="stockname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productnumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="wdr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="batchno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="brand" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="mode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="colorno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="isfactory" type="xs:boolean" />
+        <xs:element minOccurs="0" name="istrust" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStockListResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockListMN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/MApiModel.api2" minOccurs="0" name="getapi2" nillable="true" type="q43:Rootobject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockListMNResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/MApiModel.recApi2" minOccurs="0" name="GetStockListMNResult" nillable="true" type="q44:Rootobject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockListMN_2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/MApiModel.api2" minOccurs="0" name="getapi2" nillable="true" type="q45:Rootobject" />
+        <xs:element minOccurs="0" name="comid" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStockListMN_2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/MApiModel.recApi2" minOccurs="0" name="GetStockListMN_2Result" nillable="true" type="q46:Rootobject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAttachmentList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="icprbillid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAttachmentListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetAttachmentListResult" nillable="true" type="q47:ArrayOfTB_ATTACHMENTModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateICPRBILL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="model" nillable="true" type="q48:ICPRBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateICPRBILLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateICPRBILLResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefrshPriceNumberList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="icprbillid" nillable="true" type="xs:string" />
+        <xs:element xmlns:q49="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="entryids" nillable="true" type="q49:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefrshPriceNumberListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="RefrshPriceNumberListResult" nillable="true" type="q50:ArrayOfV_ICPRBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPriceNumberListByItemID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPriceNumberListByItemIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetPriceNumberListByItemIDResult" nillable="true" type="q51:ArrayOfTB_PRICEPOLICYModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPriceNumberListByBrandID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPriceNumberListByBrandIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetPriceNumberListByBrandIDResult" nillable="true" type="q52:ArrayOfTB_PRICEPOLICYModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateConfirmTime">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="FPlanId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateConfirmTimeResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getTHDList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q53="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="thdbmList" nillable="true" type="q53:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getTHDListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="getTHDListResult" nillable="true" type="q54:ArrayOfv_thdModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNewBillNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="billtype" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNewBillNoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetNewBillNoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteGroupBill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="groupno" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteGroupBillResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteGroupBillResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeliveryBillSave">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="model" nillable="true" type="q55:ICSEOUTBILLMODEL" />
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="entrys" nillable="true" type="q56:ArrayOfICSEOUTBILLENTRYMODEL" />
+        <xs:element minOccurs="0" name="delivery" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeliveryBillSaveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeliveryBillSaveResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateIdentification">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="centent" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateIdentificationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateIdentificationResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q57:User" />
+        <xs:element minOccurs="0" name="brand" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="classarea2name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="premiseid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" type="xs:int" />
+        <xs:element minOccurs="0" name="car" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="stock" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="account" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="expresscompany" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="factotryno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="billno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="groupno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="projectname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startdate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="enddate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="searchclose" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetDeliveryListResult" nillable="true" type="q58:ArrayOfV_ICSEOUTBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryEntryList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="billid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryEntryListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetDeliveryEntryListResult" nillable="true" type="q59:ArrayOfV_ICSEOUTBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDeliveryByIDs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDeliveryByIDsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteDeliveryByIDsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuditDeliveryByIDs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" type="xs:int" />
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q60:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuditDeliveryByIDsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AuditDeliveryByIDsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuditAntiDeliveryByIDs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuditAntiDeliveryByIDsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AuditAntiDeliveryByIDsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SyncDeliveryByIDs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SyncDeliveryByIDsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SyncDeliveryByIDsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SyncDeliveryByIDsMN">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strJson" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SyncDeliveryByIDsMNResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SyncDeliveryByIDsMNResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SynDeliveryNot">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SynDeliveryNotResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SynDeliveryNotResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryEntryByGroupNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="groupno" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryEntryByGroupNoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetDeliveryEntryByGroupNoResult" nillable="true" type="q61:ArrayOfV_ICSEOUTBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryByGroupNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="groupno" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryByGroupNoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetDeliveryByGroupNoResult" nillable="true" type="q62:ArrayOfV_ICSEOUTBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSrcModelByItemID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="itemid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSrcModelByItemIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetSrcModelByItemIDResult" nillable="true" type="q63:SRCModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateGetDeliveryEntryData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="commitqty" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateGetDeliveryEntryDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateGetDeliveryEntryDataResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDismantlingNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="no" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDismantlingNoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDismantlingNoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDeliveryGroupStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDeliveryGroupStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateDeliveryGroupStatusResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContractCar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ids" nillable="true" type="q64:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContractCarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ContractCarResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveICPOBILL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="ICPOBILL" nillable="true" type="q65:ICPOBILLMODEL" />
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="ICPOBILLENTRYList" nillable="true" type="q66:ArrayOfICPOBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveICPOBILLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SaveICPOBILLResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrderList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q67:User" />
+        <xs:element minOccurs="0" name="classarea2name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="brand" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" type="xs:int" />
+        <xs:element minOccurs="0" name="premiseid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="billno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startdate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="enddate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="searchclose" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrderListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetOrderListResult" nillable="true" type="q68:ArrayOfV_ICPOBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrderEntryList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="icprbillid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="status" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrderEntryListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetOrderEntryListResult" nillable="true" type="q69:ArrayOfV_ICPOBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSingleOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="icprbillid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSingleOrderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetSingleOrderResult" nillable="true" type="q70:ICPOBILLMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q71:User" />
+        <xs:element minOccurs="0" name="FPObillno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Ficbolno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FSYNCSTATUS" type="xs:int" />
+        <xs:element minOccurs="0" name="FACCOUNT" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="FITEMID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startdate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="enddate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="searchclose" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GeICPO_BOLListResult" nillable="true" type="q72:ArrayOfICPO_BOLentryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartDate_syn">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartDate_synResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStartDate_synResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartDate_syn_cc">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartDate_syn_ccResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStartDate_syn_ccResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJYDW">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetJYDWResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="GetJYDWResult" nillable="true" type="q73:ArrayOfTB_PREMISEModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getSrc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pz" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gg" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="xh" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getSrcResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="getSrcResult" nillable="true" type="q74:SRCModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetArea2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetArea2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GetArea2Result" nillable="true" type="q75:SYS_SUBDICSMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListMN_syn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="starttime" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListMN_synResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GeICPO_BOLListMN_synResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLocalSum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="autoid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="icseoutbillentryid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLocalSumResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetLocalSumResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListMN_syn_cc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="starttime" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListMN_syn_ccResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GeICPO_BOLListMN_syn_ccResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCCD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="starttime" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCCDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCCDResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="v_thdModel_List">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="v_thdModel_ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" minOccurs="0" name="v_thdModel_ListResult" nillable="true" type="q76:ArrayOfv_thd" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="v_thdModelName_List">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="v_thdModelName_ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="v_thdModelName_ListResult" nillable="true" type="q77:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListMN_db">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/MApiModel.api8" minOccurs="0" name="getapi8" nillable="true" type="q78:Rootobject" />
+        <xs:element minOccurs="0" name="cpxh" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cpgg" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="jhdh" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="thd" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="area2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bNotArea" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeICPO_BOLListMN_dbResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="GeICPO_BOLListMN_dbResult" nillable="true" type="q79:ArrayOfv_thdModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConfirmSave_ICPO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="action" nillable="true" type="xs:string" />
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="data" nillable="true" type="q80:ArrayOfICPOBILLENTRYMODEL" />
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q81:User" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConfirmSave_ICPOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConfirmSave_ICPOResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseSave_ICPO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="data" nillable="true" type="q82:ArrayOfICPOBILLENTRYMODEL" />
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q83:User" />
+        <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseSave_ICPOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CloseSave_ICPOResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuditSave_ICPO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="data" nillable="true" type="q84:ArrayOfICPOBILLENTRYMODEL" />
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q85:User" />
+        <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuditSave_ICPOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AuditSave_ICPOResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnAuditSave_ICPO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="data" nillable="true" type="q86:ArrayOfICPOBILLENTRYMODEL" />
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/hn.Core.Model" minOccurs="0" name="loginUser" nillable="true" type="q87:User" />
+        <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnAuditSave_ICPOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UnAuditSave_ICPOResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_InsertICPOEntry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/MApiModel.api3" minOccurs="0" name="getapi3" nillable="true" type="q88:Rootobject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_InsertICPOEntryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Remote_InsertICPOEntryResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_GetICPOEntry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strFID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strEntryID" nillable="true" type="xs:string" />
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="billModel" nillable="true" type="q89:ICPOBILLMODEL" />
+        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="entryModel" nillable="true" type="q90:ICPOBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_GetICPOEntryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="billModel" nillable="true" type="q91:ICPOBILLMODEL" />
+        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="entryModel" nillable="true" type="q92:ICPOBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_GetICPO_BOEntry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fbillno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="entryid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_GetICPO_BOEntryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="Remote_GetICPO_BOEntryResult" nillable="true" type="q93:ArrayOfICPO_BOLentryModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_SetICPO_BOEntryStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fbillno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="entryid" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Remote_SetICPO_BOEntryStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Remote_SetICPO_BOEntryStatusResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Save_ICPREntry_List">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="tModel" nillable="true" type="q94:ICPRBILLENTRYMODEL" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Save_ICPREntry_ListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Save_ICPREntry_ListResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_FSYNStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" minOccurs="0" name="billMode" nillable="true" type="q95:ICPOBILLMODEL" />
+        <xs:element minOccurs="0" name="iStatus" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_FSYNStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Update_FSYNStatusResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_FSYN_Remote_Status">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="billMode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="iStatus" type="xs:int" />
+        <xs:element minOccurs="0" name="cjbh" nillable="true" type="xs:string" />
+        <xs:element xmlns:q96="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="dic_entry_thdbmdetail" nillable="true" type="q96:ArrayOfKeyValueOfintstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_FSYN_Remote_StatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Update_FSYN_Remote_StatusResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Forder_confirm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/hn.DataAccess.bll" minOccurs="0" name="input" nillable="true" type="q97:Forder_confirm_Input" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Forder_confirmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/hn.DataAccess" minOccurs="0" name="Forder_confirmResult" nillable="true" type="q98:DataResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Forder_delivery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/hn.DataAccess.bll" minOccurs="0" name="input" nillable="true" type="q99:ArrayOfForder_delivery_Input" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Forder_deliveryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/hn.DataAccess" minOccurs="0" name="Forder_deliveryResult" nillable="true" type="q100:DataResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Sync_Today_THD">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rq1" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rq2" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Sync_Today_THDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Sync_Today_THDResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

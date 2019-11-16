@@ -1,0 +1,335 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout">
+
+    <div region="north" border="true" split="false" style="height:29px;">
+        @*<b>用户名：<label id="uname"></label></b><br />
+            <span style="color: #4B4B4B">在左边的列表选择角色后，点击向右的箭头即可为帐户设置角色或者双击选中的角色。</span>*@
+        <div id="toolbar" class="datagrid-toolbar" style="height: 28px; padding: 1px 2px 0px;">
+            @*<a id="a_access" style="float:left" href="javascript:;" plain="true" class="easyui-linkbutton l-btn l-btn-small l-btn-plain" icon="icon-user_key" title="保存" group="">保存</a>*@
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+    </div>
+    <div region="west" split="false" title="待选用户列表" style="width:300px;">
+        <div id="toolbar1">
+            姓名:
+            <input class="easyui-textbox" style="width: 110px" id="txtName">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search1">查询</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset1">重置</a>
+        </div>
+        <table id="allUser" border="false"  toolbar="#toolbar1"></table>
+
+    </div>
+    <div region="center" border="false" split="false">
+        <div class="easyui-layout" fit="true" id="subLayout">
+
+            <div region="west" split="false" title="选择可访问的数据" style="width:270px;">
+                <table id="allAccess" border="false"></table>
+
+            </div>
+            <div region="center" title="待授权的平台" border="true" split="false">
+                
+                <table id="allPlatForm" border="false"></table>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+<script type="text/javascript">
+
+
+    $("#a_save").click(function () {
+        var userid = "";
+        var row = $('#allUser').datagrid('getSelected');
+        if (row) {
+            userid = row.FID;
+        }
+        else {
+            msg.error('请选择需要授权的用户');
+            return;
+        }
+
+        var functionIds = "";
+        var rows = $('#allAccess').datagrid('getChecked');
+        if (rows.length > 0) {
+
+            for (var i = 0; i < rows.length; i++) {
+
+                var platFormIds = "";
+                var value = platFormData[rows[i].ID];
+                if (value != undefined) {
+                    platFormIds = value.toString();
+                }
+
+                if (functionIds == "") {
+                    functionIds = rows[i].ID + "|" + platFormIds;
+                }
+                else {
+                    functionIds += "$" + rows[i].ID + "|" + platFormIds;
+                }
+            }
+        }
+        else {
+            msg.error('请选择需要授权的平台');
+            return;
+        }
+
+
+        //var functionIds = "";
+        //rows = $('#allAccess').datagrid('getChecked');
+        //if (rows.length > 0) {
+
+        //    for (var i = 0; i < rows.length; i++) {
+
+        //        if (functionIds == "") {
+        //            functionIds = rows[i].ID;
+        //        }
+        //        else {
+        //            functionIds += "," + rows[i].ID;
+        //        }
+        //    }
+        //}
+        //else {
+        //    msg.error('请选择需要授权的功能');
+        //    return;
+        //}
+        jQuery.ajaxjson("/Data/Save", { functionIds: functionIds, userid: userid }, function (d) {
+            msg.ok('保存成功');
+ 
+        });
+    });
+
+    $("#a_search1").click(function () {
+        var name = $('#txtName').val();
+
+        var ruleArr = [];
+        if (name != "")
+            ruleArr.push({ "field": "TRUENAME", "op": "eq", "data": name });
+
+        if (ruleArr.length > 0) {
+            var filterObj = { groupOp: 'AND', rules: ruleArr };
+
+            $('#allUser').datagrid('load', { filter: JSON.stringify(filterObj) });
+        } else {
+            $('#allUser').datagrid('load', { filter: JSON.stringify({}) });
+        }
+    });
+
+    $("#a_reset1").click(function () {
+        $('#txtName').textbox("setValue", "");
+        $('#allUser').datagrid('load', { filter: JSON.stringify({}) });
+    });
+
+    var loading = false;
+    $('#allUser').datagrid({
+        url: '/User/All',
+        idField: 'FID',
+        singleSelect: true,
+        rownumbers: true,
+        striped: true,
+        fit: true,
+        columns: [[
+             { title: '用户名', field: 'USERNAME', width: 100, sortable: true },
+        { title: '真实姓名', field: 'TRUENAME', width: 120, sortable: true }
+        ]],
+        onClickRow: function (rowIndex, rowData) {
+            platFormData = {};
+            functionID = "";
+            lastRowIndex = -1;
+            $('#allPlatForm').datagrid('clearSelections');
+            $('#allAccess').datagrid('clearSelections');
+            $('#allAccess').datagrid('uncheckAll');
+
+            $.getJSON("/Data/List?userid=" + rowData.FID, function (d) {
+                loading = true;
+                
+                for (var i = 0; i < d.length; i++) {
+                    platFormData[d[i].FFUNCTION_ID] = d[i].FPLAT_FORM_ID;
+
+                    $('#allAccess').datagrid('checkRow', d[i].FFUNCTION_ID-1);
+                }
+                loading = false;
+            });
+        },
+        pageSize: 10000,
+        pagination: false
+    });
+
+   // $('#allUser').datagrid('enableFilter');
+
+   // $('#allUser').datagrid('enableFilter');
+
+    var platFormData = {};
+    var functionID = "";
+    var lastRowIndex = -1;
+    $('#allPlatForm').datagrid({
+        url: "/PlatForm/List2",
+        iconCls: 'icon icon-list',
+        nowrap: false, //折行
+        fit: true,
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'ID', //主键
+        singleSelect: false,
+        checkOnSelect: true,
+        selectOnCheck: true,
+   
+        columns: [[
+             { field: 'ID', checkbox: true },
+            { title: '平台名称', field: 'NAME', width: 200, sortable: true }
+        ]],
+        pagination: false,
+        pageSize: 20,
+        pageList: [20, 40, 50],
+        onClickRow: function (rowIndex, rowData) {
+            if (!loading) {
+                saveSelect();
+            }
+        },
+        onCheck: function (rowIndex, rowData) {
+            if (!loading) {
+                saveSelect();
+            }           
+        },
+        pageSize: 10000,
+    });
+
+    $('#allAccess').datagrid({
+        url: "/Data/Function",
+        iconCls: 'icon icon-list',
+        nowrap: false, //折行
+        fit: true,
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'ID', //主键
+        singleSelect: true,
+        checkOnSelect: false,
+        selectOnCheck: false,
+
+        columns: [[
+           { field: 'ID', checkbox: true },
+            { title: '功能名称', field: 'FUNCTION_NAME', width: 100, sortable: true }
+        ]],
+        pagination: false,
+        pageSize: 20,
+        pageList: [20, 40, 50],
+        onClickRow: function (rowIndex, rowData) {
+            if (!loading) {
+                functionID = rowData.ID;
+                //saveSelect();
+                onCheck(rowIndex, rowData);
+            }
+        },
+        onCheck: function (rowIndex, rowData) {
+            if (!loading) {
+                onCheck(rowIndex, rowData);
+                functionID = rowData.ID;
+                saveSelect();
+            }
+        }
+
+
+    });
+
+    function isCheck(id) {
+        var rows = $('#allAccess').datagrid('getChecked');
+        if (rows.length > 0) {
+
+            for (var i = 0; i < rows.length; i++) {
+
+                if (rows[i].ID==id){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+    function onCheck(rowIndex, rowData) {
+        if (lastRowIndex != -1) {
+
+            var rows1 = $('#allAccess').datagrid('getRows');
+            var id = rows1[lastRowIndex].ID;
+            if (isCheck(id)) {
+                var functionIds = "";
+                var rows = $('#allPlatForm').datagrid('getChecked');
+
+                if (rows.length > 0) {
+
+                    for (var i = 0; i < rows.length; i++) {
+
+                        if (functionIds == "") {
+                            functionIds = rows[i].ID;
+                        }
+                        else {
+                            functionIds += "," + rows[i].ID;
+                        }
+                    }
+                }
+
+                $('#allPlatForm').datagrid('clearSelections');
+
+                platFormData[id] = functionIds;               
+
+            }
+            else {
+                $('#allPlatForm').datagrid('clearSelections');
+            }
+        }
+
+        if (isCheck(rowData.ID)) {
+            var value = platFormData[rowData.ID];
+            if (value != undefined && value != "") {
+
+                var array = value.toString().split(',')
+              
+                for (i = 0; i < array.length ; i++) {
+                    var rows = $('#allPlatForm').datagrid('getRows');
+                    if (rows.length > 0) {
+                       
+                        for (var  j = 0; j< rows.length; j++) {
+                            if (rows[j].ID == array[i]) {
+                                $('#allPlatForm').datagrid('selectRow', j);
+                            }
+                        }
+                    }
+                   // $('#allPlatForm').datagrid('selectRow', parseInt(array[i]) - 1);
+                }
+            }
+        }
+        else {
+            $('#allPlatForm').datagrid('clearSelections');
+        }
+
+        lastRowIndex = rowIndex;
+    }
+
+    function saveSelect(){
+        var functionIds = "";
+        var rows = $('#allPlatForm').datagrid('getChecked');
+        if (rows.length > 0) {
+
+            for (var i = 0; i < rows.length; i++) {
+
+                if (functionIds == "") {
+                    functionIds = rows[i].ID;
+                }
+                else {
+                    functionIds += "," + rows[i].ID;
+                }
+            }
+        }
+
+        if (functionID != "") {
+            platFormData[functionID] = functionIds;
+        }
+        
+    }
+
+</script>

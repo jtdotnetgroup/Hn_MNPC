@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td class="t_r5">发往销区:</td>
+            <td>
+                <select id="txtSTATUS" class="easyui-combobox" name="txtSTATUS" data-options="panelHeight:'auto'" style="width:150px;">
+                    <option value=""></option>
+                    <option value="1">北京销区</option>
+                    <option value="2">天津销区</option>
+                    <option value="3">北京销区</option>
+                    <option value="3">北京销区</option>
+                </select>
+            </td>
+            <td class="t_r5">品牌/厂家：</td>
+            <td>
+                <select id="txtSTATUS" class="easyui-combobox" name="txtSTATUS" data-options="panelHeight:'auto'" style="width:150px;">
+                    <option value=""></option>
+                    <option value="1">蒙娜丽莎</option>
+                    <option value="2">马可波罗</option>
+                </select>
+            </td>
+            <td class="t_r5">运输方式：</td>
+            <td>
+                <select id="txtSTATUS" class="easyui-combobox" name="txtSTATUS" data-options="panelHeight:'auto'" style="width:150px;">
+                    <option value=""></option>
+                    <option value="1">汽车</option>
+                    <option value="2">铁路</option>
+                </select>
+            </td>
+            <td class="t_r5">单据编号:</td>
+            <td>
+                <input type="text" value="002221" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">提货人：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">联系电话：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">车牌号：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">车型载重：</td>
+            <td>
+                <input type="text" value="10吨" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">日期：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">汇总重量：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">汇总体积:：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">提货地点：</td>
+            <td colspan="3">
+                <input type="text" value="" class="easyui-textbox" style="width:424px" />
+            </td>
+            <td class="t_r5">联系人：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">联系电话：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">收货地点：</td>
+            <td colspan="3">
+                <input type="text" value="" class="easyui-textbox" style="width:424px" />
+            </td>
+            <td class="t_r5">联系人：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">联系电话：</td>
+            <td>
+                <input type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <div id="userTab" style="height: 394px; overflow: hidden;">
+        <div title="出库明细" style="padding: 2px">
+            <table id="dgConEntry"></table>
+        </div>
+    </div>
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //名称校验
+        $('#txtFName').textbox({
+            onChange: function () {
+                var name = $('#txtFName').textbox('getValue');
+                //alert(name);
+                $.ajax({
+                    url: "/SalesDelivery/CheckName",
+                    data: { name: name, id: 0 },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (e) {
+                        if (e.errCode != 0) {
+                            parent.layer.alert("品牌名称已存在，请重新输入！");
+                        }
+                    }
+                })
+            }
+        });
+
+    });
+
+    function updateMachineIDs() {
+        var table = $('#dgConEntry').datagrid('getData');
+        var ids = '';
+        if (table != null && table.rows != null && table.rows.length > 0) {
+            for (var i = 0; i < table.rows.length; i++) {
+                if (ids == '')
+                    ids = table.rows[i]["FMachineID"];
+                else
+                    ids += ',' + table.rows[i]["FMachineID"];
+            }
+        }
+        $('#txtMachineIDs').textbox('setValue', ids);
+    }
+
+    //出库明细
+    $('#dgConEntry').datagrid({
+        url: "",
+        iconCls: 'icon icon-list',
+        fit: true,
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'KeyId', //主键
+        singleSelect: true, //单选
+        frozenColumns: [[]],
+        columns: [[
+            { field: 'FID', checkbox: true },
+            { title: '产品系列', field: 'FContractNo', width: 120 },
+            { title: '商品代码', field: 'FAmount', width: 120 },
+            { title: '商品名称', field: 'BegDate', width: 150 },
+            { title: '产品型号', field: 'EndDate', width: 150 },
+            { title: '规格', field: 'PaymentAmount', width: 120 },
+            { title: '单位', field: 'SN', width: 100 },
+            { title: '色号', field: 'DWC', width: 100 },
+            { title: '订单数量', field: 'DWC', width: 100 },
+            { title: '出库数量', field: 'DWC', width: 100 },
+            { title: '收货日期', field: 'DWC', width: 100 },
+            { title: '收货数量', field: 'DWC', width: 100 },
+            { title: '仓库', field: 'DWC', width: 100 },
+            { title: '仓位', field: 'DWC', width: 100 },
+            { title: '备注', field: 'FNote', width: 300 },
+        ]],
+    });
+
+
+
+</script>

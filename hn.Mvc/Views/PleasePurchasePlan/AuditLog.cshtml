@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<form id="dialog">
+    <table id="dgAuditing" toolbar="#toolbar"></table>
+</form>
+
+<script type="text/javascript">
+    $('#dgAuditing').datagrid({
+        iconCls: 'icon icon-list',
+
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'FID', //主键
+        singleSelect: true, //单选
+        selectOnCheck: true,
+        checkOnSelect: true,
+        frozenColumns: [[]],
+        columns: [[
+            { title: '审核人', field: 'TRUENAME', width: 100 },
+            {
+                title: '审核时间', field: 'FAUDIT_TIME', width: 180,
+                formatter: function (v, d, i) {
+                    if (d.FSTATUS == 0)
+                        return "";
+
+                    return v;
+                }
+            },
+            {
+                title: '状态', field: 'FSTATUS', width: 100, formatter: function (v, d, i) {
+                    if (v == 0)
+                        return '未审核';
+                    else if (v == 1)
+                        return '审核通过';
+                    else if (v == 2)
+                        return '审核不通过';
+                    else if (v == -1)
+                        return '未发起';
+                }
+            },
+            { title: '审批节点', field: 'FSORT', width: 80 },            
+            { title: '审批意见', field: 'FREMARK', width: 300 },
+        ]]
+    });
+</script>

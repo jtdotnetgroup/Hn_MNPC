@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td style="width:100px">
+                分类编码(*)：
+            </td>
+            <td>
+                <input type="text" id="txtCATEGORY_NUMBER" name="CATEGORY_NUMBER" data-bind="value:CATEGORY_NUMBER" class="txt03 easyui-textbox" data-options="required:true,missingMessage:'请输入分类编码'" />
+            </td>
+            <td style="width:110px">
+                分类名称(*)：
+            </td>
+            <td>
+                <input type="text" id="txtCATEGORY_NAME" name="CATEGORY_NAME" data-bind="value:CATEGORY_NAME" class="txt03 easyui-textbox" data-options="required:true,missingMessage:'请输入分类名称'" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                上级分类：
+            </td>
+            <td>
+                <input type="text" class="txt03" data-bind="value:PARENT_ID" name="PARENT_ID" id="txtPARENT_ID" />
+            </td>
+            <td>
+                分类类型：
+            </td>
+            <td>
+                <select name="TYPE" data-bind="value:TYPE"  id="txtTYPE" class="easyui-combobox">
+                    <option value="商品类">商品类</option>
+                    <option value="服务类">服务类</option>
+                </select>
+            </td>
+        </tr>        
+    </table>
+</form>
+

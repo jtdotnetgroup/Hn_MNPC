@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+  <script type="text/javascript" src='/Role/ButtonColumns'></script>
+
+<div id="toolbar">
+    @Html.Raw(ViewBag.ToolBar)
+</div>
+<table id="roleGrid">
+</table>
+<script type="text/javascript" src="/Scripts/Business/setDataPermission.js"></script>
+
+<script type="text/javascript">
+
+    var _roleGrid;
+
+    $(function () {
+
+        autoResize({ dataGrid: '#roleGrid', gridType: 'datagrid', callback: mygrid.databind, height: 4 });
+
+        $('#a_set').linkbutton({ text: '分配权限' }).click(authorize.run);
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.edit);
+        $('#a_delete').click(crud.del);
+        $('#a_dataset').click(authorize.setDeptments);
+    });
+
+    var mygrid = {
+        databind: function (size) {
+            _roleGrid = $('#roleGrid').datagrid({
+                url: '/Role/List',
+                width: size.width,
+                height: size.height,
+                toolbar: '#toolbar',
+                iconCls: 'icon icon-list',
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                singleSelect: true, //单选
+                columns: [[
+//                { title: 'ID', field: 'FID', width: 100, sortable: true },
+                { title: '角色名称', field: 'ROLENAME', width: 160, sortable: true },
+                { title: '排序', field: 'SORTNUM', width: 80, sortable: true },
+                { title: '默认', field: 'ISDEFAULT', width: 80 },
+                { title: '备注', field: 'REMARK', width: 280 },
+                { title: '部门列表', field: 'DEPARTMENTS', hidden: true }
+            ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                pageList: [20, 40, 50]
+            });
+        },
+        selected: function () {
+            return _roleGrid.datagrid('getSelected');
+        },
+        reload: function () {
+            _roleGrid.datagrid('clearSelections').datagrid('reload', { filter: '' });
+        }
+    };
+
+    function createParam(action, FID) {
+        var o = {};
+        var query = top.$('#uiform').serializeArray();
+        query = convertArray(query);
+        o.jsonEntity = JSON.stringify(query);
+        o.action = action;
+        o.FID = FID;
+
+        return "json=" + JSON.stringify(o);
+    }
+
+
+    var crud = {
+        initValidate: function () {
+            top.$('#uiform').validate();
+        },
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/Role/Edit',
+                title: '添加角色',
+                iconCls: 'icon-add',
+                width: 450,
+                height: 260,
+                onLoad: function () {
+                    top.$('#txtsortnum').numberspinner({ min: 0, max: 999 });
+                },
+                submit: function () {
+                    if (top.$('#uiform').validate().form()) {
+                        var query = createParam('add', 0);
+                        $.ajaxjson('/Role/Add', query, function (d) {
+                            if (d.Data != "") {
+                                msg.ok(d.Message);
+                                addDialog.dialog('close');
+                                mygrid.reload();
+                            } else {
+                                MessageOrRedirect(d);
+                            }
+                        });
+                    }
+                }
+            });
+
+        },
+        edit: function () {
+            var row = mygrid.selected();
+
+            if (!row) {
+                msg.warning('请选择修改的角色。');
+                return false;
+            }
+
+            var editWin = top.$.hDialog({
+                href: '/Role/Edit',
+                title: '编辑角色',
+                iconCls: 'icon-add',
+                width: 450,
+                height: 260,
+                onLoad: function () {
+                    
+                    top.$('#txtrolename').val(row.ROLENAME);
+                    top.$('#txtremark').val(row.REMARK);
+                    top.$('#txtsortnum').numberspinner({ min: 0, max: 999 }).numberspinner('setValue', row.SORTNUM);
+                    top.$('#txtIsDefault').attr('checked', row.ISDEFAULT == 1);
+                },
+                submit: function () {
+                    if (top.$('#uiform').validate().form()) {
+                        var query = createParam('edit', row.FID);
+                        $.ajaxjson('/Role/Edit', query, function (d) {
+                            if (parseInt(d.Data) > 0) {
+                                msg.ok(d.Message);
+                                editWin.dialog('close');
+                                mygrid.reload();
+                            } else {
+                                MessageOrRedirect(d);
+                            }
+                        });
+                    }
+                }
+            });
+
+            //Load Data
+
+            return false;
+        },
+        del: function () {
+            var row = mygrid.selected();
+            if (!row) {
+                msg.warning('请选择要删除的角色。');
+                return false;
+            }
+
+            if (confirm('确认要删除选中的数据吗?')) {
+                var query = createParam('delete', row.FID);
+                $.ajaxjson('/Role/Delete', query, function (d) {
+                    if (parseInt(d.Data) > 0) {
+                        msg.ok(d.Message);
+                        mygrid.reload();
+                    } else {
+                        MessageOrRedirect(d);
+                    }
+                });
+            }
+            return false;
+        }
+    };
+
+    var lastIndex = 0;
+    var authorize = {
+        run: function () {
+            var role = mygrid.selected();
+            if (!role) {
+                msg.warning('请选择一个角色。');
+                return false;
+            }
+            var ad = top.$.hDialog({
+                max: true, title: '分配权限',
+                content: '<div style="padding:2px;overflow:hidden;"><table id="nb"></table></div>',
+                toolbar: [
+                { text: '全选', iconCls: 'icon-checkbox_yes', handler: function () { authorize.btnchecked(true); } },
+                { text: '取消全选', iconCls: 'icon-checkbox_no', handler: function () { authorize.btnchecked(false); } },
+                '-',
+                { text: '编辑全部', iconCls: 'icon-pencil', handler: function () { authorize.apply('beginEdit'); } },
+                { text: '取消编辑', iconCls: 'icon-pencil_delete', handler: function () { authorize.apply('cancelEdit'); } },
+                '-',
+                { text: '应用', iconCls: 'icon-disk_multiple', handler: function () { authorize.apply('endEdit'); } }
+            ],
+                submit: function () {
+                    var data = authorize.getChanges(role);
+                    if (data) {
+                        $.ajaxtext('/Role/Authorize', createParam('authorize') + '&data=' + data, function (d) {
+                            if (d > 0) {
+                                msg.ok('权限分配成功。');
+                                ad.dialog('close');
+                            } else {
+                                alert('您没有分配任何权限！');
+                            }
+                        });
+                    }
+                }
+            });
+
+            var query = createParam('menus', role.FID);
+            var nb = top.$('#nb').treegrid({
+                title: '导航菜单',
+                url: '/Role/Menus?' + createParam('menus', role.FID),
+                height: ad.dialog('options').height - 115,
+                idField: 'FID',
+                treeField: 'NavTitle',
+                iconCls: 'icon-nav',
+                nowrap: false,
+                rownumbers: true,
+                animate: true,
+                collapsible: false,
+                frozenColumns: [[{ title: '菜单名称', field: 'NavTitle', width: 200}]],
+                columns: [authorize.allBtns()],
+                onClickRow: function (row) {
+                    if (lastIndex != row.FID) {
+                        nb.treegrid('endEdit', lastIndex);
+                    }
+                    authorize.apply('beginEdit', row.FID);
+                    lastIndex = row.FID;
+                },
+                onContextMenu: function (e, row) {
+                    authorize.rowCmenu(e, row);
+                }
+            });
+            return false;
+        },
+        rowCmenu: function (e, row) { //row 右键菜单
+            var createRowMenu = function () {
+                var rmenu = top.$('<div id="rmenu" style="width:100px;"></div>').appendTo('body');
+                var menus = [{ title: '编辑并全选', iconCls: '' }, { title: '编辑', iconCls: 'icon-edit' }, '-',
+                { title: '全选', iconCls: '' }, { title: '取消全选', iconCls: '' }, '-',
+               { title: '取消编辑', iconCls: '' }, { title: '应用', iconCls: 'icon-ok'}];
+                for (var i = 0; i < menus.length; i++) {
+                    if (menus[i].title)
+                        top.$('<div iconCls="' + menus[i].iconCls + '"/>').html(menus[i].title).appendTo(rmenu);
+                    else {
+                        top.$('<div class="menu-sep"></div>').appendTo(rmenu);
+                    }
+                }
+            };
+
+            e.preventDefault();
+            if (top.$('#rmenu').length == 0) { createRowMenu(); }
+
+            top.$('#nb').treegrid('select', row.FID);
+            if (lastIndex != row.FID) { nb.treegrid('endEdit', lastIndex); }
+            lastIndex = row.FID;
+
+            top.$('#rmenu').menu({
+                onClick: function (item) {
+                    switch (item.text) {
+                        case '全选': authorize.btnchecked(true); break;
+                        case '取消全选': authorize.btnchecked(false); break;
+                        case '编辑': authorize.apply('beginEdit', row.FID); break;
+                        case '编辑并全选':
+                            authorize.apply('beginEdit', row.FID);
+                            authorize.btnchecked(true);
+                            break;
+                        case '取消编辑': authorize.apply('cancelEdit', row.FID); break;
+                        case '应用': authorize.apply('endEdit', row.FID); break;
+                        default:
+                            break;
+                    }
+                }
+            }).menu('show', { left: e.pageX, top: e.pageY });
+        },
+        allBtns: function () {
+            Enumerable.from(btns).forEach("o=>o.formatter=function(v,d,i){return authorize.formatter(v,d,i,o.field);}");
+            return btns;
+        },
+        formatter: function (v, d, i, field) {//按钮初始化
+            if (v) {
+                if (v == '√')
+                    return '<font color=\"#39CB00\"><b>' + v + '</b></font>';
+                else return v;
+            } else {
+                //return d.hasbtns.length;
+                return Enumerable.from(d.hasbtns).any("n=>n=='" + field + "'") ? "<font color=\"#39CB00\"><b>√</b></font>" : "x";
+            }
+        },
+        findCtrl: function (g, fieldname, FID) {
+            return g.treegrid('getEditor', { id: FID, field: fieldname }).target;
+        },
+        btnchecked: function (flag) {
+            var rows = top.$('#nb').treegrid('getSelections');
+            if (rows) {
+                $.each(rows, function (i, n) {
+                    var editors = top.$('#nb').treegrid('getEditors', n.FID);
+                    $.each(editors, function () {
+                        if (!$(this.target).is(":hidden"))
+                            $(this.target).attr('checked', flag);
+
+                    });
+                });
+            } else {
+                msg.warning('请选择菜单。');
+            }
+        },
+        apply: function (action, FID) {
+            if (!FID)
+                top.$('#nb').treegrid('selectAll');
+
+            var rows = top.$('#nb').treegrid('getSelections');
+            $.each(rows, function (i, n) {
+                top.$('#nb').treegrid(action, this.FID);
+                if (action == 'beginEdit') {
+                    var editors = top.$('#nb').treegrid('getEditors', n.FID);
+                    Enumerable.from(btns).forEach(function (x, z) {
+                        var hasbtn = Enumerable.from(n.Buttons).any('$=="' + x.field + '"');
+                        Enumerable.from(editors).forEach(function (b) {
+                            if (!hasbtn && b.field == x.field)
+                                $(b.target).remove();
+                        });
+                    });
+                }
+            });
+
+            if (action != "beginEdit")
+                top.$('#nb').treegrid('clearSelections');
+        },
+        getChanges: function (role) {
+            var rows = top.$('#nb').treegrid('getChildren');
+
+            var o = { roleId: role.FID, menus: [] };
+
+            Enumerable.from(rows).forEach(function (x) {
+                var n = { navid: x.FID, buttons: [] };
+                n.buttons = Enumerable.from(x).where('t=>t.value=="√"').select('$.key').toArray();
+                o.menus.push(n);
+            });
+            return JSON.stringify(o);
+        },
+        setDeptments: function () { //设置部门权限
+            var role = mygrid.selected();
+            var dp = new DataPermission(role, '/Role/SetDepartment');
+            dp.show();
+        }
+    };
+
+
+</script>

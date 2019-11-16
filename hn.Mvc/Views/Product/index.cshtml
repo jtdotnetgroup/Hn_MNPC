@@ -1,0 +1,819 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<!-- 引入多功能查询js -->
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.min.js"></script>
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.jquery.js"></script>
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+
+<body class="easyui-layout">
+    <div region="west" iconcls="icon-chart_organisation" split="true" title="商品分类" style="width: 160px;
+        padding: 5px" collapsible="false">
+        <ul id="deptree"></ul>
+    </div>
+    <div region="center" title="商品列表" iconcls="icon-users" style="overflow: hidden">
+        <div class="easyui-layout" data-options="fit:true">
+            <div region="center" border="false" >
+                <div id="toolbar" style="padding:1px 2px 0px;" class="datagrid-toolbar">
+                    <div id="toolbar">
+                        @Html.Raw(ViewBag.ToolBar)
+                    </div>
+                    <div style="float: left; padding-top: 2px;width:100%; margin-bottom:2px;">
+                        商品信息包含：
+                        <input type="text" name="txt_Goods" id="txt_Goods" class="txt03 easyui-textbox" />
+                        <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                        <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+                    </div>
+                </div>
+               
+                <table id="userGrid" toolbar="#toolbar"></table>
+            </div>
+            <div region="south" border="false"  split="true" style="height:230px;background:#FFFFFF;">
+                <div id="userTab"  fit="true">
+                    <div title="厂家编码" style="padding: 2px; overflow: hidden;">
+                        <table id="src"></table>
+                    </div>
+                    <div title="单位换算" style="padding: 2px; overflow: hidden;">
+                        <table id="unit"></table>
+                    </div>                   
+                </div>
+            </div>
+        </div>
+        </div>
+
+</body>
+    <script type="text/javascript">
+
+        var filterObj
+
+        $(function () {
+
+            var size = { width: $(window).width(), height: $(window).height() };
+
+            deptree.init();
+
+            //autoResize({ dataGrid: '#userGrid', gridType: 'datagrid', callback: mygrid.databind, height: 145, width: 230 });
+            mygrid.databind(size);
+            src.databind();
+            unit.databind();
+            
+            $('#a_add').click(crud.add);
+            $('#a_edit').click(crud.update);
+            $('#a_delete').click(crud.del);
+            $('#a_search').click(onSearch);
+            $('#a_reset').click(onReset);
+            $('#a_export').click(onExport);            
+            $('#a_sync').click(onSync);
+            $('#a_datadisabled').click(crud.disabled);
+            $('#a_audit').click(crud.audit);
+            $('#a_audit_anti').click(crud.audit_anti);
+
+            //    $('#a_search').click(function () {
+            //        search.go('userGrid');
+            //    });
+
+            //$('#txt_Organize').combobox({ url: '/Members/Organize', valueField: 'Name', textField: 'Name' });
+
+            //$(window).resize(function () {
+            //    size = { width: $(window).width(), height: $(window).height() };
+            //    mylayout.resize(size);
+            //});
+
+            $('#userTab').tabs({
+                onLoad: function () {
+                    $('.validatebox-tip').remove();
+                }
+            });
+
+            $("#toolbar").css("height", "60px");
+        });
+
+        function createParam(action, FID) {
+            var o = {};
+            var form = top.$('#uiform');
+            var query = '';
+            if (form) {
+                query = top.$('#uiform').serializeArray();
+                query = convertArray(query);
+                o.jsonEntity = JSON.stringify(query);
+            }
+            o.action = action;
+            o.FID = FID;
+            return "json=" + JSON.stringify(o);
+        }
+
+        //搜索按钮点击
+        function onSearch() {
+            var tree = $('#deptree').tree('getSelected');
+            if (tree) {
+                $('#userGrid').datagrid('load', { keywords: $('#txt_Goods').val(), categoryID: $('#deptree').tree('getSelected').id });
+            } else {
+                $('#userGrid').datagrid('load', { keywords: $('#txt_Goods').val() });
+            }
+        }
+
+        //重置按钮点击
+        function onReset() {
+            $("#txt_Goods").textbox('setValue', '');
+            onSearch();
+        }
+
+        function onExport() {
+
+            var pform = '<form  id="uiStatus" ><table cellpadding=5 cellspacing=0 width=100% align="center" class="grid2" border=0><tr>';
+            pform += '<td align="left"><input type="radio" value="1" id="rdoStatus" name="rdoStatus" checked />全部导出</td>';
+            pform += '<td align="left"><input type="radio" value="2" id="rdoStatus" name="rdoStatus" />导出选择的</td></tr></table></form>';
+            var hDialog = top.jQuery.hDialog({
+                title: '导出选择',
+                width: 300,
+                height: 150,
+                content: pform,
+                iconCls: 'icon-add',
+                onLoad: function () {
+
+                },
+                showBtns: false,
+                toolbar: [{
+                    text: '导出',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        var type = top.$('input:radio:checked').val();
+                        hDialog.dialog('close');
+
+
+
+                        var ids = "";
+                        if (type == "2") {
+                            var rows = $('#userGrid').datagrid('getChecked');
+                            if (rows.length > 0) {
+                                for (var i = 0; i < rows.length; i++) {
+
+                                    if (ids == "") {
+                                        ids = rows[i].FID;
+                                    }
+                                    else {
+                                        ids += "," + rows[i].FID;
+                                    }
+                                }
+
+                                //filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }], "groups": [] };
+                                filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }] };
+                            }
+                            else {
+                                msgbox('请勾选你要导出的商品。');
+                                return;
+                            }
+                        }
+
+                        var form = $("<form>"); //定义一个form表单
+                        form.attr("style", "display:none");
+                        form.attr("target", "");
+                        form.attr("method", "post");
+                        form.attr("action", "/Goods/Export");
+                        var input1 = $("<input>");
+                        input1.attr("type", "hidden");
+                        input1.attr("name", "filter");
+                        input1.attr("value", JSON.stringify(filterObj));
+
+                        var input2 = $("<input>");
+                        input2.attr("type", "hidden");
+                        input2.attr("name", "ids");
+                        input2.attr("value", ids);
+
+                        $("body").append(form); //将表单放置在web中
+                        form.append(input1);
+                        form.append(input2);
+
+                        form.submit(); //表单提交
+
+                        return false;
+                    }
+                }, {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        hDialog.dialog("close");
+                    }
+                }]
+            });
+
+
+        }
+
+        var deptree = {
+            init: function () {
+                $('#deptree').tree({
+                    lines: true,
+                    url: '/Product/Category',
+                    animate: true,
+                    onLoadSuccess: function (node, data) {
+                        $('body').data('categoryData', data);
+                    }, onClick: function (node) {
+                        //var depId = node.id;
+                        //var children = $('#deptree').tree('getChildren', node.target);
+                        //var arr = [];
+                        //arr.push(depId);
+                        //for (var i = 0; i < children.length; i++) {
+                        //    arr.push(children[i].id);
+                        //}
+
+                        //var strIds = arr.join("','");
+                        //$('#userGrid').datagrid('load', { categoryID: strIds });
+                        onSearch();
+                        $('#src').datagrid('loadData', { total: 0, rows: [] });
+                        $('#unit').datagrid('loadData', { total: 0, rows: [] });
+                        
+                    }
+                });
+            },
+            data: function () {
+                var d = JSON.stringify($('body').data('categoryData'));
+                d = '[{"id":0,"text":"请选择分类"},' + d.substr(1);
+                return JSON.parse(d);
+            }
+
+        };
+
+        //商品列表
+        var mygrid = {
+            databind: function (size) {
+                $('#userGrid').datagrid({
+                    url: '/Product/data',             
+                    fit:true,
+                    idField: 'FID',
+                    singleSelect: true,
+                    striped: true,
+                    checkOnSelect: false,
+                    selectOnCheck: false,
+                    columns: [[
+                        { field: 'FID', checkbox: true },
+                        { title: '品牌', field: 'FBRANDNAME', width: 90, sortable: true },
+                        { title: '品类', field: 'FPRODUCTTYPE', width: 90, sortable: true },
+                        { title: '商品代码', field: 'FPRODUCTCODE', width: 80, sortable: true },                       
+                        { title: '商品名称', field: 'FPRODUCTNAME', width: 180, sortable: true },
+                        { title: '规格型号', field: 'FMODEL', width: 110, sortable: true },
+                        { title: '包装规格', field: 'FPKGFORMAT', width: 80, sortable: true },
+                        { title: '主单位', field: 'FUNITNAME', width: 60, sortable: true, align: 'center' },
+                        { title: '商品分类', field: 'FCATEGORYNAME', width: 90, sortable: true },
+                        {
+                            title: '重量', field: 'FWEIGHT', width: 70, sortable: true, align: 'right', formatter: function (v, d, i) {
+                                return fmoney(v, 2);
+                            }
+                        },
+                        {
+                            title: '体积', field: 'FVOLUME', width: 70, sortable: true, align: 'right', formatter: function (v, d, i) {
+                                return fmoney(v, 2);
+                            }
+                        },
+                        {
+                            title: '平米', field: 'FSQUARE', width: 70, sortable: true, align: 'right', formatter: function (v, d, i) {
+                                return fmoney(v, 4);
+                            }
+                        },
+                        { title: '厂家名称', field: 'FSRCNAME', width: 90, sortable: true },
+
+                        { title: '厂家商品代码', field: 'FSRCCODE', width: 120, sortable: true },
+                        { title: '厂家规格型号', field: 'FSRCMODEL', width: 100, sortable: true },
+                        { title: '厂家单位', field: 'FSRCUNIT', width: 60, sortable: true,align:'center' },
+                        //{ title: '换算率', field: 'FRATE', width: 100, sortable: true },
+                                                {
+                                                    title: '换算率', field: 'FRATE', width: 80, sortable: true, align: 'right', formatter: function (v, d, i) {
+                                                        return fmoney(v, 2);
+                                                    }
+                                                },
+                        { title: '采购单位', field: 'FORDERUNIT', width: 80, sortable: true },
+                        { title: '组柜编码', field: 'FGROUP_NO', width: 80, sortable: true },
+                        { title: '组柜商品名称', field: 'FGROUPNAME', width: 100, sortable: true },
+                        { title: '组柜商品规格', field: 'FGROUPMODEL', width: 100, sortable: true },
+                        { title: '组柜换单位', field: 'FGROUPUNIT', width: 80, sortable: true, align: 'center' },
+                        { title: '状态', field: 'FSTATUSNAME', width: 60, sortable: true, align: 'center' },
+                        { title: '更新时间', field: 'FUPDATETIME', width: 150, sortable: true },                        
+                        {
+                            title: '审核状态', field: 'FCHECKSTATUS', width: 70, sortable: true, align: 'center' ,
+                            formatter: function (v, d, i) {
+                                if (v == 0) {
+                                    return '未审核';
+                                }
+                                else if (v == 1) {
+                                    return '已审核';
+                                }
+                                else if (v == 2) {
+                                    return '审核未通过';
+                                }
+                            }
+                        },
+                        { title: '审核人', field: 'FCHECKERUSER', width: 70, sortable: true },
+                        { title: '审核时间', field: 'FCHECKTIME', width: 150, sortable: true }
+                        
+                        //{ title: '备注', field: 'FREMARK', width: 200, sortable: true }
+                    ]],
+                    //pagination: true,
+                    autoRowHeight: true,
+                    view: scrollview,
+                    pageSize: 50,
+                    onClickRow: function (index, row) {
+                        if (row) {
+                            $('#src').datagrid('reload', {
+                                FPRODUCTID: row.FID
+                            });
+                            $('#unit').datagrid('reload', {
+                                FPRODUCTID: row.FID
+                            });
+                            
+                        }
+                    },
+                    onDblClickRow: function (rowIndex, rowData) {
+                        crud.update();
+                    },
+
+                });
+            },
+            reload: function () {
+                $('#userGrid').datagrid('clearSelections').datagrid('reload');
+            },
+            selectRow: function () {
+                return $('#userGrid').datagrid('getSelected');
+            }
+        };
+        
+        //厂家代码
+        var src = {
+            databind: function () {
+                $('#src').datagrid({
+                    url: '/Product/Src',
+                    fit: true,
+                    idField: 'FID',
+                    singleSelect: true,
+                    striped: true,
+                    rownumbers: true, //行号
+                    columns: [[
+                    { title: '厂家代码', field: 'FSRCCODE', width: 150, sortable: true },
+                    { title: '厂家名称', field: 'FSRCNAME', width: 120, sortable: true },
+                    { title: '厂家规格型号', field: 'FSRCMODEL', width: 120, sortable: true },
+                    { title: '单位', field: 'FUNIT', width: 60, sortable: true, align: 'center' },
+                     { title: '采购单位', field: 'FORDERUNIT', width: 70, sortable: true,align:'center' },
+                    {
+                        title: '换算率', field: 'FRATE', width: 120, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                     {
+                         title: '重量', field: 'FWEIGHT', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                             return fmoney(v, 2);
+                         }
+                     }
+                    ]],
+                    pagination: false
+                });
+            },
+            reload: function () {
+                $('#src').datagrid('clearSelections').datagrid('reload');
+            },
+            selectRow: function () {
+                return $('#src').datagrid('getSelected');
+            }
+        };
+
+        //单位换算
+        var unit = {
+            databind: function () {
+                $('#unit').datagrid({
+                    url: '/Product/Unit',
+                    fit: true,
+                    idField: 'FID',
+                    singleSelect: true,
+                    striped: true,
+                    rownumbers: true, //行号
+                    columns: [[
+                    { title: '计量编码', field: 'FNUMBER', width: 100, sortable: true },
+                    { title: '计量单位', field: 'FNAME', width: 100, sortable: true },
+                    { title: '与主单位换算率', field: 'FRATE', width: 100, sortable: true },
+                    { title: '更新时间', field: 'FUPDATETIME', width: 150, sortable: true },
+                    { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                    ]],
+                    pagination: false
+                });
+            },
+            reload: function () {
+                $('#unit').datagrid('clearSelections').datagrid('reload');
+            },
+            selectRow: function () {
+                return $('#unit').datagrid('getSelected');
+            }
+        };
+
+        function openImageForm(id) {
+            if (id != 0) {
+                var appid = "0358b83b-9047-4461-9d58-2000f93dac16";
+                top.mainDialog.open({ id: "window_" + appid.replaceAll('-', ''), title: "商品图片查看", width: 700, height: 500, url: 'Goods/Image?id=' + id + '&ac=show' });
+            }
+            else {
+                msgbox("请先保存商品！");
+            }
+        }
+
+        var crud = {
+            initData: function (depid) {
+                top.$('#txt_FIsLeave').combobox({ panelHeight: 'auto' });
+                var _depid = depid || 0;
+                top.$('#txt_department').combotree({
+                    data: deptree.data(),
+                    valueField: 'id',
+                    textField: 'text',
+                    value: _depid
+                });
+
+                top.$('#userTab').tabs({
+                    onSelect: function () {
+                        top.$('.validatebox-tip').remove();
+                    }
+                });
+            },
+            add: function () {
+                //var id = "bc158ebc-e35b-455b-bbc2-a2b97ea09b83";
+                //var url = "Goods/Edit";
+                //url += "?appid=" + id;
+                //top.openApp(url, 0, "商品添加", "tab_" + id.replaceAll('-', ''), 0, 0, false);
+                var addDialog = top.$.hDialog({
+                    href: '/Product/Add' + '?v=' + Math.random(),
+                    width: document.body.clientWidth,
+                    height: document.body.clientHeight,
+                    title: '添加商品',
+                    iconCls: 'icon-user_add',
+                    onLoad: function () {
+                        bindCategoryDialog(top.$('#FCATEGORYNAME'), function (row) {
+                            top.$('#FCATEGORYNAME').searchbox("setValue", row.CATEGORY_NAME);
+                            top.$('#FCATEGORYID').val(row.FID);
+                        });
+
+                        bindUnitDialog(top.$('#FBASICUNITNAME'), function (row) {
+                            top.$('#FBASICUNITNAME').searchbox("setValue", row.FNAME);
+                            top.$('#FBASICUNIT').val(row.FID);
+                        });
+
+                        bindUnitDialog(top.$('#FOFTENUNITNAME'), function (row) {
+                            top.$('#FOFTENUNITNAME').searchbox("setValue", row.FNAME);
+                            top.$('#FOFTENUNIT').val(row.FID);
+                        });
+
+                        //品牌选择
+                        bindBrandDialog(top.$('#FBRANDNAME'), function (row) {
+                            top.$('#FBRANDNAME').searchbox("setValue", row.FNAME);
+                            top.$('#FSRCNUMBER').searchbox("setValue", row.FFACTORY);
+                            top.$('#FSRCNAME').searchbox("setValue", row.FFACTORY);
+                            top.$('#FBRANDID').val(row.FID);
+                        });
+
+ 
+
+                        top.$('#uiform').form({
+                            url: '/Product/Add',
+                            onSubmit: function () {
+                                //return $(this).form('enableValidation').form('validate');
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.Success) {
+                                    parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                        parent.layer.close(index);
+                                        mygrid.reload();
+                                        addDialog.dialog('close');
+                                    });
+                                } else {
+                                    if (result.Data == -2) {
+                                        parent.layer.alert('商品已经存在', { icon: 0 }, function (index) {
+                                            parent.layer.close(index);
+                                        });
+                                    } else {
+                                        parent.layer.alert(result.Message, { icon: 0 }, function (index) {
+                                            parent.layer.close(index);
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    },
+                    closed: false,
+                    submit: function () {
+                        top.$('#easyui-submit').click();
+                    }
+                });
+            },
+            update: function () {
+
+                var row = mygrid.selectRow();
+                if (row) {
+                    var editDialog = top.$.hDialog({
+                        href: '/Product/Edit?v=' + Math.random()+'&id='+row.FID,
+                        width: document.body.clientWidth,
+                        height: document.body.clientHeight,
+                        title: '修改商品',
+                        iconCls: 'icon-user_add',
+                        onLoad: function () {
+                            //var viewModel = top.ko.mapping.fromJS(row);
+                            //top.ko.applyBindings(viewModel);
+
+                            bindCategoryDialog(top.$('#FCATEGORYNAME'), function (element) {
+                                top.$('#FCATEGORYNAME').searchbox("setValue", element.CATEGORY_NAME);
+                                top.$('#FCATEGORYID').val(element.FID);
+                            });
+
+                            bindUnitDialog(top.$('#FBASICUNITNAME'), function (element) {
+                                top.$('#FBASICUNITNAME').searchbox("setValue", element.FNAME);
+                                top.$('#FBASICUNIT').val(element.FID);
+                            });
+
+                            bindUnitDialog(top.$('#FOFTENUNITNAME'), function (element) {
+                                top.$('#FOFTENUNITNAME').searchbox("setValue", element.FNAME);
+                                top.$('#FOFTENUNIT').val(element.FID);
+                            });
+
+                            //品牌选择
+                            bindBrandDialog(top.$('#FBRANDNAME'), function (row) {
+                                top.$('#FBRANDNAME').searchbox("setValue", row.FNAME);
+                                top.$('#FSRCNUMBER').searchbox("setValue", row.FFACTORY);
+                                top.$('#FSRCNAME').searchbox("setValue", row.FFACTORY);
+                                top.$('#FBRANDID').val(row.FID);
+                            });
+
+                            //采购单位
+                            bindUnitDialog(top.$('#FORDERUNIT'), function (row) {
+                                top.$('#FORDERUNITID').val(row.FID);
+                                top.$('#FORDERUNIT').searchbox("setValue", row.FNAME);
+                            });
+
+                            top.$('#FID').val(row.FID);
+                            top.$('#FBRANDID').val(row.FBRANDID);
+                            top.$('#FBRANDNAME').searchbox('setValue', row.FBRANDNAME);
+                            top.$('#FPRODUCTCODE').textbox('setValue', row.FPRODUCTCODE);
+                            top.$('#FPRODUCTNAME').textbox('setValue', row.FPRODUCTNAME);
+                            top.$('#FMODEL').textbox('setValue', row.FMODEL);
+                            top.$('#FCATEGORYID').val(row.FCATEGORYID);
+                            top.$('#FCATEGORYNAME').searchbox('setValue', row.FCATEGORYNAME);
+                            //top.$('#FBASICUNIT').val(row.FBASICUNIT);
+                            //top.$('#FBASICUNITNAME').searchbox('setValue', row.FBASICUNITNAME);
+                            top.$('#FOFTENUNIT').val(row.FOFTENUNIT);
+                            top.$('#FOFTENUNITNAME').searchbox('setValue', row.FOFTENUNITNAME);
+                            top.$('#FWEIGHT').numberbox('setValue', row.FWEIGHT);
+                            top.$('#FVOLUME').numberbox('setValue', row.FVOLUME);
+                            top.$('#FSTATUS').combobox('setValue', row.FSTATUS);
+                            top.$('#FSRCNUMBER').textbox('setValue', row.FSRCNUMBER);
+                            //top.$('#FSRCNAME').textbox('setValue', row.FSRCNAME);
+                            //top.$('#FSRCMODEL').textbox('setValue', row.FSRCMODEL);
+                            top.$('#FPKGFORMAT').textbox('setValue', row.FPKGFORMAT);
+                            top.$('#FREMARK').textbox('setValue', row.FREMARK);
+                            top.$('#FPRODUCTTYPE').textbox('setValue', row.FPRODUCTTYPE);
+                            top.$('#FSQUARE').textbox('setValue', row.FSQUARE);
+
+                            top.$('#FSRCNAME').textbox('setValue', row.FSRCNAME);
+
+                            top.$('#FSRCCODE').textbox('setValue', row.FSRCCODE);
+                            top.$('#FORDERUNIT').textbox('setValue', row.FORDERUNIT);
+                            top.$('#FSRCMODEL').textbox('setValue', row.FSRCMODEL);
+                            top.$('#FSRCUNIT').textbox('setValue', row.FSRCUNIT);
+                            top.$('#FRATE').textbox('setValue', row.FRATE);
+
+                            top.$('#FGROUP_NO').textbox('setValue', row.FGROUP_NO);
+                            top.$('#FGROUPNAME').textbox('setValue', row.FGROUPNAME);
+                            top.$('#FGROUPMODEL').textbox('setValue', row.FGROUPMODEL);
+                            top.$('#FGROUPUNIT').textbox('setValue', row.FGROUPUNIT);
+
+                            top.$('#uiform').form({
+                                url: '/Product/Edit',
+                                onSubmit: function () {
+                                    //return $(this).form('enableValidation').form('validate');
+                                },
+                                success: function (data) {
+                                    var result = $.parseJSON(data);
+                                    if (result.Success) {
+                                        parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                            parent.layer.close(index);
+                                            mygrid.reload();
+                                            $('#src').datagrid('loadData', { total: 0, rows: [] });
+                                            $('#unit').datagrid('loadData', { total: 0, rows: [] });
+                                            editDialog.dialog('close');
+                                        });
+                                    } else {
+                                        if (result.Data == -2) {
+                                            parent.layer.alert('商品已经存在', { icon: 0 }, function (index) {
+                                                parent.layer.close(index);
+                                            });
+                                        } else {
+                                            parent.layer.alert(result.Message, { icon: 0 }, function (index) {
+                                                parent.layer.close(index);
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                        },
+                        submit: function () {
+                            top.$('#easyui-submit').click();
+                        }
+                    });
+                } else {
+                    msg.warning('请选择要修改的商品。');
+                }
+            },
+            del: function () {
+                ////        var row = mygrid.selectRow();
+                ////        if (row) {
+                //var rows = $('#userGrid').datagrid('getChecked');
+                //if (rows.length > 0) {
+
+
+                //    //            var query = createParam('delete', row.FID);
+                //    top.$.messager.confirm('删除商品', '确认要删除选中的商品吗?', function (r) {
+                //        if (r) {
+
+                //            var ids = "";
+                //            for (var i = 0; i < rows.length; i++) {
+
+                //                if (ids == "") {
+                //                    ids = rows[i].FID;
+                //                }
+                //                else {
+                //                    ids += "," + rows[i].FID;
+                //                }
+                //            }
+
+                //            $.ajaxjson('/Goods/Delete?id=' + ids, "", function (d) {
+
+                //                if (d.Success) {
+                //                    msg.ok('删除成功');
+                //                    mygrid.reload();
+                //                } else {
+                //                    msg.error(d.Message);
+                //                }
+                //            });
+                //        }
+                //    });
+                //} else {
+                //    msgbox('请勾选你要删除的商品。');
+                //}
+            },
+            //审核
+            audit: function () {
+                var rows = $('#userGrid').datagrid('getChecked');
+                if (rows.length > 0) {
+
+                    //if (row.FCHECKSTATUS == 1) {
+                    //    parent.layer.alert("单据已经审核了！");
+                    //    return;
+                    //}
+
+                    var ids = "";
+                    for (var i = 0; i < rows.length; i++) {
+
+                        if (ids == "") {
+                            ids = rows[i].FID;
+                        }
+                        else {
+                            ids += "," + rows[i].FID;
+                        }
+                    }
+
+                    parent.layer.confirm('点击确认开始审核选择的商品，商品必须设置厂家编码才能审核通过！', {
+                        icon: 3,
+                        btn: ['确认', '取消']
+                    }, function () {
+
+                        jQuery.ajaxjson("/Product/Audit", { ids: ids}, function (d) {
+                            if (d.errCode == 0) {
+                                parent.layer.msg("处理完成");
+                               // hDialog.dialog('close');
+                                mygrid.reload();
+                            } else {
+                                parent.layer.msg("处理失败");
+                            }
+                        });
+                    });
+                } else {
+                    msgbox('请选择要审核的数据。');
+                }
+            },
+            //反审核
+            audit_anti: function () {
+                var rows = $('#userGrid').datagrid('getChecked');
+                if (rows.length > 0) {
+
+                    //if (row.FCHECKSTATUS == 1) {
+                    //    parent.layer.alert("单据已经审核了！");
+                    //    return;
+                    //}
+
+                    var ids = "";
+                    for (var i = 0; i < rows.length; i++) {
+
+                        if (ids == "") {
+                            ids = rows[i].FID;
+                        }
+                        else {
+                            ids += "," + rows[i].FID;
+                        }
+                    }
+
+                    parent.layer.confirm('点击确认退回到待审核状态，可修改资料！', {
+                        icon: 3,
+                        btn: ['确认', '取消']
+                    }, function () {
+
+                        jQuery.ajaxjson("/Product/AuditAnti", { ids: ids}, function (d) {
+                            if (d.errCode == 0) {
+                                parent.layer.msg("处理完成");
+                                // hDialog.dialog('close');
+                                mygrid.reload();
+                            } else {
+                                parent.layer.msg("处理失败");
+                            }
+                        });
+                    });
+                } else {
+                    msgbox('请选择要反审核的数据。');
+                }
+            },            
+            disabled: function () {
+                var row = mygrid.selectRow();
+                if (row) {
+                    parent.layer.confirm('确认要启用/禁用当前选择的商品吗?', {
+                        icon: 3,
+                        btn: ['确认', '取消']
+                    }, function () {
+       
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Product/Status/',
+                            data: {
+                                fid: row.FID
+                            },
+                            dataType: 'JSON',
+                            success: function (data) {
+                                if (data.Success) {
+                                    parent.layer.closeAll();
+                                    parent.layer.msg("设置完成!");
+
+                                    mygrid.reload();
+                                } else {
+                                    parent.layer.alert(data.Message, { icon: 1 });
+                                }
+                            }
+                        });
+                    });
+
+                    //$.ajax({
+                    //    type: 'POST',
+                    //    url: '/Product/Status/',
+                    //    data: {
+                    //        fid: row.FID
+                    //    },
+                    //    dataType: 'JSON',
+                    //    success: function (data) {
+                    //        if (data.Success) {
+                    //            parent.layer.alert(data.Message, { icon: 1 }, function (index) {
+                    //                mygrid.reload();
+                    //                parent.layer.close(index);
+                    //            });
+                    //        } else {
+                    //            parent.layer.alert(data.Message, { icon: 1 });
+                    //        }
+                    //    }
+                    //});
+                } else {
+                    parent.layer.alert('请选择要禁用的商品。', { icon: 0 });
+                }
+            }
+        };
+
+        function onSync() {
+
+            var rows = $('#userGrid').datagrid('getChecked');
+            if (rows.length > 0) {
+                $.messager.confirm('同步商品数据', '点击确定刚开始同步选择的商品！', function (r) {
+                    if (r) {
+                        var loadi = layer.load(3);
+
+                        var ids = "";
+                        for (var i = 0; i < rows.length; i++) {
+
+                            if (ids == "") {
+                                ids = rows[i].FID;
+                            }
+                            else {
+                                ids += "," + rows[i].FID;
+                            }
+                        }
+
+                        $.getJSON("/Goods/Sync?id=" + ids, function (d) {
+
+                            alert(d);
+
+                            layer.close(loadi);
+                        });
+                    }
+                });
+            }
+            else {
+                msgbox('请勾选你要同步的商品。');
+            }
+        }
+    </script>

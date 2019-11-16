@@ -1,0 +1,279 @@
+﻿@{
+    string extName = string.Empty;
+    string filesWebSite = Url.Content("~/Controls/UploadFiles/");
+    string tmpID = Guid.NewGuid().ToString("N");
+    string tmpID1 = string.Empty;
+    Page.CheckApp = false;
+}
+<script src="~/Scripts/Uploadify/jquery.uploadify.js?v=@Utility.DateTimeNew.Now.Ticks" type="text/javascript"></script>
+<script type="text/javascript" src="/Scripts/layer/extend/layer.ext.js"></script>
+<link href="~/Scripts/Uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .uploadify-ico
+    {
+        border: none 0;
+        vertical-align: middle;
+        margin-right: 3px;
+    }
+</style>
+<form runat="server" id="form1">
+<div id="option">
+<table cellpadding="0" cellspacing="0" border="0" width="98%" align="center" style="margin-top: 8px;">
+    <tr>
+        @*        <td>
+            <input type="radio" name="imgType" id="imgType1" value="PC图" checked/>PC图
+            <input type="radio" name="imgType" id="imgType2" value="手机图" />手机图
+        </td>*@
+        <td style="height: 40px;" id="uploadtable">
+            <input id="file_upload" name="file_upload" type="file" multiple="true" />
+        </td>
+        <td align="right" style="padding-right: 20px;">
+            <input type="button" class="mybutton" value="删除所选" onclick="delselect()" />
+            @*<input type="button" class="mybutton" value="&nbsp;确&nbsp;&nbsp;认&nbsp;" onclick="confirm1();" />*@
+            <input type="button" class="mybutton" value="&nbsp;关&nbsp;&nbsp;闭&nbsp;" onclick="closewin();" />
+            @* <input type="button" class="mybutton" value="浏览全部" onclick="showall()" />*@
+        </td>
+    </tr>
+</table>
+</div>
+<div id="queue" style="margin: 0 auto 5px 0;">
+</div>
+<div id="filelist">
+    <table cellpadding="0" cellspacing="1" border="0" id="filetable" width="98%" class="listtable"
+        style="width: 98%; margin: 0 auto;">
+        <thead>
+            <tr>
+                <th style="width: 50%">
+                    文件
+                </th>
+                <th style="width: 15%">
+                    类型
+                </th>
+                <th style="width: 15%">
+                    大小(KB)
+                </th>
+                <th style="width: 10%">
+                    操作
+                </th>
+                <th>
+                    <input type="checkbox" id="checkall" onclick="checkallbox(this);" style="vertical-align: middle;" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                string files = Request.QueryString["files"];
+                if (!files.IsNullOrEmpty())
+                {
+                    string[] filesArray = files.Split('|');
+                    foreach (string file in filesArray)
+                    {
+                        string size = Utility.Tools.GetFileSize(Server.MapPath(file));
+                  
+                <tr>
+                    <td style="background: #ffffff;">
+                        <a target="_blank" href="@file">
+                            <img alt="" class="uploadify-ico" src="@Url.Content("~/Images/ico/doc_stand.png")" style="border:none;" />@file.Substring(file.LastIndexOf('/') + 1)</a>
+                    </td>
+                    <td style="background: #ffffff;">@size
+                    </td>
+                    <td style="background: #ffffff;">@size
+                    </td>
+                    <td style="background: #ffffff;">
+                        浏览
+                    </td>
+                    <td style="background: #ffffff;">
+                        <input type="checkbox" name="delfile" value="@file" />
+                    </td>
+                </tr>
+                 
+                    }
+                }    
+            }
+        </tbody>
+    </table>
+</div>
+</form>
+<script type="text/javascript">
+    var filesWebSite = '@filesWebSite';
+    var win = new RoadUI.Window();
+    var eid = '@Request.QueryString["eid"]';
+    var goodsid = @Request["id"];
+    var ac ='@Request.QueryString["ac"]';
+
+    $(function () {
+
+        if (ac == "show"){
+            $('#option').hide();
+        }
+
+        $('#file_upload').uploadify({
+            'formData': { "str1": "@tmpID", "str2": "@tmpID1" },
+            'swf': '@Url.Content("~/Scripts/Uploadify/uploadify.swf")' + '?ver=' + new Date().toString(),
+            'uploader': filesWebSite + 'Upload',
+            'buttonText': '选择图片',
+            'fileTypeDesc': '商品图片',
+            'fileTypeExts': '*.jpge;*.gif;*.jpg;*.png' ,
+            'fileSizeLimit':1024,
+            'auto': true,
+            'multi': true,
+            'queueID': 'queue',
+            'onUploadSuccess': function (file, data, response) {
+                var dataArray = data.split('|');
+                if (dataArray.length > 0 && dataArray[0] == "1") {
+                    addFile(file, dataArray);
+                }
+                else {
+                    alert(data);
+                }
+            },
+            'onSelect': function () {
+                $("#queue").show();
+            },
+            'onQueueComplete': function () {
+                $("#queue").hide(1000);
+            },
+            'overrideEvents' : ['onSelectError','onDialogClose'],
+            //返回一个错误，选择文件的时候触发
+            'onSelectError':function(file, errorCode, errorMsg){
+
+                switch(errorCode) {
+                    case -100:
+                        alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','queueSizeLimit')+"个文件！");
+                        break;
+                    case -110:
+                        alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+                        break;
+                    case -120:
+                        alert("文件 ["+file.name+"] 大小异常！");
+                        break;
+                    case -130:
+                        alert("文件 ["+file.name+"] 类型不正确！");
+                        break;
+                }
+
+                return false;
+            },
+            //检测FLASH失败调用
+            'onFallback':function(){
+                alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+            },
+            'onUploadStart': function (file) {  
+                //var type = $("input[name='imgType'][checked]").val();
+                //$("#file_upload").uploadify("settings", "formData", { 'imgType': type });  
+                //在onUploadStart事件中，也就是上传之前，把参数写好传递到后台。  
+            }
+        });
+
+        $.ajax({
+            url: "/Goods/ImageData?id="+goodsid, cache: false, async: false, success: function (txt) {
+                var rows =eval(txt);
+                for(var i=0;i<rows.length;i++){
+                    addTr(rows[i].FUrl,rows[i].FName,rows[i].FType,rows[i].FSize,rows[i].FID);
+                }
+            }
+        });
+
+    });
+    function addFile(file, dataArray) {
+
+        if (dataArray.length != 6) return;
+        
+        var type = $("input[name='imgType']:checked").val();
+        var url = "/Goods/ImageSave?id=" + goodsid + "&name=" + dataArray[3] + "&size=" + dataArray[2] + "&type=" + type+"&url="+dataArray[1] + "&file1=" + dataArray[4] + "&file2=" + dataArray[5];
+        $.ajax({
+            url: url, cache: false, async: false, success: function (id) {
+                addTr(dataArray[1],dataArray[3],type,dataArray[2],id);
+            }
+        });
+
+        return false;
+    }
+
+    function addTr(file,name,type,size,id){
+        var tr = '<tr>';
+                tr += '<td style="background:#ffffff;">';
+                tr += '<a href="' + file + '" target="_blank">';
+                //tr += '<img src="@Url.Content("~/Images/ico/doc_stand.png")" alt="" class="uploadify-ico" />';
+                tr += '<img src="' + file + '" alt="" class="uploadify-ico" width="100" height="100" />';
+                tr += name;
+                tr += '</a>';
+                tr += '</td>';
+                tr += '<td style="background:#ffffff;">';
+                tr += type;
+                tr += '</td>';
+                tr += '<td style="background:#ffffff;">';
+                tr += size;
+                tr += '</td>';
+                tr += '<td style="background:#ffffff;">';
+                tr += '<a href="' + file + '" target="_blank">浏览</a>';
+                tr += '</td>';
+                tr += '<td style="background:#ffffff;">';
+                tr += '<input type="checkbox" name="delfile" value="' + id + '" />';
+                tr += '</td>';
+                tr += '</tr>';
+                $("#filetable tbody").append(tr);
+    }
+    function checkallbox(box) {
+        $("input[name='delfile']").prop("checked", $(box).prop("checked"));
+    }
+    function confirm1() {
+        var title = [];
+        var value = [];
+        $("#filetable tbody tr").each(function () {
+            var filename = $("td:eq(0)", $(this)).text();
+            var filepathname = $("input[name='delfile']", $(this)).val();
+            title.push(filename);
+            value.push(filepathname);
+        });
+        var ele = win.getOpenerElement(eid);
+        var ele1 = win.getOpenerElement(eid + "_text");
+        if (ele1 != null && ele1.size() > 0) {
+            ele1.val('共' + value.length + '个文件');
+        }
+        if (ele != null && ele.size() > 0) {
+            ele.val(value.join('|'));
+        }
+        closewin();
+    }
+    function closewin() {
+        try {
+            $('#file_upload').uploadify('destroy');
+        } catch (e) {
+
+        }
+        win.close();
+    }
+    function delselect() {
+        if ($(":checkbox[name='delfile']:checked").size() == 0) {
+            alert("您没有选择要删除的文件!"); return;
+        }
+        $(":checkbox[name='delfile']:checked").each(function () {
+            var box = $(this);
+            var id = box.val();
+            $.getScript("/Goods/ImageDelete?id=" + id, function () {
+                if ("1" == json.success) {
+                    box.parent().parent().remove();
+                }
+                else {
+                    alert(json.message);
+                }
+            });
+        });
+
+    }
+
+    function showall(){
+
+        layer.photos({
+            html: '',
+            title: '快捷模式-获取页面元素包含的所有图片',
+            id: 112, //相册id，可选
+            page: { //直接获取页面指定区域的图片，他与上述异步不可共存，只能择用其一。
+                parent: '#filetable',  //图片的父元素选择器，如'#imsbox',
+                start: 0, //初始显示的图片序号，默认0
+                title: '' //相册标题
+            }            
+        });
+    }
+</script>

@@ -1,0 +1,115 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+
+.leftnavBox{
+	width: 219px;
+	/*min-height: 100%;*/
+	height: 99%;
+    overflow:auto;
+    overflow-x:hidden;
+	background: #fff;
+	/*float: left;*/
+	position: absolute;
+	top: 0;
+	left: 0;
+    border:1px solid #8DB2E3;
+    border-left:none;
+	z-index: 5;
+}
+.leftnavBox .menubox{
+	width: 100%;
+	height: auto;
+	float: left;
+}
+.leftnavBox .menubox li{
+	width: 100%;
+	height: auto;
+	float: left;
+}
+.leftnavBox .menubox li .tit{
+	width: 100%;
+	height: 30px;
+	float: left;
+	cursor: pointer;
+}
+
+.leftnavBox .menubox li .tit .text{
+	width: 180px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	margin-left: 15px;
+	padding-left:20px;
+	font-size: 16px;
+	color: #666;
+	background: url(/images/wenjian.png) no-repeat left center;
+}
+.leftnavBox .menubox li .tit .text a{
+	font-size: 16px;
+	color: #666;
+}
+.leftnavBox .menubox li.open,
+.leftnavBox .menubox li.now{
+	width: 219px;
+}
+.leftnavBox .menubox li.open .tit{
+	border-left: solid 0 #ff795c;
+	background:#fff;
+	color:#000;
+}
+.leftnavBox .menubox li.now .tit{	
+	border-left: solid 0 #ff795c;
+
+}
+
+.leftnavBox .menubox li.open .tit .text,
+.leftnavBox .menubox li.open .tit .text a,
+.leftnavBox .menubox li.now .tit .text,
+.leftnavBox .menubox li.now .tit .text a,
+.leftnavBox .menubox li .tit:hover .text,
+.leftnavBox .menubox li .tit:hover .text a{
+	color: #000;
+}
+.leftnavBox .menubox li.now .tit .text,
+.leftnavBox .menubox li.open .tit .text{
+	background: url(/images/wenjian2.png) no-repeat left center;
+}
+.leftnavBox .menubox li.now.open .tit .text{
+	background: url(/images/wenjian.png) no-repeat left center;
+}
+.leftnavBox .menubox li .submenu{
+	width: 189px;
+	height: auto;
+	float: left;
+	padding: 3px 0;
+	padding-left: 30px;
+	display: none;
+}
+.leftnavBox .menubox li.now .submenu{
+	display: block;
+}
+.leftnavBox .menubox li .submenu li{
+	width: 170px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	padding-left: 19px;
+	background: url(/images/wenjian3.png) no-repeat left center;
+    display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.leftnavBox .menubox li .submenu li.now{
+	background: url(/images/wenjian4.png) no-repeat left center;
+	border: none;
+	color:#F00;
+}
+.leftnavBox .menubox li .submenu li a:hover{
+	color:#000;
+	}
+.leftnavBox .menubox li .submenu li.now a{
+	color: #F00;	
+}
+.leftnavBox .menubox li .submenu li a{
+	font-size: 14px;
+	color: #666;
+}

@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout" >
+    <form id="uiformsrc">
+        <div region="center" border="false" split="true">
+            <div id="toolbar3">
+                <div>
+                    商品代码：<input class="txt04" style="width: 100px" id="txtFPRODUCTCODE" readonly>
+                    商品名称：<input class="txt04" style="width: 200px" id="txtFPRODUCTNAME" readonly>
+                    规格型号：<input class="txt04" style="width: 100px" id="txtFMODEL" readonly>
+                    未发数量：<input class="txt04" style="width: 100px" id="txtFLEFTAMOUNT" readonly>
+                    @* 待发数量：<input class="txt04" style="width: 100px" id="txtQty" value="0" readonly>*@
+                </div>
+                <div style="margin-top:5px;margin-bottom:5px;">
+                    仓库：
+                    <input type="text" name="txtFSTOCK" id="txtFSTOCK" class="easyui-textbox" style="width:120px" />
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="btnSearch">查询</a>
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-control_blank_blue" id="btnReset">重置</a>
+                </div>
+            </div>
+            <!-- datagrid 列表 -->
+            <table id="gridSRC" toolbar="#toolbar3"></table>
+        </div>
+        </form>
+</body>
+
+<script type="text/javascript">
+
+    //=====================================
+    //列表界面上的Grid控件对象
+    //=====================================
+    var grid = {
+        databind: function (size) {
+            
+            
+        },
+        reload: function () {
+            $('#gridSRC').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridSRC').datagrid('getSelected');
+        }
+    };
+
+    $("#btnSearch").click(function () {
+        return $('#gridSRC').datagrid('load', { FSTOCK: $('#txtFSTOCK').val() });
+    });
+
+    $("#btnReset").click(function () {
+        $('#txtFSTOCK').textbox('setValue', '');
+        return $('#gridSRC').datagrid('load', { });
+    });
+
+    grid.databind();
+</script>

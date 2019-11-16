@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+<form id="uiform" method="post">
+    <table class="grid">
+        <tr>
+            <td style="width:100px">
+                组织编码(*)：
+            </td>
+            <td>
+                <input id="FID" name="FID" type="text" hidden="hidden"/> 
+                <input type="text" id="FORGCODE" name="FORGCODE" data-bind="value:FORGCODE" class="txt03 easyui-textbox" data-options="required:true,validType:'length[1,100]',missingMessage:'请输入组织编码',invalidMessage:'最大长度100个字符'" />
+            </td>
+            <td style="width:110px">
+                组织名称(*)：
+            </td>
+            <td>
+                <input type="text" id="FORGNAME" name="FORGNAME" data-bind="value:FORGNAME" class="txt03 easyui-textbox" data-options="required:true,validType:'length[1,100]',missingMessage:'请输入组织名称',invalidMessage:'最大长度100个字符'" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                上级组织：
+            </td>
+            <td>
+                <input class="easyui-combotree" name="FPARENTALID" id="FPARENTALID" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择上级组织',invalidMessage:'最大长度255个字符'" />
+            </td>
+            <td>
+                负责人：
+            </td>
+            <td>
+                <input type="hidden" name="FHEADER" id="FHEADER" />
+                <input type="text" name="FHEADERNAME" id="FHEADERNAME" class="easyui-searchbox" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                状态：
+            </td>
+            <td>
+                <input name="FSTATUS" id="FSTATUS" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',required:true,missingMessage:'请选择状态',url:'/EasyUIComboBox/IsEnable'" />
+            </td>
+            <td>
+                组织类型：
+            </td>
+            <td>
+                <input data-bind="value:FStatus" name="FTYPE" id="FTYPE"  class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',required:true,missingMessage:'请选择组织类型',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.组织类型)&appendAll=true'" />
+                @*<input name="FTYPE" id="FTYPE" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',required:true,missingMessage:'请选择组织类型',url:'/EasyUIComboBox/TB_ORGANIZATION_FTYPE'" />*@
+            </td>
+        </tr>
+        <tr>
+            <td>
+                默认发货地点：
+            </td>
+            <td colspan="3">
+                <input type="text" class="easyui-textbox" name="FDEFAULTADDR" id="FDEFAULTADDR" style="width: 95%" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                仓库代码：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FSTOCKCODE" id="FSTOCKCODE" />
+            </td>
+            <td>
+                仓库名称：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FSTOCKNAME" id="FSTOCKNAME" />
+            </td>
+        </tr>
+
+    </table>
+</form>
+

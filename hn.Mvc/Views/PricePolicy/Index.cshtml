@@ -1,0 +1,895 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Css/menucss.css" rel="stylesheet" />
+<body class="easyui-layout">
+
+    <div region="north" border="false" split="false" style="height:70px" class="datagrid-toolbar">
+        <div style="height:35px">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+        <div>
+            &nbsp;&nbsp;价格政策：
+            <input class="easyui-textbox" style="width: 150px" id="txtKeyword" name="txtKeyword">
+            &nbsp;&nbsp;政策类型：
+            <input class="easyui-textbox" style="width: 150px" id="txtFPOLICYTYPE" name="txtFPOLICYTYPE">
+            &nbsp;&nbsp;
+            <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search2">查询</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+        </div>
+    </div>
+    <div data-options="region:'west',border:'true',split:'true'" title="价格政策组" style="width:180px;" >
+        <div id="userTab" title="价格政策组" fit="true">
+            <div title="价格政策组" style="padding: 2px; overflow: hidden;">
+                <div region="center" border="true" style="width:219px; float:left;overflow:hidden;">
+                    <ul id="brandTree"></ul>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div data-options="region:'center',border:'true',split:'true'" >
+        <div class="easyui-layout" style="width:100%;height:100%;">
+            <div data-options="region:'center',border:'true',split:'true'" style="width: 100%;" title="价格政策">
+                <table id="list" toolbar="#toolbar"></table>
+            </div>
+            <div data-options="region:'south',border:'true',split:'true'"  title="价格政策明细" style="height: 335px;width:100%;background:#FFFFFF;">
+                <table id="dgGoodsItem"></table>           
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript">
+    
+    var iscollapseAll = false;
+
+    $(function () {
+        var size = { width: $(window).width(), height: $(window).height() };
+
+        autoResize({ dataGrid: '#list', gridType: 'datagrid', callback: grid.databind, height: 75, width: 232 });
+
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.update);
+        $('#a_search2').click(crud.search);
+        $('#a_reset').click(onReset);
+        $('#a_delete').click(crud.delete);
+        $('#a_update').click(onUpdate);
+        $('#a_audit').click(crud.audit);
+        $('#a_audit_anti').click(crud.audit_anti);
+        $('#a_import').click(crud.importxls);
+
+        tree.init();
+        //accounttree.init();
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        $('#userTab').tabs({
+            onLoad: function () {
+                $('.validatebox-tip').remove();
+            }
+        });
+
+        $('#txtFPOLICYTYPE').combobox({
+            url: '/EasyUIComboBox/GetSubDicByCategoryCode?categoryCode=103',
+            valueField: 'id',
+            textField: 'text'
+        });
+
+        $('#a_reset').click(function () {
+            $("#txtKeyword").textbox('setValue','');
+            $("#txtFPOLICYTYPE").combobox('setValue','');
+            $('#list').datagrid('load', { });
+        });
+    });
+
+    var tree = {
+        init: function (size) {
+            $('#brandTree').tree({
+                url: '/TreeView/BrandList?appendAll=true',
+                onLoadSuccess: function (node, data) {
+
+                },
+                onClick: function (node) {
+                    //var cc = node.id;
+                    //filterObj = { "groupOp": "AND", "rules": [{ "field": "FClassID", "op": "=", "data": cc }] };
+                    $('#list').datagrid('load', {
+                        FBrandID: node.id,
+                        Flag: node.attributes,
+                    });
+                }
+            });
+        }
+    }
+
+    var grid = {
+        databind: function (size) {
+            $('#list').datagrid({
+                fit: true,
+                idField: 'FID',
+                url: '/ICPricePolicy/Data',
+                rownumbers: true,
+                singleSelect: true,
+                striped: true,
+                checkOnSelect: false,
+                selectOnCheck: false,
+                remoteSort: false,
+                sortName: 'FPRIORITY',
+                sortOrder: 'asc'  ,
+                columns: [[
+                    { field: 'FID', checkbox: true },
+                    { field: 'FPOLICYTYPE', hidden: true },
+                    { title: '品牌', field: 'FBRANDNAME', width: 100 },
+                    { title: '厂家账户', field: 'FCLIENTACCOUNT', width: 80 },
+                    { title: '价格政策编号', field: 'FBILLNO', width: 120 },
+                    { title: '价格政策名称', field: 'FNAME', width: 180 },
+                    { title: '价格政策类型', field: 'FPOLICYTYPENAME', width: 100 },
+                    { title: '起始日期', field: 'FBEGDATESTR', width: 90, sortable: true },
+                    { title: '截止日期', field: 'FENDDATESTR', width: 90, sortable: true },
+                    { title: '优先级', field: 'FPRIORITY', width: 90, sortable: true,align:'center' },
+                    {
+                        title: '审核状态', field: 'FCHECKSTATUS', width: 80, sortable: true,align:'center',
+                        formatter: function (value) {
+                            if (value == 0) {
+                                return "待审核";
+                            } else {
+                                return "已审核";
+                            }
+                        }
+                    }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onClickRow: function (rowIndex, rowData) {
+                    if (rowData) {
+                        $('#dgGoodsItem').datagrid('load', {
+                            policyID: rowData.FID
+
+                        });
+                    }
+                },
+                onDblClickRow: function () {
+                    crud.update();
+                }
+            });
+
+            $('#dgGoodsItem').datagrid({
+                fit:true,
+                url: '/ICPricePolicy/EntryData',
+                iconCls: 'icon icon-list',
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                singleSelect: true, //单选
+                selectOnCheck: true,
+                checkOnSelect: true,
+                frozenColumns: [[]],
+                columns: [[
+                    { field: 'FID', hidden: true },
+                    { title: '所属系列', field: 'FPRODUCTTYPE', width: 100, sortable: true },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 120, sortable: true },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 90, sortable: true },
+                    { title: '规格型号', field: 'FMODEL', width: 110, sortable: true },
+                    { title: '主单位', field: 'FUNITNAME', width: 80, sortable: true },
+                    { title: 'JDE地址号', field: 'FBATCHNO', width: 80, sortable: true },
+                    { title: '色号', field: 'FCOLORNO', width: 80, sortable: true },
+                    {
+                        title: '最大执行数量', field: 'FQTYLIMIT', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    {
+                        title: '已执行数量', field: 'FQTYCURRENT', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    {
+                        title: '剩余数量', field: 'FQTYREST', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    {
+                        title: '结算价格', field: 'FACCOUNTPRICE', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 6);
+                        }
+                    },
+                    {
+                        title: '申请数量', field: 'FREQUIREQTY', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    {
+                        title: '厂家额度数量', field: 'FFACTORYLIMIT', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    { title: '批条状态', field: 'FSTATUS', width: 90, sortable: true },
+                    {
+                        title: '扣年返点值', field: 'FYEARLYRETURN', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    {
+                        title: '扣广告返点值', field: 'FADRETURN', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    { title: '备注', field: 'FREMARK', width: 200, sortable: true }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+            });
+        },
+        reload: function () {
+            $('#list').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#list').datagrid('getSelected');
+        }
+    };
+
+    var crud = {
+        initData: function (depid) {
+            top.$('#userTab').tabs({
+                onSelect: function () {
+                    top.$('.validatebox-tip').remove();
+                }
+            });
+        },
+        //新增
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/PricePolicy/Add?v=' + Math.random(),
+                width: document.body.clientWidth,
+                height: document.body.clientHeight,
+                title: '新增价格政策',
+                iconCls: 'icon-application_form_add',
+                onLoad: function () {
+                    crud.initData();
+
+                    var node = $('#brandTree').tree('getSelected');
+                    if (node) {
+                        if (node.attributes==0)//选中的品牌
+                        {
+                            top.$('#FBRANDID').val(node.id);
+                            top.$('#FBRANDNAME').searchbox('setValue', node.text);
+                        }
+                        else {//选中的是厂家账户
+                            var parent = $('#brandTree').tree('getParent', node.target);
+                            top.$('#FBRANDID').val(parent.id);
+                            top.$('#FBRANDNAME').searchbox('setValue', parent.text);
+                            top.$('#FCLIENTID').val(node.id);
+                            top.$('#FCLIENTACCOUNT').searchbox('setValue', node.text);
+                        }
+                    }
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [
+                //{
+                //    text: 'Excel导入',
+                //    iconCls: 'icon-database_copy',
+                //},
+                //{
+                //    text: '新增',
+                //    iconCls: 'icon-add',
+                //    handler: function () {
+                //    }
+                //},
+                {
+                    text: '保存',
+                    iconCls: 'icon-disk',
+                    handler: function () {
+                        //var num = Number(top.$('#FPRIORITY').textbox('getValue'));
+                        //if (num <= 0) {
+                        //    top.layer.alert("优先级必须大于0!");
+                        //    return;
+                        //}
+
+                        var s1 = top.$("#FBEGDATE").datebox('getValue');
+                        var s2 = top.$("#FENDDATE").datebox('getValue');
+                        if (s1 != "" && s2 != "") {
+                            
+                            var d1 = new Date(s1.replace(/\-/g, "\/"));
+                            var d2 = new Date(s2.replace(/\-/g, "\/"));
+
+                            if (d1 != null && d2 != null && d1 > d2) {
+                                top.layer.alert("开始日期不能大于结束日期！");
+                                return;
+                            }
+                        }
+
+                        top.$('#dgPricepolicyDetail').datagrid('acceptChanges');
+                        
+                        $.ajax({
+                            url: '/ICPricePolicy/Save',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                ICPricePolicyJson: JSON.stringify(top.$('#uiform').serializeObject()),
+                                ICPricePolicyEntryListJson: JSON.stringify(top.$('#dgPricepolicyDetail').datagrid('getRows')).toString()
+                            },
+                            success: function (result) {
+                                if (result.Success) {
+                                    if (result.Data.Status == 0) {
+                                        addDialog.dialog('close');
+                                        reLoadList($("#brandTree").tree('getSelected'));
+                                        reLoadList2(row);
+                                    }
+                                    else {
+                                        parent.layer.alert(result.Data.Message);
+                                    }
+                                } else {
+                                    parent.layer.alert(result.Data.Message, { icon: 0 }, function () {
+
+                                    });
+                                }
+                            }
+                        });
+                    }
+                },
+                //{
+                //    text: '审核',
+                //    iconCls: 'icon-accept',
+                //},
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    }
+                }],
+            });
+        },
+        //编辑
+        update: function () {
+            var row = $('#list').datagrid('getSelected');
+            if (row) {
+                var addDialog = top.$.hDialog({
+                    href: '/PricePolicy/edit' + '?v=' + Math.random(),
+                    width: document.body.clientWidth,
+                    height: document.body.clientHeight,
+                    title: '修改价格政策',
+                    iconCls: 'icon-application_form_add',
+                    onLoad: function () {
+
+                        if (row.FCHECKSTATUS == 1) {
+                            //草稿状态下，审核按钮不可用
+                            top.$('#btnSave').hide();
+                            top.$('#btnDel').hide();
+                            top.$('#btnAdd').hide();
+                        }
+
+                        crud.initData();
+
+                        bindBrandDialog(top.$('#FBRANDNAME'), function (row) {
+                            top.$('#FBRANDID').val(row.FID);
+                            top.$('#FBRANDNAME').searchbox("setValue", row.FNAME);
+                            top.$('#FSRCNUMBER').searchbox("setValue", row.FFACTORY);
+
+                            top.$('#FCLIENTID').val("");
+                            top.$('#FCLIENTACCOUNT').searchbox("setValue", "");
+
+                            bindFactoryACCDialog(top.$('#FCLIENTACCOUNT'), row.FBRANDID, function (row) {
+                                top.$('#FCLIENTID').val(row.FID);
+                                top.$('#FCLIENTACCOUNT').searchbox("setValue", row.FACCOUNT);
+                            });
+                        });
+                        bindFactoryACCDialog(top.$('#FCLIENTACCOUNT'), row.FBRANDID, function (row) {
+                            top.$('#FCLIENTID').val(row.FID);
+                            top.$('#FCLIENTACCOUNT').searchbox("setValue", row.FACCOUNT);
+                        });
+
+                        top.$('#FID').val(row.FID);
+                        top.$('#FBILLNO').textbox('setValue', row.FBILLNO);
+                        top.$('#FNAME').textbox('setValue', row.FNAME);
+                        top.$('#FBRANDID').val(row.FBRANDID);
+                        top.$('#FBRANDNAME').searchbox('setValue', row.FBRANDNAME);
+                        top.$('#FCLIENTID').val(row.FCLIENTID);
+                        top.$('#FCLIENTACCOUNT').searchbox('setValue', row.FCLIENTACCOUNT);
+                        //top.$('#FPRIORITY').textbox('setValue', row.FPRIORITY);
+                        top.$('#FREMARK').textbox('setValue', row.FREMARK);
+                        top.$('#FPOLICYTYPE').textbox('setValue', row.FPOLICYTYPE);
+                        if (row.FBEGDATE!="") {
+                            top.$('#FBEGDATE').datebox('setValue', row.FBEGDATESTR);
+                        }
+                        if (row.FENDDATE != "") {
+                            top.$('#FENDDATE').datebox('setValue', row.FENDDATESTR);
+                        }
+
+                        var rows = $('#dgGoodsItem').datagrid('getRows');
+                        for (var i = 0; i < rows.length; i++) {
+
+                            top.$('#dgPricepolicyDetail').datagrid('appendRow', {
+                                FID: rows[i].FID,
+                                FENTRYID:rows[i].FENTRYID,
+                                FMODEL: rows[i].FMODEL,
+                                FITEMID: rows[i].FITEMID,
+                                FPOLICYID: rows[i].FPOLICYID,
+                                FPRODUCTNAME: rows[i].FPRODUCTNAME,
+                                FPRODUCTTYPE: rows[i].FPRODUCTTYPE,
+                                FPRODUCTCODE: rows[i].FPRODUCTCODE,
+                                FMODEL: rows[i].FMODEL,
+                                FUNITID: rows[i].FUNITID,
+                                FUNITNAME: rows[i].FUNITNAME,
+                                FBATCHNO: rows[i].FBATCHNO,
+                                FCOLORNO: rows[i].FCOLORNO,                                
+                                FQTYLIMIT: rows[i].FQTYLIMIT,
+                                FACCOUNTPRICE: rows[i].FACCOUNTPRICE,
+                                FREMARK: rows[i].FREMARK,
+                            });
+                        }
+
+                        top.ReloadSearchbox();
+
+                        if (row.FCHECKSTATUS == 0) {
+                            var rows = top.$('#dgPricepolicyDetail').datagrid('getRows');
+                            for (var i = 0; i < rows.length; i++) {
+                                top.$('#dgPricepolicyDetail').datagrid('beginEdit', i);
+                            }
+                        }
+                    
+                    },
+                    closed: false,
+                    showBtns: false,
+                    toolbar: [
+                    //{
+                    //    text: 'Excel导入',
+                    //    iconCls: 'icon-database_copy',
+                    //},
+                    {
+                        id: "btnSave",
+                        text: '保存',
+                        iconCls: 'icon-disk',
+                        handler: function () {
+                            //var num = Number(top.$('#FPRIORITY').textbox('getValue'));
+                            //if (num <= 0) {
+                            //    top.layer.alert("优先级必须大于0!");
+                            //    return;
+                            //}
+
+                            var s1 = top.$("#FBEGDATE").datebox('getValue');
+                            var s2 = top.$("#FENDDATE").datebox('getValue');
+                            if (s1 != "" && s2 != "") {
+
+                                var d1 = new Date(s1.replace(/\-/g, "\/"));
+                                var d2 = new Date(s2.replace(/\-/g, "\/"));
+
+                                if (d1 != null && d2 != null && d1 > d2) {
+                                    top.layer.alert("开始日期不能大于截止日期！");
+                                    return;
+                                }
+                            }
+
+                            top.$('#dgPricepolicyDetail').datagrid('acceptChanges');
+                            var items = '';
+                            var rowsNew = top.$('#dgPricepolicyDetail').datagrid('getRows');
+                            var rows = $('#dgGoodsItem').datagrid('getRows');
+                            for (var i = 0; i < rows.length; i++) {
+                                var flag = false;
+                                for (var j = 0; j < rowsNew.length; j++) {
+                                    if (rows[i].FID == rowsNew[j].FID) {
+                                        flag = true;
+                                    }
+                                }
+                                if (!flag) {
+                                    items = rows[i].FID + ',';
+                                }
+                            }
+                            $.ajax({
+                                url: '/ICPricePolicy/Save',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    ICPricePolicyJson: JSON.stringify(top.$('#uiform').serializeObject()),
+                                    ICPricePolicyEntryListJson: JSON.stringify(top.$('#dgPricepolicyDetail').datagrid('getRows')).toString(),
+                                    DeleteEntryList: items.toString()
+                                },
+                                success: function (result) {
+                                    if (result.Success) {
+                                        if (result.Data.Status == -1) {
+                                            parent.layer.alert(result.Data.Message, { icon: 0 });
+                                        } else if (result.Data.Status == -2) {
+                                            parent.layer.alert(result.Data.Message, { icon: 0 });
+                                        } else {//保存成功更新显示数据
+                                            parent.layer.alert(result.Data.Message, { icon: 1 }, function (index) {
+                                                parent.layer.close(index);
+                                                addDialog.dialog('close');
+                                                reLoadList($("#brandTree").tree('getSelected'));
+                                                reLoadList2(row);
+                                            });
+                                        }                                        
+                                    } else {
+                                        parent.layer.alert(result.Message, { icon: 0 });
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    //{
+                    //    text: '审核',
+                    //    iconCls: 'icon-accept',
+                    //},
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            addDialog.dialog('close');
+                        }
+                    }],
+
+                });
+            } else {
+                parent.layer.alert('请选择要修改的数据', { icon: 0 });
+            }
+        },
+        //删除
+        delete: function () {
+            var row = $('#list').datagrid('getSelected');
+            if (!row) {
+                parent.layer.alert('请选择要删除的价格政策', { icon: 0 });
+            } else {
+                parent.layer.confirm('确定要删除选中的价格政策吗？',{
+                    btn: ['确定','取消'] //按钮
+                }, function () {
+
+                    $.ajax({
+                        url: '/ICPricePolicy/Delete',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            ID: row.FID
+                        },
+                        success: function (data) {
+                            if (data.Success) {
+                                
+                                //reLoadList($("#brandTree").tree('getSelected'));
+                                parent.layer.alert(data.Message, { icon: 1 }, function (index) {
+                                    parent.layer.close(index);
+                                    reLoadList($("#brandTree").tree('getSelected'));
+                                    
+                                });
+                            } else {
+                                parent.layer.alert(data.Message, { icon: 0 });
+                            }
+                        }
+                    });
+                }, function () {
+
+                });
+                
+            }
+        },
+        //查询
+        search: function () {
+            var keywords = $("#txtKeyword").textbox('getValue');
+            var policytype = $("#txtFPOLICYTYPE").combobox('getValue');
+        
+            $('#list').datagrid('load', {
+                keywords: keywords,
+                policytype: policytype
+            });
+        },
+        //审核
+        audit: function () {
+            var rows = $('#list').datagrid('getChecked');
+            if (rows.length > 0) {
+
+                //if (row.FCHECKSTATUS == 1) {
+                //    parent.layer.alert("单据已经审核了！");
+                //    return;
+                //}
+
+                var ids = "";
+                for (var i = 0; i < rows.length; i++) {
+
+                    if (ids == "") {
+                        ids = rows[i].FID;
+                    }
+                    else {
+                        ids += "," + rows[i].FID;
+                    }
+                }
+
+                parent.layer.confirm('点击确认开始审核选择的数据！', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+
+                    jQuery.ajaxjson("/ICPricePolicy/Audit", { ids: ids }, function (d) {
+                        if (d.errCode == 0) {
+                            parent.layer.msg("处理完成");
+                            // hDialog.dialog('close');
+                            grid.reload();
+                        } else {
+                            parent.layer.msg("处理失败");
+                        }
+                    });
+                });
+            } else {
+                msgbox('请选择要审核的数据。');
+            }
+        },
+        //反审核
+        audit_anti: function () {
+            var rows = $('#list').datagrid('getChecked');
+            if (rows.length > 0) {
+
+                var ids = "";
+                for (var i = 0; i < rows.length; i++) {
+
+                    if (ids == "") {
+                        ids = rows[i].FID;
+                    }
+                    else {
+                        ids += "," + rows[i].FID;
+                    }
+                }
+
+                parent.layer.confirm('点击确认退回到待审核状态，可修改资料！', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+
+                    jQuery.ajaxjson("/ICPricePolicy/AuditAnti", { ids: ids }, function (d) {
+                        if (d.errCode == 0) {
+                            parent.layer.msg("处理完成");
+                            // hDialog.dialog('close');
+                            grid.reload();
+                        } else {
+                            parent.layer.msg("处理失败");
+                        }
+                    });
+                });
+            } else {
+                msgbox('请选择要反审核的数据。');
+            }
+        },
+        //导入
+        importxls: function () {
+            var hDialog1 = top.jQuery.hDialog({
+                title: '选择导入的文件',
+                width: 500,
+                height: 200,
+                href: "/PricePolicy/Import",
+                iconCls: 'icon-add',
+                showBtns: false,
+                toolbar: [{
+                    text: '开始导入',
+                    iconCls: 'icon-page_excel',
+                    handler: function () {
+                        jQuery.ajaxjson("/Order/Import", { "file": top.$('#excelfilename').val() }, function (d) {
+                            for (var r = 0; r < d.length; r++) {
+                                var model = d[r];
+                                top.$('#dgDetail').datagrid('appendRow', {
+                                    FGoodsID: model.FGoodsID,
+                                    FNumber: model.FNumber,
+                                    FName: model.FName,
+                                    FQuantity: model.FQuantity,
+                                    FUnit: model.FUnit,
+                                    FFactoryType: model.FFactoryType,
+                                    FPrice: model.FPrice,
+                                    FTax: 0,
+                                    FTaxPrice: model.FTaxPrice,
+                                    FAmount: model.FAmount,
+                                    FreightFee: model.FreightFee,
+                                    FInstallFee: model.FInstallFee,
+                                    FOtherFee: model.FOtherFee,
+                                    FTaxAmount: model.FTaxAmount
+                                }).datagrid('getRows').length - 1;
+                            }
+
+                            hDialog1.dialog("close");
+                        });
+                    }
+                }, {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        hDialog1.dialog("close");
+                    }
+                }],
+                onLoad: function () {
+
+                }
+            });
+        }
+    };
+
+    //重新加载列表
+    function reLoadList(node) {
+        var nodeid = null;
+        var nodeFlag = "0";
+        if (node != null) {
+            nodeid = node.id;
+            nodeFlag = node.attributes;
+        }
+        $('#list').datagrid('load', {
+            FBrandID: nodeid,
+            Flag: nodeFlag
+        });
+    }
+    //重新加载明细
+    function reLoadList2(rowData) {
+        if (rowData) {
+            $('#dgGoodsItem').datagrid('load', {
+                policyID: rowData.FID,
+            });
+        }
+    }
+
+    function onSearch() {
+        var name = $('#txtName').val();
+        var dateFrom = $('#txtDateFrom').datebox('getValue');
+        var dateTo = $('#txtDateTo').datebox('getValue');
+
+        var ruleArr = [];
+        if (name != "")
+            ruleArr.push({ "field": "EmployeeName", "op": "cn", "data": name });
+        if (dateFrom != '')
+            ruleArr.push({ "field": "FDate", "op": "ge", "data": dateFrom });
+        if (dateTo != '')
+            ruleArr.push({ "field": "FDate", "op": "le", "data": dateTo });
+
+
+        //var rows = $('#driver').tree('getChecked');
+        //if (rows.length > 0) {
+
+        //    var ids = "";
+
+        //    for (var i = 0; i < rows.length; i++) {
+
+        //        if (ids == "") {
+        //            ids = rows[i].id;
+        //        }
+        //        else {
+        //            ids += "," + rows[i].id;
+        //        }
+        //    }
+
+        //    if (ids != '0')
+        //        ruleArr.push({ "field": "RECEIVE_ID", "op": "in", "data": ids });
+        //}
+
+        if (ruleArr.length > 0) {
+            var filterObj = { groupOp: 'AND', rules: ruleArr };
+            $('#list').datagrid('load', { url: '/Message/SendList', filter: JSON.stringify(filterObj) });
+        } else {
+            $('#list').datagrid('load', { url: '/Message/SendList', filter: {} });
+        }
+    }
+
+    function onReset() {
+        $('#txtName').textbox("setValue", "");
+        $('#txtDateFrom').datebox('setValue', '');
+        $('#txtDateTo').datebox('setValue', '');
+
+        $('#list').datagrid('load', { url: '/Message/SendList', filter: {} });
+    }
+
+    function onSearchDriver() {
+        var drivername = $('#txtDriverName').val()
+        $('#driver').tree('search', drivername);
+    }
+
+    function onDelete() {
+        var rows = $('#list').datagrid('getChecked');
+        if (rows.length > 0) {
+
+            var ids = "";
+
+            for (var i = 0; i < rows.length; i++) {
+
+                if (ids == "") {
+                    ids = rows[i].FID;
+                }
+                else {
+                    ids += "," + rows[i].FID;
+                }
+            }
+
+            parent.layer.confirm('确定要删除选择消息吗?', {
+                btn: ['确定', '取消']
+            }, function () {
+                $.ajaxjson('/Message/Delete?id=' + ids, null, function (d) {
+                    if (d.errCode == 0) {
+                        parent.layer.msg('删除成功');
+                        onSearch();
+                    } else {
+                        parent.layer.alert(d.errMsg);
+                    }
+                });
+                //$.getJSON("/Message/Delete?id=" + ids, function (d) {
+                //    msg.ok(d);
+                //    onSearch();
+                //});
+            });
+
+        }
+        else {
+            parent.layer.alert("请先勾选您要删除的消息！");
+        }
+    }
+
+    function createParam(id) {
+        var o = {};
+        var form = top.$('#uiform');
+        if (form) {
+            var title = top.$('#uiform').find('#txtFMsgTitle').textbox("getValue");
+            o.data1 = title;
+            var status = top.$('#uiform').find('#txtFStatus').switchbutton("options").checked;
+            o.data2 = status;
+            var content = top.ueContent();
+            alert(content);
+            o.data3 = content;
+        }
+        o.FID = id;
+        return "json=" + JSON.stringify(o);
+    }
+
+    function onUpdate() {
+        var row = grid.selectRow();
+        if (row) {
+            var editDialog = top.$.hDialog({
+                href: '/PricePolicy/Edit?id=' + row.FID,
+                width: 1100,
+                height: 610,
+                title: '修改消息',
+                iconCls: 'icon-application_form_edit',
+                onLoad: function () {
+                    top.$('#uiform').form({
+                        onSubmit: function () {
+                            return top.$('#uiform').form('validate');
+                        },
+                        success: function (data) {
+                            var d = $.parseJSON(data); // change the JSON string to javascript object
+                            //alert(d.errCode);
+                            if (d.errCode == 0) {
+                                parent.layer.msg('修改成功');
+                                grid.reload();
+                                editDialog.dialog('close');
+                            } else {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        }
+                    });
+                },
+                submit: function () {
+                    top.$('#uiform').submit();
+
+                    //if (top.$('#uiform').form('validate')) {
+                    //    var query = createParam(row.FID);
+                    //    $.ajaxjson('/Message/Edit', query, function (d) {
+                    //        if (d.errCode == 0) {
+                    //            parent.layer.msg('修改成功');
+                    //            grid.reload();
+                    //            editDialog.dialog('close');
+                    //        } else {
+                    //            parent.layer.alert(d.errMsg);
+                    //        }
+                    //    });
+                    //}
+                }
+            });
+        } else {
+            parent.layer.msg('请选择要修改的消息。');
+        }
+    }
+
+</script>

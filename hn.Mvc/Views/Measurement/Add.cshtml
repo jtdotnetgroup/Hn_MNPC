@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+<script type="text/javascript" src="/Scripts/Business/Biz.Dialog.js"></script>
+<script src="~/Scripts/Uploadify/jquery.uploadify.js?v=@DateTime.Now.Ticks" type="text/javascript"></script>
+<link href="~/Scripts/Uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<form id="uiform" method="post">
+    <table class="grid">
+        <tr>
+            <td align="right">
+                编号：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FNUMBER" id="FNUMBER" data-options="required:true,missingMessage:'请输入编号'" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                名称：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FNAME" id="FNAME" data-options="required:true,missingMessage:'请输入名称'" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                单位组：
+            </td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FGROUPID" name="FGROUPID" hidden="hidden" />
+                    <input id="FGROUPNAME" name="FGROUPNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择单位组',invalidMessage:'最大长度255个字符'" />
+                    &nbsp;&nbsp;<font color="red">*</font>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                是否默认：
+            </td>
+            <td>
+                <select id="FDEFAULT" class="easyui-combobox" data-options="editable:false" name="FDEFAULT" style="width:172px;">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+                &nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                换算率：
+            </td>
+            <td>
+                <input type="text" class="easyui-numberbox" name="FRATE" id="FRATE" value="0" />&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                备注：
+            </td>
+            <td>
+                <textarea style="width: 180px; height: 50px;" data-options="multiline:true" class="easyui-textbox" name="FREMARK" id="FREMARK" />
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    bindMeasurementGroupDialog($('#lblUnitGroup'), function (row) {
+        $('#lblUnitGroup').searchbox("setValue", row.FName);
+        $('#lblUnitGroup').val(row.FID);
+    });
+</script>
+
+

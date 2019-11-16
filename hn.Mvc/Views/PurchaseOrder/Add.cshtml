@@ -1,0 +1,311 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<form id="uiform">
+    <input id="FTRANSTYPE" name="FTRANSTYPE" type="hidden" value="0" />
+    <input id="FID" name="FID" type="hidden" value="" />
+    <table class="grid">
+        <tr>
+            <td class="t_r5">品牌/厂家：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                    <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </div>
+            </td>
+            <td class="t_r5">厂家账户：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FCLIENTID" name="FCLIENTID" type="hidden" />
+                    <input id="FCLIENTACCOUNT" name="FCLIENTACCOUNT" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择厂家账号',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </div>
+            </td>
+            <td class="t_r5">单据日期：</td>
+            <td>
+                <input id="FDATE" name="FDATE" type="text" value="自动" class="easyui-datebox" data-options="editable:false" style="width:150px" />
+            </td>
+            <td class="t_r5">单据编号：</td>
+            <td>
+                <input id="FBILLNO" name="FBILLNO" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="t_r5">制单人：</td>
+            <td>
+                <input id="FBILLERID" name="FBILLERID" type="text" value="@(hn.Core.SysVisitor.Instance.UserName)" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">联系电话：</td>
+            <td colspan="3">
+                <input id="FTELEPHONE" name="FTELEPHONE" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">审核状态：</td>
+            <td>
+                <input id="FSTATUSNAME" name="FSTATUSNAME" type="text" value="草稿" class="easyui-textbox" style="width:150px" data-options="editable:false" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">备注：</td>
+            <td colspan="7">
+                <input id="FREMARK" name="FREMARK" type="text" value="" class="easyui-textbox" style="width:100%" />
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <div id="userTab" style="height: 394px; overflow: hidden;" fit="true">       
+        <div title="订单明细" style="padding: 2px">
+            <table id="dgConEntry"></table>
+        </div>
+        <div title="审核日志" style="padding: 2px">
+            <table id="dgAuditing"></table>
+        </div>
+        @*<div title="参考数据" style="padding: 2px">
+            <table id="dgConCollection"></table>
+        </div>
+        <div title="价格政策" style="padding: 2px">
+            <table id="pricingpolicy"></table>
+        </div>*@
+    </div>
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    bindBrandDialog($('#FBRANDNAME'), function (row) {
+        $('#FBRANDID').val(row.FID);
+        $('#FBRANDNAME').searchbox("setValue", row.FNAME);
+        $('#FSRCNUMBER').searchbox("setValue", row.FFACTORY);
+
+        $('#FCLIENTID').val("");
+        $('#FCLIENTACCOUNT').searchbox("setValue", "");
+
+        bindFactoryACCDialog($('#FCLIENTACCOUNT'), $('#FBRANDID').val(), function (row) {
+            $('#FCLIENTID').val(row.FID);
+            $('#FCLIENTACCOUNT').searchbox("setValue", row.FACCOUNT);
+        });
+    });
+
+    bindFactoryACCDialog($('#FCLIENTACCOUNT'), $('#FBRANDID').val(), function (row) {
+        $('#FCLIENTID').val(row.FID);
+        $('#FCLIENTACCOUNT').searchbox("setValue", row.FACCOUNT);
+    });
+
+
+    $("#userTab").css("height", document.documentElement.clientHeight - 400);
+
+    $(document).ready(function () {
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+    });
+
+    //订单明细
+    $('#dgConEntry').datagrid({       
+        iconCls: 'icon icon-list',
+        fit: true,
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'FID', //主键
+        singleSelect: true, //单选
+        frozenColumns: [[]],
+        columns: [[
+                    { title: '所属系列', field: 'FPRODUCTTYPE', width: 120 },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 120 },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 250 },
+                    { title: '规格型号', field: 'FMODEL', width: 120 },
+                    { title: '主单位', field: 'FUNITNAME', width: 80 },
+                    { title: 'JDE地址号', field: 'FBATCHNO', width: 100, editor: { type: 'textbox', options: { required: true } } },
+                    { title: '色号', field: 'FCOLORNO', width: 100, editor: { type: 'textbox', options: { required: true } } },
+                    {
+                        title: '单价', field: 'FPRICE', width: 100, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    { title: '审核状态', field: 'FSTATUSNAME', width: 70, sortable: true },
+                    { title: '启用状态', field: 'FSTATENAME', width: 70, sortable: true },
+                    { title: '参考数量', field: 'FADVQTY', width: 100 },
+                    { title: '请购数量', field: 'FASKQTY', width: 100 },
+                    { title: '订单数量', field: 'FSRCQTY', width: 100 },
+                    {
+                        title: '订单金额', field: 'FSRCCOST', width: 100, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                   
+                    { title: '到货日期', field: 'FNEEDDATE', width: 100, editor: { type: 'datebox', options: { required: true, editable: false } } },
+                    { title: '厂家确认数量', field: 'FCOMMITQTY', width: 100 },
+                    { title: '备注', field: 'FREMARK', width: 200, editor: { type: 'textbox', options: {} } }
+        ]],
+        queryParams:{
+            ICPRBILLID:  '0'
+        },
+        onLoadSuccess:function(){
+        },
+        onClickCell: function (index, field, value) {
+            $(this).datagrid('beginEdit', index);
+            var editor = $(this).datagrid('getEditor', { index: index, field: field });
+        },
+        toolbar: [
+            {
+                text: '数据引入',
+                iconCls: 'icon-add',
+                handler: function () {
+
+                    if ($('#FBRANDNAME').searchbox('getValue') == '') {
+                        parent.layer.alert('请选择品牌/厂家', { icon: 0 });
+                        return;
+                    }
+
+                    var brandid = $('#FBRANDID').val();
+                    var selectorDialog = top.$.hDialog({
+                        href: '/PleasePurchasePlan/Selector?brandid=' + brandid,
+                        width: document.documentElement.clientWidth / 1.25,
+                        height: document.documentElement.clientHeight / 1.25,
+                        title: '选择请购计划',
+                        iconCls: 'icon-user_add',
+                        onLoad: function () {
+                        },
+                        showBtns: false,
+                        toolbar: [{
+                            text: '确定',
+                            iconCls: 'icon-add',
+                            handler: function () {
+                                var rows = top.$('#conentry').datagrid('getSelections');
+                                var index = 1;
+                                for (var i = 0; i < rows.length; i++) {
+                                    $('#dgConEntry').datagrid('appendRow', {
+                                        FENTRYID:index,
+                                        FMODEL: rows[i].FMODEL,
+                                        FPLANID: rows[i].FID,
+                                        FPRODUCTNAME: rows[i].FPRODUCTNAME,
+                                        FPRODUCTTYPE: rows[i].FPRODUCTTYPE,
+                                        FPRODUCTCODE: rows[i].FPRODUCTCODE,
+                                        FUNITNAME: rows[i].FUNITNAME,
+                                        FSTATUS: 1,
+                                        FSTATUSNAME: '草稿',
+                                        FSTATE: 1,
+                                        FSTATENAME: '正常',
+                                        FBATCHNO: rows[i].FBATCHNO,
+                                        FCOLORNO: rows[i].FCOLORNO,
+                                        FREMARK: rows[i].FREMARK,
+                                        FPRICE: rows[i].FWHOLESALEPRICE,
+                                        FADVQTY: rows[i].FADVQTY,
+                                        FASKQTY: rows[i].FASKQTY,
+                                        FSRCQTY: rows[i].FASKQTY,
+                                        FSRCCOST: rows[i].FASKAMOUNT,
+                                        FNEEDDATE: rows[i].FNEEDDATE,
+                                    });
+
+                                    index++;
+                                }
+
+                                $('#dgConEntry').datagrid('acceptChanges');
+                                selectorDialog.dialog('close');
+
+                                var rows = $('#dgConEntry').datagrid('getRows');
+                                for (var i = 0; i < rows.length; i++) {
+                                    $('#dgConEntry').datagrid('beginEdit', i);
+                                }
+                            }
+                        },
+                        {
+                            text: '关闭',
+                            iconCls: 'icon-cancel',
+                            handler: function () {
+                                selectorDialog.dialog('close');
+                            }
+                        }]
+                    });
+                }
+            }, {
+                text: '行关闭',
+                iconCls: 'icon-lock_stop',
+            },{
+                    text: '提交厂家',
+                    iconCls: 'icon-brick_go',
+                }
+
+            //{
+            //    text: '新增',
+            //    iconCls: 'icon-add',
+            //    handler: function () {
+            //        var hDialog = top.jQuery.hDialog({
+            //            title: '新增订单明细',
+            //            width: 1000,
+            //            height: 600,
+            //            href: '/PurchaseOrder/AddOrderDetails',
+            //            iconCls: 'icon-add',
+            //            showBtns: false,
+            //            toolbar: [{
+            //                text: '新增',
+            //                iconCls: 'icon-add',
+            //            }, {
+            //                text: '提交',
+            //                iconCls: 'icon-ok',
+            //            },
+            //            {
+            //                text: '关闭',
+            //                iconCls: 'icon-cancel',
+            //                handler: function () {
+            //                    hDialog.dialog("close");
+            //                }
+            //            }]
+            //        });
+
+
+            //    }
+            //},
+            //{
+            //    text: '审核订单明细',
+            //    iconCls: 'icon-accept',
+            //    handler: function () {
+            //        var hDialog = top.jQuery.hDialog({
+            //            title: '审核订单明细',
+            //            width: 1000,
+            //            height: 600,
+            //            href: '/PleasePurchasePlan/AuditDetailed',
+            //            iconCls: 'icon-accept',
+            //            showBtns: false,
+            //            toolbar: [{
+            //                text: '通过',
+            //                iconCls: 'icon-accept',
+            //            }, {
+            //                text: '不通过',
+            //                iconCls: 'icon-delete3',
+            //            },
+            //            {
+            //                text: '关闭',
+            //                iconCls: 'icon-cancel',
+            //                handler: function () {
+            //                    hDialog.dialog("close");
+            //                }
+            //            }]
+            //        });
+            //    }
+            //},
+        ],
+    });
+    
+    $('#userTab').tabs({
+        onSelect: function () {
+            top.$('.validatebox-tip').remove();
+        }
+    });
+</script>

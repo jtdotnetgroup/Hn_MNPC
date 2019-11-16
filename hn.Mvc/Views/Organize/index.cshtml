@@ -1,0 +1,398 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+
+<!-- 工具栏按钮 -->
+@*<div class="datagrid-toolbar" id="toolbar" style="height: 28px; padding-top: 1px; padding-right: 2px; padding-bottom: 0px; padding-left: 2px;">
+    @Html.Raw(ViewBag.ToolBar)
+</div>*@
+<body class="easyui-layout">
+    @*<div region="west" iconcls="icon-chart_organisation" split="true" title="组织架构" style="width: 220px;
+        padding: 5px" collapsible="false">
+        <ul id="deptree"></ul>
+    </div>*@
+    <div region="center" iconcls="icon-users" style="overflow: hidden">
+        <!-- datagrid 列表 -->
+        @Html.Raw(ViewBag.ToolBar)
+        <table id="depGrid"></table>
+    </div>
+
+</body>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        autoResize({ dataGrid: '#depGrid', gridType: 'treegrid', callback: mygrid.bindGrid, height: 5 });
+        deptree.init();
+
+        $('#a_add').click(crud.add);
+        $('#a_setbtn').click(crud.setButtons);
+        $('#a_edit').click(crud.edit);
+        $('#a_delete').click(crud.del);        
+    });
+
+
+
+    var mygrid = {
+        bindGrid: function (size) {
+            $('#depGrid').treegrid({
+                toolbar: '#toolbar',
+                //iconCls: 'icon icon-list',
+                width: size.width,
+                height: size.height,
+                nowrap: false,
+                rownumbers: true,
+                animate: true,
+                collapsible: false,
+                url: '/EasyUiTreeGrid/TB_ORGANIZATION',
+                idField: 'FID',
+                treeField: 'FORGNAME',
+               // parentField: 'FPARENTALID',
+                columns: [[
+                    { title: '组织名称', field: 'FORGNAME', width: 280 },
+                    { title: '组织编码', field: 'FORGCODE', width: 120 },
+                    { title: '组织类型', field: 'FTYPENAME', width: 120 },
+                    {
+                        title: '状态', field: 'FSTATUS', width: 80,align:'center', formatter(value, row) {
+                            return row.FSTATUSNAME;
+                        }
+                    },
+                    { title: '负责人', field: 'FHEADERNAME', width: 120 },
+                
+                    { title: '属性1', field: 'FATTRIBUTE1', width: 80 },
+                    { title: '属性2', field: 'FATTRIBUTE2', width: 80 },
+                    { title: '属性3', field: 'FATTRIBUTE3', width: 80 },
+                    { title: '属性4', field: 'FATTRIBUTE4', width: 80 },
+                    { title: '属性5', field: 'FATTRIBUTE5', width: 80 },
+                    { title: '属性6', field: 'FATTRIBUTE6', width: 80 },
+                    { title: '属性7', field: 'FATTRIBUTE7', width: 80 },
+                    { title: '属性8', field: 'FATTRIBUTE8', width: 80 },
+                    { title: '属性9', field: 'FATTRIBUTE9', width: 80 },
+                    { title: '属性10', field: 'FATTRIBUTE10', width: 80 },
+                ]],
+                onBeforeExpand: function (row) {
+ 
+                    $('#depGrid').treegrid('options').url = '/EasyUiTreeGrid/TB_ORGANIZATION?parentId=' + row.FID;
+
+                    return true;
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                }
+            });
+        },
+        reload: function () {
+            $('#depGrid').treegrid('clearSelections').treegrid('reload');
+        },
+    }
+
+
+    var deptree = {
+        init: function () {
+            $('#deptree').tree({
+                lines: true,
+                url: '/Organize/Tree',
+                animate: true,
+                onLoadSuccess: function (node, data) {
+                    $('body').data('categoryData', data);
+                }, onClick: function (node) {
+                    //var element = $('#deptree').tree('getSelected');
+
+                    var depId = node.id;
+                    var children = $('#deptree').tree('getChildren', node.target);
+                    // alert(children.length);
+                    var arr = [];
+                    arr.push(depId);
+                    for (var i = 0; i < children.length; i++) {
+                        arr.push(children[i].id);
+                    }
+
+                    var strIds = arr.join("','");
+                    // filterObj = { "groupOp": "AND", "rules": [{ "field": "FCategoryID", "op": "in", "data": strIds }] };
+                    // $('#userGrid').datagrid('load', { filter: JSON.stringify(filterObj) });
+
+                    //$('#userGrid').datagrid('load', { categoryID: element.id });
+                    $('#userGrid').datagrid('load', { categoryID: strIds });
+                    //$("#txt_Category").textbox('setValue', node.text);
+                    //$("#txt_CategoryNumber").textbox('setValue', d.CATEGORY_NUMBER);
+                }
+            });
+        },
+        data: function () {
+            var d = JSON.stringify($('body').data('categoryData'));
+            d = '[{"id":0,"text":"请选择分类"},' + d.substr(1);
+            return JSON.parse(d);
+        }
+
+    };
+
+    var _add = false;
+    var crud = {
+        createParam: function (action, FID) {
+            var o = {};
+            var query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+
+            o.jsonEntity = JSON.stringify(query);
+            o.action = action;
+            o.FID = FID;
+            return "json=" + JSON.stringify(o);
+        },
+        initData: function (depId) {
+            var treedata = $('#depGrid').treegrid("getData");
+            var str = JSON.stringify(treedata);
+            str = str.replace(/FORGNAME/g, "text").replace(/FID/g, "id");
+            str = '[{"text":"请选择上级组织",id: "","selected":true},' + str.substr(1);
+            if (treedata) {
+                top.$('#txtPARENT_ID').combotree({
+                    data: eval(str),
+                    panelWidth: 200,
+                    onSelect: function (item) {
+                        if (item.id == depId) {
+                            var pId = top.$('#txtPARENT_ID').combotree('getValue');
+                            top.$('#txtPARENT_ID').combotree('setValue', pId);
+                            alert("上级组织不能与当前组织相同。");
+                            return false;
+                        }
+                    }
+                });
+            }
+        },
+        add: function () {
+      
+            var addDialog = top.$.hDialog({
+                href: '/Organize/Add',
+                width: 700,
+                height: 400,
+                title: "组织架构-新增/维护",
+                iconCls: 'icon-add',
+                onLoad: function () {
+            
+                    //绑定上级组织下拉树
+                    bindOrganizeComboTree(top.$('#FPARENTALID'), '',true,'', function (row) {
+
+                    });
+
+                    //绑定启用禁用下拉框
+                    bindIsEnableComboBox(top.$('#FSTATUS'),'1', function (row) {
+
+                    });
+
+                    //绑定组织类型下拉框
+                    bindTB_ORGANIZATION_FTYPEComboBox(top.$('#FTYPE'), function (row) {
+
+                    });
+
+                    //绑定负责人选择窗口
+                    bindSYS_UserDialog(top.$('#FHEADERNAME'), function (row) {
+                        top.$('#FHEADERNAME').searchbox("setValue", row.TrueName);
+                        top.$('#FHEADER').val(row.FID);
+                    });
+
+                    //绑定提交事件
+                    top.$('#uiform').form({
+                        url: '/Organize/Add',
+                        onSubmit: function () {
+                            //return $(this).form('enableValidation').form('validate');
+                        },
+                        success: function (data) {
+                            var result = $.parseJSON(data);
+                            if (result.Success) {
+                                if (_add) {
+                                    parent.layer.msg(result.Message);
+                                    mygrid.reload();
+
+                                    //绑定组织类型下拉框
+                                    bindTB_ORGANIZATION_FTYPEComboBox(top.$('#FTYPE'), function (row) {
+
+                                    });
+
+                                    top.$('#FORGCODE').textbox("setValue", "");
+                                    top.$('#FORGNAME').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE1').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE2').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE3').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE4').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE5').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE6').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE7').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE8').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE9').textbox("setValue", "");
+                                    top.$('#FATTRIBUTE10').textbox("setValue", "");
+                                }
+                                else { 
+                                    parent.layer.msg(result.Message);
+                                    mygrid.reload();
+                                    addDialog.dialog('close');                                   
+                                }
+                            } else {
+                                parent.layer.alert(result.Message, { icon: 2 }, function (index) {
+                                    parent.layer.close(index);
+                                });
+                            }
+                        }
+                    });
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [
+                    {
+                        text: '新增',
+                        iconCls: 'icon-database_add',
+                        handler: function () {
+                            _add = true;
+                            top.$('#uiform').submit();
+                        }
+                    },
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        _add = false;
+                        top.$('#uiform').submit();
+                    }
+                },
+                 {
+                     text: '关闭',
+                     iconCls: 'icon-cancel',
+                     handler: function () {
+                         addDialog.dialog('close');
+                     }
+                 }]
+            });
+
+
+        },
+        edit: function () {
+            var row = $('#depGrid').treegrid('getSelected');
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    href: '/Organize/Add',
+                    width: 700,
+                    height: 400,
+                    title: "组织架构-维护",
+                    iconCls: 'icon-edit',
+                    onLoad: function () {
+                        //var viewModel = top.ko.mapping.fromJS(row);
+                        //top.ko.applyBindings(viewModel);
+
+                        //crud.initData(row.FID);
+
+                        //绑定上级组织下拉树
+                        bindOrganizeComboTree(top.$('#FPARENTALID'), row.FPARENTALID, true, row.FID, function (row) {
+
+                        });
+
+                        //绑定启用禁用下拉框
+                        bindIsEnableComboBox(top.$('#FSTATUS'), row.FSTATUS, function (row) {
+
+                        });
+
+
+                        //绑定组织类型下拉框
+                        bindTB_ORGANIZATION_FTYPEComboBox(top.$('#FTYPE'), row.FTYPE, function (row) {
+
+                        });
+
+                        top.$('#FID').val(row.FID);
+                        top.$("#FORGCODE").textbox("setValue", row.FORGCODE);
+                        top.$("#FORGNAME").textbox("setValue", row.FORGNAME);
+                        //top.$("#FDEFAULTADDR").textbox("setValue", row.FDEFAULTADDR);
+                        //top.$("#FSTOCKCODE").textbox("setValue", row.FSTOCKCODE);
+                        //top.$("#FSTOCKNAME").textbox("setValue", row.FSTOCKNAME);
+
+                        //绑定负责人选择窗口
+                        bindSYS_UserDialog(top.$('#FHEADERNAME'), function (row) {
+                            top.$('#FHEADERNAME').searchbox("setValue", row.TrueName);
+                            top.$('#FHEADER').val(row.FID);
+                        });
+                        top.$('#FHEADERNAME').searchbox("setValue", row.FHEADERNAME);
+                        top.$('#FHEADER').val(row.FHEADER);
+                        
+                        top.$('#FTYPE').combobox('setValue', row.FTYPE);
+                        top.$('#FSTATUS').combobox('setValue', row.FSTATUS);
+                        
+                        top.$("#FATTRIBUTE1").textbox("setValue", row.FATTRIBUTE1);
+                        top.$("#FATTRIBUTE2").textbox("setValue", row.FATTRIBUTE2);
+                        top.$("#FATTRIBUTE3").textbox("setValue", row.FATTRIBUTE3);
+                        top.$("#FATTRIBUTE4").textbox("setValue", row.FATTRIBUTE4);
+                        top.$("#FATTRIBUTE5").textbox("setValue", row.FATTRIBUTE5);
+                        top.$("#FATTRIBUTE6").textbox("setValue", row.FATTRIBUTE6);
+                        top.$("#FATTRIBUTE7").textbox("setValue", row.FATTRIBUTE7);
+                        top.$("#FATTRIBUTE8").textbox("setValue", row.FATTRIBUTE8);
+                        top.$("#FATTRIBUTE9").textbox("setValue", row.FATTRIBUTE9);
+                        top.$("#FATTRIBUTE10").textbox("setValue", row.FATTRIBUTE10);                     
+                     
+
+                        //绑定提交事件
+                        top.$('#uiform').form({
+                            url: '/Organize/Edit',
+                            onSubmit: function () {
+                                //return $(this).form('enableValidation').form('validate');
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.Success) {
+                                    parent.layer.msg(result.Message);
+                                    mygrid.reload();
+                                    editDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(result.Message, { icon: 2 }, function (index) {
+                                        parent.layer.close(index);
+                                    });
+                                }
+                            }
+                        });
+                    },
+                    closed: false,
+                    submit: function () {
+                        top.$('#uiform').submit();
+                    }
+                });
+
+
+
+            } else {
+                parent.layer.alert('请选择要修改的组织.');
+                return false;
+            }
+            return false;
+        },
+        del: function () {
+            var row = $('#depGrid').treegrid('getSelected');
+            if (row) {
+                parent.layer.confirm('确定删除？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.ajax({
+                        type: "post",
+                        url: '/Organize/Delete',
+                        data: {
+                            "FID": row.FID
+                        },
+                        dataType: "json",
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            parent.layer.alert('尝试发送失败，错误信息：' + errorThrown);
+                        },
+                        success: function (data, textStatus) {
+                            if (data.Success) {                              
+                                parent.layer.msg("删除成功");
+                                mygrid.reload();
+                                
+                            } else {
+                                parent.layer.alert('错误提示：' + data.Message);
+                            }
+                        }
+                    });
+                });
+            }
+            else {
+                parent.layer.alert('请选择要删除的组织.');
+            }
+            return false;
+        }
+    }
+
+</script>

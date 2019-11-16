@@ -1,0 +1,225 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div id="layout">
+    <div region="center" iconcls="icon-users" style="padding: 2px; overflow: hidden">
+        <div id="toolbar">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+        <table id="userGrid" toolbar="#toolbar"></table>
+    </div>
+</div>
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var size = { width: $(window).width(), height: $(window).height() };
+        mylayout.init(size);
+
+        autoResize({ dataGrid: '#userGrid', gridType: 'datagrid', callback: mygrid.databind });
+
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.update);
+        $('#a_delete').click(crud.del);
+
+        $('#a_search').click(function () {
+            search.go('userGrid');
+        });
+        $(window).resize(function () {
+            size = { width: $(window).width(), height: $(window).height() };
+            mylayout.resize(size);
+        });
+
+    });
+
+    var mylayout = {
+        init: function (size) {
+            $('#layout').width(size.width - 4).height(size.height - 4).layout();
+            var center = $('#layout').layout('panel', 'center');
+            center.panel({
+                onResize: function (w, h) {
+                    $('#userGrid').datagrid('resize', { width: w - 6, height: h - 36 });
+                }
+            });
+        },
+        resize: function (size) {
+            mylayout.init(size);
+            $('#layout').layout('resize');
+        }
+    };
+
+    function createParam(action, FID, isDel) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+
+        if (form && !isDel) {
+
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+        }
+        o.action = action;
+        o.FID = FID;
+        return "json=" + JSON.stringify(o);
+    }
+
+
+    var mygrid = {
+        databind: function (size) {
+            $('#userGrid').datagrid({
+                url: '/LogisticsCarrier/List',
+                width: size.width,
+                height: size.height,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { title: '承运商编码', field: 'FCODE', width: 90, sortable: true },
+                    { title: '承运商名称', field: 'FNAME', width: 200, sortable: true },
+                    { title: '联系人', field: 'FCONTACT', width: 100, sortable: true },
+                    { title: '联系电话', field: 'FPHONE', width: 110, sortable: true },
+                    { title: '电子邮箱', field: 'FEMAIL', width: 160, sortable: true },
+                    { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.update();
+                },
+            });
+        },
+        reload: function () {
+            $('#userGrid').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#userGrid').datagrid('getSelected');
+        }
+    };
+
+    var crud = {
+        initData: function () {
+
+        },
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/LogisticsCarrier/Edit' + '?v=' + Math.random(),
+                width: 700,
+                height: 275,
+                title: '添加物流承运商',
+                iconCls: 'icon-user_add',
+                onLoad: function () {
+
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [
+                    {
+                        text: '新增',
+                        iconCls: 'icon-database_add',
+                        handler: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = createParam('add', 0);
+
+                                $.ajaxjson('/LogisticsCarrier/Add', query, function (d) {
+                                    if (d.errCode == 0) {
+                                        parent.layer.msg("保存成功！");
+                                        mygrid.reload();
+                                        top.$('#FCODE').textbox('setValue', '');
+                                        top.$('#FNAME').textbox('setValue', '');
+                                        top.$('#FCONTACT').textbox('setValue', '');
+                                        top.$('#FPHONE').textbox('setValue', '');
+                                        top.$('#FEMAIL').textbox('setValue', '');
+                                        top.$('#FREMARK').textbox('setValue', '');
+                                    } else {
+                                        parent.layer.alert(d.errMsg);
+                                    }
+                                });
+                            }
+                        }
+                    },
+               {
+                   text: '保存',
+                   iconCls: 'icon-database_save',
+                   handler: function () {
+                       if (top.$('#uiform').form('validate')) {
+                           var query = createParam('add', 0);
+
+                           $.ajaxjson('/LogisticsCarrier/Add', query, function (d) {
+                               if (d.errCode == 0) {
+                                   parent.layer.msg("保存成功！");
+                                   mygrid.reload();
+                                   addDialog.dialog('close');
+                               } else {
+                                   parent.layer.alert(d.errMsg);
+                               }
+                           });
+                       }
+                   }
+               },
+                 {
+                     text: '关闭',
+                     iconCls: 'icon-cancel',
+                     handler: function () {
+                         addDialog.dialog('close');
+                     }
+                 }]
+            });
+        },
+        update: function () {
+            var row = mygrid.selectRow();
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    href: '/LogisticsCarrier/Edit?id=' + row.FID,
+                    width: 700,
+                    height: 275,
+                    title: '修改物流承运商',
+                    iconCls: 'icon-user_add',
+                    onLoad: function () {
+                    },
+                    submit: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam('update', row.FID);
+                            $.ajaxjson('/LogisticsCarrier/Edit', query, function (d) {
+                                if (d.errCode == 0) {
+                                    parent.layer.msg("修改成功！");
+                                    mygrid.reload();
+                                    editDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(d.errMsg);
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                parent.layer.alert('请选择要修改的物流承运商。', { icon: 0 });
+            }
+        },
+        del: function () {
+            var row = mygrid.selectRow();
+            if (row) {
+                var query = createParam('delete', row.FID, true);
+                parent.layer.confirm('确认要删除选中的物流承运商吗?', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+                    $.ajaxjson('/LogisticsCarrier/Delete', query, function (d) {
+                        if (parseInt(d) > 0) {
+                            parent.layer.msg('删除成功');
+                            mygrid.reload();
+                        } else {
+                            parent.layer.alert('删除失败', { icon: 2 });
+                        }
+                    });
+                });
+            } else {
+                parent.layer.alert('请选择要删除的物流承运商。');
+            }
+        }
+    };
+
+</script>

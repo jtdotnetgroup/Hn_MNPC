@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Price";
+}
+<script type="text/javascript" src="/Scripts/Business/Biz.Dialog.js"></script>
+<form id="uiform">
+<table class="grid">
+    <tr>
+        <td style="width: 120px;">
+            有效起始日期：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FStartDate" name="FStartDate" class="txt03 easyui-datebox"
+                id="txt_FStartDate" data-options="required:true,missingMessage:'请选择有效起始日期'" />
+        </td>
+        <td style="width: 110px;">
+            有效终止日期(*)
+        </td>
+        <td colspan="3">
+            <input type="text" data-bind="value:FEndDate" name="FEndDate" class="txt03 easyui-datebox"
+                id="txt_FEndDate" data-options="required:true,missingMessage:'请选择有效终止日期'" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            成本档位：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FCostGear" name="FCostGear" class="txt03 easyui-validatebox"
+                data-options="required:true,missingMessage:'请输入成本档位'" id="txt_FCostGear" />
+        </td>
+        <td>
+            起步量：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FStartQuantity" name="FStartQuantity" class="txt03 easyui-validatebox"
+                data-options="required:true,missingMessage:'请输入起步量'" id="txt_FStartQuantity" />
+        </td>
+        <td>
+            最终量：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FEndQuantity" name="FEndQuantity" class="txt03 easyui-validatebox"
+                data-options="required:true,missingMessage:'请输入最终量'" id="txt_FEndQuantity" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            票据类型：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FBillType" name="FBillType" class="txt03"
+                data-options="required:true,missingMessage:'请输入票据类型'" id="txt_FBillType" />
+        </td>
+        <td>
+            经销价：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FSalelPrice" name="FSalelPrice" class="txt03 easyui-validatebox"
+                id="txt_FSalelPrice" data-options="required:true,missingMessage:'请输入经销价'" />
+        </td>
+        <td>
+            厂方税金(%)：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FTaxes" name="FTaxes" class="txt03 easyui-validatebox"
+                data-options="required:true,missingMessage:'请输入厂方税金'" id="txt_FTaxes" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            利润(%)：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FProfit" name="FProfit" class="txt04"  style="text-align:right" 
+                id="txt_FProfit" readonly />
+        </td>
+        <td>
+            合计：
+        </td>
+        <td>
+           <input type="text" data-bind="value:FAmount" name="FAmount" class="txt04"  style="text-align:right"
+                id="txt_FAmount" readonly />
+        </td>
+        <td>
+            建议营销报价：
+        </td>
+        <td>
+             <input type="text" data-bind="value:FMarketingPrice" name="FMarketingPrice" class="txt03" id="txt_FMarketingPrice"  style="text-align:right" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            营销报价(17%)税金：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FMarketingTaxes" name="FMarketingTaxes" class="txt04"  style="text-align:right"
+                id="txt_FMarketingTaxes" readonly />
+        </td>
+        <td>
+            采购成本(无税)：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FPurchaseCost" name="FPurchaseCost" class="txt04"  style="text-align:right"
+                id="txt_FPurchaseCost" readonly />
+        </td>
+        <td>
+            附加税：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FSurcharge" name="FSurcharge" class="txt04"  style="text-align:right"
+                id="txt_FSurcharge" readonly />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            税后毛利：
+        </td>
+        <td>
+            <input type="text" data-bind="value:FMargin" name="FMargin" class="txt04" style="text-align:right"
+                id="txt_FMargin" readonly />
+        </td>
+        <td>
+            厂家建议零售价：
+        </td>
+        <td colspan="3">
+            <input type="text" data-bind="value:FFactoryPrice" name="FFactoryPrice" class="txt03" id="txt_FFactoryPrice"  style="text-align:right" />
+        </td>
+    </tr>
+
+     <tr>
+        <td colspan="6" align = "center">
+            建议营销报价=1.17*经销价*(1+厂方税金/100)*(1-0.12*票据税点/100)/(1+票据税点/100)/(1-0.0204-利润/100-0.0012)
+        </td>
+     </tr>
+</table>
+<input id="txt_FID" type="hidden" value="@Request.QueryString["id"]" />

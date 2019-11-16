@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5BBF3E65-7642-4286-85A7-6CEE815A27D4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>hn.Client</RootNamespace>
+    <AssemblyName>华耐家居-组柜派车</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>default.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraNavBar.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v15.2.Core, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\DataResult.cs" />
+    <Compile Include="Common\IniHelper.cs" />
+    <Compile Include="Common\JsonHelper.cs" />
+    <Compile Include="Common\MsgHelper.cs" />
+    <Compile Include="Common\Post.cs" />
+    <Compile Include="Common\UtilHelper.cs" />
+    <Compile Include="FrmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBase.Designer.cs">
+      <DependentUpon>FrmBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfig.Designer.cs">
+      <DependentUpon>FrmConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Service References\ApiService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmInput.Designer.cs">
+      <DependentUpon>FrmInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmAuditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmAuditDialog.Designer.cs">
+      <DependentUpon>FrmAuditDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryJYDW.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryJYDW.Designer.cs">
+      <DependentUpon>FrmQueryJYDW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryExpressCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryExpressCompany.Designer.cs">
+      <DependentUpon>FrmQueryExpressCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryClientAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryClientAccount.Designer.cs">
+      <DependentUpon>FrmQueryClientAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryDictionary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryDictionary.Designer.cs">
+      <DependentUpon>FrmQueryDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryDeliverBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryDeliverBase.Designer.cs">
+      <DependentUpon>FrmQueryDeliverBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryPrice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryPrice.Designer.cs">
+      <DependentUpon>FrmQueryPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQuerySrc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQuerySrc.Designer.cs">
+      <DependentUpon>FrmQuerySrc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryProduct.Designer.cs">
+      <DependentUpon>FrmQueryProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryMarketArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Diglog\FrmQueryMarketArea.Designer.cs">
+      <DependentUpon>FrmQueryMarketArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\FrmPASChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Common\FrmPASChange.Designer.cs">
+      <DependentUpon>FrmPASChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm库存查询.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm库存查询.Designer.cs">
+      <DependentUpon>frm库存查询.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划编辑.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划编辑.Designer.cs">
+      <DependentUpon>frm请购计划编辑.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划确认.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划确认.Designer.cs">
+      <DependentUpon>frm请购计划确认.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划附件.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划附件.Designer.cs">
+      <DependentUpon>frm请购计划附件.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm请购计划查询条件.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm请购计划查询条件.Designer.cs">
+      <DependentUpon>frm请购计划查询条件.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单查询条件.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单查询条件.Designer.cs">
+      <DependentUpon>frm采购订单查询条件.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单列表.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单列表.Designer.cs">
+      <DependentUpon>frm采购订单列表.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单修改.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单修改.Designer.cs">
+      <DependentUpon>frm采购订单修改.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm请购计划引入.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm请购计划引入.Designer.cs">
+      <DependentUpon>frm请购计划引入.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单Temp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单Temp.Designer.cs">
+      <DependentUpon>frm采购订单Temp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单添加temp2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单添加temp2.Designer.cs">
+      <DependentUpon>frm采购订单添加temp2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单添加.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PurchaseOrder\frm采购订单添加.Designer.cs">
+      <DependentUpon>frm采购订单添加.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frmAlert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frmAlert.Designer.cs">
+      <DependentUpon>frmAlert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划列表back.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划列表back.Designer.cs">
+      <DependentUpon>frm发货计划列表back.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划拆单.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划拆单.Designer.cs">
+      <DependentUpon>frm发货计划拆单.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划编辑.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划编辑.Designer.cs">
+      <DependentUpon>frm发货计划编辑.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\KForms\KFrmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\KForms\KFrmBase.Designer.cs">
+      <DependentUpon>KFrmBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\KForms\KFrmShadow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\KForms\KFrmShadow.Designer.cs">
+      <DependentUpon>KFrmShadow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\KIndexView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\KIndexView.Designer.cs">
+      <DependentUpon>KIndexView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Win32API.cs" />
+    <Compile Include="FrmMainB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainB.Designer.cs">
+      <DependentUpon>FrmMainB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMDIContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMDIContainer.Designer.cs">
+      <DependentUpon>FrmMDIContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\FrmIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Home\FrmIndex.Designer.cs">
+      <DependentUpon>FrmIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMainA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainA.Designer.cs">
+      <DependentUpon>FrmMainA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划列表.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PleasePurchasePlan\frm请购计划列表.Designer.cs">
+      <DependentUpon>frm请购计划列表.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划列表.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划列表.Designer.cs">
+      <DependentUpon>frm发货计划列表.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTestA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTestA.Designer.cs">
+      <DependentUpon>FrmTestA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTestB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTestB.Designer.cs">
+      <DependentUpon>FrmTestB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\SendGoodsPlan\frm发货计划发车.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm发货计划发车.Designer.cs">
+      <DependentUpon>frm发货计划发车.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm组柜新增back.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm组柜新增back.Designer.cs">
+      <DependentUpon>frm组柜新增back.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm组柜新增.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SendGoodsPlan\frm组柜新增.Designer.cs">
+      <DependentUpon>frm组柜新增.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FrmBase.resx">
+      <DependentUpon>FrmBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConfig.resx">
+      <DependentUpon>FrmConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\hn.Core.Model.SysDics.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.DataResult.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.SYS_DICSMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.TB_PREMISEModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.v_thd.datasource" />
+    <None Include="Properties\DataSources\MApiModel.recApi24.Rootobject.datasource" />
+    <None Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\Diglog\FrmInput.resx">
+      <DependentUpon>FrmInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmAuditDialog.resx">
+      <DependentUpon>FrmAuditDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryJYDW.resx">
+      <DependentUpon>FrmQueryJYDW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryExpressCompany.resx">
+      <DependentUpon>FrmQueryExpressCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryClientAccount.resx">
+      <DependentUpon>FrmQueryClientAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryDictionary.resx">
+      <DependentUpon>FrmQueryDictionary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryDeliverBase.resx">
+      <DependentUpon>FrmQueryDeliverBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryPrice.resx">
+      <DependentUpon>FrmQueryPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQuerySrc.resx">
+      <DependentUpon>FrmQuerySrc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryProduct.resx">
+      <DependentUpon>FrmQueryProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Diglog\FrmQueryMarketArea.resx">
+      <DependentUpon>FrmQueryMarketArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Common\FrmPASChange.resx">
+      <DependentUpon>FrmPASChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PleasePurchasePlan\frm库存查询.resx">
+      <DependentUpon>frm库存查询.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PleasePurchasePlan\frm请购计划编辑.resx">
+      <DependentUpon>frm请购计划编辑.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PleasePurchasePlan\frm请购计划确认.resx">
+      <DependentUpon>frm请购计划确认.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PleasePurchasePlan\frm请购计划附件.resx">
+      <DependentUpon>frm请购计划附件.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm请购计划查询条件.resx">
+      <DependentUpon>frm请购计划查询条件.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm采购订单查询条件.resx">
+      <DependentUpon>frm采购订单查询条件.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm采购订单列表.resx">
+      <DependentUpon>frm采购订单列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm采购订单修改.resx">
+      <DependentUpon>frm采购订单修改.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm请购计划引入.resx">
+      <DependentUpon>frm请购计划引入.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm采购订单Temp.resx">
+      <DependentUpon>frm采购订单Temp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm采购订单添加temp2.resx">
+      <DependentUpon>frm采购订单添加temp2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PurchaseOrder\frm采购订单添加.resx">
+      <DependentUpon>frm采购订单添加.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frmAlert.resx">
+      <DependentUpon>frmAlert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm发货计划列表back.resx">
+      <DependentUpon>frm发货计划列表back.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm发货计划拆单.resx">
+      <DependentUpon>frm发货计划拆单.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm发货计划编辑.resx">
+      <DependentUpon>frm发货计划编辑.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm发货计划列表.resx">
+      <DependentUpon>frm发货计划列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\KForms\KFrmBase.resx">
+      <DependentUpon>KFrmBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\KIndexView.resx">
+      <DependentUpon>KIndexView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainB.resx">
+      <DependentUpon>FrmMainB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMDIContainer.resx">
+      <DependentUpon>FrmMDIContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\FrmIndex.resx">
+      <DependentUpon>FrmIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainA.resx">
+      <DependentUpon>FrmMainA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PleasePurchasePlan\frm请购计划列表.resx">
+      <DependentUpon>frm请购计划列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTestA.resx">
+      <DependentUpon>FrmTestA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTestB.resx">
+      <DependentUpon>FrmTestB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm发货计划发车.resx">
+      <DependentUpon>frm发货计划发车.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm组柜新增back.resx">
+      <DependentUpon>frm组柜新增back.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SendGoodsPlan\frm组柜新增.resx">
+      <DependentUpon>frm组柜新增.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\DataSources\hn.Core.Model.User.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.ICPOBILLENTRYMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.ICPOBILLMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.ICPO_BOLentryModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.ProductViewModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.SRCModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.SYS_SUBDICSMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.TB_ATTACHMENTModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.TB_BrandModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.TB_DELIVER_BASEModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.TB_EBPLModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.TB_EXPRESSCOMPANYModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.TB_PRICEPOLICYModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.thdModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_CLIENTACCOUNTModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_ICPOBILLENTRYMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_ICPOBILLMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_ICPRBILLENTRYMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_ICPRBILLMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_ICSEOUTBILLENTRYMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.V_ICSEOUTBILLMODEL.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.model.V_PREMISEModel.datasource" />
+    <None Include="Properties\DataSources\hn.DataAccess.Model.v_thdModel.datasource" />
+    <None Include="Properties\DataSources\MApiModel.recApi2.Rootobject.datasource" />
+    <None Include="Properties\DataSources\MApiModel.recApi8.Rootobject.datasource" />
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loginbg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loginbg副本.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loginbg2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shadow-rect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\KControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnConfirm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnPageIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnSave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnSearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnSendGoods.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btnSetting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="default.ico" />
+    <None Include="Service References\ApiService\APIService.disco" />
+    <None Include="Resources\min.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Service References\ApiService\APIService.wsdl" />
+    <None Include="Service References\ApiService\APIService16.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService161.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService1610.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService1611.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService1612.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService1613.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService1614.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService1615.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService162.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService163.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService164.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService165.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService166.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService167.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService168.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\APIService169.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ApiService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ApiService\configuration.svcinfo" />
+    <None Include="Service References\ApiService\configuration91.svcinfo" />
+    <None Include="Resources\TitleNormal222.png" />
+    <None Include="Resources\TitleNormal22.png" />
+    <None Include="Resources\TitleNormal20.png" />
+    <None Include="Resources\TitleMax22.png" />
+    <None Include="Resources\TitleMax20.png" />
+    <None Include="Resources\TitleClose22.png" />
+    <None Include="Resources\TitleClose20.png" />
+    <None Include="Resources\TitleClose24.png" />
+    <None Include="Resources\TitleClose26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\hn.Common\hn.Common.csproj">
+      <Project>{16183c27-23be-4335-ae94-f12bb57421ff}</Project>
+      <Name>hn.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hn.Core\hn.Core.csproj">
+      <Project>{a2ee0c6c-76c5-49c5-bca6-0bc862eca195}</Project>
+      <Name>hn.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hn.DataAccess\hn.DataAccess.csproj">
+      <Project>{8ecc21f8-31d6-4cee-98e6-36f1eaff4087}</Project>
+      <Name>hn.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MApiAccess\MApiAccess.csproj">
+      <Project>{8f38b471-9aab-4f13-9691-a49ca80fd0bb}</Project>
+      <Name>MApiAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model_MNLS\MApiModel.csproj">
+      <Project>{8b6f907f-6c89-4ab8-8dda-b59398831fe4}</Project>
+      <Name>MApiModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ApiService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Css/menucss.css" rel="stylesheet" />
+<body class="easyui-layout">
+
+    <div region="north" border="false" split="true" class="datagrid-toolbar">
+        <div data-options="region:'center',border:'true',split:'true'" style="width: 100%;" title="价格政策">
+            <table id="gridPrice" toolbar="#toolbar"></table>
+        </div>
+    </div>
+
+    <div data-options="region:'center',border:'true',split:'true'">
+        <div data-options="region:'south',border:'true',split:'true'" title="价格政策明细" style="height: 335px;width:100%;background:#FFFFFF;">
+            <table id="dgGoodsItem"></table>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    var grid = {
+        databind: function (size) {
+            $('#gridPrice').datagrid({
+                height:size.height/3,
+                idField: 'FID',
+                url: '/ICPricePolicy/Data',
+                rownumbers: true,
+                singleSelect: true,
+                checkOnSelect: false,
+                selectOnCheck: false,
+                striped: true,
+                columns: [[
+                    //{ field: 'FID', checkbox: true },
+                    //{ title: '序号', field: '', width: 120 },
+                    { title: '品牌', field: 'FBRANDNAME', width: 150 },
+                    { title: '厂家账户', field: 'FCLIENTACCOUNT', width: 150 },
+                    { title: '价格政策编号', field: 'FBILLNO', width: 120 },
+                    { title: '价格政策名称', field: 'FNAME', width: 100 },
+                    { title: '价格政策类型', field: 'FPOLICYTYPE', width: 100 },
+                    { title: '优先级', field: 'FPRIORITY', width: 150, sortable: true },
+                    {
+                        title: '审核状态', field: 'FCHECKSTATUS', width: 150, sortable: true,
+                        formatter: function (value) {
+                            if (value==0) {
+                                return "未审核";
+                            } else {
+                                return "已审核";
+                            }
+                        }
+                    }
+                ]],
+                pagination: true,
+                pageSize: 20,
+                onClickRow: function (rowIndex, rowData) {
+                    if (rowData) {
+                        $('#dgGoodsItem').datagrid('load', {
+                            policyID: rowData.FID,
+                            itemid: "@Request.QueryString["itemid"]"
+                        });
+                    }
+                },
+                queryParams: {
+                    FBrandID: '@Request.QueryString["brandid"]'
+                },
+
+            });
+
+            $('#dgGoodsItem').datagrid({
+               height:300,
+               url: '/ICPricePolicy/EntryData',
+                iconCls: 'icon icon-list',
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                singleSelect: true, //单选
+                selectOnCheck: false,
+                checkOnSelect: false,
+                frozenColumns: [[]],
+                columns: [[
+                   // { field: 'FID', checkbox: true },
+                    { title: '商品系列', field: 'FPRODUCTTYPE', width: 110, sortable: true },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 110, sortable: true },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 110, sortable: true },
+                    { title: '规格型号', field: 'FMODEL', width: 110, sortable: true },
+                    { title: '主单位', field: 'FBASICUNIT', width: 80, sortable: true },
+                    { title: 'JDE地址号', field: 'FBATCHNO', width: 80, sortable: true },
+                    { title: '色号', field: 'FCOLORNO', width: 70, sortable: true },
+                    { title: '起始数量', field: 'FBEGQTY', width: 80, sortable: true },
+                    { title: '截止数量', field: 'FENDQTY', width: 80, sortable: true },
+                    { title: '结算价格', field: 'FACCOUNTPRICE', width: 80, sortable: true },
+                    { title: '起始日期', field: 'FBEGDATESTR', width: 100, sortable: true },
+                    { title: '截止日期', field: 'FENDDATESTR', width: 100, sortable: true },
+                    { title: '项目名称', field: 'SN', width: 120, sortable: true },
+                    { title: '备注', field: 'FREMARK', width: 200, sortable: true }
+                ]],
+                pagination: true
+            });
+        },
+        reload: function () {
+            $('#gridPrice').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#list').datagrid('getSelected');
+        }
+    };
+
+    var size = { width: $(window).width(), height: $(window).height() };
+
+    //autoResize({ dataGrid: '#list', gridType: 'datagrid', callback: grid.databind, height: 75, width: 232 });
+
+    grid.databind(size);
+
+</script>

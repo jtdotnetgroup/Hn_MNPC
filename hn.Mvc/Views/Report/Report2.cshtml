@@ -1,0 +1,291 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<!-- 引入多功能查询js -->
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.min.js"></script>
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.jquery.js"></script>
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+<body class="easyui-layout">
+    <div region="center"  iconcls="icon-users" style="overflow: hidden">
+        <div id="toolbar" style="padding:1px 2px 0px;" >
+             <div style="float: left; padding-top: 2px;width:100%; margin-bottom:2px;">
+                 开单日期：
+                 <input type="text" name="txtStartDate" id="txtStartDate" class="txt03 easyui-datebox" style="width:100px;" />
+                 至
+                 <input type="text" name="txtEndDate" id="txtEndDate" class="txt03 easyui-datebox" style="width:100px;" />
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+                 <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-page_excel" id="a_export">导出</a>
+            </div>
+        </div>
+        <table id="userGrid" toolbar="#toolbar"></table>
+        </div>
+
+</body>
+    <script type="text/javascript">
+
+        var filterObj
+
+        $(function () {
+            var size = { width: $(window).width(), height: $(window).height() };
+ 
+            mygrid.databind(size);
+ 
+            $('#a_export').click(onExport);
+            $('#a_search').click(onSearch);
+            $('#a_reset').click(onReset);
+
+           // $("#toolbar").css("height", "60px");
+        });
+
+        //搜索按钮点击
+        function onSearch() {
+            $('#userGrid').datagrid('load',
+             {
+                 startdate: $('#txtStartDate').datebox('getValue'),
+                 enddate: $('#txtEndDate').datebox('getValue')
+             });
+        }
+
+        //重置按钮点击
+        function onReset() {
+            $("#txtStartDate").datebox('setValue', '');
+            $("#txtEndDate").datebox('setValue', '');
+            onSearch();
+        }
+
+        function onExport() {
+
+            var form = $("<form>"); //定义一个form表单
+            form.attr("style", "display:none");
+            form.attr("target", "");
+            form.attr("method", "post");
+            form.attr("action", "/Report/Export2");
+
+            var startdate = $("<input>");
+            startdate.attr("type", "hidden");
+            startdate.attr("name", "startdate");
+            startdate.attr("value", $('#txtStartDate').datebox('getValue'));
+
+            var enddate = $("<input>");
+            enddate.attr("type", "hidden");
+            enddate.attr("name", "enddate");
+            enddate.attr("value", $('#txtEndDate').datebox('getValue'));
+
+            $("body").append(form); //将表单放置在web中
+            form.append(startdate);
+            form.append(enddate);
+
+            form.submit(); //表单提交
+
+            return false;
+
+            //var pform = '<form  id="uiStatus" ><table cellpadding=5 cellspacing=0 width=100% align="center" class="grid2" border=0><tr>';
+            //pform += '<td align="left"><input type="radio" value="1" id="rdoStatus" name="rdoStatus" checked />全部导出</td>';
+            //pform += '<td align="left"><input type="radio" value="2" id="rdoStatus" name="rdoStatus" />导出选择的</td></tr></table></form>';
+            //var hDialog = top.jQuery.hDialog({
+            //    title: '导出选择',
+            //    width: 300,
+            //    height: 150,
+            //    content: pform,
+            //    iconCls: 'icon-add',
+            //    onLoad: function () {
+
+            //    },
+            //    showBtns: false,
+            //    toolbar: [{
+            //        text: '导出',
+            //        iconCls: 'icon-database_save',
+            //        handler: function () {
+            //            var type = top.$('input:radio:checked').val();
+            //            hDialog.dialog('close');
+
+
+
+            //            var ids = "";
+            //            if (type == "2") {
+            //                var rows = $('#userGrid').datagrid('getChecked');
+            //                if (rows.length > 0) {
+            //                    for (var i = 0; i < rows.length; i++) {
+
+            //                        if (ids == "") {
+            //                            ids = rows[i].FID;
+            //                        }
+            //                        else {
+            //                            ids += "," + rows[i].FID;
+            //                        }
+            //                    }
+
+            //                    //filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }], "groups": [] };
+            //                    filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }] };
+            //                }
+            //                else {
+            //                    msgbox('请勾选你要导出的商品。');
+            //                    return;
+            //                }
+            //            }
+
+            //            var form = $("<form>"); //定义一个form表单
+            //            form.attr("style", "display:none");
+            //            form.attr("target", "");
+            //            form.attr("method", "post");
+            //            form.attr("action", "/Goods/Export");
+            //            var input1 = $("<input>");
+            //            input1.attr("type", "hidden");
+            //            input1.attr("name", "filter");
+            //            input1.attr("value", JSON.stringify(filterObj));
+
+            //            var input2 = $("<input>");
+            //            input2.attr("type", "hidden");
+            //            input2.attr("name", "ids");
+            //            input2.attr("value", ids);
+
+            //            $("body").append(form); //将表单放置在web中
+            //            form.append(input1);
+            //            form.append(input2);
+
+            //            form.submit(); //表单提交
+
+            //            return false;
+            //        }
+            //    }, {
+            //        text: '关闭',
+            //        iconCls: 'icon-cancel',
+            //        handler: function () {
+            //            hDialog.dialog("close");
+            //        }
+            //    }]
+            //});
+
+
+        }
+
+      
+        //商品列表
+        var mygrid = {
+            databind: function (size) {
+                $('#userGrid').datagrid({
+                    url: '/Report/Report2Data',
+                    fit:true,
+                    idField: 'FID',
+                    singleSelect: true,
+                    striped: true,
+                    checkOnSelect: false,
+                    selectOnCheck: false,
+                    rownumbers: true, //行号
+                    columns: [[
+                       // { field: 'FID', checkbox: true },
+                        { title: '客户编码', field: '客户编码', width: 110 },
+                        { title: '客户名称', field: '客户名称', width: 90 },
+                        { title: '订单号', field: '订单号', width: 230 },
+                        { title: '订单行号', field: '订单行号', width: 70 },
+                        { title: '顺序号', field: '顺序号', width: 170 },
+                        { title: '品牌', field: '品牌', width: 120 },
+                        { title: '类别', field: '类别', width: 120, },
+                        { title: '规格', field: '规格', width: 120 },
+                        { title: '产品编码', field: '产品编码', width: 70 },
+                        { title: '产品名称', field: '产品名称', width: 90 },
+                        { title: '单位', field: '单位', width: 120 },
+                        { title: '包装', field: '包装', width: 100 },
+                        { title: '批次', field: '批次', width: 80 },
+                        { title: 'WDR号', field: 'WDR号', width: 90 },
+                        { title: '价格单号', field: '价格单号', width: 100 },
+                        { title: '销售价', field: '销售价', width: 80, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        {
+                            title: '包装费', field: '包装费', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        { title: '装车费', field: '装车费', width: 90,  align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        {
+                            title: '打托费其他', field: '打托费其他', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        { title: '销售价1', field: '销售价1', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        { title: '包装费1', field: '包装费1', width: 130, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        { title: '装车费1', field: '装车费1', width: 150, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        {
+                            title: '打托费其他1', field: '打托费其他1', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        { title: '管理费', field: '管理费', width: 100 , align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }},
+                        { title: '参考', field: '参考', width: 100 },
+                        { title: '订单备注', field: '订单备注', width: 100 },
+                        { title: '订单行备注', field: '订单行备注', width: 100 },
+                        { title: '箱数', field: '箱数', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                            }
+                        },
+                        { title: '总片数', field: '总片数', width: 10, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '平米数', field: '平米数', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        { title: '等级', field: '等级', width: 100 },
+                        { title: '库位', field: '库位', width: 100 },
+                        { title: '仓库', field: '仓库', width: 100 },
+                        {
+                            title: '总销售价', field: '总销售价', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '总包装费', field: '总包装费', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '总装车费', field: '总装车费', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '打托费其他合计', field: '打托费其他合计', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '总管理费', field: '总管理费', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        { title: '开单日期', field: '开单日期', width: 100 },
+                        { title: '提货日期', field: '提货日期', width: 100 },
+                        { title: '中心仓', field: '中心仓', width: 100 },
+                        { title: '客户订单号', field: '客户订单号', width: 100 },
+                        { title: '开单号', field: '开单号', width: 100 }
+                    ]],
+                    autoRowHeight: true,
+                    //view: scrollview,
+                    pagination: false,
+                    //pageSize: 50
+                });
+            },
+            reload: function () {
+                $('#userGrid').datagrid('clearSelections').datagrid('reload');
+            },
+            selectRow: function () {
+                return $('#userGrid').datagrid('getSelected');
+            }
+        };
+      
+    </script>
+

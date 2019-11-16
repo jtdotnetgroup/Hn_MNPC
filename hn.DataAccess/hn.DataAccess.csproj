@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8ECC21F8-31D6-4CEE-98E6-36F1EAFF4087}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>hn.DataAccess</RootNamespace>
+    <AssemblyName>hn.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bll\ccdBll.cs" />
+    <Compile Include="bll\TB_DZmanuscript\DTO\TB_DZmanuscriptDto.cs" />
+    <Compile Include="bll\TB_DZmanuscript\TB_DZmanuscript_BLL.cs" />
+    <Compile Include="bll\V_QUERY_STOCKBll.cs" />
+    <Compile Include="bll\v_icpr_icpo_icseout_thdbll.cs" />
+    <Compile Include="bll\v_thdBll.cs" />
+    <Compile Include="bll\thdBll.cs" />
+    <Compile Include="bll\ICPOBll\ICPO_BOLentryBLL.cs" />
+    <Compile Include="bll\TB_ATTACHMENTBll.cs" />
+    <Compile Include="bll\TB_DELIVERY_DETAILBll.cs" />
+    <Compile Include="bll\TB_DELIVER_BASEBll.cs" />
+    <Compile Include="bll\V_BIINTERFACEBll.cs" />
+    <Compile Include="bll\BrandBll.cs" />
+    <Compile Include="bll\ICBll\V_ICPRICEPOLICYBLL.cs" />
+    <Compile Include="bll\ICPOBll\V_ICPOHISTORYBLL.cs" />
+    <Compile Include="bll\ICPOBll\V_ICPOPOLICYBLL.cs" />
+    <Compile Include="bll\ICPOBll\V_ICSEOUTBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICPOBll\V_ICSEOUTBILLBLL.cs" />
+    <Compile Include="bll\ICPOBll\V_ICPOBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICPOBll\V_ICPOBILLBLL.cs" />
+    <Compile Include="bll\ICPOBll\ICPOBILLBLL.cs" />
+    <Compile Include="bll\ICPOBll\ICPOPOLICYBLL.cs" />
+    <Compile Include="bll\ICPOBll\ICPOBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICPOBll\ICPOHISTORYBLL.cs" />
+    <Compile Include="bll\ICPOBll\ICPOBIDATABLL.cs" />
+    <Compile Include="bll\ICPRBillViewBll.cs" />
+    <Compile Include="bll\ICPOBll\ICSEOUTBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICPOBll\ICSEOUTBILLBLL.cs" />
+    <Compile Include="bll\ICPRBll\V_ICPRBILLBLL.cs" />
+    <Compile Include="bll\ICPRBll\V_ICPRPOLICYBLL.cs" />
+    <Compile Include="bll\ICPRBll\V_ICPRBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICSTBll\ICSTOCKBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICSTBll\ICSTOCKBILLBLL.cs" />
+    <Compile Include="bll\ProductBll.cs" />
+    <Compile Include="bll\ProductViewBll.cs" />
+    <Compile Include="bll\SystemBll\SYS_UPDATELOGBLL.cs" />
+    <Compile Include="bll\BIINTERFACEBll.cs" />
+    <Compile Include="bll\TB_PREMISEBll.cs" />
+    <Compile Include="bll\TB_REVIEWTEAMBll.cs" />
+    <Compile Include="bll\TB_ROUTINGBll.cs" />
+    <Compile Include="bll\TB_USERBRANDBll.cs" />
+    <Compile Include="bll\TB_USERPREMISEBll.cs" />
+    <Compile Include="bll\V_UNITGROUPBll.cs" />
+    <Compile Include="bll\V_CLIENTACCOUNTBll.cs" />
+    <Compile Include="bll\TB_EXPRESSCOMPANYBll.cs" />
+    <Compile Include="bll\SRCBll.cs" />
+    <Compile Include="bll\TB_EXPRESSPOLICYBll.cs" />
+    <Compile Include="bll\TB_CLIENTACCOUNTBll.cs" />
+    <Compile Include="bll\V_PREMISEBll.cs" />
+    <Compile Include="bll\V_ROUTINGBll.cs" />
+    <Compile Include="bll\V_UNITBll.cs" />
+    <Compile Include="bll\V_ORGANIZATIONBll.cs" />
+    <Compile Include="bll\V_MESSAGEBll.cs" />
+    <Compile Include="bll\TB_MessageBll.cs" />
+    <Compile Include="bll\TB_OrganizationBll.cs" />
+    <Compile Include="bll\FranchiseeBll.cs" />
+    <Compile Include="bll\DistrictBll.cs" />
+    <Compile Include="bll\CityBll.cs" />
+    <Compile Include="bll\TB_BrandBll.cs" />
+    <Compile Include="bll\SmsBll.cs" />
+    <Compile Include="bll\ProvinceBll.cs" />
+    <Compile Include="bll\GoodsBll.cs" />
+    <Compile Include="bll\CategoryBll.cs" />
+    <Compile Include="bll\MasterSignBll.cs" />
+    <Compile Include="bll\MasterImageBll.cs" />
+    <Compile Include="bll\OrderDetialBll.cs" />
+    <Compile Include="bll\OrderBll.cs" />
+    <Compile Include="bll\OrganizeBll.cs" />
+    <Compile Include="bll\MasterBll.cs" />
+    <Compile Include="bll\AppUserBll.cs" />
+    <Compile Include="bll\SettingBll.cs" />
+    <Compile Include="bll\EmployeeBll.cs" />
+    <Compile Include="bll\PlatFormBll.cs" />
+    <Compile Include="bll\MessageBll.cs" />
+    <Compile Include="bll\TB_TreeUserBll.cs" />
+    <Compile Include="bll\TB_UnitBll.cs" />
+    <Compile Include="bll\TB_UnitGroupBll.cs" />
+    <Compile Include="Constant.cs" />
+    <Compile Include="dal\ccdDal.cs" />
+    <Compile Include="dal\Newv_thdDal.cs" />
+    <Compile Include="dal\TB_DZmanuscript_DAL\TB_DZmanuscript_DAL.cs" />
+    <Compile Include="dal\V_QUERY_STOCKDal.cs" />
+    <Compile Include="dal\v_icpr_icpo_icseout_thddal.cs" />
+    <Compile Include="dal\v_thdDal.cs" />
+    <Compile Include="dal\thdDal.cs" />
+    <Compile Include="dal\ICPODal\ICPO_BOLentryDAL.cs" />
+    <Compile Include="dal\ICPODal\SALESOUT_DATADAL.cs" />
+    <Compile Include="dal\ICPODal\SALES_ORDER_DATADAL.cs" />
+    <Compile Include="dal\ICPODal\TP_INVENTORYDAL.cs" />
+    <Compile Include="dal\ICPRDal\ReportDAL.cs" />
+    <Compile Include="dal\TB_ATTACHMENTDal.cs" />
+    <Compile Include="dal\V_DELIVER_BASEDal.cs" />
+    <Compile Include="dal\TB_EBPLDal.cs" />
+    <Compile Include="dal\TB_DELIVER_BASEDal.cs" />
+    <Compile Include="dal\TB_PRICEPOLICYDal.cs" />
+    <Compile Include="dal\ICPRBILLAUDITDal.cs" />
+    <Compile Include="dal\TB_UNLOADING_COSTDal.cs" />
+    <Compile Include="dal\TB_SETTLEMENTDal.cs" />
+    <Compile Include="dal\V_DELIVERY_DETAILDal.cs" />
+    <Compile Include="dal\TB_DELIVERY_DETAILDal.cs" />
+    <Compile Include="dal\V_BIINTERFACEDal.cs" />
+    <Compile Include="dal\BrandDal.cs" />
+    <Compile Include="dal\ICDal\V_ICPRICEPOLICYDal.cs" />
+    <Compile Include="dal\ICPODal\ICPOBIDATADAL.cs" />
+    <Compile Include="dal\ICPODal\V_ICPOHISTORYDAL.cs" />
+    <Compile Include="dal\ICPODal\V_ICPOPOLICYDAL.cs" />
+    <Compile Include="dal\ICPODal\V_ICSEOUTBILLENTRYDAL.cs" />
+    <Compile Include="dal\ICPODal\V_ICSEOUTBILLDAL.cs" />
+    <Compile Include="dal\ICPODal\ICSEOUTBILLENTRYDAL.cs" />
+    <Compile Include="dal\ICPODal\ICSEOUTBILLDAL.cs" />
+    <Compile Include="dal\ICPODal\V_ICPOBILLENTRYDAL.cs" />
+    <Compile Include="dal\ICPODal\V_ICPOBILLDAL.cs" />
+    <Compile Include="dal\ICPODal\ICPOBILLENTRYDAL.cs" />
+    <Compile Include="dal\ICPODal\ICPOHISTORYDAL.cs" />
+    <Compile Include="dal\ICPODal\ICPOPOLICYDAL.cs" />
+    <Compile Include="dal\ICPODal\ICPOBILLDAL.cs" />
+    <Compile Include="dal\ICPRBillDal.cs" />
+    <Compile Include="dal\ICPRBillViewDal.cs" />
+    <Compile Include="dal\ICPRDal\V_ICPRBILLDAL.cs" />
+    <Compile Include="dal\ICPRDal\V_ICPRBILLENTRY_H_PRICEDAL.cs" />
+    <Compile Include="dal\ICPRDal\V_ICPRPOLICYDAL.cs" />
+    <Compile Include="dal\ICPRDal\V_ICPRBILLENTRYDAL.cs" />
+    <Compile Include="dal\ICSTDal\ICSTOCKBILLENTRYDal.cs" />
+    <Compile Include="dal\ICSTDal\ICSTOCKBILLDal.cs" />
+    <Compile Include="dal\ProductDal.cs" />
+    <Compile Include="dal\ProductViewDal.cs" />
+    <Compile Include="dal\SystemDal\SYS_UPDATELOGDAL.cs" />
+    <Compile Include="dal\BIINTERFACEDal.cs" />
+    <Compile Include="dal\TB_PREMISEDal.cs" />
+    <Compile Include="dal\TB_REVIEWTEAMDal.cs" />
+    <Compile Include="dal\TB_ROUTINGDal.cs" />
+    <Compile Include="dal\TB_USERBRANDDal.cs" />
+    <Compile Include="dal\TB_USERPREMISEDal.cs" />
+    <Compile Include="dal\V_UnitGroupDal.cs" />
+    <Compile Include="dal\V_CLIENTACCOUNTDal.cs" />
+    <Compile Include="dal\TB_EXPRESSCOMPANYDal.cs" />
+    <Compile Include="dal\SRCDal.cs" />
+    <Compile Include="dal\TB_EXPRESSPOLICYDal.cs" />
+    <Compile Include="dal\TB_CLIENTACCOUNTDal.cs" />
+    <Compile Include="dal\V_PREMISEDal.cs" />
+    <Compile Include="dal\V_ROUTINGDal.cs" />
+    <Compile Include="dal\V_UNITDal.cs" />
+    <Compile Include="dal\V_ORGANIZATIONDal.cs" />
+    <Compile Include="dal\V_MESSAGEDal.cs" />
+    <Compile Include="dal\TB_MessageDal.cs" />
+    <Compile Include="dal\TB_OrganizationDal.cs" />
+    <Compile Include="dal\FranchiseeDal.cs" />
+    <Compile Include="dal\DistrictDal.cs" />
+    <Compile Include="dal\CityDal.cs" />
+    <Compile Include="dal\TB_BrandDal.cs" />
+    <Compile Include="dal\SmsDal.cs" />
+    <Compile Include="dal\ProvinceDal.cs" />
+    <Compile Include="dal\GoodsDal.cs" />
+    <Compile Include="dal\CategoryDal.cs" />
+    <Compile Include="dal\MasterSignDal.cs" />
+    <Compile Include="dal\MasterImageDal.cs" />
+    <Compile Include="dal\OrderDetailDal.cs" />
+    <Compile Include="dal\OrderDal.cs" />
+    <Compile Include="dal\OrganizeDal.cs" />
+    <Compile Include="dal\MasterDal.cs" />
+    <Compile Include="dal\AppUserDal.cs" />
+    <Compile Include="dal\SettingDal.cs" />
+    <Compile Include="dal\EmployeeDal.cs" />
+    <Compile Include="dal\PlatFormDal.cs" />
+    <Compile Include="dal\MessageDal.cs" />
+    <Compile Include="dal\TB_TreeUserDal.cs" />
+    <Compile Include="dal\TB_UnitDal.cs" />
+    <Compile Include="dal\TB_UnitGroupDal.cs" />
+    <Compile Include="bll\ICBll\V_ICPRICEPOLICYENTRYBLL.cs" />
+    <Compile Include="bll\ICPRBll\ICPRBILLENTRYBLL.cs" />
+    <Compile Include="bll\ICPRBll\ICPRBILLBLL.cs" />
+    <Compile Include="bll\ICBll\ICPRICEPOLICYENTRYBLL.cs" />
+    <Compile Include="bll\ICBll\ICPRICEPOLICYBLL.cs" />
+    <Compile Include="dal\ICDal\V_ICPRICEPOLICYENTRYDAL.cs" />
+    <Compile Include="bll\ICPRBll\ICPRBIDATABLL.cs" />
+    <Compile Include="dal\ICPRDal\ICPRBILLENTRYDAL.cs" />
+    <Compile Include="dal\ICPRDal\ICPRBILLDAL.cs" />
+    <Compile Include="dal\ICDal\ICPRICEPOLICYENTRYDAL.cs" />
+    <Compile Include="dal\ICDal\ICPRICEPOLICYDAL.cs" />
+    <Compile Include="DataResult.cs" />
+    <Compile Include="model\ccdmodel.cs" />
+    <Compile Include="model\TB_DZmanuscript.cs" />
+    <Compile Include="model\TB_Dzsrcdel.cs" />
+    <Compile Include="model\V_QUERY_STOCKModel.cs" />
+    <Compile Include="model\v_icpr_icpo_icseout_thdmodel.cs" />
+    <Compile Include="model\v_thd.cs" />
+    <Compile Include="model\v_thdmodel.cs" />
+    <Compile Include="model\thdmodel.cs" />
+    <Compile Include="model\ICPOModel\ICPO_BOLentryModel.cs" />
+    <Compile Include="model\ICPOModel\SALES_ORDER_DATAMODEL.cs" />
+    <Compile Include="model\ICPOModel\SALESOUT_DATAMODEL.cs" />
+    <Compile Include="model\ICPOModel\TP_INVENTORYMODEL.cs" />
+    <Compile Include="model\TB_ATTACHMENTModel.cs" />
+    <Compile Include="model\V_DELIVER_BASEModel.cs" />
+    <Compile Include="model\TB_EBPLModel.cs" />
+    <Compile Include="model\TB_DELIVER_BASEModel.cs" />
+    <Compile Include="model\TB_PRICEPOLICYModel.cs" />
+    <Compile Include="model\ICPRBILLAUDITModel.cs" />
+    <Compile Include="model\TB_UNLOADING_COSTModel.cs" />
+    <Compile Include="model\TB_SETTLEMENTModel.cs" />
+    <Compile Include="model\V_DELIVERY_DETAILModel.cs" />
+    <Compile Include="model\TB_DELIVERY_DETAILModel.cs" />
+    <Compile Include="model\V_BIINTERFACEModel.cs" />
+    <Compile Include="model\ICModel\V_ICPRICEPOLICYMODEL.cs" />
+    <Compile Include="model\ICModel\V_ICPRICEPOLICYENTRYMODEL.cs" />
+    <Compile Include="model\ICModel\ICPRICEPOLICYENTRYMODEL.cs" />
+    <Compile Include="dal\ICPRDal\ICPRBIDATADAL.cs" />
+    <Compile Include="model\ICPOModel\ICPOBIDATAMODEL.cs" />
+    <Compile Include="model\ICPOModel\V_ICPOHISTORYMODEL.cs" />
+    <Compile Include="model\ICPOModel\V_ICPOPOLICYMODEL.cs" />
+    <Compile Include="model\ICPOModel\V_ICSEOUTBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICPOModel\ICSEOUTBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICPOModel\V_ICSEOUTBILLMODEL.cs" />
+    <Compile Include="model\ICPOModel\ICSEOUTBILLMODEL.cs" />
+    <Compile Include="model\ICPOModel\V_ICPOBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICPOModel\V_ICPOBILLMODEL.cs" />
+    <Compile Include="model\ICPOModel\ICPOHISTORYMODEL.cs" />
+    <Compile Include="model\ICPOModel\ICPOPOLICYMODEL.cs" />
+    <Compile Include="model\ICPOModel\ICPOBILLMODEL.cs" />
+    <Compile Include="model\ICPOModel\ICPOBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICPRModel\V_ICPRBILLENTRY_H_PRICEMODEL.cs" />
+    <Compile Include="model\ICPRModel\V_ICPRPOLICYMODEL.cs" />
+    <Compile Include="model\ICPRModel\V_ICPRBILLMODEL.cs" />
+    <Compile Include="model\ICPRModel\V_ICPRBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICPRModel\ICPRBILLMODEL.cs" />
+    <Compile Include="model\ICPRModel\ICPRBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICModel\ICPRICEPOLICYMODEL.cs" />
+    <Compile Include="bll\ICPRBll\ICPRPOLICYBLL.cs" />
+    <Compile Include="dal\ICPRDal\ICPRPOLICYDAL.cs" />
+    <Compile Include="model\ICPRModel\ICPRBIDATAMODEL.cs" />
+    <Compile Include="model\ICPRModel\ICPRPOLICYMODEL.cs" />
+    <Compile Include="model\BrandModel.cs" />
+    <Compile Include="model\FranchiseeModel.cs" />
+    <Compile Include="model\CityModel.cs" />
+    <Compile Include="model\DistrictModel.cs" />
+    <Compile Include="model\ICPRBillModel.cs" />
+    <Compile Include="model\ICPRBillView.cs" />
+    <Compile Include="model\ICSTModel\ICSTOCKBILLENTRYMODEL.cs" />
+    <Compile Include="model\ICSTModel\ICSTOCKBILLMODEL.cs" />
+    <Compile Include="model\ProductModel.cs" />
+    <Compile Include="model\ProductViewModel.cs" />
+    <Compile Include="model\SystemModel\SYS_UPDATELOGMODEL.cs" />
+    <Compile Include="model\TB_EXPRESSCOMPANYModel.cs" />
+    <Compile Include="model\SRCModel.cs" />
+    <Compile Include="model\BIINTERFACEModel.cs" />
+    <Compile Include="model\TB_PREMISEModel.cs" />
+    <Compile Include="model\TB_REVIEWTEAMModel.cs" />
+    <Compile Include="model\TB_ROUTINGModel.cs" />
+    <Compile Include="model\TB_USERBRANDModel.cs" />
+    <Compile Include="model\TB_USERPREMISEModel.cs" />
+    <Compile Include="model\V_UNITGROUPModel.cs" />
+    <Compile Include="model\V_CLIENTACCOUNTModel.cs" />
+    <Compile Include="model\TB_EXPRESSPOLICYModel.cs" />
+    <Compile Include="model\TB_CLIENTACCOUNTModel.cs" />
+    <Compile Include="model\V_PREMISEModel.cs" />
+    <Compile Include="model\V_ROUTINGModel.cs" />
+    <Compile Include="model\V_UNITModel.cs" />
+    <Compile Include="model\V_ORGANIZATIONModel.cs" />
+    <Compile Include="model\V_MESSAGE.cs" />
+    <Compile Include="model\TB_MessageModel.cs" />
+    <Compile Include="model\TB_OrganizationModel.cs" />
+    <Compile Include="model\TB_BrandModel.cs" />
+    <Compile Include="model\SmsModel.cs" />
+    <Compile Include="model\ProvinceModel.cs" />
+    <Compile Include="model\GoodsModel.cs" />
+    <Compile Include="model\MasterImageModel.cs" />
+    <Compile Include="model\CategoryModel.cs" />
+    <Compile Include="model\MasterSignModel.cs" />
+    <Compile Include="model\OrderDetailModel.cs" />
+    <Compile Include="model\OrderModel.cs" />
+    <Compile Include="model\OrganizeModel.cs" />
+    <Compile Include="model\MasterModel.cs" />
+    <Compile Include="model\AppUserModel.cs" />
+    <Compile Include="model\MessageModel.cs" />
+    <Compile Include="model\EmployeeModel.cs" />
+    <Compile Include="model\PlatFormModel.cs" />
+    <Compile Include="model\SignDetailModel.cs" />
+    <Compile Include="model\SettingModel.cs" />
+    <Compile Include="model\TB_SahowListMessageModel.cs" />
+    <Compile Include="model\TB_TreeUserModel.cs" />
+    <Compile Include="model\TB_UnitGroupModel.cs" />
+    <Compile Include="model\TB_UnitModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="bll\SystemBll\SYS_PARAMSBLL.cs" />
+    <Compile Include="bll\SystemBll\SYS_DICSBLL.cs" />
+    <Compile Include="bll\SystemBll\SYS_SUBDICSBLL.cs" />
+    <Compile Include="dal\SystemDal\SYS_DICSDAL.cs" />
+    <Compile Include="dal\SystemDal\SYS_PARAMSDAL.cs" />
+    <Compile Include="dal\SystemDal\SYS_SUBDICSDAL.cs" />
+    <Compile Include="model\SystemModel\SYS_DICSMODEL.cs" />
+    <Compile Include="model\SystemModel\SYS_PARAMSMODEL.cs" />
+    <Compile Include="model\SystemModel\SYS_SUBDICSMODEL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\hn.Common\hn.Common.csproj">
+      <Project>{16183c27-23be-4335-ae94-f12bb57421ff}</Project>
+      <Name>hn.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hn.Core\hn.Core.csproj">
+      <Project>{A2EE0C6C-76C5-49C5-BCA6-0BC862ECA195}</Project>
+      <Name>hn.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<script type="text/javascript" src="/Scripts/Business/Biz.Dialog.js"></script>
+<script src="~/Scripts/Uploadify/jquery.uploadify.js?v=@DateTime.Now.Ticks" type="text/javascript"></script>
+<link href="~/Scripts/Uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<form id="uiform" method="post">
+    <div fit="true" style="height: 180px; overflow: hidden;">
+        <input id="FID" name="FID" type="hidden" value="" />
+        <div title="基本信息" style="overflow: hidden;">
+            <table class="grid">
+                <tr>
+                    <td>
+                        品牌名称：
+                    </td>
+                    <td>
+                        <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                        <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    <td>
+                        品类：
+                    </td>
+                    <td>
+                        <input id="FPRODUCTTYPE" name="FPRODUCTTYPE" type="text" class="easyui-textbox" />
+                        @*<input id="FCATEGORYID" name="FCATEGORYID" type="hidden" />
+                        <input id="FCATEGORYNAME" name="FCATEGORYNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择商品类别',invalidMessage:'最大长度255个字符'" />*@
+                    </td>
+                    <td>
+                        产品代码：
+                    </td>
+                    <td>
+                        <input id="FPRODUCTCODE" name="FPRODUCTCODE" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入产品代码',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    <td>
+                        产品名称：
+                    </td>
+                    <td>
+                        <input id="FPRODUCTNAME" name="FPRODUCTNAME" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入产品名称',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        规格型号：
+                    </td>
+                    <td>
+                        <input id="FMODEL" name="FMODEL" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入规格型号',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                  
+                    <td>
+                        重量：
+                    </td>
+                    <td>
+                        <input id="FWEIGHT" name="FWEIGHT" type="text" class="easyui-numberbox" data-options="precision:2,required:true,missingMessage:'请输入重量'" />
+                    </td>
+                    <td>
+                        体积：
+                    </td>
+                    <td>
+                        <input id="FVOLUME" name="FVOLUME" type="text" class="easyui-numberbox" data-options="precision:2,required:true,missingMessage:'请输入体积'" />
+                    </td>
+                    <td>
+                        平米：
+                    </td>
+                    <td>
+                        <input id="FSQUARE" name="FSQUARE" type="text" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        包装规格：
+                    </td>
+                    <td>
+                        <input id="FPKGFORMAT" name="FPKGFORMAT" type="text" class="easyui-textbox" />
+                    </td>
+                    
+                    @*<td>
+                        厂家名称：
+                    </td>
+                    <td>
+                        <input id="FSRCNAME" name="FSRCNAME" type="text" class="easyui-textbox" />
+                    </td>*@
+                    <td>
+                        状态：
+                    </td>
+                    <td >
+                        <input id="FSTATUS" name="FSTATUS" type="text" class="easyui-combobox"
+                               data-options="editable:false,valueField:'id',textField:'text',url:'/SysDics/GetProductStatusForCombobox',required:true,missingMessage:'请选择商品状态'" />
+                    </td>
+                    <td class="t_r5">默认采购单位：</td>
+                    <td >
+                        <input id="FORDERUNITID" name="FORDERUNITID" type="hidden" />
+                        <input type="text" class="easyui-searchbox" name="FORDERUNIT" id="FORDERUNIT" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择采购单位',invalidMessage:'最大长度255个字符'"  />
+                    </td>
+                    <td class="t_r5">默认换算率：</td>
+                    <td colspan="3">
+                        <input type="text" class="easyui-numberbox" name="FRATE" id="FRATE" data-options="precision:2,required:true,missingMessage:'请输入体积'" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="t_r5">厂家商品代码：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FSRCCODE" id="FSRCCODE" data-options="" value="" />
+                    </td>
+                    <td class="t_r5">厂家商品名称：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FSRCNAME" id="FSRCNAME" data-options="" value="" />
+                    </td>
+                    <td class="t_r5">厂家商品型号：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FSRCMODEL" id="FSRCMODEL" data-options="" value="" />
+                    </td>
+                    <td class="t_r5">厂家单位：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FSRCUNIT" id="FSRCUNIT" data-options="" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="t_r5">默认组柜代码：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FGROUP_NO" id="FGROUP_NO" data-options="" value=""   />
+                    </td>
+                    <td class="t_r5">组柜商品名称：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FGROUPNAME" id="FGROUPNAME" data-options="" value="" />
+                    </td>
+                    <td class="t_r5">组柜商品规格：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FGROUPMODEL" id="FGROUPMODEL" data-options="" value="" />
+                    </td>
+                    <td class="t_r5">组柜换单位：</td>
+                    <td>
+                        <input type="text" class="easyui-textbox" name="FGROUPUNIT" id="FGROUPUNIT" data-options="" value="" />
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="userTab2" style="overflow: hidden;">
+        <div title="厂家编码" style="padding: 2px">
+            <div class="datagrid-toolbar" id="srctoolbar" style="height: 28px; padding: 1px 2px 0px;">
+
+                <a id="a_add" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-add" title="新增">新增</a><div class='datagrid-btn-separator'></div>
+                <a id="a_edit" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-pencil" title="编辑">编辑</a><div class='datagrid-btn-separator'></div>
+                <a id="a_delete" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton" icon="icon-delete3" title="删除">删除</a>
+
+            </div>
+            <table id="src" toolbar="#srctoolbar"></table>
+        </div>
+        <div title="单位换算" style="padding: 2px; overflow: hidden;">
+            <table id="unit"></table>
+        </div>
+    </div>
+    <button id="easyui-submit" type="submit" style="display:none;">保存</button>
+</form>
+
+<script type="text/javascript">
+    $("#userTab2").css("height", document.documentElement.clientHeight-395);
+    $('#userTab2').tabs({
+        onSelect: function () {
+            $('.validatebox-tip').remove();
+        }
+    });
+
+    var src = {
+        databind: function () {
+            $('#src').datagrid({
+                url: '/Product/Src',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                { title: '厂家代码', field: 'FSRCCODE', width: 180, sortable: true },
+                { title: '厂家名称', field: 'FSRCNAME', width: 140, sortable: true },
+                { title: '厂家规格型号', field: 'FSRCMODEL', width: 120, sortable: true },
+                { title: '单位', field: 'FUNIT', width: 60, sortable: true,align:'center' },
+                { title: '采购单位', field: 'FORDERUNIT', width: 120, sortable: true },
+                { title: '换算率', field: 'FRATE', width: 120, sortable: true },
+                { title: '重量', field: 'FWEIGHT', width: 100, sortable: true }
+                ]],
+                pagination: false,
+
+            });
+        },
+        reload: function () {
+            $('#src').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#src').datagrid('getSelected');
+        }
+    };
+
+    var unit = {
+        databind: function () {
+            $('#unit').datagrid({
+                url: '/Product/Unit',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                { title: '计量编码', field: 'FNUMBER', width: 100, sortable: true },
+                    { title: '计量单位', field: 'FNAME', width: 100, sortable: true },
+                { title: '与主单位换算率', field: 'FRATE', width: 100, sortable: true },
+                { title: '更新时间', field: 'FUPDATETIME', width: 150, sortable: true },
+                { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                ]],
+                pagination: false
+            });
+        },
+        reload: function () {
+            $('#unit').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#unit').datagrid('getSelected');
+        }
+    };
+
+    src.databind();
+    unit.databind();
+    $('#src').datagrid('reload', {
+        FPRODUCTID: '@Request.QueryString["id"]'
+    });
+    $('#unit').datagrid('reload', {
+        FPRODUCTID: '@Request.QueryString["id"]'
+    });
+
+    $("#a_add").click(function () {
+        var dialog = top.$.hDialog({
+            href: '/Product/SrcAdd' + '?v=' + Math.random(),
+            width: 700,
+            height: 230,
+            title: '添加厂家代码',
+            iconCls: 'icon-user_add',
+            onLoad: function () {
+            },
+            closed: false,
+            submit: function () {
+                if (top.$('#uiform2').form('validate')) {
+                    $.ajaxjson("/Product/SrcSave", {
+                        FPRODUCTID: '@Request.QueryString["id"]',
+                        FSRCNAME: top.$("#txtFSRCNAME").val(),
+                        FSRCCODE: top.$("#txtFSRCCODE").val(),
+                        FSRCMODEL: top.$("#txtFSRCMODEL").val(),
+                        FORDERUNIT: top.$("#txtFORDERUNIT").searchbox("getValue"),
+                        FUNIT: top.$("#txtFUNIT").val(),
+                        FRATE: top.$("#txtFRATE").val(),
+                        FWEIGHT: top.$("#txtFWEIGHT").val(),
+                    }, function (d) {
+                        if (d.errCode == 0) {
+                            src.reload();
+                            dialog.dialog('close');
+                        } else {
+                            parent.layer.alert(d.errMsg);
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    $("#a_edit").click(function () {
+        var row = src.selectRow();
+        if (row) {
+            var dialog = top.$.hDialog({
+                href: '/Product/SrcAdd?id=' + row.FID,
+                width: 700,
+                height: 230,
+                title: '添加厂家代码',
+                iconCls: 'icon-user_add',
+                onLoad: function () {
+                },
+                closed: false,
+                submit: function () {
+                    if (top.$('#uiform2').form('validate')) {
+                        $.ajaxjson("/Product/SrcSave", {
+                            FID: row.FID,
+                            FPRODUCTID: '@Request.QueryString["id"]',
+                            FSRCNAME: top.$("#txtFSRCNAME").val(),
+                            FSRCCODE: top.$("#txtFSRCCODE").val(),
+                            FSRCMODEL: top.$("#txtFSRCMODEL").val(),
+                            FORDERUNIT: top.$("#txtFORDERUNIT").searchbox("getValue"),
+                            FUNIT: top.$("#txtFUNIT").val(),
+                            FRATE: top.$("#txtFRATE").val(),
+                            FWEIGHT: top.$("#txtFWEIGHT").val()
+                        }, function (d) {
+                            if (d.errCode == 0) {
+                                src.reload();
+                                dialog.dialog('close');
+                            } else {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    $("#a_delete").click(function () {
+        var row = src.selectRow();
+        if (row) {
+            parent.layer.confirm('确认要删除选中的厂家代码吗?', {
+                icon: 3,
+                btn: ['确认', '取消']
+            }, function () {
+                $.ajaxjson('/Product/SrcDelete', { FID: row.FID }, function (d) {
+                    if (parseInt(d) > 0) {
+                        parent.layer.msg('删除成功');
+                        src.reload();
+                    } else {
+                        parent.layer.alert('删除失败', { icon: 2 });
+                    }
+                });
+            });
+        } else {
+            parent.layer.alert('请选择要删除的厂家账号。');
+        }
+    });
+
+
+
+</script>

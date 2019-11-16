@@ -1,0 +1,414 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout">
+    @*<div data-options="region:'west',split:true,tools:[{
+                        iconCls:'icon-arrow_in',
+                        handler:function(){
+                            if (!iscollapseAll){
+                                $('#driver').tree('collapseAll');
+                                iscollapseAll=true;
+                            }
+                             else{
+                                $('#driver').tree('expandAll');
+                                iscollapseAll=false;
+                             }
+
+                        }
+                    }]" title="调度平台" style="width:220px;  overflow-y:auto;">
+            <div id="treeToolbar" style="height: 28px; padding: 1px 2px 0px;" class="datagrid-toolbar">
+                <input class="easyui-textbox" style="width: 110px" id="txtDriverName"><a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search2">查询</a>
+            </div>
+            <ul id="driver"></ul>
+        </div>*@
+    <div region="center" iconcls="icon-users" style="padding: 2px; overflow: hidden; " class="datagrid-toolbar">
+
+        <div region="north" border="false" split="true" style="">
+            <div style="height:35px">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <div style="margin-bottom:5px;">
+                &nbsp;&nbsp;&nbsp;
+                发送日期:
+                <input class="easyui-datebox" style="width: 100px" id="txtDateFrom"> 至 <input class="easyui-datebox" style="width: 100px" id="txtDateTo">
+                接收人:
+                <input id="txtName" class="easyui-textbox" style="width: 150px">
+
+                <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search2">查询</a>
+            </div>
+        </div>
+
+        <table id="list" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var iscollapseAll = false;
+    $(function () {
+        var size = { width: $(window).width(), height: $(window).height() };
+
+        autoResize({ dataGrid: '#list', gridType: 'datagrid', callback: grid.databind, height: 80, width: 10 });
+
+        $('#a_search').click(onSearch);
+        $('#a_reset').click(onReset);
+        $('#a_delete').click(onDelete);
+        $('#a_update').click(onUpdate);
+        $('#a_add').click(onAdd);
+
+
+        $('#a_search2').click(crud.search);
+        $("#a_exit").click(crud.exit);
+    });
+
+
+    var grid = {
+        databind: function (size) {
+            $('#list').datagrid({
+                width: size.width,
+                height: size.height,
+                idField: 'FID',
+                url: '/Message/Data',
+                rownumbers: true,
+                singleSelect: true,
+                checkOnSelect: false,
+                selectOnCheck: false,
+                striped: true,
+                columns: [[
+                { field: 'FID', checkbox: true },
+                { title: '标题', field: 'FTITLE', width: 200, sortable: true },
+                {
+                    title: '是否已读', field: 'FSTATE', width: 80, sortable: true, align: 'center',
+                    formatter: function (v, d, i) {
+                        if (!d.FState == 1)
+                            return '<strong>未读</strong>';
+                        return '已读';
+                    }
+                },
+                { title: '接收人', field: 'FRECEIVERNAME', width: 200, sortable: true },
+                {
+                    title: '发送时间', field: 'FDATE', width: 200, sortable: true, formatter: function (value, row) {
+                        return row.FDATESTRING;
+                    }
+                },
+                 {
+                     title: '内容', field: 'FMSGCONTENT', width: 200, align: "center",
+                     formatter: function (v, d, i) {
+
+                         return '<a href="javascript:void(0);" onclick="ViewContent(\'' + d.FID + '\');" >查看</a>';
+                     }
+                 },
+                { title: '发送人', field: 'FSENDERNAME', width: 200, sortable: true },
+
+
+                   //{
+                   //    title: '收件人类型', field: 'FMsgType', width: 110, sortable: true, align: 'center',
+                   //    formatter: function (v, d, i) {
+                   //        if (v == 1) {
+                   //            return "分公司";
+                   //        }
+                   //        else if (v == 2) {
+                   //            return "APP";
+                   //        }
+                   //        else if (v == 3) {
+                   //            return "供应商";
+                   //        }
+                   //        else {
+                   //            return "";
+                   //        }
+                   //    }
+                   //},
+
+
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onDblClickRow: function (rowIndex, rowData) {
+                    //onUpdate();
+                }
+            });
+        },
+        reload: function () {
+            $('#list').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#list').datagrid('getSelected');
+        }
+    };
+
+    function onSearch2() {
+
+        debugger;
+        var name = $('#txtName').val();
+        var dateFrom = $('#txtDateFrom').datebox('getValue');
+        var dateTo = $('#txtDateTo').datebox('getValue');
+        if (name.length == 0) {
+            alert("请填写接收人名字")
+        }
+        var json;
+        if (dateFrom.length == 0 && dateTo.length == 0) {
+            json = { Name: name };
+        } else if (dateFrom.length == 0) {
+            json = { DateTo: dateTo, Name: name };
+
+        } else if (dateTo.length == 0) {
+            json = { DateFrom: DateFrom, Name: name };
+        }
+
+        //var filterObj = { groupOp: 'AND', rules: ruleArr };
+        //$('#list').datagrid('load', { url: '/Message/SendList', filter: JSON.stringify(filterObj) });
+
+        $.ajaxjson('/Message/onSearch', query, function (d) {
+            if (d.errCode == 0) {
+                parent.layer.msg(d.errMsg);
+                grid.reload();
+            } else {
+                parent.layer.alert(d.errMsg);
+            }
+        });
+    }
+
+    //查看内容
+    function ViewContent(id) {
+        var url = '/Web/Message?id=' + id;
+
+        parent.layer.open({
+            type: 2,
+            title: '内容',
+            shadeClose: true,
+            shade: 0.01,
+            area: ['500px', '600px'],
+            content: url //iframe的url
+        });
+    }
+
+    function onAdd() {
+
+        //var addDialog = top.$.hDialog(
+        //    {
+        //        href: '/Message/Send' + '?v=' + Math.random(),
+        //        width: 1200,
+        //        height: 600,
+        //        title: '消息添加',
+        //        iconCls: 'icon-application_form_add',
+        //        onLoad: function () {
+        //            crud.initData();
+        //        },
+        //        closed: false,
+        //        showBtns: false,
+        //        toolbar: [{
+        //            text: '新增',
+        //            iconCls: 'icon-add',
+        //            handler: function () {
+        //                if (top.$('#uiform').form('validate')) {
+        //                    var query = getAddParam("Save", 0);
+
+        //                    if (query.length == 0) {
+        //                        return;
+        //                    }
+
+        //                    //$.ajaxjson('/Message/Save', query, function (d) {
+        //                    //    if (d.errCode == 0) {
+        //                    //        parent.layer.msg('添加成功');
+        //                    //        grid.reload();
+        //                    //        clear();
+
+        //                    //    } else {
+        //                    //        parent.layer.alert(d.errMsg);
+        //                    //    }
+        //                    //});
+        //                }
+        //            }
+        //        }]
+        //    }
+        //        );
+
+
+    }
+
+    function onSearch() {
+
+
+        var row = grid.selectRow();
+        if (row) {
+            location.href = "/Web/Message?id=" + row.FID;
+        }
+
+        //var name = $('#txtName').val();
+        //var dateFrom = $('#txtDateFrom').datebox('getValue');
+        //var dateTo = $('#txtDateTo').datebox('getValue');
+
+        //var ruleArr = [];
+        //if (name != "")
+        //    ruleArr.push({ "field": "EmployeeName", "op": "cn", "data": name });
+        //if (dateFrom != '')
+        //    ruleArr.push({ "field": "FDate", "op": "ge", "data": dateFrom });
+        //if (dateTo != '')
+        //    ruleArr.push({ "field": "FDate", "op": "le", "data": dateTo });
+
+
+        //var rows = $('#driver').tree('getChecked');
+        //if (rows.length > 0) {
+
+        //    var ids = "";
+
+        //    for (var i = 0; i < rows.length; i++) {
+
+        //        if (ids == "") {
+        //            ids = rows[i].id;
+        //        }
+        //        else {
+        //            ids += "," + rows[i].id;
+        //        }
+        //    }
+
+        //    if (ids != '0')
+        //        ruleArr.push({ "field": "RECEIVE_ID", "op": "in", "data": ids });
+        //}
+
+        if (ruleArr.length > 0) {
+            var filterObj = { groupOp: 'AND', rules: ruleArr };
+            $('#list').datagrid('load', { url: '/Message/SendList', filter: JSON.stringify(filterObj) });
+        } else {
+            $('#list').datagrid('load', { url: '/Message/SendList', filter: {} });
+        }
+    }
+
+    function onReset() {
+        $('#txtName').textbox("setValue", "");
+        $('#txtDateFrom').datebox('setValue', '');
+        $('#txtDateTo').datebox('setValue', '');
+
+        $('#list').datagrid('load', { url: '/Message/SendList', filter: {} });
+    }
+
+
+    function onSearchDriver() {
+        var drivername = $('#txtDriverName').val()
+        $('#driver').tree('search', drivername);
+    }
+
+    function onDelete() {
+
+        var rows = $('#list').datagrid('getChecked');
+
+        var ids = '';
+
+        for (var i = 0; i < rows.length; i++) {
+            ids += "," + rows[i].FID;
+        }
+
+        if (ids == '') {
+            parent.layer.alert('请先勾选您要删除的消息！');
+            return false;
+        }
+
+        var postData = { "FIDLIST": ids };
+        var url = '/Message/Delete';
+
+        sendAjaxUrl(postData, url);
+    }
+
+    //发送AJAX请求
+    function sendAjaxUrl(postData, sendUrl) {
+        $.ajax({
+            type: "post",
+            url: sendUrl,
+            data: postData,
+            dataType: "json",
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                parent.layer.alert('尝试发送失败，错误信息：' + errorThrown);
+            },
+            success: function (data, textStatus) {
+                if (data.Success == 1) {
+                    parent.layer.alert(data.Message, function () {
+                        parent.layer.closeAll();
+                        grid.reload();
+                    });
+                } else {
+                    parent.layer.alert('错误提示：' + data.Message);
+                }
+            }
+        });
+    }
+
+    //=====================================
+    //根据Form上的控件绑定的data-bind属性
+    //自动将控件的值转成json格式
+    //=====================================
+    function createParam(id) {
+        var o = {};
+        var form = top.$('#uiform');
+        if (form) {
+            var title = top.$('#uiform').find('#txtFMsgTitle').textbox("getValue");
+            o.data1 = title;
+            var status = top.$('#uiform').find('#txtFStatus').switchbutton("options").checked;
+            o.data2 = status;
+            var content = top.ueContent();
+            alert(content);
+            o.data3 = content;
+        }
+        o.FID = id;
+        return "json=" + JSON.stringify(o);
+    }
+
+    function onUpdate() {
+        var row = grid.selectRow();
+        if (row) {
+            var editDialog = top.$.hDialog({
+                href: '/Message/Edit?id=' + row.FID,
+                width: 1100,
+                height: 610,
+                title: '修改消息',
+                iconCls: 'icon-application_form_edit',
+                onLoad: function () {
+                    top.$('#uiform').form({
+                        onSubmit: function () {
+                            return top.$('#uiform').form('validate');
+                        },
+                        success: function (data) {
+                            var d = $.parseJSON(data); // change the JSON string to javascript object
+                            //alert(d.errCode);
+                            if (d.errCode == 0) {
+                                parent.layer.msg('修改成功');
+                                grid.reload();
+                                editDialog.dialog('close');
+                            } else {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        }
+                    });
+                },
+                submit: function () {
+                    top.$('#uiform').submit();
+
+                    //if (top.$('#uiform').form('validate')) {
+                    //    var query = createParam(row.FID);
+                    //    $.ajaxjson('/Message/Edit', query, function (d) {
+                    //        if (d.errCode == 0) {
+                    //            parent.layer.msg('修改成功');
+                    //            grid.reload();
+                    //            editDialog.dialog('close');
+                    //        } else {
+                    //            parent.layer.alert(d.errMsg);
+                    //        }
+                    //    });
+                    //}
+                }
+            });
+        } else {
+            parent.layer.msg('请选择要修改的消息。');
+        }
+    }
+
+    var crud = {
+        initData: function () {
+            top.$()
+        },
+        initData: function (depid) {
+        }, search: function () {
+            onSearch2();
+        }
+    }
+
+</script>

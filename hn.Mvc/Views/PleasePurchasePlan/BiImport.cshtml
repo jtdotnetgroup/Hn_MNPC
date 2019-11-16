@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Dialog";
+}
+
+
+<form id="dialog">
+    <table id="BIgrid"></table>
+</form>
+
+
+
+<script type="text/javascript">
+
+    top.$('#BIgrid').datagrid({
+        url: '/PleasePurchasePlan/BIData',
+        iconCls: 'icon icon-list',
+        width: document.body.clientWidth / 1.25-20,
+        height: document.body.clientHeight / 1.25 - 90,
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'FID', //主键
+        singleSelect: false, //单选
+        selectOnCheck: true,
+        checkOnSelect: true,
+        frozenColumns: [[]],
+        columns: [[
+             { field: 'FID', checkbox: true },
+            //{ title: '品牌代码', field: 'FBRANDNO', width: 70 },
+            //{ title: '经营部代码', field: 'FDEPTNO', width: 80 },
+            { title: '物料代码', field: 'FNUMBER', width: 80 },
+            { title: '物料名称', field: 'FPRODUCTNAME', width: 200 },
+            { title: '规格型号', field: 'FMODEL', width: 80 },
+            {
+                title: '建议数量', field: 'FADVICEQTY', width: 100, sortable: false, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+             {
+                 title: '现有库存', field: 'FINVQTY', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                     return fmoney(v, 2);
+                 }
+             },
+                {
+                    title: '预计入库/在途数量', field: 'FPURINQTY', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                        return fmoney(v, 2);
+                    }
+                },
+            {
+                title: '前3月均销量', field: 'FMONTHLYQTY', width: 120, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            {
+                title: '最高库存', field: 'FHIGHLIMIT', width: 80, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            {
+                title: '最低库存', field: 'FLOWLIMIT', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            {
+                title: '参考库存（安全库存）', field: 'FSAFEQTY', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },           
+            {
+                title: '超高/超低数量', field: 'FDIFFQTY', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            {
+                title: '超期库存', field: 'FEXTENDEDINV', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            { title: '库存状态', field: 'FSTATE', width: 120, sortable: true, align: 'center' },         
+            {
+                title: '未结订单数量', field: 'FSALEOUTQTY', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            {
+                title: '销售预测数量', field: 'FFORCASTQTY', width: 100, sortable: true, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            }
+            
+        ]],
+        pagination: true,
+        pageSize: 20,
+        pageList: [20, 40, 50],
+        onDblClickRow: function (rowIndex, rowData) {
+            callBack(rowData);
+            hDialog.dialog('close');
+        },
+        queryParams: {
+            FBRANDNO: '@Request.QueryString["brandno"]',
+            FDEPTNO: '@Request.QueryString["premiseno"]'
+        }
+    });
+
+</script>

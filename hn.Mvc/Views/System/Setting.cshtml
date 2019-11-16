@@ -1,0 +1,243 @@
+﻿@model Dictionary<string, hn.DataAccess.Model.SYS_PARAMSMODEL>
+@{
+    ViewBag.Title = "Config";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Css/css3btn.css" />
+<script src="~/Scripts/Uploadify/jquery.uploadify.js?v=@DateTime.Now.Ticks" type="text/javascript"></script>
+<link href="/Scripts/Uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<style>
+    .m_r5 {
+        margin-right: 5px;
+        text-align: right;
+    }
+
+    .inpcheck {
+        vertical-align: -2px;
+        margin-right: 3px;
+    }
+</style>
+<body class="easyui-layout">
+    <div region="center" border="false" split="true" style="overflow:auto;">
+        <div class="datagrid-toolbar" id="toolbar" style="height: 28px; padding-top: 1px; padding-right: 2px; padding-bottom: 0px; padding-left: 2px;">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+
+        <div style=" width: auto; margin:10px;">
+            <table class="grid" style="width:700px;">
+                <tr height="50px">
+                    <td width="180px" class="m_r5">
+                        客户端版本号：
+                    </td>
+                    <td>
+                        <input id="ClientVersion" type="text" class="easyui-textbox" data-options="required:true" style="width:100px;" value="1" />
+                    </td>
+                </tr>
+                @*<tr height="50px">
+                    <td width="180px" class="m_r5">
+                        商品资料同步时间间隔(秒)：
+                    </td>
+                    <td >
+                        <input id="intervalSP" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,10]',missingMessage:'请输入商品资料同步时间间隔',invalidMessage:'最大长度10个字符'" style="width:100px;"  value="@Model["IntervalSP"].FVALUE" />
+                    </td>
+                    <td width="180px" class="m_r5">
+                        采购订单同步时间间隔(秒)：
+                    </td>
+                    <td >
+                        <input id="intervalCG" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,10]',missingMessage:'请输入采购订单同步时间间隔',invalidMessage:'最大长度10个字符'" style="width:100px;" value="@Model["IntervalCG"].FVALUE" />
+                    </td>
+                </tr>
+                <tr height="50px">
+                    <td width="180px" class="m_r5">
+                        发货通知同步时间间隔(秒)：
+                    </td>
+                    <td>
+                        <input id="intervalFH" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,10]',missingMessage:'请输入发货通知同步时间间隔',invalidMessage:'最大长度10个字符'" style="width:100px;"  value="@Model["IntervalFH"].FVALUE"/>
+                    </td>
+                    <td width="180px" class="m_r5">
+                        销售出库同步时间间隔(秒)：
+                    </td>
+                    <td>
+                        <input id="intervalXS" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,10]',missingMessage:'请输入销售出库同步时间间隔',invalidMessage:'最大长度10个字符'" style="width:100px;" value="@Model["IntervalXS"].FVALUE" />
+                    </td>
+                </tr>
+                <tr height="50px">
+                    <td width="180px" class="m_r5">
+                        配柜库存浮动上限：
+                    </td>
+                    <td>
+                        <input id="inventoryMax" ttype="text" class="easyui-textbox" data-options="required:true,validType:'length[1,10]',missingMessage:'请输入配柜库存浮动上限',invalidMessage:'最大长度10个字符'" style="width:100px;" value="@Model["InventoryMax"].FVALUE" />
+                    </td>
+                    <td width="180px" class="m_r5">
+                        配柜库存浮动下限：
+                    </td>
+                    <td>
+                        <input id="inventoryMin" ttype="text" class="easyui-textbox" data-options="required:true,validType:'length[1,10]',missingMessage:'请输入配柜库存浮动下限',invalidMessage:'最大长度10个字符'" style="width:100px;" value="@Model["InventoryMin"].FVALUE" />
+                    </td>
+                </tr>*@
+            </table>
+        </div>
+
+       @* <div id="sysconfig" style="margin:10px;">
+    <h1>手机发送GPS信息设置</h1>
+    <div class="c">
+        <ul>
+            <li><div>发送间隔时间：</div><input type="text" id="txt_timer" class="easyui-textbox" name="timer" style="width:60px" value="@ViewBag.GPS_TIMER" /> （秒）</li>
+            <li><div>工作时间：</div><input id="txt_starttime" class="easyui-textbox" style="width:80px" value="@ViewBag.GPS_START_TIME" /> 至 <input id="txt_endtime" name="endtime" class="easyui-textbox" style="width:80px" value="@ViewBag.GPS_END_TIME" /></li>
+        </ul>
+    </div>
+
+    <h1>Android版本发布</h1>
+    <div class="c">
+        <ul>
+            <li><div>Android版本号：</div><input type="text" id="txt_ver" class="easyui-textbox" style="width:80px" value="@ViewBag.VER_ANDROID" /></li>
+            <li>
+                <div>APK文件：</div><div>
+                    <input type="text" name="txtApkFile" class="txt04" id="txtApkFile"
+                           readonly style="width: 500px" value="@ViewBag.VER_URL" /><input type=file name="txt_UploadFile" id="txt_UploadFile" />
+                    @*<input class="easyui-filebox"  data-options="prompt:'选择文件...',buttonText:'浏览...'"
+                        style="width: 300px">
+
+
+
+                        </div>
+                        <div id="queue2" style="margin: 0 auto 5px 0;">
+                        </div>
+
+                    </li>
+                    <li><div>更新描述：</div><input class="easyui-textbox" data-options="multiline:true" value="@ViewBag.VER_CONTENT" style="width:500px;height:100px" id="txt_CONTENT"></li>
+                    <li><div>更新时间：</div><input type="text" id="txt_date" class="txt03 easyui-datetimebox" style="width:150px" value="@ViewBag.VER_DATE" /></li>
+                </ul>
+            </div>
+            <h1>其他设置</h1>
+            <div class="c">
+                <ul>
+                    <li><div>数据查询起始日期：</div><input type="text" id="txt_DATA_START_DATE" class="easyui-datebox" name="txt_DATA_START_DATE" style="width:150px" value="@ViewBag.DATA_START_DATE" /></li>
+                    <li><div>当前调度单最大ID：</div><input type="text" id="txt_MAX_SCHEDULE_ID" class="easyui-textbox" name="txt_MAX_SCHEDULE_ID" style="width:80px" value="@ViewBag.MAX_SCHEDULE_ID" /> &nbsp;<a href="#" class="easyui-linkbutton" id="a_init">初始化</a> </li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin:140px;width:160px; margin-top:40px; font-family:'Microsoft YaHei'">
+
+                <a id="btnInit" href="javascript:;" class="buttonHuge button-blue">初始化调度平台</a>
+
+            </div>*@
+    </div>
+</body>
+
+
+
+<script type="text/javascript">
+    $('#a_save').click(function () {
+        var intervalSP = $("#intervalSP").val();
+        var num=(Number(intervalSP));
+        if (isNaN(num) || intervalSP == "" || num<0) {
+            parent.layer.alert("商品资料同步时间间隔必须大于0秒！");
+            return;
+        }
+        var intervalCG = $("#intervalCG").val();
+        num = (Number(intervalCG));
+        if (isNaN(num) || intervalCG == "" || num < 0) {
+            parent.layer.alert("采购订单同步时间间隔必须大于0秒！");
+            return;
+        }
+        var intervalFH = $("#intervalFH").val();
+        num = (Number(intervalFH));
+        if (isNaN(num) || intervalFH == "" || num < 0) {
+            parent.layer.alert("发货通知同步时间间隔必须大于0秒！");
+            return;
+        }
+        var intervalXS = $("#intervalXS").val();
+        num = (Number(intervalXS));
+        if (isNaN(num) || intervalXS == "" || num < 0) {
+            parent.layer.alert("销售出库同步时间间隔必须大于0秒！");
+            return;
+        }
+        var inventoryMax = $("#inventoryMax").val();
+        num = (Number(inventoryMax));
+        if (isNaN(num) || inventoryMax == "" || num < 0) {
+            parent.layer.alert( "配柜库存浮动上限值必须是大于0！");
+            return;
+        }
+        var inventoryMin = $("#inventoryMin").val();
+        num = (Number(inventoryMin));
+        if (isNaN(num) || inventoryMin == "" || num < 0) {
+            parent.layer.alert("配柜库存浮动下限值必须是大于0！");
+            return;
+        }
+        if (Number(inventoryMax) < Number(inventoryMin)) {
+            parent.layer.alert( "配柜库存浮动上限值不能低于下限值！");
+            return;
+        }
+
+        $.ajaxjson('/System/SettinSave',
+            {
+                intervalSP: intervalSP,
+                intervalCG: intervalCG,
+                intervalFH: intervalFH,
+                intervalXS: intervalXS,
+                inventoryMax: inventoryMax,
+                inventoryMin: inventoryMin
+            }, function (d) {
+                //msg.ok(d);
+                parent.layer.alert(d);
+            });
+    });
+
+
+    //function bindUploadFile(obj, filed, queue) {
+
+    //    $('#' + obj).uploadify({
+    //        'formData': { "str1": "", "str2": "" },
+    //        'swf': '/Scripts/Uploadify/uploadify.swf' + '?ver=' + new Date().toString(),
+    //        'uploader': '/Controls/UploadFiles/Upload',
+    //        'buttonText': '选择文件',
+    //        'fileTypeDesc': '文件',
+    //        'fileTypeExts': '',
+    //        'auto': true,
+    //        'multi': false,
+    //        'queueID': queue,
+    //        'onUploadSuccess': function (file, data, response) {
+    //            var dataArray = data.split('|');
+    //            if (dataArray.length > 0 && dataArray[0] == "1") {
+    //                $("#" + filed).val(dataArray[1]);
+    //            }
+    //            else {
+    //                alert(data);
+    //            }
+
+    //        },
+    //        'onSelect': function () {
+    //            $("#" + queue).show();
+    //        },
+    //        'onQueueComplete': function () {
+    //            $("#" + queue).hide(1000);
+    //        }
+    //    });
+
+    //}
+
+    //function uploadFile() {
+
+    //    var fd = new FormData();
+
+    //    fd.append("Filedata", document.getElementById('txt_UploadFile').files[0]);
+
+    //    var xhr = new XMLHttpRequest();
+
+    //    // xhr.upload.addEventListener("progress", uploadProgress, false);
+
+    //    xhr.addEventListener("load", uploadComplete, false);
+    //    // xhr.addEventListener("error", uploadFailed, false);
+    //    //xhr.addEventListener("abort", uploadCanceled, false);
+    //    xhr.open("POST", "/System/Upload");
+    //    xhr.send(fd);
+
+    //}
+
+    //function uploadComplete(evt) {
+    //    $("#txtApkFile").val(evt.target.responseText);
+
+    //}
+</script>

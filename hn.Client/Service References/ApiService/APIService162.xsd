@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/hn.Core.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/hn.Core.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element name="_x003C_AddTime_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_ConfigJson_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_EMail_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_EmployeeID_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_FAreaLogin_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_FDepartment_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_FGender_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_FID_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_FIsLeaving_x003E_k__BackingField" type="xs:boolean" />
+      <xs:element name="_x003C_FIsSystem_x003E_k__BackingField" type="xs:decimal" />
+      <xs:element name="_x003C_FLeavingTime_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_FOrgID_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_FUpdateTime_x003E_k__BackingField" type="xs:dateTime" />
+      <xs:element name="_x003C_IS_DOMAIN_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_IsAdmin_x003E_k__BackingField" type="xs:decimal" />
+      <xs:element name="_x003C_IsDisabled_x003E_k__BackingField" type="xs:decimal" />
+      <xs:element name="_x003C_LINKMAN_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_LINKPHONE_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_MenusJson_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Mobile_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Navigations_x003E_k__BackingField" nillable="true" type="tns:ArrayOfNavigation" />
+      <xs:element name="_x003C_Password_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_Remark_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_TrueName_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_UserName_x003E_k__BackingField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:complexType name="ArrayOfNavigation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Navigation" nillable="true" type="tns:Navigation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNavigation" nillable="true" type="tns:ArrayOfNavigation" />
+  <xs:complexType name="Navigation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BigImageUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Buttons" nillable="true" type="tns:ArrayOfButton" />
+      <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsVisible" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Linkurl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NavTag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NavTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sortnum" type="xs:int" />
+      <xs:element minOccurs="0" name="children" nillable="true" type="tns:ArrayOfNavigation" />
+      <xs:element minOccurs="0" name="iconCls" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="iconUrl" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Navigation" nillable="true" type="tns:Navigation" />
+  <xs:complexType name="ArrayOfButton">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Button" nillable="true" type="tns:Button" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfButton" nillable="true" type="tns:ArrayOfButton" />
+  <xs:complexType name="Button">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ButtonTag" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ButtonText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IconUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sortnum" type="xs:int" />
+      <xs:element minOccurs="0" name="iconCls" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Button" nillable="true" type="tns:Button" />
+</xs:schema>

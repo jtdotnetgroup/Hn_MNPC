@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A9CAD123-F112-4EFF-8B1D-39973777A8FB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>APIService</RootNamespace>
+    <AssemblyName>APIService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\hn.Mvc\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="global.asax" />
+    <Content Include="scripts\ai.0.15.0-build58334.js" />
+    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="APIService.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIService.svc.cs">
+      <DependentUpon>APIService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DataAccess\Bll\Customer_TG_Order_HuaNaiBll.cs" />
+    <Compile Include="Common\DataAccess\Bll\ICPO_BOLentryModel_MNLSBLL.cs" />
+    <Compile Include="Common\DataAccess\Bll\ICPOBILLENTRYBll.cs" />
+    <Compile Include="Common\DataAccess\Bll\TMP_STOCKBillBll.cs" />
+    <Compile Include="Common\DataAccess\Bll\PLANBill_HuaNaiBll.cs" />
+    <Compile Include="Common\DataAccess\Bll\ICSEOUTBILLEntryBll.cs" />
+    <Compile Include="Common\DataAccess\Bll\ICSEOUTBILLBll.cs" />
+    <Compile Include="Common\DataAccess\Dal\Customer_TG_Order_HuaNaiDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\ICPO_BOLentryModel_MNLS.cs" />
+    <Compile Include="Common\DataAccess\Dal\ICPOBILLENTRYDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\salesout_dataDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\sales_order_dataDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\trans_finishDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\TP_inventoryDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\TMP_STOCKBillDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\PLANBill_HuaNaiDal.cs" />
+    <Compile Include="Common\DataAccess\Dal\ICSEOUTBILLEntryDal.cs" />
+    <Compile Include="Common\DataAccess\Model\Customer_TG_Order_HuaNaiModel.cs" />
+    <Compile Include="Common\DataAccess\Model\ICPOBILLENTRYModel.cs" />
+    <Compile Include="Common\DataAccess\Model\ICPO_BOLentryModel_MNLS.cs" />
+    <Compile Include="Common\DataAccess\Model\sales_order_dataModel.cs" />
+    <Compile Include="Common\DataAccess\Model\salesout_dataModel.cs" />
+    <Compile Include="Common\DataAccess\Model\trans_finishModel.cs" />
+    <Compile Include="Common\DataAccess\Model\TP_inventoryModel.cs" />
+    <Compile Include="Common\DataAccess\Model\TMP_STOCKBillModel.cs" />
+    <Compile Include="Common\DataAccess\Model\PLANBill_HuaNaiModel_MNLS.cs" />
+    <Compile Include="Common\Data\BaseRepository.cs" />
+    <Compile Include="Common\Data\ConfigHelper.cs" />
+    <Compile Include="Common\DataAccess\Dal\ICSEOUTBILLDal.cs" />
+    <Compile Include="Common\DataAccess\Model\ICSEOUTBILLEntryModel.cs" />
+    <Compile Include="Common\DataAccess\Model\ICSEOUTBILLModel.cs" />
+    <Compile Include="Common\Data\Filter\FilterGroup.cs" />
+    <Compile Include="Common\Data\Filter\FilterRule.cs" />
+    <Compile Include="Common\Data\Filter\FilterTranslator.cs" />
+    <Compile Include="Common\Data\Provider\SingletonProvider.cs" />
+    <Compile Include="Common\Data\DbUtils.cs" />
+    <Compile Include="Common\Data\FieldsBy.cs" />
+    <Compile Include="Common\Data\IRepository.cs" />
+    <Compile Include="Common\JsonHelper.cs" />
+    <Compile Include="Common\Data\Pageable.cs" />
+    <Compile Include="Common\Data\ProcCustomPage.cs" />
+    <Compile Include="Common\PublicMethod.cs" />
+    <Compile Include="Common\Data\ReaderInjection.cs" />
+    <Compile Include="Common\Data\SetParamsValues.cs" />
+    <Compile Include="Common\Data\SQLServer\SqlEasy.cs" />
+    <Compile Include="Common\Data\SQLServer\SQLHelper.cs" />
+    <Compile Include="Common\Data\TableConvention.cs" />
+    <Compile Include="Common\Data\TableNameAttribute.cs" />
+    <Compile Include="global.asax.cs">
+      <DependentUpon>global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IAPIService.cs" />
+    <Compile Include="LogHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\publish.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\hn.Common\hn.Common.csproj">
+      <Project>{16183c27-23be-4335-ae94-f12bb57421ff}</Project>
+      <Name>hn.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hn.DataAccess\hn.DataAccess.csproj">
+      <Project>{8ecc21f8-31d6-4cee-98e6-36f1eaff4087}</Project>
+      <Name>hn.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62036</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:62037/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

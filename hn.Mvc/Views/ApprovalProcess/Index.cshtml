@@ -1,0 +1,272 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout">
+
+    <div region="center" border="false" split="true">
+        <div id="toolbar" style="padding: 1px 2px 0px;" class="datagrid-toolbar">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+        </div>
+        <table id="gridView" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.edit);
+        $('#a_delete').click(crud.del);
+        grid.databind();
+    });
+
+    function createParam(action, FID, isDel) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+
+        if (form && !isDel) {
+
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+        }
+        o.action = action;
+        o.FID = FID;
+        return JSON.stringify(o);
+    }
+
+    var grid = {
+        databind: function (size) {
+            $('#gridView').datagrid({
+                url: 'ApprovalProcess/List',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { title: '审核组名称', field: 'FREVIEWTEAMNAME', width: 180, sortable: true, align: 'left' },
+                    { title: '经营场所', field: 'FPREMISENAME', width: 250, sortable: true, align: 'left' },
+                    { title: '品牌名称', field: 'FBRANDNAME', width: 110, sortable: true, align: 'left' },
+                    {
+                        title: '计划类型', field: 'FTYPENAME', width: 120, sortable: true, align: 'left'
+                    },
+                    { title: '节点数', field: 'FNODECOUNT', width: 80, sortable: true, align: 'center' },
+                    {
+                        title: '节点1审批人', field: 'FAPPROVER_USERNAME1', width: 140, sortable: true, align: 'center', formatter: function (v, d, i) {
+                            if (d.FAPPROVER_USERNAME1 == null && d.FAPPROVER_TRUENAME1 == null)
+                                return "";
+                            return d.FAPPROVER_USERNAME1 + '/' + d.FAPPROVER_TRUENAME1;
+                        }
+                    },
+                    {
+                        title: '节点2审批人', field: 'FAPPROVER_USERNAME2', width: 140, sortable: true, align: 'center', formatter: function (v, d, i) {
+                            if (d.FAPPROVER_USERNAME2 == null && d.FAPPROVER_TRUENAME2 == null)
+                                return "";
+
+                            return d.FAPPROVER_USERNAME2 + '/' + d.FAPPROVER_TRUENAME2;
+                        }
+                    },
+                    {
+                        title: '节点3审批人', field: 'FAPPROVER_USERNAME3', width: 140, sortable: true, align: 'center', formatter: function (v, d, i) {
+                            if (d.FAPPROVER_USERNAME3 == null && d.FAPPROVER_TRUENAME3 == null)
+                                return "";
+
+                            return d.FAPPROVER_USERNAME3 + '/' + d.FAPPROVER_TRUENAME3;
+                        }
+                    },
+                    { title: '备注', field: 'FREMARK', width: 400, sortable: true, align: 'left' }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onClickRow: function (rowIndex, rowData) {
+
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+
+
+    };
+
+    var crud = {
+        initData: function (depid) {
+        },
+        //新增
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/ApprovalProcess/Add' + '?v=' + Math.random(),
+                width: 600,
+                height: 350,
+                title: '新增审批流程',
+                iconCls: 'icon-application_form_add',
+                onLoad: function () {
+
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [
+                    {
+                    text: '新增',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam('add', 0);
+                            $.ajaxjson('/ApprovalProcess/Add', { json: query }, function (d) {
+                                if (d.errCode == 0) {
+                                    //alert("success");
+                                    $('#gridView').datagrid('clearSelections').datagrid('reload');
+                                    parent.layer.msg(d.message);
+                                } else {
+                                    parent.layer.alert(d.message, { icon: 0 });
+                                }
+                            });
+                        }
+                        else {
+
+                        }
+
+
+                    }
+                },
+                    {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam('add', 0);
+                            $.ajaxjson('/ApprovalProcess/Add', { json: query }, function (d) {
+                                if (d.errCode == 0) {
+                                    //alert("success");
+                                    $('#gridView').datagrid('clearSelections').datagrid('reload');
+                                    parent.layer.msg(d.message);
+                                    addDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(d.message, { icon: 0 });
+                                }
+                            });
+                        }
+                        else {
+
+                        }
+
+                    }
+                },
+                    {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    },
+                },
+                ],
+            });
+        },
+        //编辑
+        edit: function () {
+            var row = grid.selectRow();
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    href: '/ApprovalProcess/Add' + '?v=' + Math.random(),
+                    width: 600,
+                    height: 350,
+                    title: '编辑审批流程',
+                    iconCls: 'icon-application_form_edit',
+                    onLoad: function () {
+                       
+
+                        top.$('#FREVIEWTEAMID').combobox("setValue", row.FREVIEWTEAMID);
+                        top.$('#FPREMISEID').val(row.FPREMISEID);
+                        top.$('#FPREMISENAME').searchbox('setValue', row.FPREMISENAME);
+                        top.$('#FBRANDID').combobox("setValue", row.FBRANDID);
+                        top.$('#FTYPE').combobox("setValue", row.FTYPE);
+                        top.$('#FNODECOUNT').combobox("setValue", row.FNODECOUNT);
+
+                        top.$('#FAPPROVER_USERID1').val(row.FAPPROVER_USERID1);
+                        top.$('#FAPPROVER_USER_NAME1').searchbox('setValue', row.FAPPROVER_USERNAME1);
+                        top.$('#FAPPROVER_USERID2').val(row.FAPPROVER_USERID2);
+                        top.$('#FAPPROVER_USER_NAME2').searchbox('setValue', row.FAPPROVER_USERNAME2);
+                        top.$('#FAPPROVER_USERID3').val(row.FAPPROVER_USERID3);
+                        top.$('#FAPPROVER_USER_NAME3').searchbox('setValue', row.FAPPROVER_USERNAME3);
+
+                    },
+                    closed: false,
+                    showBtns: false,
+                    toolbar: [{
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = createParam('edit', row.FID);
+                                $.ajaxjson('/ApprovalProcess/Edit', { json: query }, function (d) {
+                                    if (d.errCode == 0) {
+                                        //alert("success");
+                                        $('#gridView').datagrid('clearSelections').datagrid('reload');
+                                        parent.layer.msg(d.message);
+                                        editDialog.dialog('close');
+                                    } else {
+                                        parent.layer.alert(d.message, { icon: 0 });
+                                    }
+                                });
+                            }
+                            else {
+
+                            }
+                        }
+                    },
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            editDialog.dialog('close');
+                        },
+                    },
+                    ],
+                });
+            }
+            else {
+                parent.layer.alert('请选择要编辑的审批流程！');
+            }
+        },
+        //删除
+        del: function () {
+            var row = grid.selectRow();
+            if (row) {
+                var o = {};
+                o.FID = row.FID;
+                var query = "json=" + JSON.stringify(o);
+
+                top.$.messager.confirm('删除', '确定删除该审批流程吗?', function (r) {
+                    if (r) {
+                        $.ajaxjson('/ApprovalProcess/Delete', query, function (d) {
+                            if (d.errCode == 0) {
+                                parent.layer.msg('删除成功！');
+                                grid.reload();
+                            } else {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    }
+                });
+
+            } else {
+                parent.layer.msg('请选择要删除的保养合同信息。');
+            }
+        }
+    };
+
+</script>

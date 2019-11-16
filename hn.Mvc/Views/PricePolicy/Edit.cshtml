@@ -1,0 +1,335 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td class="t_r5">品牌：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FID" name="FID" type="hidden" />
+                    <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                    <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌',invalidMessage:'最大长度255个字符'" style="width:160px" />
+                </div>
+            </td>
+            <td class="t_r5">厂家账户：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FCLIENTID" name="FCLIENTID" type="hidden" />
+                    <input id="FCLIENTACCOUNT" name="FCLIENTACCOUNT" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择厂家账号',invalidMessage:'最大长度255个字符'" style="width:160px" />
+                </div>
+            </td>
+            <td class="t_r5">价格政策编号：</td>
+            <td>
+                <input id="FBILLNO" name="FBILLNO" type="text" value="" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入价格政策编号',invalidMessage:'最大长度255个字符'" style="width:160px" />
+            </td>
+            <td class="t_r5">价格政策名称：</td>
+            <td>
+                <input id="FNAME" name="FNAME" type="text" value="" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入价格政策名称',invalidMessage:'最大长度255个字符'" style="width:160px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">价格政策类型：</td>
+            <td colspan="3">
+                <input id="FPOLICYTYPE" name="FPOLICYTYPE" class="easyui-combobox" style="width:160px" data-options="editable:false,required:true,missingMessage:'请选择价格政策类型'">
+            </td>
+
+            @*<td class="t_r5">优先级：</td>
+            <td>
+                <input id="FPRIORITY" name="FPRIORITY" type="text" class="easyui-textbox" value="" data-options="required:true,validType:['number','length[1,3]'],missingMessage:'请指定价格政策优先级'" style="width:160px" />
+            </td>*@
+            <td class="t_r5">选择项目：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FPROJECTID" name="FPROJECTID" type="hidden" value="0" />
+                    <input id="FPROJECTNAME" name="FPROJECTNAME" type="text" class="easyui-searchbox" value="默认项目" data-options="editable:false" style="width:160px" />
+                </div>
+            </td>
+            <td class="t_r5">制单人：</td>
+            <td>
+                <input id="FBILLERID" name="FBILLERID" type="hidden" value="@hn.Core.SysVisitor.Instance.UserId" />
+                <input id="FBILLERNAME" name="FBILLERNAME" type="text" class="easyui-textbox" value="@hn.Core.SysVisitor.Instance.UserName" data-options="editable:false" style="width:160px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">
+                备注：
+            </td>
+            <td colspan="3">
+                <div style="width:100%">
+                    <input id="FREMARK" name="FREMARK" class="easyui-textbox" style="width:160px">
+                </div>
+            </td>
+
+            <td class="t_r5">开始日期：</td>
+            <td>
+                <input id="FBEGDATE" name="FBEGDATE" class="easyui-datebox" value="" style="width:160px" data-options="required:true,missingMessage:'请输入开始日期'">
+            </td>
+            <td class="t_r5">截止日期：</td>
+            <td>
+                <input id="FENDDATE" name="FENDDATE" class="easyui-datebox" value="" style="width:160px" data-options="required:true,missingMessage:'请输入截止日期'">
+            </td>
+        </tr>
+
+
+</table>
+</form>
+    <br />
+    <div id="userTab" style="height: 394px; overflow: hidden;">
+
+        <div title="价格政策明细" style="padding: 2px">
+            <table id="dgPricepolicyDetail"></table>
+        </div>
+    </div>
+
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    $('#FPOLICYTYPE').combobox({
+        url: '/EasyUIComboBox/GetSubDicByCategoryCode?categoryCode=103',
+        valueField: 'id',
+        textField: 'text'
+    });
+
+    $(document).ready(function () {
+
+
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        var grid = {
+            initData: function () {
+                top.$('#dgGoodsItem').datagrid({
+                    fit: true,
+                    url: '/Product/Data',
+                    iconCls: 'icon icon-list',
+                    nowrap: false, //折行
+                    rownumbers: true, //行号
+                    striped: true, //隔行变色
+                    idField: 'FID', //主键
+                    singleSelect: false, //单选
+                    selectOnCheck: true,
+                    checkOnSelect: true,
+                    frozenColumns: [[]],
+                    columns: [[
+                       { field: 'FID', checkbox: true },
+                       { title: '品牌', field: 'FBRANDNAME', width: 120, sortable: true },
+                       { title: '所属系列', field: 'FPRODUCTTYPE', width: 110, sortable: true },
+                       { title: '商品代码', field: 'FPRODUCTCODE', width: 110, sortable: true },
+                       { title: '商品名称', field: 'FPRODUCTNAME', width: 250, sortable: true },
+                       { title: '规格型号', field: 'FMODEL', width: 110, sortable: true },
+                       { title: '主单位', field: 'FUNITNAME', width: 80, sortable: true },
+                       { title: '分类', field: 'FCATEGORYNAME', width: 110, sortable: true },
+                       { title: '重量', field: 'FWEIGHT', width: 70, sortable: true },
+                       { title: '体积', field: 'FVOLUME', width: 70, sortable: true },
+                    ]],
+                    queryParams: {
+                        FBRANDID: $('#FBRANDID').val()
+                    },
+                    pagination: true
+                });
+
+                top.$('#deptree').tree({
+                    lines: true,
+                    url: '/Product/Category',
+                    animate: true,
+                    onLoadSuccess: function (node, data) {
+
+                    }, onClick: function (node) {
+                        var depId = node.id;
+                        var children = top.$('#deptree').tree('getChildren', node.target);
+                        var arr = [];
+                        arr.push(depId);
+                        for (var i = 0; i < children.length; i++) {
+                            arr.push(children[i].id);
+                        }
+
+                        strIds = arr.join("','");
+                        top.$('#txtKeyword').textbox('setValue', '');
+                        $('#dgGoodsItem').datagrid('load', { categoryID: strIds, FBRANDID: $('#FBRANDID').val() });
+                    }
+                });
+
+                top.$("#a_search").click(function () {
+                    top.$('#dgGoodsItem').datagrid('load', { categoryID: strIds, FBRANDID: $('#FBRANDID').val(), keywords: top.$('#txtKeyword').val() });
+                });
+
+                top.$("#a_reset").click(function () {
+                    top.$('#txtKeyword').textbox('setValue', '');
+                    top.$('#dgGoodsItem').datagrid('load', { categoryID: strIds, FBRANDID: $('#FBRANDID').val() });
+                });
+            }
+        };
+
+        //价格政策明细
+        $('#dgPricepolicyDetail').datagrid({
+            url: '',
+            iconCls: 'icon icon-list',
+            fit: true,
+            nowrap: false, //折行
+            rownumbers: true, //行号
+            striped: true, //隔行变色
+            idField: 'KeyId', //主键
+            singleSelect: true, //单选
+            frozenColumns: [[]],
+            columns: [[
+                    { field: 'FID', hidden: true },
+                    { title: '商品系列', field: 'FPRODUCTTYPE', width: 120, sortable: true },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 150, sortable: true },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 120, sortable: true },
+                    { title: '规格型号', field: 'FMODEL', width: 80, sortable: true },
+                    { title: '主单位', field: 'FUNITNAME', width: 80, sortable: true },
+                    { title: 'JDE地址号', field: 'FBATCHNO', width: 80, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '色号', field: 'FCOLORNO', width: 80, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '最大执行数量', field: 'FQTYLIMIT', width: 100, sortable: true, editor: { type: 'numberbox', options: {} } },
+                    { title: '结算价格', field: 'FACCOUNTPRICE', width: 110, sortable: true, editor: { type: 'numberbox', options: { precision: 1 } } },
+                    { title: '备注', field: 'FREMARK', width: 200, sortable: true, editor: { type: 'textbox', options: {} } }
+            ]],
+            toolbar: [
+                {
+                    id: 'btnAdd',
+                    text: '添加',
+                    iconCls: 'icon-database_add',
+                    handler: function () {
+                        var hDialog = top.jQuery.hDialog({
+                            title: '选择产品',
+                            width: document.documentElement.clientWidth / 1.25,
+                            height: document.documentElement.clientHeight / 1.25,
+                            href: '/PricePolicy/AddPriceDetails',
+                            iconCls: 'icon-add',
+                            onLoad: function () {
+                                grid.initData();
+                            },
+                            showBtns: false,
+                            toolbar: [
+
+                            {
+                                text: '确认',
+                                iconCls: 'icon-ok',
+                                handler: function () {
+                                    var rows = top.$('#dgGoodsItem').datagrid('getSelections');
+                                    var rowsNow = $('#dgPricepolicyDetail').datagrid('getRows');
+                                    var index = 1;
+                                    for(var i=0; i<rows.length; i++){
+                                        //ids.push(rows[i].itemid);
+                                        var flag = true;    //不相等
+                                        for (var j = 0; j < rowsNow.length; j++) {
+                                            if (rows[i].FID == rowsNow[j].FID) {
+                                                flag = false;   //有重复的数据
+                                            }
+                                        }
+                                        if (flag) {
+                                            $('#dgPricepolicyDetail').datagrid('appendRow', {
+                                                FENTRYID:index,
+                                                FMODEL: rows[i].FMODEL,
+                                                FITEMID: rows[i].FID,
+                                                FPRODUCTNAME: rows[i].FPRODUCTNAME,
+                                                FPRODUCTTYPE: rows[i].FPRODUCTTYPE,
+                                                FPRODUCTCODE: rows[i].FPRODUCTCODE,
+                                                FUNITNAME: rows[i].FUNITNAME,
+                                                FBATCHNO: rows[i].FBATCHNO,
+                                                FCOLORNO: rows[i].FCOLORNO,
+                                                FREMARK: rows[i].FREMARK
+                                            });
+
+                                            index++;
+                                        }
+                                    }
+
+                                    ReloadSearchbox();
+
+                                    var rows = $('#dgPricepolicyDetail').datagrid('getRows');
+                                    for (var i = 0; i < rows.length; i++) {
+                                        $('#dgPricepolicyDetail').datagrid('beginEdit', i);
+                                    }
+
+                                    hDialog.dialog("close");
+                                }
+                            },
+                            {
+                                text: '关闭',
+                                iconCls: 'icon-cancel',
+                                handler: function () {
+                                    hDialog.dialog("close");
+                                }
+                            }]
+                        });
+                    }
+                },
+                 {
+                     id: 'btnDel',
+                     text: '删除',
+                     iconCls: 'icon-database_delete',
+                     handler: function () {
+                         //删除时先获取选择行
+                         var rows = $('#dgPricepolicyDetail').datagrid("getSelections");
+                         //选择要删除的行
+                         if (rows.length > 0) {
+                             parent.layer.confirm('您确定要删除吗?', {
+                                 icon: 3,
+                                 btn: ['确定', '取消'],
+                                 yes: function (index) {
+                                     for (var i = 0; i < rows.length; i++) {
+                                         var result = $('#dgPricepolicyDetail').datagrid('getRowIndex', rows[i])
+                                         $('#dgPricepolicyDetail').datagrid('deleteRow', result);
+                                     }
+
+                                     ReloadSearchbox();
+
+                                     parent.layer.close(index);
+                                 }
+                             });
+                         }
+                         else {
+                             parent.layer.alert('请选择要删除的行', { icon: 0 });
+                         }
+                     }
+                 }
+            ],
+            //onClickCell: function (index, field) {
+            //    $("#dgPricepolicyDetail").datagrid('beginEdit', index);
+            //    var editor = $(this).datagrid('getEditor', { index: index, field: field });
+            //}
+        });
+    });
+
+    function ReloadSearchbox() {
+        bindUnitDialog($('input[name="FOFTENUNITNAME"]'), function (row) {
+            var row1 = $('#dgPricepolicyDetail').datagrid('getSelected');
+            if (row1) {
+                var index = $('#dgPricepolicyDetail').datagrid('getRowIndex', row1);
+                //row1.FOFTENUNITNAME = row.FNAME;
+                //row1.FOFTENUNIT = row.FID;
+                //alert(index);
+                $('#dgPricepolicyDetail').datagrid('updateRow', {
+                    index: index,
+                    row: {
+                        FOFTENUNITNAME: row.FNAME,
+                        FOFTENUNIT: row.FID
+                    }
+                });
+                $('#dgPricepolicyDetail').datagrid('acceptChanges');
+
+                ReloadSearchbox();
+            }
+
+        });
+    }
+    $("#userTab").css("height", document.documentElement.clientHeight - 330);
+</script>

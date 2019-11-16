@@ -1,0 +1,41 @@
+﻿
+<form id="SysdicsForm">
+    <input id="FID" name="FID" type="hidden" />
+    <table class="grid">
+        <tr>
+            <td>
+                编号：
+            </td>
+            <td>
+                <input data-options="required:true,validType:'length[2,20]'" type="text" class="txt03 easyui-textbox"
+                       name="FCLASSCODE" id="FCLASSCODE" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                名称：
+            </td>
+            <td>
+                <input data-options="required:true,validType:'length[2,20]'" type="text" class="txt03 easyui-textbox"
+                       name="FCLASSNAME" id="FCLASSNAME" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                系统预置：
+            </td>
+            <td>
+                <input type="text" name="FSYSDEFAULT" id="FSYSDEFAULT" value="1" class="easyui-textbox" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                备 注：
+            </td>
+            <td>
+                <input id="FREMARK" name="FREMARK" type="text" class="easyui-textbox" data-options="multiline:true" style="height:40px;width:150px;" />
+            </td>
+        </tr>
+    </table>
+</form>

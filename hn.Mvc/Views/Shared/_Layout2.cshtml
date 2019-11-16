@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jQuery.cookie.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Css/common.css" />
+    <link rel="stylesheet" type="text/css" id="easyui_theme" href="/Scripts/easyui/themes/@hn.Core.SysVisitor.Theme/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/theme/@hn.Core.SysVisitor.Theme/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Css/icon.css" />
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jQuery.Ajax.js"></script>
+    <script type="text/javascript" src="/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/Scripts/easyui/easyloader.js" type="text/javascript"></script>
+    <script src="/Scripts/easyui/tree.extensions.js"></script>
+    <script src="~/Scripts/easyui/extension/datagrid-filter.js"></script>
+    <script type="text/javascript" src="/Scripts/Linqjs/linq.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Linqjs/linq.jquery.js"></script>
+    <script type="text/javascript" src="/Scripts/Business/Biz.Dialog.js"></script>
+    <script type="text/javascript" src="/Scripts/knockout/knockout-2.1.0.js"></script>
+    <script type="text/javascript" src="/Scripts/knockout/knockout.mapping-latest.js"></script>
+    <script src="/Scripts/jquery-browser.js"></script>
+    @*<script type="text/javascript" src="/Scripts/Business/dic.js"></script>*@
+    <script type="text/javascript" src="/Scripts/layer/layer.js"></script>
+    <script type="text/javascript" src="~/Scripts/Business/BindComboBox.js"></script>
+    <script type="text/javascript" src="~/Scripts/Business/BindComboTree.js"></script>
+    <script type="text/javascript">
+        if (top.location == self.location) {
+            top.location = '/';
+        }
+        var currend_Date = '@DateTime.Now.ToString("yyyy-MM-dd")';
+        var PAGESIZE = @hn.Core.SysVisitor.Instance.GridRows;
+
+        $(function() {
+            $('#toolbar,.toolbar').css({
+                height:'28px',
+                //background:#efefef;
+                padding:'1px 2px',
+                'padding-bottom': '0px'
+                //,'border-bottom':'1px solid #ccc'
+            });
+        });
+
+
+    </script>
+</head>
+<body style="border: none; padding: 2px; overflow: hidden;">
+    @RenderBody()
+    <script type="text/javascript">
+        var $notity = top.$('#notity');
+        var msg = {
+            ok: function (message) {
+                $notity.jnotifyAddMessage({ text: message });
+            },
+            error: function (message) {
+                $notity.jnotifyAddMessage({ text: message, type: 'error' });
+            },
+            warning: function (message) {
+                $notity.jnotifyAddMessage({ text: message, type: 'warning' });
+            }
+        };
+       
+    </script>
+</body>
+</html>

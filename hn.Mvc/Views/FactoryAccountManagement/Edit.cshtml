@@ -1,0 +1,117 @@
+﻿
+
+<form id="uiform" method="post">
+    <table class="grid">
+        <tr>
+            <td>
+                厂家账号：
+            </td>
+            <td>
+                <input type="text" id="txtFACCOUNT" name="FACCOUNT" data-bind="value:FACCOUNT" class="txt03 easyui-textbox" data-options="required:true,missingMessage:'请输入厂家账号'" style="width:160px" value="@Model.FACCOUNT" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+            <td>
+                账号名称：
+            </td>
+            <td>
+                <input type="text" id="txtFNAME" name="FNAME" data-bind="value:FNAME" class="easyui-textbox" value="@Model.FNAME" style="width:160px" />
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                所属品牌：
+            </td>
+            <td>
+                <div style="position:relative;">
+                    <input id="txtFBRANDID" name="FBRANDID" type="hidden" value="@Model.FBRANDID" />
+                    <input id="txtFBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox" value="@Model.FBRANDNAME" data-options="editable:false,required:false,validType:'length[1,255]'" style="width:160px" />
+                </div>
+            </td>
+            <td>
+                状态：
+            </td>
+            <td>
+                <select name="FSTATUS" data-bind="value:FSTATUS" id="txtFSTATUS" class="easyui-combobox" style="width:160px;">
+                    <option value="1"
+                            @if (Model.FSTATUS == 1) { @: selected
+                                                                                                            }>启用
+                    </option>
+                    <option value="0"
+                            @if (Model.FSTATUS == 0) { @: selected
+                                                                                                            }>禁用
+                    </option>
+                </select>
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                联系人：
+            </td>
+            <td>
+                <div style="position:relative;">
+                    <input id="txtFUSERID" name="FUSERID" type="hidden" value="@Model.FUSERID" />
+                    <input id="txtFUSERNAME" name="FUSERNAME" type="text" class="easyui-searchbox" value="@Model.FUSERNAME" data-options="editable:false,required:true,missingMessage:'请选择负责人'" style="width:160px" />
+                </div>
+            </td>
+            <td>
+                基准价账户：
+            </td>
+            <td>
+                <select name="FCOMMONFLAG" data-bind="value:FCOMMONFLAG" id="txtFCOMMONFLAG" class="easyui-combobox" style="width:160px;">
+                    <option value="1"
+                            @if (Model.FCOMMONFLAG == 1) { @: selected
+                            }>是
+                    </option>
+                    <option value="0"
+                            @if (Model.FCOMMONFLAG == 0) { @: selected
+                            }>否
+                    </option>
+                </select>
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">公司：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FCOMPANY" id="FCOMPANY" data-options="required:false,missingMessage:'请输入公司名称'" style="width: 160px;" value="@Model.FCOMPANY" />
+            </td>
+
+            <td class="t_r5">JDE编码：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FJDE" id="FJDE" data-options="required:false,missingMessage:'请输入JDE编码'" value="@Model.FJDE" style="width: 160px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">
+                排序：
+            </td>
+            <td align="left" colspan="3">
+                <input name="FSORT" type="text" style="width: 100px" id="txtFSORT" class="easyui-numberspinner" data-options="min:0,max:999,editable:false" value="@Model.FSORT"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                备注：
+            </td>
+            <td colspan="3">
+                <input id="txtFREMARK" name="FREMARK" type="text" class="easyui-textbox" data-options="multiline:true" style="height:40px;width:420px;" value="@Model.FREMARK" />
+            </td>
+        </tr>
+    </table>
+</form>
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    bindBrandDialog($('#txtFBRANDNAME'), function (row) {
+        $('#txtFBRANDID').val(row.FID);
+        $('#txtFBRANDNAME').searchbox("setValue", row.FNAME);
+    });
+    
+    bindSYS_UserDialog($('#txtFUSERNAME'), function (row) {
+        $('#txtFUSERID').val(row.FID);
+        $('#txtFUSERNAME').searchbox("setValue", row.UserName);
+    });
+</script>
+
+

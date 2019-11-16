@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+@model hn.DataAccess.Model.TB_BrandModel
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td style="width: 100px;">
+                品牌代码：
+            </td>
+            <td style="width: 140px;">
+                <input type="text" data-bind="value:FNumber" name="FNumber" class="easyui-textbox"
+                       data-options="required:true,missingMessage:'请输入品牌代码'" id="txtFNumber" value="@Model.FNUMBER" />
+            </td>
+            <td style="width: 80px;">
+                品牌：
+            </td>
+            <td style="width: 140px;">
+                <input type="text" data-bind="value:FNAME" name="FNAME" class="easyui-textbox"
+                       data-options="required:true,missingMessage:'请输入品牌'" id="txtFName" value="@Model.FNAME" />
+            </td>
+
+        </tr>
+        <tr>
+            <td style="width: 80px;">
+                厂家名称：
+            </td>
+            <td style="width: 140px;">
+                <input type="text" data-bind="value:FFACTORY" name="FFACTORY" class="easyui-textbox" id="txtFFactory"
+                       data-options="required:true,missingMessage:'请输入厂家名称'" value="@Model.FFACTORY" />
+            </td>
+            <td style="width: 80px;">
+                品类：
+            </td>
+            <td style="width: 140px;">
+                <input type="text" data-bind="value:FTYPE" name="FTYPE" class="easyui-textbox" id="txtFTYPE" value="@Model.FTYPE" data-options="required:true,missingMessage:'请输入品类'" />
+            </td>
+
+
+        </tr>
+        <tr>
+            <td style="width: 80px;">
+                厂家品牌代码：
+            </td>
+            <td style="width: 140px;">
+                <input type="text" data-bind="value:FFACTORYNO" name="FFACTORYNO" class="easyui-textbox" id="txtFFACTORYNO" value="@Model.FFACTORYNO" />
+            </td>
+            <td>
+                接口地址：
+            </td>
+            <td>
+                <input type="text" data-bind="value:FINTERFACEADD" name="FINTERFACEADD" class="easyui-textbox" id="txtFInterfaceAdd" value="@Model.FINTERFACEADD" style="width:100%" />
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                备注：
+            </td>
+            <td colspan="3">
+                <input class="easyui-textbox" data-bind="value:FREMARK" name="FREMARK" data-options="multiline:true" value="@Model.FREMARK" style="width:100%;height:100px" id="txtFRemark">
+            </td>
+
+        </tr>
+    </table>
+
+</form>
+

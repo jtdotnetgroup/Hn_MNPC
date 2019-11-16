@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+@model hn.DataAccess.Model.V_MessageModel
+
+<link rel="stylesheet" type="text/css" href="~/Css/css3btn.css" />
+<link type="text/css" href="~/Scripts/Ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" />
+<script src="~/Scripts/Ueditor/ueditor.config.js" type="text/javascript"></script>
+<script src="~/Scripts/Ueditor/ueditor.all.min.js" type="text/javascript"></script>
+<script src="/Scripts/Ueditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
+<script type="text/javascript" src="/Scripts/Business/Search2.js?v=3"></script>
+
+<form id="uiform" action="/Message/Edit" method="post">
+    <table class="grid">
+        <tr style="display:none">
+            <td width="100px">
+                <input id="submit1" name="submit1" type="submit" />
+            </td>
+            <td>
+                <input id="txtFID" name="FID" type="hidden" value="@Model.FID" />
+            </td>
+        </tr>
+        <tr>
+            <td width="100px">
+                收件人：
+            </td>
+            <td>
+                @Model.FUserName
+            </td>
+        </tr>
+        <tr>
+            <td>
+                标题：
+            </td>
+            <td>
+                <input type="text" data-bind="value:FMsgTitle" name="FMsgTitle" class="easyui-textbox"
+                       data-options="required:true,missingMessage:'请输入标题'" id="txtFMsgTitle" value="@Model.FMsgTitle" style="width:300px" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                状态：
+            </td>
+            <td>
+                <input class="easyui-switchbutton" data-options="onText:'正常',offText:'停用'" checked="@Model.FStatus" id="txtFStatus" name="FStatus">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                内容描述：
+            </td>
+            <td>
+                <script id="txtFMsgContent" name="FMsgContent" type="text/plain" style="height:300px;width:100%;">
+                    @Html.Raw(Model.FMsgContent)
+                </script>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var ue = UE.getEditor('txtFMsgContent');
+
+    function ueContent() {
+        return ue.getContent();
+    }
+</script>

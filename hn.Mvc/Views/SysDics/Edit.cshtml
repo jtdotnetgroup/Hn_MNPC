@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<form id="dicForm">
+<table class="grid">
+    <tr>
+        <td style="width: 80px;" align="right">
+            名称：
+        </td>
+        <td>
+            <input type="text" data-options="required:true,missingMessage:'请输入名称'" class="txt03 easyui-validatebox"
+                name="FClassName" id="txt_title" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            编码：
+        </td>
+        <td>
+            <input type="text" class="txt03 easyui-validatebox" name="FClassCode" id="FClassCode" data-options="required:true,missingMessage:'请输入编码'" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            类别：
+        </td>
+        <td>
+            <input type="text" class="txt03" name="categoryid" id="txt_category" />
+            <input type="hidden" class="txt03" name="categorycode" id="txt_categorycode" />
+        </td>
+    </tr>
+    @*<tr>
+        <td align="right">
+            上级：
+        </td>
+        <td>
+            <input type="text" class="txt03" name="parentid" id="txt_parentid" />
+        </td>
+    </tr>*@
+    @*<tr>
+        <td align="right">
+            排序：
+        </td>
+        <td>
+            <input type="text" value="1" name="sortnum" id="txt_sortnum" />
+        </td>
+    </tr>*@
+    <tr>
+        <td align="right">
+            状态：
+        </td>
+        <td>
+            <select name="FStatus" id="FStatus">
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            备注：
+        </td>
+        <td>
+            <textarea style="width: 200px; height: 50px;" class="txt03" name="FRemark" id="FRemark" />
+        </td>
+    </tr>
+</table>
+</form>
+

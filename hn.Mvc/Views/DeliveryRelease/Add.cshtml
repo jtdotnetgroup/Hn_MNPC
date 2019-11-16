@@ -1,0 +1,1254 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<form id="uiform">
+    <input id="FID" name="FID" type="hidden" value="" />
+    <table class="grid">
+        <tr>
+            <td class="t_r5" style="width:100px">品牌/厂家：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                    <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </div>
+            </td>
+            <td class="t_r5" style="width:100px">厂家账户：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FCLIENTID" name="FCLIENTID" type="hidden" />
+                    <input id="FCLIENTACCOUNT" name="FCLIENTACCOUNT" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择厂家账号',invalidMessage:'最大长度255个字符'" style="width:200px" />
+                </div>
+            </td>
+            <td class="t_r5" style="width:100px">二级销区：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FPREMISEID" name="FPREMISEID" type="hidden" />
+                    <input id="FCLASSAREA2NAME" name="FCLASSAREA2NAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选二级销区',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </div>
+            </td>
+            <td class="t_r5" style="width:100px">单据编号:</td>
+            <td>
+                <input id="FBILLNO" name="FBILLNO" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">运输方式：</td>
+            <td>
+                <input type="text" data-bind="value:FTRANSID" id="FTRANSID" name="FTRANSID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.运输方式)&appendAll=false',required:false,missingMessage:'请选择发货方式'" style="width:150px" />
+            </td>
+            <td class="t_r5">车牌号：</td>
+            <td>
+                <input id="FCARNUMBER" name="FCARNUMBER" type="text" value="" class="easyui-textbox" style="width:150px" data-options="required:true,missingMessage:'请输入车牌号'" />
+            </td>
+            <td class="t_r5">车型载重：</td>
+            <td>
+                <input id="FLOADCAPACITY" name="FLOADCAPACITY" type="text" value="" class="easyui-textbox" style="width:150px" data-options="required:false,missingMessage:'请输入车型载重'" />
+            </td>
+            <td class="t_r5">发货日期：</td>
+            <td>
+                <input id="FDELIVERDATE" name="FDELIVERDATE" type="text" value="自动" class="easyui-datebox" data-options="editable:false" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">提货人：</td>
+            <td>
+                <input id="FDELIVERER" name="FDELIVERER" type="text" value="" class="easyui-textbox" style="width:150px" data-options="required:false,missingMessage:'请输入提货人'" />
+            </td>
+            <td class="t_r5">提货人电话：</td>
+            <td  >
+                <input id="FDELIVERERTEL" name="FDELIVERERTEL" type="text" value="" class="easyui-textbox" style="width:150px" data-options="required:false,missingMessage:'请输入联系电话'" />
+            </td>
+            <td class="t_r5">收货方：</td>
+            <td>
+                <input id="FRECEIVERADDR" name="FRECEIVERADDR" type="text" value="" class="easyui-textbox" style="width:300px" />
+            </td>
+            @*<td class="t_r5">身份证号：</td>
+            <td>
+                <input id="FDELIVERERIDNO" name="FDELIVERERIDNO" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>*@
+            <td class="t_r5">汇总重量：</td>
+            <td><input id="FALLWEIGHT" name="FALLWEIGHT" type="text" value="" class="easyui-textbox" style="width:150px" data-options="required:false,missingMessage:'请输入汇总重量'" /> </td>
+        </tr>
+        <tr>
+
+            <td class="t_r5">中心仓：</td>
+            <td>
+                <input id="FCENTER_WAREHOUSE" name="FCENTER_WAREHOUSE" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">发货方式：</td>
+            <td>
+                <input type="text" data-bind="value:FDELIVERY_METHOD" id="FDELIVERY_METHOD" name="FDELIVERY_METHOD" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.发货方式)&appendAll=false',required:false,missingMessage:'请选择发货方式'" style="width:150px" />
+            </td>
+            <td class="t_r5">发货地点：</td>
+            <td>
+                <input id="FDELIVERERADDR" name="FDELIVERERADDR" type="text" value="" class="easyui-textbox"  style="width:300px" />
+            </td>
+            <td class="t_r5">汇总体积：</td>
+            <td>
+                <input id="FALLVOLUME" name="FALLVOLUME" type="text" value="" class="easyui-textbox" style="width:150px" data-options="required:false,missingMessage:'请输入汇总体积'" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">采购订单：</td>
+            <td>
+                <input id="FPURCHASE_NO" name="FPURCHASE_NO" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">标准运费：</td>
+            <td>
+                <input id="FEETOTAL" name="FEETOTAL" type="text" value="" class="easyui-textbox" style="width:150px" readonly />
+            </td>
+            <td class="t_r5">描述：</td>
+            <td>
+                <input id="FPLANDESC" name="FPLANDESC" type="text" value="" class="easyui-textbox" style="width:300px" />
+            </td>
+            <td class="t_r5">托管标志：</td>
+            <td>
+                <select name="FIS_CONSIGN" data-bind="value:FIS_CONSIGN" id="FIS_CONSIGN" class="easyui-combobox">
+                    <option value="0">不托管</option>
+                    <option value="1">托管</option>
+                </select>
+               
+               @* <input id="FBILLERID" name="FBILLERID" type="text" value="@hn.Core.SysVisitor.Instance.UserName" class="easyui-textbox" style="width:150px" data-options="editable:false" />*@
+            </td>
+            
+        </tr>
+        <tr>
+            <td class="t_r5" style="width:100px">承运公司：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FEXPRESSCOMPANYID" name="FEXPRESSCOMPANYID" type="hidden" />
+                    <input id="FEXPRESSCOMPANYNAME" name="FEXPRESSCOMPANYNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:false,validType:'length[1,255]',missingMessage:'请选择承运公司',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </div>
+            </td>
+            <td class="t_r5">工程名称：</td>
+            <td>
+                <input id="FPROJECTNAME" name="FPROJECTNAME" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">其他：</td>
+            <td>
+                <input id="FREMARK" name="FREMARK" type="text" value="" class="easyui-textbox" style="width:300px" />
+            </td>
+            <td class="t_r5">开单类型：</td>
+            <td>
+                <select name="FBILLING_TYPE" data-bind="value:FBILLING_TYPE" id="FBILLING_TYPE" class="easyui-combobox">
+                    <option value="1" selected>普通开单</option>
+                    <option value="2">托管库开单</option>
+                </select>
+                @*<input id="FCHECKERID" name="FCHECKERID" type="text" class="easyui-textbox" style="width:150px" data-options="editable:false" />*@ 
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <div id="deliveryTab" style="height: 394px; overflow: hidden;">
+        <div title="发货明细" style="padding: 2px">
+            <table id="dgPlanEntry"></table>
+        </div>
+    </div>
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    bindBrandDialog($('#FBRANDNAME'), function (row) {
+        $('#FBRANDID').val(row.FID);
+        $('#FBRANDNAME').searchbox("setValue", row.FNAME);
+        $('#FSRCNUMBER').searchbox("setValue", row.FFACTORY);
+
+        $('#FCLIENTID').val("");
+        $('#FCLIENTACCOUNT').searchbox("setValue", "");
+
+        bindFactoryACCDialog($('#FCLIENTACCOUNT'), $('#FBRANDID').val(), function (row) {
+            $('#FCLIENTID').val(row.FID);
+            $('#FCLIENTACCOUNT').searchbox("setValue", row.FNAME);
+        });
+    });
+
+    bindFactoryACCDialog($('#FCLIENTACCOUNT'), $('#FBRANDID').val(), function (row) {
+        $('#FCLIENTID').val(row.FID);
+        $('#FCLIENTACCOUNT').searchbox("setValue", row.FNAME);
+    });
+
+    bindExpressCompanyDialog($('#FEXPRESSCOMPANYNAME'), function (row) {
+        $('#FEXPRESSCOMPANYID').val(row.FID);
+        $('#FEXPRESSCOMPANYNAME').searchbox("setValue", row.FNAME);
+    });
+
+    bindDictionaryDialog($('#FCLASSAREA2NAME'), '101', function (row) {
+        $('#FCLASSAREA2NAME').searchbox("setValue", row.FNAME);
+        $('#FPREMISEID').val(row.FID);
+    });
+    ////经营场所
+    //bindMarketLocationDialog($('#FCLASSAREA2NAME'), function (row) {
+    //    $('#FPREMISEID').val(row.FID);
+    //    $('#FCLASSAREA2NAME').searchbox("setValue", row.FCLASSAREA2NAME);
+    //});
+
+    $(document).ready(function () {
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    });
+
+    $("#deliveryTab").css("height", document.documentElement.clientHeight - 310);
+
+    var _changing = false;
+    var _closechange = false;
+    //信息
+    $('#dgPlanEntry').datagrid({
+        // url: '/ICSEOUTBILL/ICPOHISTORYData',
+        iconCls: 'icon icon-list',
+        fit: true,
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'FID', //主键
+        checkOnSelect: false,
+        selectOnCheck: false,
+        singleSelect: true,
+        frozenColumns: [[]],
+        columns: [[
+            { field: 'FID', checkbox: true },
+            //{ title: '序号', field: 'FENTRYID', width: 60 },
+            { title: '所属系列', field: 'FPRODUCTTYPE', width: 70 },
+            { title: '品牌部', field: 'FBRAND', width: 90, editor: { type: 'textbox', precision: 0, options: {} } },
+              {
+                  title: '厂家代码', field: 'FSRCCODE', width: 150, formatter: function (value, row, i) {
+                      if (value != undefined) {
+                          return value + '<img style="cursor:pointer" onclick="openSrcForm(' + i + ',\'' + row.FITEMID + '\');" src="/css/icon/16/search.png" />';
+                      }
+                      else {
+                          return "";
+                      }
+                  }
+              },
+            { title: '厂家名称', field: 'FSRCNAME', width: 90 },
+            { title: '厂家规格', field: 'FSRCMODEL', width: 120 },
+             {
+                 title: '发货数量', field: 'FCOMMITQTY', width: 100, align: 'right', editor: {
+                     type: 'numberbox', precision: 0, options: {
+                         onChange: function (newValue, oldValue) {
+
+                             //if (!_changing && !_closechange) {
+                             //    _changing = true;
+                             //    var selectrow = $('#dgPlanEntry').datagrid('getSelected');
+                             //    if (selectrow) {
+                             //        var rowIndex = $('#dgPlanEntry').datagrid('getRowIndex', selectrow);
+
+                             //        selectrow["FHNAMOUNT"] = parseFloat(newValue) * parseFloat(selectrow.FRATE);
+
+                             //        $('#dgPlanEntry').datagrid('endEdit', rowIndex);
+                             //        $('#dgPlanEntry').datagrid('refreshRow', rowIndex);
+                             //        $('#dgPlanEntry').datagrid('beginEdit', rowIndex);
+                             //    }
+                             //}
+
+                             //_changing = false;
+                         }
+                     }
+                 }
+             },
+            { title: '厂家单位', field: 'FSRCUNIT', width: 70, align: 'center' },
+            { title: '计划数量', field: 'FORDERUNITQTY', width: 100 },
+           { title: '采购单位', field: 'FORDERUNIT', width: 70, align: 'center' },
+           { title: '色号', field: 'FCOLORNO', width: 90, editor: { type: 'textbox', options: {} } },
+            { title: '等级', field: 'FLEVEL', width: 90, editor: { type: 'textbox', options: {} } },
+            { title: '仓库', field: 'FSTOCK', width: 100, editor: { type: 'textbox', options: {} } },
+            { title: '备注', field: 'FDESCRIPTION', width: 300, editor: { type: 'textbox', precision: 0, options: {} } },
+            { title: '采购备注1', field: 'FORDERREMARK1', width: 150, editor: { type: 'textbox', options: {} } },
+            { title: '采购备注2', field: 'FORDERREMARK2', width: 150, editor: { type: 'textbox', options: {} } },
+            { title: '销区备注', field: 'FREMARK', width: 150, editor: { type: 'textbox', options: {} } },
+            {
+                title: '商品代码', field: 'FPRODUCTCODE', width: 100, formatter: function (value, row, i) {
+                    if (value != undefined) {
+                        return value + '<img style="cursor:pointer" onclick="openProductForm(' + i + ');" src="/css/icon/16/search.png" />';
+                    }
+                    else {
+                        return "";
+                    }
+                }
+            },
+            { title: '商品名称', field: 'FPRODUCTNAME', width: 150 },
+            { title: '规格型号', field: 'FMODEL', width: 120 },
+             {
+                 title: '主单位数量', field: 'FHNAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+                     return fmoney(v, 0);
+                 }
+             },
+
+            {
+                title: '请购剩余数量', field: 'FLEFTAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 0);
+                }
+            },
+            { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center' },
+             {
+                 title: '单价', field: 'FPRICE', width: 80, align: 'right', formatter: function (v, d, i) {
+                     return fmoney(v, 6);
+                 }
+             },
+            {
+                title: '金额', field: 'FAMOUNT', width: 80, align: 'right', formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+              { title: '价格政策编号', field: 'FPOLICYBILLNO', width: 100 },
+            { title: '价格政策名称', field: 'FPOLICYNAME', width: 100 },
+
+            { title: '重量', field: 'FWEIGHT', width: 60 },
+            { title: '体积', field: 'FVOLUME', width: 60 },
+            { title: '请购计划号', field: 'ICPRBILLNO', width: 150 },
+        ]],
+        onClickCell: function(rowIndex){
+         
+        },
+        pagination: false,
+        showFooter: true,
+        toolbar: [
+             {
+                 id:'btnCalc',
+                 text: '配柜计算',
+                 iconCls: 'icon-lock_stop',
+                 handler: function () {
+
+                     if ($('#FBRANDNAME').searchbox('getValue') == '') {
+                         parent.layer.alert('请选择品牌/厂家', { icon: 0 });
+                         return;
+                     }
+
+                     if ($('#FCLASSAREA2NAME').searchbox('getValue') == '') {
+                         parent.layer.alert('请选择二级销区', { icon: 0 });
+                         return;
+                     }
+
+                     //if ($('#FCLIENTACCOUNT').searchbox('getValue') == '') {
+                     //    parent.layer.alert('请选择厂家账号', { icon: 0 });
+                     //    return;
+                     //}
+
+                     var brandid = $('#FBRANDID').val();
+                     var clientid = $('#FCLIENTID').val();
+                     var fclassarea2name = $('#FCLASSAREA2NAME').val();
+                     var selectorDialog = top.$.hDialog({
+                         href: '/DeliveryRelease/ICPRSelector?brandid=' + brandid + '&clientid=' + clientid + '&fclassarea2name=' + fclassarea2name,
+                         width: document.documentElement.clientWidth,
+                         height: document.documentElement.clientHeight,
+                         title: '选择请购计划',
+                         iconCls: 'icon-user_add',
+                         onLoad: function () {
+
+                             top.$('#txtFWEIGHT').val($('#FLOADCAPACITY').val());
+                             top.$('#txtFCLASSAREA2NAME').val(fclassarea2name);
+                             top.$('#txtBRANDNAME').val($('#FBRANDNAME').val());
+
+                                 top.$('#gridView').datagrid({
+                                     url: '/ICSEOUTBILL/ICPRData',
+                                     height: document.documentElement.clientHeight-90,
+                                     idField: 'FID',
+                                     singleSelect: true,
+                                     checkOnSelect: false,
+                                     selectOnCheck: false,
+                                     striped: true,
+                                     rownumbers: true, //行号
+                                     columns: [[
+                                         { field: 'FID', checkbox: true },
+                                         { title: '所属系列', field: 'FPRODUCTTYPE', width: 70, sortable: true },
+                                         { title: '品牌部', field: 'FPREMISEBRANDNAME', width: 90, sortable: true },
+                                         { title: '厂家代码', field: 'FSRCCODE', width: 120, sortable: true },
+                                         { title: '厂家名称', field: 'FSRCNAME', width: 90, sortable: true },
+                                         { title: '厂家规格', field: 'FSRCMODEL', width: 120, sortable: true },
+                                         { title: '厂家单位', field: 'FSRCUNIT', width: 70, align: 'center', sortable: true },
+                                         { title: '发货时间', field: 'FNEEDDATESTR', width: 95, align: 'center', sortable: true },
+                                         {
+                                             title: '未发数量', field: 'FORDERUNITLEFTQTY', width: 90, align: 'right', sortable: true, formatter: function (v, d, i) {
+                                                 return fmoney(v, 0);
+                                             }
+                                         },
+                                         {
+                                             title: '计划数量', field: 'FORDERUNITQTY', align: 'right', width: 90, sortable: true, formatter: function (v, d, i) {
+                                                 return fmoney(v, 0);
+                                             }
+                                         },
+                                         {
+                                             title: '发货数量', field: 'FCOMMITQTY', width: 90, editor: { type: 'textbox', precision: 0, options: {} }
+                                         },
+                                         { title: '色号', field: 'FCOLORNO', width: 90, editor: { type: 'textbox', precision: 0, options: {} } },
+                                         { title: '等级', field: 'FLEVEL', width: 90, editor: { type: 'textbox', precision: 0, options: {} } },                                        
+                                         { title: '仓库', field: 'FSTOCK', width: 90, editor: { type: 'textbox', precision: 0, options: {} } },
+
+                                         { title: '收货方地址', field: 'FRECEIVINGADDR', width: 120, sortable: true },
+                                         { title: '发货要求', field: 'FDELIVERYDES', width: 120, sortable: true },
+                                         { title: '采购备注1', field: 'FORDERREMARK1', width: 150, editor: { type: 'textbox', precision: 0, options: {} } },
+                                         { title: '采购备注2', field: 'FORDERREMARK2', width: 150, editor: { type: 'textbox', precision: 0, options: {} } },
+                                         { title: '销区备注', field: 'FREMARK', width: 200, editor: { type: 'textbox', precision: 0, options: {} } },
+                                         { title: '商品代码', field: 'FPRODUCTCODE', width: 80, sortable: true },
+                                         { title: '商品名称', field: 'FPRODUCTNAME', width: 150, sortable: true },
+                                         { title: '规格型号', field: 'FMODEL', width: 100, sortable: true },
+                                         {
+                                             title: '主单位未发数量', field: 'FADVQTY', width: 100, align: "right", sortable: true, formatter: function (v, d, i) {
+                                                 return fmoney(v, 0);
+                                             }
+                                         },
+                                         {
+                                             title: '主单位已发数量', field: 'FADVQTY', width: 100, align: "right", sortable: true, formatter: function (v, d, i) {
+                                                 return fmoney(v, 0);
+                                             }
+                                         },
+                                          { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center', sortable: true },
+                                          { title: '请购计划单号', field: 'ICPRBILLNO', width: 150, sortable: true },
+                                         { title: '重量（kg）', field: 'FWEIGHT', width: 90, sortable: true },
+                                         { title: 'WDR号', field: 'FWDR', width: 90, editor: { type: 'textbox', precision: 0, options: {} } },
+                                         { title: '仓库编码', field: 'FSTOCKNUMBER', width: 90, editor: { type: 'textbox', precision: 0, options: {} } },
+                                     ]],
+                                     pagination: true,
+                                     sortName: 'FSRCCODE',
+                                     sortOrder: 'DESC',
+                                     queryParams:{
+                                         brandid: brandid,
+                                         classarea2name: fclassarea2name
+                                     },
+                                     onClickRow: function (index, row) {
+
+                                     },
+                                     onClickCell: function (index, field, value) {
+                                         //var rows = $('#gridView').datagrid('getRows');
+                                         //for (var i = 0; i < rows.length; i++) {
+                                         //    $('#gridView').datagrid('beginEdit', i);
+                                         //}
+                                     },
+                                     onLoadSuccess: function (data) {
+
+                                         var rows = top.$('#gridView').datagrid('getRows');
+
+                                         var rowsNow = $('#dgPlanEntry').datagrid('getRows');
+                                         for (var i = 0; i < rows.length; i++) {
+                                             for (var j = 0; j < rowsNow.length; j++) {
+                                                 if (rows[i].FID == rowsNow[j].FICPRID) {
+
+                                                     top.$('#gridView').datagrid("updateRow", {
+                                                         index: i, //行索引
+                                                         row: {
+                                                             FCOMMITQTY: rowsNow[j].FCOMMITQTY,
+                                                             FCOLORNO: rowsNow[j].FCOLORNO,
+                                                             FSTOCK: rowsNow[j].FSTOCK,
+                                                             FWDR: rowsNow[j].FWDR,
+                                                             FLEVEL: rowsNow[j].FLEVEL,
+                                                             FORDERREMARK1: rowsNow[j].FORDERREMARK1,
+                                                             FORDERREMARK2: rowsNow[j].FORDERREMARK2,
+                                                             FREMARK: rowsNow[j].FREMARK
+                                                         }
+                                                     });
+
+                                                     top.$("#gridView").datagrid("checkRow", i);
+                                                 }
+                                             }
+                                         }
+
+                                         var rows = top.$('#gridView').datagrid('getRows');
+                                         for (var i = 0; i < rows.length; i++) {
+                                             top.$('#gridView').datagrid('beginEdit', i);
+
+                                             var FCOMMITQTYEdt = $('#gridView').datagrid('getEditor', { index: i, field: 'FCOMMITQTY' });
+                                             $(FCOMMITQTYEdt.target).textbox('setValue', rows[i].FORDERUNITLEFTQTY);
+
+                                             var FLEVELEdt = $('#gridView').datagrid('getEditor', { index: i, field: 'FLEVEL' });
+                                             $(FLEVELEdt.target).textbox('setValue', "AA");
+                                         }
+                                     }
+                                 });
+
+                         },
+                         showBtns: false,
+                         toolbar: [
+                         {
+                             text: '库存匹配',
+                             iconCls: 'icon-accept',
+                             handler: function () {
+                                 var row = $('#gridView').datagrid('getSelected');
+                                 if (row) {
+                                     var hDialog = top.jQuery.hDialog({
+                                         title: '厂家库存查询',
+                                         width: document.documentElement.clientWidth / 1.1,
+                                         height: document.documentElement.clientHeight / 1.1,
+                                         href: '/Stock/Search',
+                                         iconCls: 'icon-add',
+                                         showBtns: false,
+                                         onLoad: function () {
+                                             top.$('#userGrid').datagrid({
+                                                 url: '/Stock/Data',
+                                                 width: document.body.clientWidth / 1.1 - 20,
+                                                 height: document.body.clientHeight / 1.1 - 85,
+                                                 idField: 'FID',
+                                                 singleSelect: true,
+                                                 striped: true,
+                                                 checkOnSelect: false,
+                                                 selectOnCheck: false,
+                                                 rownumbers: true, //行号
+                                                 columns: [[
+                                                     { title: '代码', field: 'FNumber', width: 130 },
+                                                     { title: '名称', field: 'FName', width: 150 },
+                                                     { title: '规格型号', field: 'FModel', width: 100 },
+                                                     { title: '色号', field: 'FColorNo', width: 70 },
+                                                     { title: '批号', field: 'FBatchNo', width: 170 },
+                                                     { title: '等级', field: 'FGrade', width: 70 },
+                                                     { title: '单位', field: 'FUnit', width: 70, align: 'center' },
+                                                     {
+                                                         title: '数量', field: 'FQty', width: 80, align: 'right', formatter: function (v, d, i) {
+                                                             return fmoney(v, 0);
+                                                         }
+                                                     },
+                                                     { title: '基本单位', field: 'FBasicUnit', width: 70, align: 'center' },
+                                                     {
+                                                         title: '基本数量', field: 'FBasicQty', width: 90, align: 'right', formatter: function (v, d, i) {
+                                                             return fmoney(v, 0);
+                                                         }
+                                                     },
+                                                     { title: '仓库', field: 'FStockName', width: 100 },
+                                                     { title: '仓位', field: 'FSPName', width: 100 },
+                                                     { title: 'WDR号', field: 'FWDRID', width: 500 }
+                                                 ]],
+                                                 pagination: false,
+                                                 pageSize: 20,
+                                                 onDblClickRow: function (rowIndex, rowData) {
+                                                     var selectrow = top.$('#userGrid').datagrid('getSelected');
+                                                     if (selectrow) {
+                                                         var index = $('#gridView').datagrid('getRowIndex', row);
+
+                                                         var FCOLORNOEdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FCOLORNO' });
+                                                         $(FCOLORNOEdt.target).textbox('setValue', selectrow.FColorNo);
+
+                                                         var FLEVELEdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FLEVEL' });
+                                                         $(FLEVELEdt.target).textbox('setValue', selectrow.FGrade);
+
+                                                         var FSTOCKEdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FSTOCK' });
+                                                         $(FSTOCKEdt.target).textbox('setValue', selectrow.FStockName);
+
+                                                         var FWDREdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FWDR' });
+                                                         $(FWDREdt.target).textbox('setValue', selectrow.FWDRID)
+
+                                                         var FSTOCKNUMBEREdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FSTOCKNUMBER' });
+                                                         $(FSTOCKNUMBEREdt.target).textbox('setValue', selectrow.FSTOCKNUMBER)                                                         
+
+                                                         $("#gridView").datagrid("checkRow", index);
+
+                                                         hDialog.dialog("close");
+                                                     }
+                                                 },                                                 
+                                                 queryParams: {
+                                                     productname: row.FSRCNAME,
+                                                     brand: row.FFACTORYNO
+                                                 }
+                                             });
+                                         },
+                                         toolbar: [{
+                                             text: '选择',
+                                             iconCls: 'icon-add',
+                                             handler: function () {
+                                                 var selectrow = top.$('#userGrid').datagrid('getSelected');
+                                                 if (selectrow) {
+                                                     var index = $('#gridView').datagrid('getRowIndex', row);
+
+                                                     var FCOLORNOEdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FCOLORNO' });
+                                                     $(FCOLORNOEdt.target).textbox('setValue', selectrow.FColorNo);
+
+                                                     var FLEVELEdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FLEVEL' });
+                                                     $(FLEVELEdt.target).textbox('setValue', selectrow.FGrade);
+
+                                                     var FSTOCKEdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FSTOCK' });
+                                                     $(FSTOCKEdt.target).textbox('setValue', selectrow.FStockName);
+
+                                                     var FWDREdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FWDR' });
+                                                     $(FWDREdt.target).textbox('setValue', selectrow.FWDRID)
+
+                                                     var FSTOCKNUMBEREdt = $('#gridView').datagrid('getEditor', { index: index, field: 'FSTOCKNUMBER' });
+                                                     $(FSTOCKNUMBEREdt.target).textbox('setValue', selectrow.FSTOCKNUMBER)
+
+                                                     $("#gridView").datagrid("checkRow", index);
+
+                                                     hDialog.dialog("close");
+                                                 }
+                                             }
+                                         },
+                                         {
+                                             text: '关闭',
+                                             iconCls: 'icon-cancel',
+                                             handler: function () {
+                                                 hDialog.dialog("close");
+                                             }
+                                         }]
+                                     });
+                                 }
+
+                             }
+                         }, {
+                             text: '确认',
+                             iconCls: 'icon-add',
+                             handler: function () {
+                                 $('#dgPlanEntry').datagrid('loadData', { total: 0, rows: [] });
+                                 top.$('#gridView').datagrid('acceptChanges');
+                                 //var row = top.$('#gridView').datagrid('getSelected');
+                                 var rows = top.$('#gridView').datagrid('getChecked');
+                                 var index = 1;
+
+                                 var commitqtyTotal = 0;
+                                 var hnamountTotal = 0;
+                                 var volumeTotal = 0;
+                                 var weightTotal = 0;
+                                 for (var i = 0; i < rows.length; i++) {
+
+                                     var hnamount =  parseFloat(rows[i].FCOMMITQTY) * parseFloat(rows[i].FRATE)
+                                     $('#dgPlanEntry').datagrid('appendRow', {
+                                         FID: index,
+                                         FMODEL: rows[i].FMODEL,
+                                         FENTRYID: index,
+                                         FBRAND: rows[i].FPREMISEBRANDNAME,
+                                         FPRODUCTNAME: rows[i].FPRODUCTNAME,
+                                         FPRODUCTTYPE: rows[i].FPRODUCTTYPE,
+                                         FPRODUCTCODE: rows[i].FPRODUCTCODE,
+                                         FUNITNAME: rows[i].FUNITNAME,
+                                         FBATCHNO: rows[i].FBATCHNO,
+                                         FCOLORNO: rows[i].FCOLORNO,
+                                         FREMARK: rows[i].FREMARK,
+                                         FSRCID: rows[i].FSRCID,
+                                         FSRCNAME: rows[i].FSRCNAME,
+                                         FSRCCODE: rows[i].FSRCCODE,
+                                         FSRCMODEL: rows[i].FSRCMODEL,
+                                         FSRCUNIT: rows[i].FSRCUNIT,
+                                         FORDERUNIT: rows[i].FSRCUNIT,
+                                         FSTOCKNUMBER: rows[i].FSTOCKNUMBER,
+                                         FSTOCK: rows[i].FSTOCK,
+                                         FSTOCKPLACE: rows[i].FSTOCKPLACE,
+                                         FSRCQTY: rows[i].FASKQTY,
+                                         FCOMMITQTY: rows[i].FCOMMITQTY,
+                                         FNEEDDATE: rows[i].FNEEDDATE,
+                                         FPRICEPOLICYENTRYID: "1",
+                                         FICPRID: rows[i].FID,
+                                         FWEIGHT: parseFloat(rows[i].FWEIGHT) * parseFloat(rows[i].FCOMMITQTY),
+                                         FVOLUME: parseFloat(rows[i].FVOLUME) * parseFloat(rows[i].FCOMMITQTY),
+                                         FITEMID: rows[i].FITEMID,
+                                         FACCOUNTPRICE: rows[i].FACCOUNTPRICE,
+                                         ICPRBILLNO: rows[i].ICPRBILLNO,
+                                         FICPRENTRYID: rows[i].FICPRENTRYID,
+                                         FLEVEL: rows[i].FLEVEL,
+                                         FWDR: rows[i].FWDR,
+                                         FPREMISENAME: rows[i].FPREMISENAME,
+                                         FASKQTY: rows[i].FASKQTY,
+                                         FORDERUNITQTY: rows[i].FORDERUNITQTY,
+                                         FLEFTAMOUNT: rows[i].FLEFTAMOUNT - hnamount,
+                                         FORDERREMARK1: rows[i].FORDERREMARK1,
+                                         FORDERREMARK2: rows[i].FORDERREMARK2,
+                                         FFACTORYNO: rows[i].FFACTORYNO,
+                                         JDE:rows[i].JDE,
+                                         FHNAMOUNT: hnamount
+                                     });
+
+                                     commitqtyTotal += parseFloat(rows[i].FCOMMITQTY);
+                                     hnamountTotal += hnamount;
+                                     volumeTotal += parseFloat(rows[i].FVOLUME) * parseFloat(rows[i].FCOMMITQTY);
+                                     weightTotal += parseFloat(rows[i].FWEIGHT) * parseFloat(rows[i].FCOMMITQTY);
+                                     
+                                     index++;
+                                 }
+
+                                 $("#FALLWEIGHT").textbox('setValue', weightTotal.toFixed(2));
+                                 $("#FALLVOLUME").textbox('setValue', volumeTotal.toFixed(2));
+                                 
+              
+                                 var rows = $('#dgPlanEntry').datagrid('getFooterRows');
+                                 rows[0]['FCOMMITQTY'] = commitqtyTotal;
+                                 rows[0]['FHNAMOUNT'] = hnamountTotal;
+                                 rows[0]['FWEIGHT'] = weightTotal.toFixed(2);
+                                 rows[0]['FVOLUME'] = volumeTotal.toFixed(2);
+                                 $('#dgPlanEntry').datagrid('reloadFooter');
+
+                                 $('#dgPlanEntry').datagrid('acceptChanges');
+                                 selectorDialog.dialog('close');
+                                 
+                                 var rows = $('#dgPlanEntry').datagrid('getRows');
+                                 for (var i = 0; i < rows.length; i++) {
+                                     $('#dgPlanEntry').datagrid('beginEdit', i);
+                                 }
+                             }
+                         },
+                         {
+                             text: '关闭',
+                             iconCls: 'icon-cancel',
+                             handler: function () {
+                                 selectorDialog.dialog('close');
+                             }
+                         }]
+                     });
+                 }
+             },
+             {
+                 id: 'btnAdd',
+                 text: '新增',
+                 iconCls: 'icon-add',
+                 handler: function () {
+                     var rows = $('#dgPlanEntry').datagrid('getRows');
+                     $('#dgPlanEntry').datagrid('appendRow', {
+                         FID: rows.length,
+                         FENTRYID: rows.length,
+                         FMODEL: '',
+                         FPRODUCTNAME: '',
+                         FPRODUCTTYPE: '',
+                         FPRODUCTCODE: '',
+                         FUNITNAME: '',
+                         FBATCHNO: '',
+                         FCOLORNO: '',
+                         FREMARK: '',
+                         FSRCID: '',
+                         FSRCNAME: '',
+                         FSRCCODE: '',
+                         FSRCMODEL: '',
+                         FSRCUNIT: '',
+                         FORDERUNIT: '',
+                         FSTOCKNUMBER:'',
+                         FSTOCK: '',
+                         FSTOCKPLACE: '',
+                         FSRCQTY: '',
+                         FCOMMITQTY: 0,
+                         FNEEDDATE: '',
+                         FPRICEPOLICYENTRYID: '',
+                         FICPRID: '',
+                         FWEIGHT: 0,
+                         FVOLUME: 0,
+                         FITEMID: '',
+                         FACCOUNTPRICE: 0,
+                         FPOLICYBILLNO: '',
+                         FPOLICYNAME: '',
+                         ICPRBILLNO: '',
+                         FICPRENTRYID: '',
+                         FLEVEL:'AA'
+                     });
+
+                     var rows = $('#dgPlanEntry').datagrid('getRows');
+                     for (var i = 0; i < rows.length; i++) {
+                         $('#dgPlanEntry').datagrid('beginEdit', i);
+                     }
+                 }
+             },
+            {
+                id: 'btnDel',
+                text: '行删除',
+                iconCls: 'icon-delete3',
+                handler: function () {
+                    var rows = $('#dgPlanEntry').datagrid('getChecked');
+              
+                    if (rows.length>0) {
+                        for (var i = rows.length - 1; i >= 0; i--) {
+                            var index = $('#dgPlanEntry').datagrid('getRowIndex', rows[i]);
+                            $('#dgPlanEntry').datagrid('deleteRow', index);
+                        }
+
+                        var commitqtyTotal = 0;
+                        var hnamountTotal = 0;
+                        var volumeTotal = 0;
+                        var weightTotal = 0;
+
+                        var rows = $('#dgPlanEntry').datagrid('getRows');
+                        for (var i = 0; i < rows.length; i++) {
+                            commitqtyTotal += parseFloat(rows[i].FCOMMITQTY);
+                            hnamountTotal += parseFloat(rows[i].FHNAMOUNT);
+                            volumeTotal += parseFloat(rows[i].FVOLUME);
+                            weightTotal += parseFloat(rows[i].FWEIGHT);
+                        }
+
+                        var rows = $('#dgPlanEntry').datagrid('getFooterRows');
+                        rows[0]['FCOMMITQTY'] = commitqtyTotal;
+                        rows[0]['FHNAMOUNT'] = hnamountTotal;
+                        rows[0]['FWEIGHT'] = weightTotal.toFixed(2);
+                        rows[0]['FVOLUME'] = volumeTotal.toFixed(2);
+                        $('#dgPlanEntry').datagrid('reloadFooter');
+
+                        $('#dgPlanEntry').datagrid('acceptChanges');
+
+                        var rows = $('#dgPlanEntry').datagrid('getRows');
+                        for (var i = 0; i < rows.length; i++) {
+                            $('#dgPlanEntry').datagrid('beginEdit', i);
+                        }
+                    }
+                    else {
+                        parent.layer.msg("请勾选您要删除的数据行");
+                    }
+
+                    //var row = $('#dgPlanEntry').datagrid('getSelected');
+                    //if (row) {
+                    //    var index = $('#dgPlanEntry').datagrid('getRowIndex', row);
+                    //    $('#dgPlanEntry').datagrid('deleteRow', index);
+
+                    //    var commitqtyTotal = 0;
+                    //    var hnamountTotal = 0;
+                    //    var volumeTotal = 0;
+                    //    var weightTotal = 0;
+
+                    //    var rows = $('#dgPlanEntry').datagrid('getRows');
+                    //    for (var i = 0; i < rows.length; i++) {
+                    //        commitqtyTotal += parseFloat(rows[i].FCOMMITQTY);
+                    //        hnamountTotal += parseFloat(rows[i].FHNAMOUNT);
+                    //        volumeTotal += parseFloat(rows[i].FVOLUME);
+                    //        weightTotal += parseFloat(rows[i].FWEIGHT);
+                    //    }
+
+                    //    var rows = $('#dgPlanEntry').datagrid('getFooterRows');
+                    //    rows[0]['FCOMMITQTY'] = commitqtyTotal;
+                    //    rows[0]['FHNAMOUNT'] = hnamountTotal;
+                    //    rows[0]['FWEIGHT'] = weightTotal.toFixed(2);
+                    //    rows[0]['FVOLUME'] = volumeTotal.toFixed(2);
+                    //    $('#dgPlanEntry').datagrid('reloadFooter');
+
+                    //    $('#dgPlanEntry').datagrid('acceptChanges');
+                    //    selectorDialog.dialog('close');
+
+                    //    var rows = $('#dgPlanEntry').datagrid('getRows');
+                    //    for (var i = 0; i < rows.length; i++) {
+                    //        $('#dgPlanEntry').datagrid('beginEdit', i);
+                    //    }
+                    //}
+                }
+            },
+            {
+                text: '库存查询',
+                iconCls: 'icon-accept',
+                handler: function () {
+                    var row = $('#dgPlanEntry').datagrid('getSelected');
+                    if (row) {
+                        var hDialog = top.jQuery.hDialog({
+                            title: '厂家库存查询',
+                            width: document.documentElement.clientWidth / 1.1,
+                            height: document.documentElement.clientHeight / 1.1,
+                            href: '/Stock/Search',
+                            iconCls: 'icon-add',
+                            showBtns: false,
+                            onLoad: function () {
+                                top.$('#userGrid').datagrid({
+                                    url: '/Stock/Data',
+                                    width: document.body.clientWidth / 1.1 - 20,
+                                    height: document.body.clientHeight / 1.1 - 85,
+                                    idField: 'FID',
+                                    singleSelect: true,
+                                    striped: true,
+                                    checkOnSelect: false,
+                                    selectOnCheck: false,
+                                    rownumbers: true, //行号
+                                    columns: [[
+                                        { title: '代码', field: 'FNumber', width: 130 },
+                                        { title: '名称', field: 'FName', width: 150 },
+                                        { title: '规格型号', field: 'FModel', width: 100 },
+                                        { title: '色号', field: 'FColorNo', width: 70 },
+                                        { title: '批号', field: 'FBatchNo', width: 170 },
+                                        { title: '等级', field: 'FGrade', width: 70 },
+                                        { title: '单位', field: 'FUnit', width: 70, align: 'center' },
+                                        {
+                                            title: '数量', field: 'FQty', width: 80, align: 'right', formatter: function (v, d, i) {
+                                                return fmoney(v, 0);
+                                            }
+                                        },
+                                        { title: '基本单位', field: 'FBasicUnit', width: 70, align: 'center' },
+                                        {
+                                            title: '基本数量', field: 'FBasicQty', width: 90, align: 'right', formatter: function (v, d, i) {
+                                                return fmoney(v, 0);
+                                            }
+                                        },
+                                        { title: '仓库', field: 'FStockName', width: 100 },
+                                        { title: '仓位', field: 'FSPName', width: 100 },
+                                        { title: 'WDR号', field: 'FWDRID', width: 500 }
+                                    ]],
+                                    pagination: false,
+                                    pageSize: 50,
+                                    queryParams: {
+                                        productname: row.FSRCNAME,
+                                        brand: row.FFACTORYNO
+                                    }
+                                });
+                            },
+                            toolbar: [
+                            {
+                                text: '关闭',
+                                iconCls: 'icon-cancel',
+                                handler: function () {
+                                    hDialog.dialog("close");
+                                }
+                            }]
+                        });
+                    }
+
+                }
+            }
+            //{
+            //    id: 'btnPrice',
+            //    text: '匹配价格政策',
+            //    iconCls: 'icon-tick',
+            //    handler: function () {
+            //        var conEntry = $('#dgPlanEntry').datagrid('getRows');
+            //        if (conEntry.length > 0) {
+            //            parent.layer.load(1);
+            //            var brandid = $('#FBRANDID').val();
+            //            var clientid = $("#FCLIENTID").val();
+
+            //            $.ajax({
+            //                url: '/ICSEOUTBILL/Price',
+            //                type: 'POST',
+            //                dataType: 'json',
+            //                data: {
+            //                    brandid: brandid,
+            //                    clientid: clientid,
+            //                    conEntry: JSON.stringify(conEntry)
+            //                },
+            //                success: function (result) {
+            //                    if (result.Success) {
+            //                        $('#dgPlanEntry').datagrid('loadData', { total: 0, rows: [] });
+            //                        var index = 1;
+            //                        for (var i = 0; i < result.Data.length; i++) {
+            //                            var row = result.Data[i];
+            //                            $('#dgPlanEntry').datagrid('appendRow', {
+            //                                FENTRYID: index,
+            //                                FMODEL: row.FMODEL,
+            //                                FPRODUCTNAME: row.FPRODUCTNAME,
+            //                                FPRODUCTTYPE: row.FPRODUCTTYPE,
+            //                                FPRODUCTCODE: row.FPRODUCTCODE,
+            //                                FUNITNAME: row.FUNITNAME,
+            //                                FBATCHNO: row.FBATCHNO,
+            //                                FCOLORNO: row.FCOLORNO,
+            //                                FREMARK: row.FREMARK,
+            //                                FSRCID: row.FSRCID,
+            //                                FSRCNAME: row.FSRCNAME,
+            //                                FSRCCODE: row.FSRCCODE,
+            //                                FSRCMODEL: row.FSRCMODEL,
+            //                                FSRCUNIT: row.FSRCUNIT,
+            //                                FORDERUNIT:row.FORDERUNIT,
+            //                                FSTOCK: row.FSTOCK,
+            //                                FSTOCKPLACE: row.FSTOCKPLACE,
+            //                                FSRCQTY: row.FASKQTY,
+            //                                FCOMMITQTY: row.FCOMMITQTY,
+            //                                FNEEDDATE: row.FNEEDDATE,
+            //                                FPRICEPOLICYENTRYID: row.FPRICEPOLICYENTRYID,
+            //                                FICPRID: row.FICPRID,
+            //                                FWEIGHT: row.FWEIGHT,
+            //                                FVOLUME: row.FVOLUME,
+            //                                FITEMID: row.FITEMID,
+            //                                FACCOUNTPRICE: row.FACCOUNTPRICE,
+            //                                FPOLICYBILLNO:row.FPOLICYBILLNO,
+            //                                FPOLICYNAME: row.FPOLICYNAME,
+            //                                ICPRBILLNO: row.ICPRBILLNO,
+            //                                FICPRENTRYID: row.FICPRENTRYID
+            //                            });
+
+            //                            index++;
+            //                        }
+
+            //                        $('#dgPlanEntry').datagrid('acceptChanges');
+
+            //                        parent.layer.closeAll();
+            //                        parent.layer.msg("价格匹配完成！");
+            //                    } else {
+            //                        parent.layer.alert(result.Message, { icon: 0 });
+            //                    }
+            //                }
+            //            });
+
+
+
+            //        }
+            //    }
+            //},
+            //{
+            //    id: 'btnPriceAdjust',
+            //    text: '调整价格',
+            //    iconCls: 'icon-tick',
+            //    handler: function () {
+            //        var row = $('#dgPlanEntry').datagrid('getSelected');
+            //        if (row) {
+            //            var brandid = $('#FBRANDID').val();
+            //            var clientid = $("#FCLIENTID").val();
+            //            var srcDialog = top.$.hDialog({
+            //                href: '/DeliveryRelease/PricePolicySelector?itemid=' + row.FITEMID + "&brandid=" + brandid + "&clientid=" + clientid,
+            //                width: document.documentElement.clientWidth / 1.25,
+            //                height: document.documentElement.clientHeight / 1.25,
+            //                title: '匹配价格政策',
+            //                iconCls: 'icon-user_add',
+            //                onLoad: function () {
+            //                },
+            //                showBtns: false,
+            //                toolbar: [{
+            //                    text: '确认',
+            //                    iconCls: 'icon-add',
+            //                    handler: function () {
+            //                        var rowIndex = $('#dgPlanEntry').datagrid('getRowIndex', row);
+
+            //                        var selectrow1 = top.$('#gridPrice').datagrid('getSelected');
+            //                        var selectrow2 = top.$('#dgGoodsItem').datagrid('getSelected');
+            //                        if (selectrow1 && selectrow2) {
+            //                            $('#dgPlanEntry').datagrid("updateRow", {
+            //                                index: rowIndex, //行索引
+            //                                row: {
+            //                                    FPRICEPOLICYENTRYID: selectrow2.FID,
+            //                                    FACCOUNTPRICE: selectrow2.FACCOUNTPRICE,
+            //                                    FPOLICYBILLNO: selectrow1.FBILLNO,
+            //                                    FPOLICYNAME: selectrow1.FNAME,
+            //                                }
+            //                            });
+            //                        }
+
+            //                        srcDialog.dialog('close');
+            //                    }
+            //                },
+            //                {
+            //                    text: '关闭',
+            //                    iconCls: 'icon-cancel',
+            //                    handler: function () {
+            //                        srcDialog.dialog('close');
+            //                    }
+            //                }]
+            //            });
+            //        }
+            //        else {
+            //            parent.layer.msg("请先选择要调整的记录");
+            //        }
+            //    }
+            //}
+        ],
+        onLoadSuccess: function () {
+            var rows = $('#dgPlanEntry').datagrid('getRows');
+            for (var i = 0; i < rows.length; i++) {
+                $('#dgPlanEntry').datagrid('beginEdit', i);
+            }
+        }
+    });
+
+    function openSrcForm(rowIndex, itemid) {
+  
+        if (itemid == "")
+        {
+            parent.layer.msg("请先选择商品代码");
+            return;
+        }
+        openSrcDialog(function (row) {          
+
+            //var commitqty = $('#dgPlanEntry').datagrid('getRows')[rowIndex]['FCOMMITQTY'];
+            _closechange = true;
+
+            var rows = $('#dgPlanEntry').datagrid("getRows");
+            rows[rowIndex]["FSRCID"] = row.FID;
+            rows[rowIndex]["FSRCNAME"] = row.FSRCNAME;
+            rows[rowIndex]["FSRCCODE"] = row.FSRCCODE;
+            rows[rowIndex]["FSRCMODEL"] = row.FSRCMODEL;
+            rows[rowIndex]["FSRCUNIT"] = row.FUNIT;
+            rows[rowIndex]["FHNAMOUNT"] = 0;
+
+            var askqty = rows[rowIndex]["FASKQTY"];
+            if (askqty != undefined) {
+                rows[rowIndex]["FORDERUNITQTY"] = Math.ceil(parseFloat(askqty) / parseFloat(row.FRATE));
+                rows[rowIndex]["FLEFTAMOUNT"] = askqty;
+            }
+   
+
+            var FCOMMITQTYEdt = $('#dgPlanEntry').datagrid('getEditor', { index: rowIndex, field: 'FCOMMITQTY' });
+            $(FCOMMITQTYEdt.target).textbox('setValue', "");
+            $(FCOMMITQTYEdt.target).bind("keyup", function () {
+
+            });
+
+            $('#dgPlanEntry').datagrid('endEdit', rowIndex);
+            $('#dgPlanEntry').datagrid('refreshRow', rowIndex);
+            $('#dgPlanEntry').datagrid('beginEdit', rowIndex);
+
+            _closechange = false;
+
+        }, itemid);
+
+    }
+
+    function openProductForm(rowIndex) {
+        var hProductDialog = top.jQuery.hDialog({
+            title: '选择商品',
+            width: document.documentElement.clientWidth / 1.2,
+            height: document.documentElement.clientHeight / 1.2,
+            href: '/PleasePurchasePlan/AddItem',
+            iconCls: 'icon-add',
+            showBtns: false,
+            onLoad: function () {
+                top.$('#deliveryTab').tabs({
+                    onSelect: function () {
+                        top.$('.validatebox-tip').remove();
+                    }
+                });
+                var strIds = "";
+                top.$("#deliveryTab1").css("height", document.documentElement.clientHeight / 1.25);
+
+                top.$('#dgGoodsItem').datagrid({
+                    // height: document.documentElement.clientHeight / 1.25 - 180,
+                    fit: true,
+                    url: '/Product/DataByAudit/?',
+                    iconCls: 'icon icon-list',
+                    nowrap: false, //折行
+                    rownumbers: true, //行号
+                    striped: true, //隔行变色
+                    idField: 'FID', //主键
+                    singleSelect: true, //单选
+                    frozenColumns: [[]],
+                    columns: [[
+                        //{ field: 'FID', checkbox: true },
+                        { title: '品牌', field: 'FBRANDNAME', width: 120, sortable: true },
+                        { title: '所属系列', field: 'FPRODUCTTYPE', width: 110, sortable: true },
+                        { title: '商品代码', field: 'FPRODUCTCODE', width: 80, sortable: true },
+                        { title: '商品名称', field: 'FPRODUCTNAME', width: 250, sortable: true },
+                        { title: '规格型号', field: 'FMODEL', width: 100, sortable: true },
+                        {
+                            title: '单价', field: 'FPRIORITYP_L_RICE', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                                return fmoney(v, 6);
+                            }
+                        },
+                        { title: '主单位', field: 'FUNITNAME', width: 60, sortable: true, align: 'center' },
+                        { title: '采购单位', field: 'FORDERUNIT', width: 60, sortable: true, align: 'center' },
+                        { title: '分类', field: 'FCATEGORYNAME', width: 80, sortable: true },
+                        { title: '重量', field: 'FWEIGHT', width: 70, sortable: true },
+                        { title: '体积', field: 'FVOLUME', width: 70, sortable: true },
+                    ]],
+                    pagination: true,
+                    pageSize:50,
+                    queryParams: {
+                        // FORGID: $('#FORGID').combobox('getValue'),
+                        // FTYPEID: $('#FTYPEID').combobox('getValue'),
+
+                        FBRANDID: $('#FBRANDID').val()
+                    }
+                });
+
+                top.$('#deptree').tree({
+                    lines: true,
+                    url: '/Product/Category',
+                    animate: true,
+                    onLoadSuccess: function (node, data) {
+
+                    }, onClick: function (node) {
+                        var depId = node.id;
+                        var children = top.$('#deptree').tree('getChildren', node.target);
+                        var arr = [];
+                        arr.push(depId);
+                        for (var i = 0; i < children.length; i++) {
+                            arr.push(children[i].id);
+                        }
+
+                        strIds = arr.join("','");
+                        $('#dgGoodsItem').datagrid('load', { categoryID: strIds, FBRANDID: $('#FBRANDID').val() });
+                    }
+                });
+
+                top.$("#a_search").click(function () {
+                    $('#dgGoodsItem').datagrid('load', { categoryID: strIds, FBRANDID: $('#FBRANDID').val(), keywords: top.$('#txtKeyword').val() });
+                });
+
+                top.$("#a_reset").click(function () {
+                    top.$('#txtKeyword').textbox('setValue', '');
+                    $('#dgGoodsItem').datagrid('load', { categoryID: strIds, FBRANDID: $('#FBRANDID').val() });
+                });
+            },
+            toolbar: [{
+                text: '选择',
+                iconCls: 'icon-add',
+                handler: function () {
+                    var row = top.$('#dgGoodsItem').treegrid('getSelected');
+                    if (row) {
+                        //var index = 1;
+
+                        //$('#dgPlanEntry').datagrid('updateRow', {
+                        //    index: rowIndex, //行索引
+                        //    row: {
+                        //        FMODEL: row.FMODEL,
+                        //        FITEMID: row.FID,
+                        //        FPRODUCTNAME: row.FPRODUCTNAME,
+                        //        FPRODUCTTYPE: row.FPRODUCTTYPE,
+                        //        FPRODUCTCODE: row.FPRODUCTCODE,
+                        //        FUNITNAME: row.FUNITNAME,
+                        //        FUNITID: row.FUNITID,
+                        //        FORDERUNIT: row.FORDERUNIT,
+                        //        FBRANDID: row.FBRANDID,
+                        //        FBRANDNAME: row.FBRANDNAME,
+                        //        FPKGFORMAT: row.FPKGFORMAT,
+                        //        FCATEGORYID: row.FCATEGORYID,
+                        //        FWEIGHT: row.FWEIGHT,
+                        //        FVOLUME: row.FVOLUME,
+                        //        FSTATUS: row.FSTATUS,
+                        //        FSYNCTIME: row.FSYNCTIME,
+                        //        FUPDATETIME: row.FUPDATETIME,
+                        //        FSTATUSNAME: '草稿',
+                        //        FWEIGHTUNIT: 'KG',
+                        //        FRATE: row.FRATE,
+                        //        FCOLORNO: row.FCOLORNO,
+                        //        FREMARK: row.FREMARK,
+                        //        FWHOLESALEPRICE: row.FPRIORITYP_L_RICE,
+                        //        FBATCHNO: row.FBATCHNO,
+                        //        FCOLORNO: row.FCOLORNO,
+                        //        FADVQTY: 0
+                        //    }
+                        //});
+                        _closechange = true;
+
+                        var rows = $('#dgPlanEntry').datagrid("getRows");
+                        rows[rowIndex]["FMODEL"] = row.FMODEL;
+                        rows[rowIndex]["FITEMID"] = row.FID;
+                        rows[rowIndex]["FPRODUCTNAME"] = row.FPRODUCTNAME;
+                        rows[rowIndex]["FPRODUCTTYPE"] = row.FPRODUCTTYPE;
+                        rows[rowIndex]["FPRODUCTCODE"] = row.FPRODUCTCODE;
+                        rows[rowIndex]["FUNITNAME"] = row.FUNITNAME;
+                        rows[rowIndex]["FUNITID"] = row.FUNITID;
+                        rows[rowIndex]["FORDERUNIT"] = row.FORDERUNIT;
+                        rows[rowIndex]["FBRANDID"] = row.FBRANDID;
+                        rows[rowIndex]["FBRANDNAME"] = row.FBRANDNAME;
+                        rows[rowIndex]["FPKGFORMAT"] = row.FPKGFORMAT;
+                        rows[rowIndex]["FCATEGORYID"] = row.FCATEGORYID;
+                        rows[rowIndex]["FWEIGHT"] = row.FWEIGHT;
+                        rows[rowIndex]["FVOLUME"] = row.FVOLUME;
+                        rows[rowIndex]["FSTATUS"] = row.FSTATUS;
+                        rows[rowIndex]["FSYNCTIME"] = row.FSYNCTIME;
+                        rows[rowIndex]["FUPDATETIME"] = row.FUPDATETIME;
+                        rows[rowIndex]["FSTATUSNAME"] = '草稿';
+                        rows[rowIndex]["FWEIGHTUNIT"] = 'KG';
+                        rows[rowIndex]["FRATE"] = row.FRATE;
+                        rows[rowIndex]["FCOLORNO"] = row.FCOLORNO;
+                        rows[rowIndex]["FREMARK"] = row.FREMARK;
+                        rows[rowIndex]["FPRIORITYP_L_RICE"] = row.FPRIORITYP_L_RICE;
+                        rows[rowIndex]["FBATCHNO"] = row.FBATCHNO;
+                        rows[rowIndex]["FADVQTY"] = 0;
+
+                 
+
+                        $('#dgPlanEntry').datagrid('endEdit', rowIndex);
+                        $('#dgPlanEntry').datagrid('refreshRow', rowIndex);
+                        $('#dgPlanEntry').datagrid('beginEdit', rowIndex);
+
+                        _closechange = false;
+
+                        hProductDialog.dialog("close");
+                    }
+                    
+                    
+
+                   
+                }
+            },
+            {
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    hProductDialog.dialog("close");
+                }
+            }]
+        });
+    }
+
+</script>

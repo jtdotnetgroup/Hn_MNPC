@@ -1,0 +1,226 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+
+<!-- 工具栏按钮 -->
+<div class="datagrid-toolbar" id="toolbar" style="height: 28px; padding-top: 1px; padding-right: 2px; padding-bottom: 0px; padding-left: 2px;">
+@Html.Raw(ViewBag.ToolBar)
+</div>
+
+<!-- datagrid 列表 -->
+ <table id="depGrid"></table>
+
+<script type="text/javascript">
+
+    $(function () {
+        autoResize({ dataGrid: '#depGrid', gridType: 'treegrid', callback: mygrid.bindGrid, height: 5 });
+        $('#a_add').click(crud.add);
+        $('#a_setbtn').click(crud.setButtons);
+        $('#a_edit').click(crud.edit);
+        $('#a_delete').click(crud.del);
+    });
+
+
+
+    var mygrid = {
+        bindGrid: function (size) {
+            $('#depGrid').treegrid({
+                toolbar: '#toolbar',
+                iconCls: 'icon icon-list',
+                width: size.width,
+                height: size.height,
+                nowrap: false,
+                rownumbers: true,
+                animate: true,
+                collapsible: false,
+                url: '/Category/List',
+                idField: 'FID',
+                treeField: 'CATEGORY_NAME',
+                columns: [[
+                    { title: '分类编码', field: 'CATEGORY_NUMBER', width: 120 },
+                    { title: '分类名称', field: 'CATEGORY_NAME', width: 300 },
+                    { title: '分类类型', field: 'TYPE', width: 120 }
+                ]],
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                }
+            });
+        }
+    }
+
+    var crud = {
+        createParam: function (action, FID) {
+            var o = {};
+            var query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+
+            if (query.FIsBatch == "on") {
+                query.FIsBatch = true;
+            }
+            else {
+                query.FIsBatch = false;
+            }
+            o.jsonEntity = JSON.stringify(query);
+            o.action = action;
+            o.FID = FID;
+            return "json=" + JSON.stringify(o);
+        },
+        initData: function (depId) {
+            var treedata = $('#depGrid').treegrid("getData");
+            var str = JSON.stringify(treedata);
+            str = str.replace(/CATEGORY_NAME/g, "text").replace(/FID/g, "id");
+            str = '[{"text":"请选择上级分类",id:null,"selected":true},' + str.substr(1);
+   
+            if (treedata) {              
+                top.$('#txtPARENT_ID').combotree({
+                    data: eval(str),
+                    panelWidth: 200,
+                    panelHeight:'auto',
+                    onLoadSuccess: function (node, data) {
+                        if (item.id == depId) {
+                            var pId = top.$('#txtPARENT_ID').combotree('getValue');
+                            top.$('#txtPARENT_ID').combotree('setValue', pId);
+                            alert("上级分类不能与当前分类相同。");
+                            return false;
+                        }
+                    },
+                    onLoadSuccess: function (node, data) {
+                        top.$('#txtPARENT_ID').combotree('setValue', depId);
+                    }
+                });
+            }
+        },
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/Category/Edit',
+                width: 600,
+                height: 200,
+                title: "商品分类-新增/维护",
+                iconCls: 'icon-add',
+                onLoad: function () {
+                    crud.initData();
+
+                    var row = $('#depGrid').treegrid('getSelected');
+                    if (row) {
+                        var childrennodes = $('#depGrid').treegrid('getChildren', row.FID);
+
+                        if (childrennodes.length == 0)
+                            top.$('#txtPARENT_ID').combotree('setValue', row.PARENT_ID);
+                        else
+                            top.$('#txtPARENT_ID').combotree('setValue', row.FID);
+                    } else {
+                        top.$('#txtPARENT_ID').combotree('setValue', 0);
+                    }
+                },
+                submit: function () {
+                    if (top.$('#uiform').form('validate')) {
+                        var query = crud.createParam('add', 0);
+                        $.ajaxjson('/Category/Add', query, function (data) {
+                            if (data.Success) {
+                                $('#depGrid').treegrid('reload');
+                                addDialog.dialog('close');
+                                parent.layer.alert(data.Message, { icon: 1 });
+                            } else {
+                                parent.layer.alert(data.Message, { icon: 0 });
+                            }
+                        });
+                    }
+                    return false;
+                }
+            });
+
+
+        },
+        edit: function () {
+            var row = $('#depGrid').treegrid('getSelected');
+            if (row) {
+                var editDialog = top.$.hDialog({
+                    href: '/Category/Edit',
+                    width: 600,
+                    height: 200,
+                    title: "商品分类-新增/维护",
+                    iconCls: 'icon-edit',
+                    onLoad: function () {
+
+                        var viewModel = top.ko.mapping.fromJS(row);
+                        top.ko.applyBindings(viewModel);
+
+                        crud.initData(row.PARENT_ID);
+
+                      
+                        top.$("#txtCATEGORY_NUMBER").textbox("setValue", row.CATEGORY_NUMBER);
+                        top.$("#txtCATEGORY_NAME").textbox("setValue", row.CATEGORY_NAME);
+
+                        top.$('#txtTYPE').combobox('setValue', row.TYPE);
+
+                    },
+                    submit: function () {
+                        if (top.$('#uiform').form('validate')) {
+
+                            var childrennodes = $('#depGrid').treegrid('getChildren', row.FID);
+                            var newparentid = top.$('#txtPARENT_ID').combotree('getValue');
+
+                            var i = 0;
+                            $.each(childrennodes, function () {
+                                if (this.FID == newparentid)
+                                    i++;
+                            });
+
+                            if (i > 0) {
+                                alert('上级分类为当前分类的子级。');
+                                return false;
+                            }
+
+                            var query = crud.createParam('edit', row.FID);
+                            $.ajaxjson('/Category/Edit', query, function (d) {
+
+                                if (d.Success) {
+                                    $('#depGrid').treegrid("reload");
+                                    editDialog.dialog('close');
+                                    msg.ok(d.Message);
+                                } else {
+                                    parent.layer.alert(d.Message);
+                                }
+                            });
+                        }
+                        return false;
+                    }
+                });
+
+
+
+            } else {
+                msg.warning('请选择要修改的分类.');
+                return false;
+            }
+            return false;
+        },
+        del: function () {
+            var row = $('#depGrid').treegrid('getSelected');
+            if (row) {
+                var childrensCount = $('#depGrid').treegrid('getChildren', row.FID).length;
+
+                if (childrensCount == 0) {
+                    if (confirm('确认要删除此分类吗？')) {
+                        $.ajaxjson('/Category/Delete', crud.createParam("delete", row.FID), function (d) {
+                            if (d.Success) {
+                                $('#depGrid').treegrid("reload");
+                                msg.ok(d.Message);
+                            } else {
+                                msg.ok(d);
+                            }
+                        });
+                    }
+                } else {
+                    msg.warning('当前部门拥有下级分类，不允许删除.');
+                    return false;
+                }
+            }
+            else {
+                msg.warning('请选择要删除的分类.');
+            }
+            return false;
+        }
+    }
+
+</script>

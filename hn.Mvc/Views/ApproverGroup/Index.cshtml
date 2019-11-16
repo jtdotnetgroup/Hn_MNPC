@@ -1,0 +1,262 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout" onload="initData()">
+    <div region="north" border="false" split="true" class="datagrid-toolbar">
+        <div style="height:35px">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+
+    </div>
+    <div region="center" border="false" split="true">
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.edit);
+        $('#a_delete').click(crud.del);
+        grid.databind();
+    });
+
+    function createParam(action, FID, isDel) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+
+        if (form && !isDel) {
+
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+        }
+        o.action = action;
+        o.FID = FID;
+        return "json=" + JSON.stringify(o);
+    }
+
+    var grid = {
+        databind: function (size) {
+            $('#gridView').datagrid({
+                url: 'ApproverGroup/List',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { field: 'FID', checkbox: true },
+                    { title: '审批组名称', field: 'FNAME', width: 200, sortable: true },
+                    {
+                        title: '对象', field: 'FBILL_TYPE', width: 120, sortable: true, formatter: function (v, d, i) {
+                            if (v == 1) {
+                                return '请购计划';
+                            }
+                            else if (v == 2) {
+                                return '发货计划';
+                            }
+                        }
+                    },
+                    { title: '备注', field: 'FREMARK', width: 400, sortable: true }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onClickRow: function (rowIndex, rowData) {
+
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+    };
+
+    var crud = {
+        initData: function (depid) {
+        },
+        //新增
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/ApproverGroup/Add' + '?v=' + Math.random(),
+                width: 400,
+                height: 280,
+                title: '新增审批组',
+                iconCls: 'icon-application_form_add',
+                onLoad: function () {
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [{
+                    text: '新增',
+                    iconCls: 'icon-add',
+                    handler: function () {
+
+                        top.$('#uiform').form({
+                            url: '/ApproverGroup/Add',
+                            onSubmit: function () {
+                                if (top.$('#FNAME').textbox('getText') == "") {
+                                    parent.layer.alert("审批组名称不能为空！");
+                                    return false;
+                                }
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.errCode == 0) {
+                                    parent.layer.alert(result.message, { icon: 1 }, function (index) {
+                                        grid.reload();
+                                        //addDialog.dialog('close');
+                                        top.$('#FNAME').textbox('clear');
+                                        top.$('#FREMARK').textbox('clear');
+                                        parent.layer.close(index);
+                                    });
+
+                                } else {
+                                    parent.layer.alert(result.message, { icon: 2 });
+                                }
+                            }
+                        });
+
+                        top.$('#uiform').submit();
+
+                        
+                    }
+                },
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        top.$('#uiform').form({
+                            url: '/ApproverGroup/Add',
+                            onSubmit: function () {
+                                if (top.$('#FNAME').textbox('getText') == "") {
+                                    parent.layer.alert("审批组名称不能为空！");
+                                    return false;
+                                }
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.errCode == 0) {
+                                    parent.layer.msg("保存成功！");
+                                    grid.reload();
+                                    addDialog.dialog('close');
+                                    parent.layer.close(index);
+
+                                } else {
+                                    parent.layer.alert(result.message, { icon: 2 });
+                                }
+                            }
+                        });
+
+                        top.$('#uiform').submit();
+                       
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    },
+                },
+                ],
+            });
+        },
+        //编辑
+        edit: function () {
+            var editDialog = top.$.hDialog({
+                href: '/ApproverGroup/Add' + '?v=' + Math.random(),
+                width: 400,
+                height: 280,
+                title: '编辑审批组',
+                iconCls: 'icon-application_form_edit',
+                onLoad: function () {
+                    var row = $('#gridView').datagrid('getSelected');
+                    if (!row) {
+                        parent.layer.alert('请选择要编辑的审批组！');
+                        return;
+                    }
+                    top.$('#FID').val(row.FID);
+                    top.$('#FNAME').textbox("setValue", row.FNAME);
+                    top.$('#FREMARK').textbox("setValue", row.FREMARK);
+
+                    top.$('#uiform').form({
+                        url: '/ApproverGroup/Edit',
+                        onSubmit: function () {
+                            if (top.$('#FNAME').textbox('getText') == "") {
+                                parent.layer.alert("审批组名称不能为空！");
+                                return false;
+                            }
+                        },
+                        success: function (data) {
+                            var result = $.parseJSON(data);
+                            if (result.errCode == 0) {
+                                parent.layer.msg("保存成功！");
+                                grid.reload();
+                                editDialog.dialog('close');
+                                parent.layer.close(index);
+                            } else {
+                                parent.layer.alert(result.errMsg, { icon: 2 });
+                            }
+                        }
+                    });
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [{
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        top.$('#uiform').submit();
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        editDialog.dialog('close');
+                    },
+                },
+                ],
+            });
+        },
+        //删除
+        del: function () {
+            var row = grid.selectRow();
+            if (row) {
+                var o = {};
+                o.FID = row.FID;
+                var query = "json=" + JSON.stringify(o);
+
+                top.$.messager.confirm('删除', '确定删除该审批组吗?', function (r) {
+                    if (r) {
+                        $.ajaxjson('/ApproverGroup/Delete', query, function (d) {
+                            if (d.errCode == 0) {
+                                parent.layer.msg('删除成功！');
+                                grid.reload();
+                            } else {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    }
+                });
+
+            } else {
+                parent.layer.msg('请选择要删除的保养合同信息。');
+            }
+        }
+    };
+
+</script>

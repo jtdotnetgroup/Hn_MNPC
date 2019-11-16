@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{16183C27-23BE-4335-AE94-F12BB57421FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>hn.Common</RootNamespace>
+    <AssemblyName>hn.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\hn.Common.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\hn.Common.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\hn.Common.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.8\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="NVelocity, Version=1.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\NVelocity.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SQLite, Version=1.0.77.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\华耐\华耐\hn.Mvc\bin\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\hn.Mvc\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADAccountHelp.cs" />
+    <Compile Include="BadWordFilter.cs" />
+    <Compile Include="Cache\AspnetCache.cs" />
+    <Compile Include="Cache\CacheBase.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="CheckBoxListExCtrl.cs" />
+    <Compile Include="Cls_query\QueryOrder.cs" />
+    <Compile Include="ConfigHelper.cs" />
+    <Compile Include="CookieHelper.cs" />
+    <Compile Include="Data\BaseRepository.cs" />
+    <Compile Include="Data\Checker\DataChecker.cs" />
+    <Compile Include="Data\ConnectionSingle.cs" />
+    <Compile Include="Data\DbUtils.cs" />
+    <Compile Include="Data\FieldsBy.cs" />
+    <Compile Include="Data\Filter\FilterGroup.cs" />
+    <Compile Include="Data\Filter\FilterRule.cs" />
+    <Compile Include="Data\Filter\FilterTranslator.cs" />
+    <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\Operate.cs" />
+    <Compile Include="Data\Pageable.cs" />
+    <Compile Include="Data\ProcCustomPage.cs" />
+    <Compile Include="Data\ReaderInjection.cs" />
+    <Compile Include="Data\SetParamsValues.cs" />
+    <Compile Include="Data\sqlFilter.cs" />
+    <Compile Include="Data\TableNameAttribute.cs" />
+    <Compile Include="Data\TableConvention.cs" />
+    <Compile Include="DbHelperSQL.cs" />
+    <Compile Include="DynamicQueryable.cs" />
+    <Compile Include="ExcelHelper.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FTP.cs" />
+    <Compile Include="GridViewExportUtil.cs" />
+    <Compile Include="HttpHelper.cs" />
+    <Compile Include="JSONhelper.cs" />
+    <Compile Include="Key.cs" />
+    <Compile Include="LogHelper.cs" />
+    <Compile Include="MediaHelper.cs" />
+    <Compile Include="Data\OledbHelper.cs" />
+    <Compile Include="MessageBox.cs" />
+    <Compile Include="NVelocityHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Provider\SingletonProvider.cs" />
+    <Compile Include="PublicMethod.cs" />
+    <Compile Include="Data\SQLServer\SqlEasy.cs" />
+    <Compile Include="Data\SQLServer\SQLHelper.cs" />
+    <Compile Include="RandomHelper.cs" />
+    <Compile Include="SQLInjectionHelper.cs" />
+    <Compile Include="Data\SQLite\SQLiteHelper.cs" />
+    <Compile Include="Data\SQLite\SqliteEasy.cs" />
+    <Compile Include="SqlRegexFilter.cs" />
+    <Compile Include="StringHelper.cs" />
+    <Compile Include="Upload\ImageHelper.cs" />
+    <Compile Include="Upload\Upload.cs" />
+    <Compile Include="ValidateCode\MyChar2G.cs" />
+    <Compile Include="ValidateCode\QQ.cs" />
+    <Compile Include="ValidateCode\VcodeImageCreator.cs" />
+    <Compile Include="ValidateCode\VcodeImageCreator2.cs" />
+    <Compile Include="ValidateCode\VcodeImageCreator3.cs" />
+    <Compile Include="ValidateCode\VcodePage.cs" />
+    <Compile Include="ValidateImgHelper.cs" />
+    <Compile Include="XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Debug.zip" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\hn.Common.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Debug\Liyuan.Common.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Debug\ResolveAssemblyReference.cache" />
+    <None Include="obj\Release\Common.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\hn.Common.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\x64\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Debug\build.force" />
+    <None Include="obj\x86\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\x86\Debug\hn.Common.csprojResolveAssemblyReference.cache" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\hn.Common.dll" />
+    <Content Include="bin\Debug\hn.Common.pdb" />
+    <Content Include="bin\Debug\log4net.dll" />
+    <Content Include="bin\Debug\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.Net20.Merged.dll" />
+    <Content Include="bin\Debug\NPOI.dll" />
+    <Content Include="bin\Debug\NPOI.OOXML.dll" />
+    <Content Include="bin\Debug\NPOI.OpenXml4Net.dll" />
+    <Content Include="bin\Debug\NPOI.OpenXmlFormats.dll" />
+    <Content Include="bin\Debug\NVelocity.dll" />
+    <Content Include="bin\Debug\Omu.ValueInjecter.dll" />
+    <Content Include="bin\Debug\System.Data.SQLite.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.xml" />
+    <Content Include="bin\Debug\zh-Hans\System.Web.Razor.resources.dll" />
+    <Content Include="bin\Release\Common.dll" />
+    <Content Include="bin\Release\Common.XML" />
+    <Content Include="bin\Release\hn.Common.dll" />
+    <Content Include="bin\Release\hn.Common.xml" />
+    <Content Include="bin\Release\log4net.dll" />
+    <Content Include="bin\Release\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.xml" />
+    <Content Include="bin\Release\NPOI.dll" />
+    <Content Include="bin\Release\NPOI.OOXML.dll" />
+    <Content Include="bin\Release\NPOI.OpenXml4Net.dll" />
+    <Content Include="bin\Release\NPOI.OpenXmlFormats.dll" />
+    <Content Include="bin\Release\NVelocity.dll" />
+    <Content Include="bin\Release\Omu.ValueInjecter.dll" />
+    <Content Include="bin\Release\System.Data.SQLite.dll" />
+    <Content Include="bin\Release\System.Web.Mvc.dll" />
+    <Content Include="bin\Release\System.Web.Razor.dll" />
+    <Content Include="bin\Release\System.Web.Razor.xml" />
+    <Content Include="bin\Release\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\Release\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\Release\System.Web.WebPages.dll" />
+    <Content Include="bin\Release\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Release\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\Release\System.Web.WebPages.xml" />
+    <Content Include="bin\Release\zh-Hans\System.Web.Razor.resources.dll" />
+    <Content Include="bin\x64\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\x64\Debug\Newtonsoft.Json.Net20.Merged.dll" />
+    <Content Include="bin\x64\Debug\NVelocity.dll" />
+    <Content Include="bin\x64\Debug\Omu.ValueInjecter.dll" />
+    <Content Include="bin\x64\Debug\System.Data.SQLite.dll" />
+    <Content Include="bin\x86\Debug\hn.Common.dll" />
+    <Content Include="bin\x86\Debug\hn.Common.pdb" />
+    <Content Include="obj\Debug\Common.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\hn.Common.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\hn.Common.dll" />
+    <Content Include="obj\Debug\hn.Common.pdb" />
+    <Content Include="obj\Debug\Liyuan.Common.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\Liyuan.Common.dll" />
+    <Content Include="obj\Debug\TempPE\DataSet1.Designer.cs.dll" />
+    <Content Include="obj\Release\Common.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\Common.dll" />
+    <Content Include="obj\Release\hn.Common.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\hn.Common.dll" />
+    <Content Include="obj\x86\Debug\hn.Common.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\x86\Debug\hn.Common.dll" />
+    <Content Include="obj\x86\Debug\hn.Common.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\x64\Release\" />
+    <Folder Include="bin\x86\Release\" />
+    <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="obj\x64\Debug\TempPE\" />
+    <Folder Include="obj\x86\Debug\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

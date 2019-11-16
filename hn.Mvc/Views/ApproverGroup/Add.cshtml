@@ -1,0 +1,33 @@
+﻿
+
+<form id="uiform" method="post">
+    <table class="grid">
+        <tr>
+            <td align="right">
+                审批组名称：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FNAME" id="FNAME" data-options="required:true,missingMessage:'请输入审批组名称'"  style="width: 150px;"/>&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                对象：
+            </td>
+            <td>
+                <input id="FBILL_TYPE" name="FBILL_TYPE" type="text" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/EasyUICombobox/BILL_TYPE'"/>&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                备注：
+            </td>
+            <td>
+                <textarea style="width: 150px; height: 50px;" data-options="multiline:true"  class="easyui-textbox" name="FREMARK" id="FREMARK" />
+            </td>
+        </tr>
+    </table>
+    <input id="FID" name="FID" type="hidden" />
+</form>
+
+

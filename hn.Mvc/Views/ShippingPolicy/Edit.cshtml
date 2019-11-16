@@ -1,0 +1,52 @@
+﻿
+
+<form id="uiform" method="post">
+    <table class="grid">
+        <tr>
+            <td>
+                政策名称：
+            </td>
+            <td colspan="3">
+                <input type="text" id="txtFNAME" name="FNAME" data-bind="value:FNAME" class="txt03 easyui-textbox" data-options="required:true,missingMessage:'请输入政策名称'" style="width: 300px;" value="@Model.FNAME"/>&nbsp;&nbsp;<font color="red">*</font>
+            </td>          
+        </tr>
+        <tr>
+            <td>
+                重量费率：
+            </td>
+            <td>
+                <input type="text" id="txtFWEIGHTFEE" name="FWEIGHTFEE" class="easyui-numberbox" style="width: 150px;" value="@Model.FWEIGHTFEE" data-options="required:true,missingMessage:'请输入重量费率',min:0,precision:2" /> &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+            <td>
+                容量费率： 
+            </td>
+            <td>
+                <input type="text" id="txtFVOLUMEFEE" name="FVOLUMEFEE" class="easyui-numberbox" style="width: 150px;" value="@Model.FVOLUMEFEE" data-options="required:true,missingMessage:'请输入容量费率',min:0,precision:2"/> &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                有效期开始时间：
+            </td>
+            <td>
+                <input class="easyui-datebox" style="width: 150px" id="txtFSTARTTIME" name="FSTARTTIME" value="@Model.FSTARTTIME">
+            </td>
+            <td>
+                有效期截止时间：
+            </td>
+            <td colspan="3">
+                <input class="easyui-datebox" style="width: 150px" id="txtFDEADLINE" name="FDEADLINE" value="@Model.FDEADLINE">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                说明：
+            </td>
+            <td colspan="3">
+                <input id="txtFDESC" name="FDESC" type="text" class="easyui-textbox" data-options="multiline:true" style="height:40px;width:420px;" value="@Model.FDESC"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+

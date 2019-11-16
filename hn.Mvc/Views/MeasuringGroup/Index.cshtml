@@ -1,0 +1,1088 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@*<body class="easyui-layout">
+        <div region="center" border="false" split="true">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <table id="gridView" toolbar="#toolbar"></table>
+        </div>
+    </body>*@
+
+
+<body class="easyui-layout" onload="initData()">
+
+    <div region="north" border="false" split="true" class="datagrid-toolbar">
+        <div style="height:35px">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+
+    </div>
+    <div region="center" border="false" split="true">
+
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.edit);
+        $('#a_auditsubmit').click(crud.auditsubmit);
+        $('#a_audit').click(crud.audit);
+        $('#a_modify').click(crud.modify);
+        $('#a_finish').click(crud.finish);
+        $("#a_exit").hide();
+        $('#a_closecontract').click(crud.closecontract);
+        $('#a_contractview').click(crud.contractview);
+        $('#a_editRecord').click(crud.editRecord);
+        $('#a_delete').click(crud.del);
+
+        conentry.bind();
+        //careplan.bind();
+        payplan.bind();
+        collection.bind();
+        invoice.bind();
+
+        $('#a_search').click(function () {
+            search.go('gridView');
+        });
+
+        $('#a_search2').click(onSearch);
+        $('#a_reset').click(onReset);
+
+        grid.databind();
+
+        $(window).resize(function () { //浏览器窗口变化
+            cover();
+        });
+    });
+
+    function cover() {
+        var win_width = $(window).width();
+        var win_height = $(window).height();
+        //$("#bigpic").attr({ width: win_width, height: win_height });
+    }
+
+    function onSearch() {
+        var number = $('#txtNUMBER').val();
+        var custname = $('#txtCUST_NAME').val();
+        var status = $('#txtSTATUS').combobox("getValue");
+        var datefrom = $('#txtDateFrom').datebox('getValue');
+        var dateto = $('#txtDateTo').datebox('getValue');
+
+        var ruleArr = [];
+        if (number != "")
+            ruleArr.push({ "field": "FContractNo", "op": "cn", "data": number });
+        if (custname != "")
+            ruleArr.push({ "field": "CustName", "op": "cn", "data": custname });
+        if (status != "") {
+            ruleArr.push({ "field": "FStatus", "op": "eq", "data": status });
+        }
+        if (datefrom != '' && dateto == '') {
+            ruleArr.push({ "field": "Date", "op": "cn", "data": datefrom });
+        }
+        else if (dateto != '' && datefrom == '') {
+            ruleArr.push({ "field": "Date", "op": "cn", "data": dateto });
+        }
+        else if (dateto != '' && datefrom != '') {
+            ruleArr.push({ "field": "Date", "op": "ge", "data": datefrom });
+            ruleArr.push({ "field": "Date", "op": "le", "data": dateto });
+        }
+
+
+        if (ruleArr != null && ruleArr.length > 0) {
+            filterObj = { groupOp: 'AND', rules: ruleArr };
+            $('#gridView').datagrid('load', { filter: JSON.stringify(filterObj) });
+        } else {
+            $('#gridView').datagrid('load', { filter: {} });
+        }
+    }
+
+    function onReset() {
+        $('#txtNUMBER').textbox("setValue", "");
+        $('#txtCUST_NAME').textbox("setValue", "");
+        $('#txtSTATUS').textbox("setValue", "");
+        $('#txtDateFrom').datebox("setValue", "");
+        $('#txtDateTo').datebox("setValue", "");
+
+        $('#gridView').datagrid('load', { filter: {} });
+    }
+
+    function initData() {
+        $('#userTab').tabs({
+            onLoad: function () {
+                $('.validatebox-tip').remove();
+            }
+        });
+    }
+
+
+    //=====================================
+    //根据Form上的控件绑定的data-bind属性
+    //自动将控件的值转成json格式
+    //=====================================
+    function ClearData() {
+        top.$('#FNumber').textbox('setValue', "");
+        top.$('#FName').textbox('setValue', "");
+        top.$('#FDefdltUnitID').textbox('setValue', "");
+        top.$('#FRemark').textbox('setValue', "");
+    }
+
+
+
+    //=====================================
+    //根据Form上的控件绑定的data-bind属性
+    //自动将控件的值转成json格式
+    //=====================================
+    function getAddParam(action, FID) {
+
+        var o = {};
+        var form = top.$('#dicForm');
+        var query = {};
+        if (form) {
+            var FNumber = top.$('#FNumber').val();
+            if (FNumber != null && FNumber == "") {
+                top.$('#FNumber').focus();
+                return "";
+            }
+
+            var FName = top.$('#FName').textbox('getValue');
+            if (FName != null && FName == "") {
+                top.$('#FName').focus();
+                return "";
+            }
+
+            var FDefdltUnitID = top.$('#FDefdltUnitID').textbox('getValue');
+            if (FDefdltUnitID != null && FDefdltUnitID == "") {
+                top.$('#FDefdltUnitID').focus();
+                return "";
+            }
+
+            query.FName = FName;
+            query.FNumber = FNumber;
+            query.FDefaltUniTID = FDefdltUnitID;
+            query.FUpdateTime = "";
+            query.action = action;
+            query.FID = FID;
+
+            var data7 = top.$('#FRemark').textbox('getValue');
+            if (data7 != null) {
+                query.FRemark = data7;
+            }
+
+            var jsonArrayFinal = JSON.stringify(query)
+            o.jsonEntity = jsonArrayFinal;
+        }
+
+        return "json=" + JSON.stringify(o);
+    }
+
+
+
+
+    //=====================================
+    //根据Form上的控件绑定的data-bind属性
+    //自动将控件的值转成json格式
+    //=====================================
+    function createParam(id) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+        if (form) {
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+            var data = top.$('#dgConEntry').datagrid('getData');
+            if (data != null && data != "" && data.rows != null && data.rows.length > 0) {
+                o.data1 = JSON.stringify(data);
+            }
+            var data2 = top.$('#dgConPayment').datagrid('getData');
+            if (data2 != null && data2 != "" && data2.rows != null && data2.rows.length > 0) {
+                o.data2 = JSON.stringify(data2);
+            }
+            var data3 = top.$('#dgConCollection').datagrid('getData');
+            if (data3 != null && data3 != "" && data3.rows != null && data3.rows.length > 0) {
+                o.data3 = JSON.stringify(data3);
+            }
+            var data4 = top.$('#dgConInvoice').datagrid('getData');
+            if (data4 != null && data4 != "" && data4.rows != null && data4.rows.length > 0) {
+                o.data4 = JSON.stringify(data4);
+            }
+        }
+        o.FID = id;
+        return "json=" + JSON.stringify(o);
+    }
+
+    //=====================================
+    //列表界面上的Grid控件对象
+    //=====================================
+    var grid = {
+        databind: function (size) {
+            $('#gridView').datagrid({
+                url: 'MeasuringGroup/List',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { field: 'FID', checkbox: true },
+                    { title: '与主单位换算率', field: 'FRATE', width: 120, sortable: true },
+                    { title: '更新时间', field: 'FUPDATETIME', width: 120, sortable: true },
+                    { title: '单位', field: 'FDEFALTUNITID', width: 150, sortable: true },
+                    { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onClickRow: function (rowIndex, rowData) {
+                    conentry.reload(rowData.FID);
+                    //careplan.reload(rowData.FID);
+                    payplan.reload(rowData.FID);
+                    collection.reload(rowData.FID);
+                    invoice.reload(rowData.FID);
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                    //if (rowData.FStatus != 1 && rowData.FStatus != 4) {
+                    //    crud.contractview();
+                    //}
+                    //else {
+                    //    crud.update();
+                    //}
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+    };
+
+    //=====================================
+    //计划列表界面上的Grid控件对象
+    //=====================================
+    var conentry = {
+        bind: function (winSize) {
+            $('#conentry').datagrid({
+
+
+                iconCls: 'icon icon-list',
+                fit: true,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'KeyId', //主键
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                    { title: '产品系列', field: 'FContractNo', width: 120 },
+                    { title: '商品代码', field: 'BegDate', width: 150 },
+                    { title: '商品名称', field: 'BegDate', width: 150 },
+                    { title: '产品型号', field: 'EndDate', width: 150 },
+                    { title: '规格', field: 'PaymentAmount', width: 120 },
+                    { title: '单位', field: 'SN', width: 100 },
+                    { title: '色号', field: 'DWC', width: 100 },
+                    { title: '参考数量', field: 'Speed', width: 100 },
+                    { title: '审批数量', field: 'Speed', width: 100 },
+                    { title: '审批数量', field: 'Speed', width: 100 },
+                    { title: '订单数量', field: 'Speed', width: 100 },
+                    { title: '审核数量', field: 'Speed', width: 100 },
+                    { title: '交货日期', field: 'Speed', width: 100 },
+                    { title: '特价政策', field: 'Speed', width: 100 },
+                    { title: '实际数量', field: 'FNote', width: 100 },
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#conentry').datagrid('getSelected');
+        },
+        reload: function (fid) {
+            $('#conentry').datagrid('load', { conid: fid });
+        }
+    };
+
+
+    //=====================================
+    //下载记录列表界面上的Grid控件对象
+    //=====================================
+    var payplan = {
+        bind: function (winSize) {
+            $('#payplan').datagrid({
+                url: "",
+
+                iconCls: 'icon icon-list',
+                fit: true,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'KeyId', //主键
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                    { title: '原订单号', field: 'FContractNo', width: 120 },
+                    { title: '创建日期', field: 'FAmount', width: 120 },
+                    { title: '同步时间', field: 'BegDate', width: 150 },
+                    { title: '厂家单号', field: 'EndDate', width: 150 },
+                    { title: '产品系列', field: 'PaymentAmount', width: 120 },
+                    { title: '商品代码', field: 'SN', width: 100 },
+                    { title: '商品名称', field: 'Floors', width: 200 },
+                    { title: '产品型号', field: 'EndDate', width: 150 },
+                    { title: '规格', field: 'PaymentAmount', width: 120 },
+                    { title: '单位', field: 'SN', width: 100 },
+                    { title: '色号', field: 'DWC', width: 100 },
+                    { title: '顺序', field: 'Speed', width: 100 },
+                    { title: '原单数量', field: 'Speed', width: 100 },
+                    { title: '本次数量', field: 'Speed', width: 100 },
+                    { title: '批准数量', field: 'Speed', width: 100 },
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#payplan').datagrid('getSelected');
+        },
+        reload: function (fid) {
+            $('#payplan').datagrid('load', { conid: fid });
+        }
+    };
+
+    //=====================================
+    //特价政策列表界面上的Grid控件对象
+    //=====================================
+    var collection = {
+        bind: function (winSize) {
+            $('#collection').datagrid({
+                url: "",
+
+                iconCls: 'icon icon-list',
+                fit: true,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'KeyId', //主键
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                    { title: '价格政策编号', field: 'FAmount', width: 100 },
+                    { title: '价格政策名称', field: 'Date', width: 150 },
+                    { title: '产品系列', field: 'FContractNo', width: 150 },
+                    { title: '商品代码', field: 'FAmount', width: 120 },
+                    { title: '商品名称', field: 'BegDate', width: 150 },
+                    { title: '规格', field: 'PaymentAmount', width: 120 },
+                    { title: '单位', field: 'SN', width: 100 },
+                    { title: '起始数量', field: 'SN', width: 100 },
+                    { title: '截止数量', field: 'SN', width: 100 },
+                    { title: '起始时间', field: 'SN', width: 120 },
+                    { title: '截止时间', field: 'SN', width: 120 },
+                    { title: '采购单价', field: 'SN', width: 150 },
+                    { title: '备注', field: 'SN', width: 300 },
+
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#collection').datagrid('getSelected');
+        },
+        reload: function (fid) {
+            $('#collection').datagrid('load', { conid: fid });
+        }
+    };
+
+    //=====================================
+    //发票记录列表界面上的Grid控件对象
+    //=====================================
+    var invoice = {
+        bind: function (winSize) {
+            $('#invoice').datagrid({
+                url: "/CareContract/ConInvoice",
+
+                iconCls: 'icon icon-list',
+                fit: true,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'KeyId', //主键
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                    { title: '开票金额', field: 'FAmount', width: 100 },
+                    { title: '开票日期', field: 'Date', width: 120 },
+                    //{
+                    //    title: '开票日期',
+                    //    field: 'FDate',
+                    //    width: 120,
+                    //    sortable: true,
+                    //    formatter: function formatterdate(val, row) {
+                    //        if (val != null) {
+                    //            val = val.replace('-', '/');
+                    //            var date = new Date(val);
+                    //            var y = date.getFullYear();
+                    //            var m = date.getMonth() + 1;
+                    //            var d = date.getDate();
+                    //            return y + "-" + (m < 10 ? ("0" + m) : m) + "-" + (d < 10 ? ("0" + d) : d);
+                    //        }
+                    //    }
+                    //},
+                    { title: '发票号码', field: 'FBillNo', width: 200 },
+                    { title: '经手人', field: 'BillerName', width: 100 },
+                    {
+                        title: '附件',
+                        field: 'AttachmentShow',
+                        width: 100,
+                        align: 'center',
+                        formatter: function (v) {
+                            if (v != null && v != "")
+                                return '<a href="' + v + '" class="easyui-linkbutton" target="_blank" style="color:#0000FF">查看</a>';
+                                //return '<a href="#" class="easyui-linkbutton" onclick="/CareContract/List?path' + v + '" style="color:#0000FF">下载</a>';
+                            else
+                                return "";
+                        }
+                    },
+                    { title: '备注', field: 'FNote', width: 300 },
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#invoice').datagrid('getSelected');
+        },
+        reload: function (fid) {
+            $('#invoice').datagrid('load', { conid: fid });
+        }
+    };
+
+    function checkAmountEntry() {
+        var table = top.$('#uiform').find('#dgConEntry').datagrid('getData');
+        var Amount = 0.0;
+        if (table != null && table.rows != null && table.rows.length > 0) {
+            for (var i = 0; i < table.rows.length; i++) {
+                var status = table.rows[i]["FStatus"];
+                if (status != null && status != null && (status == 1 || status == "1")) {
+                    Amount += parseFloat(table.rows[i]["FAmount"]);
+                }
+            }
+        }
+
+        var AmountAll = top.$('#uiform').find('#txtFAmount').numberbox('getValue');
+        if (Amount != AmountAll) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function checkAmountPayment() {
+        var table = top.$('#uiform').find('#dgConPayment').datagrid('getData');
+        var Amount = 0.0;
+        if (table.rows.length > 0) {
+            for (var i = 0; i < table.rows.length; i++) {
+                Amount += parseFloat(table.rows[i]["FPlanAmount"]);
+            }
+        }
+
+        var AmountAll = top.$('#uiform').find('#txtFAmount').numberbox('getValue');
+        if (Amount != AmountAll) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
+
+
+    var crud = {
+        initData: function (depid) {
+
+            //top.$('#userTab').tabs({
+            //    onSelect: function () {
+            //        top.$('.validatebox-tip').remove();
+            //    }
+            //});
+
+            //bindDictionary(top.$('#txtFContractType'), DIC_CONST_017);
+            //bindDictionary(top.$('#txtFPayMethod'), DIC_CONST_018);
+            //top.$('#txtFSerialNum').textbox('disable', false);
+
+            ////项目
+            //bindProjectsDialog(top.$('#txtItemName'), function (row) {
+            //    top.$('#txtItemName').searchbox("setValue", row.FName);
+            //    top.$('#txtFItemID').textbox("setValue", row.FID);
+            //});
+            //top.$('#txtCustName').textbox('disable', true);
+
+            //客户
+            //bindCustomerDialog(top.$('#txtCustName'), function (row) {
+            //    top.$('#txtCustName').searchbox("setValue", row.FName);
+            //    top.$('#txtFCustID').textbox("setValue", row.FID);
+            //});
+
+            //bindOrganizeDialog(top.$('#txtBrName'), '签约公司选择', "1,5", null, function (row) {
+            //    top.$('#txtBrName').searchbox("setValue", row.FName);
+            //    top.$('#txtFBrID').textbox("setValue", row.FID);
+            //});
+
+            //bindEmployeeDialogByCompany(top.$('#txtEmpName'), top.$('#txtFBrID'), function (row) {
+            //    top.$('#txtEmpName').searchbox("setValue", row.FName);
+            //    top.$('#txtFEmpID').textbox("setValue", row.FID);
+            //});
+
+            //bindEmployeeDialog(top.$('#txtEmpName'), null, function (row) {
+            //    top.$('#txtEmpName').searchbox("setValue", row.FName);
+            //    top.$('#txtFEmpID').textbox("setValue", row.FID);
+            //});
+        },
+        //新增
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/MeasuringGroup/Add' + '?v=' + Math.random(),
+                width: 400,
+                height: 280,
+                title: '新增计量单位组',
+                iconCls: 'icon-application_form_add',
+                onLoad: function () {
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [{
+                    text: '新增',
+                    iconCls: 'icon-add',
+                    handler: function () {
+
+                        top.$('#uiform').form({
+                            url: '/MeasuringGroup/Save',
+                            onSubmit: function () {
+                                //return $(this).form('enableValidation').form('validate');
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.Success) {
+                                    parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                        //grid.reload();
+                                        //addDialog.dialog('close');
+                                        //parent.layer.close(index);
+                                    });
+
+                                } else {
+                                    parent.layer.alert(result.Message, { icon: 2 });
+                                }
+                            }
+                        });
+
+                        top.$('#uiform').submit();
+
+                        //if (top.$('#uiform').form('validate')) {
+                        //    var query = getAddParam("Save", 0);
+
+                        //    if (query.length == 0) {
+                        //        return;
+                        //    }
+
+                        //    $.ajaxjson('/MeasuringGroup/Save', query, function (d) {
+                        //        if (d.errCode == 0) {
+                        //            parent.layer.msg('添加成功');
+                        //            ClearData();
+                        //            grid.reload();
+                        //        } else {
+                        //            parent.layer.alert(d.errMsg);
+                        //        }
+                        //    });
+                        //}
+                    }
+                },
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        top.$('#uiform').form({
+                            url: '/MeasuringGroup/Save',
+                            onSubmit: function () {
+                                //return $(this).form('enableValidation').form('validate');
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.Success) {
+                                    parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                        grid.reload();
+                                        addDialog.dialog('close');
+                                        parent.layer.close(index);
+                                    });
+
+                                } else {
+                                    parent.layer.alert(result.Message, { icon: 2 });
+                                }
+                            }
+                        });
+
+                        top.$('#uiform').submit();
+                        //if (top.$('#uiform').form('validate')) {
+                        //    var query = getAddParam("Save", 0);
+
+                        //    if (query.length == 0) {
+                        //        return;
+                        //    }
+
+                        //    $.ajaxjson('/MeasuringGroup/Save', query, function (d) {
+                        //        if (d.errCode == 0) {
+                        //            parent.layer.msg('添加成功');
+                        //            grid.reload();
+                        //            addDialog.dialog('close');
+                        //        } else {
+                        //            parent.layer.alert(d.errMsg);
+                        //        }
+                        //    });
+                        //}
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    },
+                },
+                ],
+            });
+        },
+
+        //编辑
+        edit: function () {
+            var editDialog = top.$.hDialog({
+                href: '/MeasuringGroup/Edit' + '?v=' + Math.random(),
+                width: 400,
+                height: 280,
+                title: '编辑计量单位组',
+                iconCls: 'icon-application_form_edit',
+                onLoad: function () {
+
+                    var row = $('#gridView').datagrid('getSelected');
+
+                    if (!row) {
+                        parent.layer.alert('请选择要编辑的计量单位组！');
+                        return;
+                    }
+                    top.$('#FID').val(row.FID);
+                    top.$('#FNUMBER').textbox("setValue", row.FNUMBER);
+                    top.$('#FNAME').textbox("setValue", row.FNAME);
+                    top.$('#FDEFALTUNITID').textbox("setValue", row.FDEFALTUNITID);
+                    top.$('#FREMARK').textbox("setValue", row.FREMARK);
+
+                    top.$('#uiform').form({
+                        url: '/MeasuringGroup/Save',
+                        onSubmit: function () {
+                            //return $(this).form('enableValidation').form('validate');
+                        },
+                        success: function (data) {
+                            var result = $.parseJSON(data);
+                            if (result.Success) {
+                                parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                    grid.reload();
+                                    editDialog.dialog('close');
+                                    parent.layer.close(index);
+                                });
+
+                            } else {
+                                parent.layer.alert(result.Message, { icon: 2 });
+                            }
+                        }
+                    });
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [{
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        top.$('#uiform').submit();
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        editDialog.dialog('close');
+                    },
+                },
+                ],
+            });
+        },
+        update: function () {
+            var row = $('#gridView').treegrid('getSelected');
+            if (row) {
+                var addDialog = top.$.hDialog({
+                    href: '/MeasuringGroup/Edit' + '?v=' + Math.random(),
+                    width: 400,
+                    height: 280,
+                    title: '编辑计量单位组',
+                    iconCls: 'icon-application_form_add',
+                    onLoad: function () {
+                        if (row) {
+                            top.$('#FNumber').textbox('setValue', row.FNumber);
+                            top.$('#FName').textbox('setValue', row.FName);
+                            top.$('#FDefdltUnitID').textbox('setValue', row.FDefaltUnitID);
+                            top.$('#FRemark').textbox('setValue', row.FRemark);
+                        }
+                    },
+                    closed: false,
+                    showBtns: false,
+                    toolbar: [
+                    {
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = getAddParam("update", row.FID);
+
+                                if (query.length == 0) {
+                                    return;
+                                }
+
+                                $.ajaxjson('/MeasuringGroup/Edit', query, function (d) {
+                                    if (d.errCode == 0) {
+                                        parent.layer.msg(d.errMsg);
+                                        grid.reload();
+                                        addDialog.dialog('close');
+                                    } else {
+                                        parent.layer.alert(d.errMsg);
+                                    }
+                                });
+                            }
+                        }
+                    },
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            addDialog.dialog('close');
+                        },
+                    },
+                    ],
+                });
+            } else {
+                alert("请选中您要修改的内容")
+            }
+        },
+        //提交审核
+        auditsubmit: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 1 || row.FStatus == 4) {
+                    parent.layer.confirm('确认提交合同【' + row.FContractNo + '】进行审核吗？', {
+                        area: ['380px', 'auto'],
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/CareContract/Audit",
+                            data: { id: row.FID },
+                            dataType: "json",
+                            success: function (message) {
+                                if (message > 0) {
+                                    parent.layer.msg('提交审核成功');
+                                    grid.reload();
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    });
+                }
+                else {
+                    parent.layer.alert('当前的状态无法提交审核。');
+                }
+            } else {
+                parent.layer.alert('请选择要提交审核的保养合同。');
+            }
+        },
+        //审核
+        audit: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 2) {
+                    parent.layer.confirm('操作前请仔细核查信息！一旦提交，将不可再修改。', {
+                        area: ['380px', 'auto'],
+                        btn: ['通过', '不通过', '关闭'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/CareContract/AuditPass",
+                            data: { id: row.FID },
+                            dataType: "json",
+                            success: function (message) {
+                                if (message > 0) {
+                                    parent.layer.msg('审核完毕');
+                                    grid.reload();
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/CareContract/AuditNoPass",
+                            data: { id: row.FID },
+                            dataType: "json",
+                            success: function (message) {
+                                if (message > 0) {
+                                    parent.layer.msg('审核完毕');
+                                    grid.reload();
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    });
+                }
+                else {
+                    parent.layer.alert('当前的状态无法通过审核。');
+                }
+            } else {
+                parent.layer.alert('请选择要通过审核的保养合同。');
+            }
+        },
+        //变更
+        modify: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 3) {
+                    var editDialog = top.$.hDialog({
+                        href: '/CareContract/Edit?id=' + row.FID,
+                        width: 800,
+                        height: 560,
+                        title: '变更保养合同',
+                        iconCls: 'icon-application_form_edit',
+                        onLoad: function () {
+                            crud.initData();
+                            top.$('#txtType').textbox("setValue", 2);
+
+                            top.$('#uiform').find('#txtItemName').textbox("setValue", row.ItemName);
+                            top.$('#uiform').find('#txtFItemID').textbox("setValue", row.FItemID);
+                            //top.$('#txtCustName').textbox("setValue", row.CustName);
+                            //top.$('#txtFCustID').textbox("setValue", row.FCustID);
+                            top.$('#txtBrName').textbox("setValue", row.BrName);
+                            top.$('#txtFBrID').textbox("setValue", row.FBrID);
+                            top.$('#txtEmpName').textbox("setValue", row.EmpName);
+                            top.$('#txtFEmpID').textbox("setValue", row.FBrID);
+                        },
+                        submit: function () {
+                            if (top.$('#uiform').form('validate')) {
+                                var query = createParam(row.FID);
+                                $.ajaxjson('/CareContract/Edit?type=2', query, function (d) {
+                                    if (d.errCode == 0) {
+                                        parent.layer.msg('变更成功');
+                                        grid.reload();
+                                        editDialog.dialog('close');
+                                    } else {
+                                        parent.layer.alert(d.errMsg);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                else {
+                    parent.layer.alert('只有“审核通过”的状态才能进行变更。');
+                }
+            } else {
+                parent.layer.alert('请选择要变更的保养合同。');
+            }
+        },
+        //完成
+        finish: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 3) {
+                    parent.layer.confirm('确认将合同【' + row.FContractNo + '】状态改为“完成”吗？', {
+                        area: ['400px', 'auto'],
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/CareContract/Finish",
+                            data: { id: row.FID },
+                            dataType: "json",
+                            success: function (message) {
+                                if (message > 0) {
+                                    parent.layer.msg('状态修改成功');
+                                    grid.reload();
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    });
+                }
+                else {
+                    parent.layer.alert('只有“审核通过”的状态才能进行完成操作。');
+                }
+            } else {
+                parent.layer.alert('请选择要完成的保养合同。');
+            }
+        },
+        //关闭合同
+        closecontract: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 6) {
+                    parent.layer.alert('当前的状态无需重复关闭。');
+                }
+                else if (row.FStatus == 2 || row.FStatus > 6) {
+                    parent.layer.alert('当前的状态无法关闭。');
+                }
+                else {
+                    parent.layer.confirm('确认关闭合同【' + row.FContractNo + '】吗？', {
+                        area: ['380px', 'auto'],
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/CareContract/CloseContract",
+                            data: { id: row.FID },
+                            dataType: "json",
+                            success: function (message) {
+                                if (message > 0) {
+                                    parent.layer.msg('关闭成功');
+                                    grid.reload();
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    });
+                }
+            } else {
+                parent.layer.alert('请选择要关闭的保养合同。');
+            }
+        },
+        //查看合同
+        contractview: function () {
+            var row = grid.selectRow();
+            if (row) {
+                var viewDialog = top.$.hDialog({
+                    href: '/CarePayment/ContractView?id=' + row.FID,
+                    width: 1200,
+                    height: 385,
+                    title: '合同详情',
+                    iconCls: 'icon-application_form_magnify',
+                    showBtns: false,
+                    onLoad: function () {
+                        crud.initData();
+                    },
+                    toolbar: [{
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            viewDialog.dialog('close');
+                        }
+                    }],
+                    submit: function () {
+
+                    }
+                });
+            } else {
+                parent.layer.alert('请选择要查看的保养合同。');
+            }
+        },
+        //修改记录
+        editRecord: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 7) {
+                    parent.layer.alert('当前的状态无法查看修改记录。');
+                }
+                else {
+                    var viewDialog = top.$.hDialog({
+                        href: '/CareContract/EditRecord?id=' + row.FID,
+                        width: 700,
+                        height: 385,
+                        title: '查看修改记录',
+                        iconCls: 'icon-application_form_magnify',
+                        showBtns: false,
+                        onLoad: function () {
+
+                        },
+                        toolbar: [{
+                            text: '关闭',
+                            iconCls: 'icon-cancel',
+                            handler: function () {
+                                viewDialog.dialog('close');
+                            }
+                        }],
+                        submit: function () {
+
+                        }
+                    });
+                }
+            } else {
+                parent.layer.alert('请选择要查看修改记录的保养合同。');
+            }
+        },
+        //删除
+        del: function () {
+            var row = grid.selectRow();
+            if (row) {
+
+                var o = {};
+                o.FID = row.FID;
+                var query = "json=" + JSON.stringify(o);
+
+                top.$.messager.confirm('删除', '确定要删除这条内容?', function (r) {
+                    if (r) {
+                        $.ajaxjson('/MeasuringGroup/Delete', query, function (d) {
+                            if (d.errCode == 0) {
+                                parent.layer.msg('删除成功');
+                                grid.reload();
+                            } else {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    }
+                });
+
+            } else {
+                parent.layer.msg('请选择要删除的保养合同信息。');
+            }
+        }
+    };
+
+    function downloadFile(url) {
+
+        var form = $("<form>");//定义一个form表单
+        form.attr("style", "display:none");
+        form.attr("target", "");
+        form.attr("method", "post");
+        form.attr("action", "/DownloadFiles/Dowmload");
+        var input1 = $("<input>");
+        input1.attr("type", "hidden");
+        input1.attr("name", "strUrl");
+        input1.attr("value", url);
+        $("body").append(form);//将表单放置在web中
+        form.append(input1);
+
+        form.submit();//表单提交
+
+        //if (typeof (download_file.iframe) == "undefined") {
+        //    var iframe = document.createElement("iframe");
+        //    download_file.iframe = iframe;
+        //    document.body.appendChild(download_file.iframe);
+        //}
+        ////alert(download_file.iframe);
+        //download_file.iframe.src = url;
+        //download_file.iframe.style.display = "none";
+    }
+</script>

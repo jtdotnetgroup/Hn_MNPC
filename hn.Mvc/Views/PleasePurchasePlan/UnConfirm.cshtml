@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<body class="easyui-layout">
+    <div region="north" border="false" split="true" style="background:#FFFFFF;">
+        <table class="grid">
+            <tr>
+                <td class="t_r5">经营场所：</td>
+                <td>
+                    <div style="position:relative;">
+                        <input id="FPREMISENUMBER" name="FPREMISENUMBER" type="hidden" />
+                        <input id="FPREMISEID" name="FPREMISEID" type="hidden" />
+                        <input id="FPREMISENAME" name="FPREMISENAME" type="text" class="easyui-textbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选经营场所',invalidMessage:'最大长度255个字符'" style="width:200px" />
+                    </div>
+                </td>
+                <td class="t_r5">计划类型：</td>
+                <td>
+                    <input id="FTYPEID" name="FTYPEID" type="text" data-bind="value:FTYPEID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.计划类型)',required:true,validType:'length[1,255]',missingMessage:'请选择计划类型',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </td>
+                <td class="t_r5">品牌/厂家：</td>
+                <td>
+                    <div style="position:relative;">
+                        <input id="FBRANDNUMBER" name="FBRANDNUMBER" type="hidden" />
+                        <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                        <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-textbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌/厂家',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                    </div>
+                </td>
+                <td class="t_r5">单据编号：</td>
+                <td>
+                    <input id="FBILLNO" name="FBILLNO" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false" />
+                </td>
+            </tr>
+            <tr>
+                <td class="t_r5">运输方式：</td>
+                <td>
+                    <input id="FTRANSID" name="FTRANSID" type="text" data-bind="value:FTRANSID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.运输方式)',required:true,validType:'length[1,255]',missingMessage:'请选择运输方式',invalidMessage:'最大长度255个字符'" style="width:200px" />
+                </td>
+                <td class="t_r5">申请日期：</td>
+                <td>
+                    <input type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="easyui-datebox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择申请日期',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </td>
+                <td class="t_r5">申请人：</td>
+                <td>
+                    <input id="FBILLERID" name="FBILLERID" type="text" value="@hn.Core.SysVisitor.Instance.UserName" class="easyui-textbox" style="width:150px" data-options="editable:false"/>
+                </td>
+                <td class="t_r5">联系电话：</td>
+                <td>
+                    <input id="FTELEPHONE" name="FTELEPHONE" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="t_r5">签约主体：</td>
+                <td>
+                    @* <input id="FENGINEERINGID" name="FENGINEERINGID" type="text" data-bind="value:FENGINEERINGID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.工程性质)',required:false,validType:'length[1,255]',missingMessage:'请选择工程性质',invalidMessage:'最大长度255个字符'" style="width:150px" />*@
+                    <input id="SIGN_MAIN" name="SIGN_MAIN" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false"/>
+                </td>
+                <td class="t_r5">运费结算：</td>
+                <td>
+                    <input id="FFREIGHTID" name="FFREIGHTID" type="text" data-bind="value:FFREIGHTID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.运费结算)',required:false,validType:'length[1,255]',missingMessage:'请选择运费结算',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </td>
+                <td class="t_r5">收货方地址：</td>
+                <td>
+                    <input id="FRECEIVINGADDR" name="FRECEIVINGADDR" type="text" value="" class="easyui-textbox" style="width:300px;" data-options="editable:false"/>
+                </td>
+                <td class="t_r5">工程名称：</td>
+                <td>
+                    <input id="FPROJECTNAME" name="FPROJECTNAME" type="text" value="" class="easyui-textbox" style="width:150px" />
+                </td>
+            </tr>
+            <tr>
+                <td class="t_r5">JDE地址号：</td>
+                <td>
+                    <input id="JDE" name="JDE" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false"/>
+                </td>
+                <td class="t_r5">CRM单号：</td>
+                <td>
+                    <input id="CRMNO" name="CRMNO" type="text" value="" class="easyui-textbox" style="width:150px" data-options="editable:false"/>
+                </td>
+                <td class="t_r5">发货要求：</td>
+                <td>
+                    <input id="FREMARK" name="FREMARK" type="text" value="" class="easyui-textbox" style="width:300px;" data-options="editable:false"/>
+                </td>
+                @*<td class="t_r5">审核状态：</td>
+                <td>
+                    <input id="FSTATUSNAME" name="FSTATUSNAME" type="text" value="草稿" class="easyui-textbox" style="width:150px" data-options="editable:false" />
+                </td>*@
+                <td class="t_r5">采购订单：</td>
+                <td>
+                    <input id="FPURCHASE_NO" name="FPURCHASE_NO" type="text" value="" class="easyui-textbox" style="width:150px" />
+                </td>
+            </tr>
+            <tr>
+                <td class="t_r5">结算组织：</td>
+                <td colspan="7">
+                    <input id="FSETTLE_ORG" name="FSETTLE_ORG" type="text" value="" class="easyui-textbox" style="width:150px" />
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+    <div region="center" border="false" split="true">
+        @*<div id="toolbar2" style="padding: 1px 2px 0px;" class="datagrid-toolbar">
+            <div>
+                发货日期：
+                <input class="easyui-datebox" style="width: 100px" id="txtDateFrom"> 至 <input class="easyui-datebox" style="width: 100px" id="txtDateTo">
+                二级销区：
+                <input type="text" name="txtFCLASSAREA2NAME" id="txtFCLASSAREA2NAME" class="easyui-textbox" style="width:120px" />
+                品牌：
+                <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox"  style="width:120px" />
+                商品名称：
+                <input type="text" name="txtPRODUCTNAME" id="txtPRODUCTNAME" class="easyui-textbox" style="width:120px" />             
+                
+                <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-control_blank_blue" id="a_reset">重置</a>
+            </div>
+        </div>*@
+        <!-- datagrid 列表 -->
+        <table id="dgConEntry"></table>
+    </div>
+</body>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    //bindBrandDialog($('#FBRANDNAME'), function (row) {
+    //    $('#FBRANDID').val(row.FID);
+    //    $('#FBRANDNAME').searchbox("setValue", row.FNAME);
+    //});
+    
+    ////经营场所
+    //bindMarketLocationDialog($('#FPREMISENAME'), function (row) {
+    //    $('#FPREMISEID').val(row.FID);
+    //    $('#FPREMISENAME').searchbox("setValue", row.FNAME);
+    //});
+
+    //$('#a_search').click(function () {
+    //    onSearch();
+    //});
+
+
+    //$('#a_reset').click(function () {
+    //    $("#FBRANDID").val("");
+    //    $("#FBRANDNAME").searchbox("setValue", "");
+    //    $("#txtFCLASSAREA2NAME").textbox("setValue", "");
+    //    $("#txtDateFrom").datebox("setValue", "");
+    //    $("#txtDateTo").datebox("setValue", "");
+    //    $("#txtPRODUCTNAME").textbox("setValue", "");
+
+    //    onSearch();
+    //});
+
+    function onSearch() {
+        $('#dgConEntry').datagrid('load', {
+            startDate: $("#txtDateFrom").datebox('getValue'),
+            endDate: $("#txtDateTo").datebox('getValue'),
+            productname: $("#txtPRODUCTNAME").textbox('getValue'),
+            brandid: $("#FBRANDID").val(),
+            classarea2name: $("#txtFCLASSAREA2NAME").textbox('getValue')
+        });
+    }
+
+    //计划明细
+    $('#dgConEntry').datagrid({
+        iconCls: 'icon icon-list',
+        url: 'ICPRBILL/EntryDataAllConfim',
+        height: document.documentElement.clientHeight - 390,
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'FID', //主键
+        singleSelect: true,
+        checkOnSelect: false,
+        selectOnCheck: false,
+        frozenColumns: [[]],
+        columns: [[
+           { field: 'FID', checkbox: true },
+            { title: '所属系列', field: 'FPRODUCTTYPE', width: 80, sortable: true },
+            { title: '厂家代码', field: 'FSRCCODE', width: 150, sortable: true },
+            { title: '厂家名称', field: 'FSRCNAME', width: 100, sortable: true },
+            { title: '厂家规格', field: 'FSRCMODEL', width: 100, sortable: true },
+            { title: '厂家单位', field: 'FSRCUNIT', width: 60, align: 'center', sortable: true },
+            { title: '到货时间', field: 'FNEEDDATESTR', width: 100, align: 'center', sortable: true },
+            {
+                title: '申请数量', field: 'FORDERUNITQTY', width: 100, align: "right", formatter: function (v, d, i) {
+                    return fmoney(v, 0);
+                }, sortable: true
+            },
+            { title: '可发货数量', field: 'FCOMMITQTY', width: 100, editor: { type: 'numberbox', options: {} } },
+            { title: '采购备注1', field: 'FORDERREMARK1', width: 100, editor: { type: 'textbox', options: {} } },
+            { title: '采购备注2', field: 'FORDERREMARK2', width: 100, editor: { type: 'textbox', options: {} } },
+            { title: '发货要求', field: 'FDELIVERYDES', width: 200, sortable: true },
+            //{ title: '承运商与运输方式', field: 'FTRANSNAME', width: 120, editor: { type: 'textbox', options: {} } },
+            { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center', sortable: true },
+             { title: '采购单位', field: 'FORDERUNIT', width: 60, align: 'center', sortable: true },
+             { title: '重量单位', field: 'FWEIGHTUNIT', width: 60, align: 'center', sortable: true },
+            //{
+            //    title: '采购单位', field: 'FORDERUNITNAME', width: 80, formatter: function (value, row) {
+            //        return '<input name="FORDERUNITNAME' + row.FITEMID + '" type="hidden" value="' + row.FORDERUNIT + '" /><input id="FORDERUNITNAME' + row.FITEMID + '" name="FORDERUNITNAME" value="' + (value == null ? '' : value) + '" class="easyui-searchbox" style="width:75px;" />';
+            //    }
+            //},
+            { title: 'JDE地址号', field: 'FBATCHNO', width: 70, sortable: true },
+            { title: '色号', field: 'FCOLORNO', width: 70, sortable: true },
+            {
+                title: '单价', field: 'FWHOLESALEPRICE', width: 70, align: 'right', sortable: true, formatter: function (v, d, i) {
+                    return fmoney(v, 6);
+                }
+            },
+                    {
+                        title: '采购单位数量', field: 'FORDERUNITQTY', width: 100, align: "right", sortable: true, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+            {
+                title: '主单位参考数量', field: 'FADVQTY', width: 100, align: "right", sortable: true, formatter: function (v, d, i) {
+                    return fmoney(v, 0);
+                }
+            },            
+             {
+                 title: '重量数', field: 'FWEIGHTQTY', width: 100, align: "right", sortable: true, formatter: function (v, d, i) {
+                     return fmoney(v, 0);
+                 }
+             },
+            {
+                title: '申请金额', field: 'FASKAMOUNT', width: 110, align: 'right', sortable: true, formatter: function (v, d, i) {
+                    return fmoney(v, 2);
+                }
+            },
+            
+            //{ title: '审批数量', field: 'FAUDQTY', width: 100 },
+            //{
+            //    title: '审批金额', field: 'FAUDAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+            //        return fmoney(v, 2);
+            //    }
+            //},
+           
+            //{ title: '采购订单号', field: 'FICPOBILLNO', width: 100 },
+            {
+                title: '发货余量', field: 'FLEFTAMOUNT', width: 80, align: "right", sortable: true, formatter: function (v, d, i) {
+                    return fmoney(v, 0);
+                }
+            },
+            { title: '销区备注', field: 'FREMARK', width: 150, sortable: true },
+            { title: '审核状态', field: 'FSTATUSNAME', width: 70, sortable: true, align: "center", sortable: true },
+            { title: '请购计划单号', field: 'ICPRBILLNO', width: 110, sortable: true, align: "center", sortable: true },
+            { title: '分录号', field: 'FENTRYID', width: 60, sortable: true, align: "center", sortable: true }
+        ]],
+        queryParams:{
+            billno:'@Request.QueryString["billno"]'
+        },
+        pagination: true,
+        onLoadSuccess:function(data){
+            var rows = $('#dgConEntry').datagrid('getRows');
+            for (var i = 0; i < rows.length; i++) {
+                $('#dgConEntry').datagrid('beginEdit', i);
+
+                var FCOMMITQTYEdt = $('#dgConEntry').datagrid('getEditor', { index: i, field: 'FCOMMITQTY' });
+                $(FCOMMITQTYEdt.target).textbox('setValue', rows[i].FORDERUNITQTY);
+            }
+        }    
+    });
+
+</script>

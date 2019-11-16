@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+<form id="uiform" method="post">
+    <table class="grid">
+        <tr>
+            <td style="width:100px">
+                组织编码(*)：
+            </td>
+            <td>
+                <input id="FID" name="FID" type="text" hidden="hidden" /> 
+                <input type="text" id="FORGCODE" name="FORGCODE" data-bind="value:FORGCODE" class="txt03 easyui-textbox" data-options="required:true,validType:'length[1,100]',missingMessage:'请输入组织编码',invalidMessage:'最大长度100个字符'" />
+            </td>
+            <td style="width:110px">
+                组织名称(*)：
+            </td>
+            <td>
+                <input type="text" id="FORGNAME" name="FORGNAME" data-bind="value:FORGNAME" class="txt03 easyui-textbox" data-options="required:true,validType:'length[1,100]',missingMessage:'请输入组织名称',invalidMessage:'最大长度100个字符'" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                组织类型：
+            </td>
+            <td>
+                <input name="FTYPE" id="FTYPE" class="easyui-combobox">
+            </td>
+            <td>
+                上级组织：
+            </td>
+            <td>
+                <input class="easyui-combotree" name="FPARENTALID" id="FPARENTALID" data-options="editable:false,required:true,missingMessage:'请选择上级组织'"/>
+            </td>
+         
+        </tr>
+        <tr>
+            <td>
+                负责人：
+            </td>
+            <td>
+                <input type="text" name="FHEADER" id="FHEADER" hidden="hidden" />
+                <input type="text" name="FHEADERNAME" id="FHEADERNAME" />
+            </td>
+            <td>
+                状态：
+            </td>
+            <td>
+                <input  name="FSTATUS" id="FSTATUS" class="easyui-combobox">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                属性1：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox"  name="FATTRIBUTE1" id="FATTRIBUTE1" />
+            </td>
+            <td>
+                属性2：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE2" id="FATTRIBUTE2" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                属性3：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE3" id="FATTRIBUTE3" />
+            </td>
+            <td>
+                属性4：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE4" id="FATTRIBUTE4" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                属性5：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE5" id="FATTRIBUTE5" />
+            </td>
+            <td>
+                属性6：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE6" id="FATTRIBUTE6" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                属性7：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE7" id="FATTRIBUTE7" />
+            </td>
+            <td>
+                属性8：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE8" id="FATTRIBUTE8" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                属性9：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE9" id="FATTRIBUTE9" />
+            </td>
+            <td>
+                属性10：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FATTRIBUTE10" id="FATTRIBUTE10" />
+            </td>
+        </tr>
+    </table>
+</form>
+

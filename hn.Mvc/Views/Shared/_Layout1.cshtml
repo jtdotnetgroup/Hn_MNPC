@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Css/icon.css" />
+    @*<link href="/Scripts/jQgrid/default/jquery-ui-1.8.4.custom.css" rel="stylesheet" type="text/css" />*@
+    <link rel="stylesheet" type="text/css" href="/Scripts/easyui/themes/gray/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="~/Css/common.css" />
+    <link rel="stylesheet" type="text/css" id="easyui_theme" href="/Scripts/easyui/themes/@hn.Core.SysVisitor.Theme/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="~/Css/icon.css" />
+    <link rel="stylesheet" type="text/css" href="/Scripts/jnotify/jquery.jnotify.css" />
+    <link rel="stylesheet" type="text/css" href="~/Css/css3btn.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/theme/@hn.Core.SysVisitor.Theme/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Scripts/qqmsg/msgbox.css" />
+    @*<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=18E7F3FA5b3d576acdfafbee1f491217"></script>*@
+    <script src="/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script src="/Scripts/jquery-browser.js"></script>
+    <script src="/Scripts/easyui/EasyUI.Extensions.js"></script>
+    <script src="/Scripts/easyui/tree.extensions.js"></script>
+    <script src="/Scripts/qqmsg/jQuery.qqmsg.js"></script>
+    
+    <script type="text/javascript" src="/Home/ConfigJs"></script>
+    <script type="text/javascript" src="/Scripts/jnotify/jquery.jnotify.js"></script>
+    <script type="text/javascript" src="/Scripts/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/Scripts/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/Scripts/easyui/easyui-validate-rules.js"></script>
+    <script type="text/javascript" src="/Scripts/easyui/EasyUI.Extensions.js?v=18"></script>
+    <script type="text/javascript" src="/Scripts/jQuery.Ajax.js"></script>
+    <script type="text/javascript" src="/Scripts/layer/layer.js"></script>
+    <script type="text/javascript" src="~/Scripts/Business/BindComboBox.js"></script>
+    <script type="text/javascript" src="~/Scripts/Business/BindComboTree.js"></script>
+    <style>
+        .panel-body {
+   overflow: hidden;
+
+}
+
+    </style>
+</head>
+<body @Html.Raw(Page.BodyStyle)>
+    @RenderBody()
+</body>
+</html>

@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<form id="uiform">
+@*<div id="userTab" fit="true" style="height: 300px; overflow: hidden;">
+    <div title="基本信息" style="padding: 2px; overflow: hidden;">*@
+        <table class="grid">
+            <tr>
+                <td style="width: 100px;">
+                    用 &nbsp;户&nbsp; 名：
+                </td>
+                <td>
+                    <input type="text" data-bind="value:UserName" data-options="required:true,missingMessage:'请输入用户名'"
+                        name="UserName" id="UserName" class="easyui-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    真实姓名：
+                </td>
+                <td>
+                    <input type="text" id="TrueName" data-bind="value:TrueName" name="TrueName" class="easyui-textbox"
+                        data-options="required:true,missingMessage:'真实姓名'" />
+                </td>
+            </tr>
+           <tr>
+         <td>
+             密 码：
+         </td>
+         <td>
+             <input type="password" id="Password" name="Password" class="easyui-textbox" data-options="required:true,missingMessage:'请输入密码'" />
+         </td>
+     </tr>
+            <tr>
+                <td>
+                    确认密码：
+                </td>
+                <td>
+                    <input type="password" id="CONFIRMPWD" name="CONFIRMPWD" class="easyui-textbox" data-options="required:true,missingMessage:'请输入确认密码'" validType="equalTo['#Password']" invalidMessage="两次输入密码不匹配" />
+                </td>
+            </tr>
+   @* <tr>
+        <td>
+            角 色：
+        </td>
+        <td>
+            <input type="text" name="role" id="txt_role" style="width: 200px" />
+        </td>
+    </tr>*@
+            <tr>
+                <td>
+                    是否超管：
+                </td>
+                <td>
+                    <select id="IsAdmin" name="IsAdmin" data-bind="value:ISADMIN" style="width: 200px;" class="easyui-combobox">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    是否可用：
+                </td>
+                <td>
+                    <select id="IsDisabled" name="IsDisabled" data-bind="value:IsDisabled" style="width: 200px" class="easyui-combobox">
+                        <option value="0">激活</option>
+                        <option value="1">禁用</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width: 100px;">
+                    所属组织(*)：    `
+                </td>
+                <td>
+                    <input type="text" data-bind="value:FOrgNAME" name="FOrgNAME" class="easyui-searchbox"
+                           data-options="required:true,missingMessage:'请选所属组织'" id="FOrgNAME" />
+                    <input type="hidden" data-bind="value:FOrgID" name="FOrgID" id="FOrgID"
+                           class="txt03" />
+                </td>
+                </tr>
+            <tr>
+                <td>
+                    是否采用域验证：
+                </td>
+                <td>
+                    <select id="IS_DOMAIN" name="IS_DOMAIN" data-bind="value:IS_DOMAIN" style="width: 200px;" class="easyui-combobox">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </td>
+            </tr>
+</table>
+
+    @*    </div><div title="联系方式" style="padding: 2px">
+        <table class="grid">
+            <tr>
+                <td>
+                    邮 箱：
+                </td>
+                <td>
+                    <input type="text" name="Email" data-bind="value:Email" class="txt03 easyui-validatebox"
+                        data-options="validType:'email'" style="width: 200px" id="txt_email" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    手 机：
+                </td>
+                <td>
+                    <input type="text" style="width: 200px;" data-bind="value:Mobile" name="Mobile" id="txt_mobile"
+                        class="txt03" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Q Q：
+                </td>
+                <td>
+                    <input type="text" style="width: 200px;" data-bind="value:QQ" name="QQ" id="txt_qq"
+                        class="txt03" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    备 注：
+                </td>
+                <td>
+                    <textarea style="width: 300px; height: 50px" data-bind="value:Remark" name="Remark"
+                        id="txt_remark" class="txt03" />
+                </td>
+            </tr>
+        </table>
+    </div></div>*@
+
+<input type="hidden" name="PassSalt" id="PassSalt" />
+</form>
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    bindOrganizeDialog2($('#FOrgNAME'), function (row) {
+        $('#FOrgNAME').searchbox("setValue", row.FORGNAME);
+        $('#FOrgID').val(row.FID);
+    });
+
+    $(document).ready(function () {
+        $.extend($.fn.validatebox.defaults.rules, {
+            /*必须和某个字段相等*/
+            equalTo: { validator: function (value, param) { return $(param[0]).val() == value; }, message: '字段不匹配' }
+        });
+    });
+    
+</script>

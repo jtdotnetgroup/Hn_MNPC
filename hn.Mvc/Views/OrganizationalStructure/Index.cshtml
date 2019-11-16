@@ -1,0 +1,352 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    #tip {
+        height: 45px;
+        background-color: #fff;
+        padding-left: 10px;
+        padding-right: 10px;
+        border: 1px solid #969696;
+        position: absolute;
+        font-size: 12px;
+        right: 10px;
+        bottom: 30px;
+        border-radius: 3px;
+        line-height: 45px;
+    }
+
+        #tip input[type='button'] {
+            height: 28px;
+            line-height: 28px;
+            outline: none;
+            text-align: center;
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #FFF;
+            background-color: #0D9BF2;
+            border: 0;
+            border-radius: 3px;
+            margin-top: 8px;
+            margin-left: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .m_r5 {
+    margin-right:5px;
+    text-align:right;
+}
+</style>
+<body class="easyui-layout">
+    <div data-options="region:'west',split:true,tools:[{
+                    iconCls:'icon-arrow_in',
+                    handler:function(){
+                        if (!iscollapseAll){
+                            $('#driver').tree('collapseAll');
+                            iscollapseAll=true;
+                        }
+                         else{
+                            $('#driver').tree('expandAll');
+                            iscollapseAll=false;
+                         }
+
+                    }
+                }]" title="组织架构" style="width:250px;  overflow-y:auto;">
+        <div id="treeToolbar" style="height:28px; padding: 1px 2px 0px;" class="datagrid-toolbar">
+            @Html.Raw(ViewBag.ToolBar)
+            @*<input class="easyui-textbox" style="width: 90px" id="txtDriverName"><a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>*@
+        </div>
+
+        <ul id="driver"></ul>
+    </div>
+    <div region="center" title="详细信息" iconcls="icon-users" style="padding: 2px; overflow: hidden">
+        <div id="toolbar">
+            <a id="a_save" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton"
+               icon="icon-save" title="保存">保存</a><div class='datagrid-btn-separator'>
+            </div>
+            <a id="a_clear" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton"
+               icon="icon-clear" title="清空">清空</a><div class='datagrid-btn-separator'>
+            </div>
+            @*<a id="a_miles" style="float: left" href="javascript:;" plain="true" class="easyui-linkbutton"
+                icon="icon-pencil" title="里程报表">里程报表</a>*@
+        </div>
+        <form id="uiform">
+            <table class="grid" >
+                <tr height="50px">
+                    <td width="120px" class="m_r5">
+                        上级组织：
+                    </td>
+                    <td width="160px">
+                        <select id="txtSTATUS" class="easyui-combobox" name="txtSTATUS" data-options="panelHeight:'auto'" style="width:150px;">
+                            <option value=""></option>
+                            <option value="1">1111</option>
+                            <option value="2">2222</option>
+                            <option value="3">3333</option>
+                        </select>
+                    </td>
+                    <td width="120px" class="m_r5">
+                        资料状态：
+                    </td>
+                    <td >
+                        <input type="text" class="easyui-textbox" style="width:150px;" />
+                    </td>
+                </tr>
+                <tr height="50px">
+                    <td width="120px" class="m_r5">
+                        组织编号：
+                    </td>
+                    <td width="160px">
+                        <input type="text" class="easyui-textbox" style="width:150px;" />
+                    </td>
+                    <td width="120px" class="m_r5">
+                        组织名称：
+                    </td>
+                    <td >
+                        <input type="text" class="easyui-textbox" style="width:150px;" />
+                    </td>
+                </tr>
+                <tr height="50px">
+                    <td width="120px" class="m_r5">
+                        组织类型：
+                    </td>
+                    <td width="160px">
+                        <select id="txtSTATUS" class="easyui-combobox" name="txtSTATUS" data-options="panelHeight:'auto'" style="width:150px;">
+                            <option value=""></option>
+                            <option value="1">1111</option>
+                            <option value="2">2222</option>
+                            <option value="3">3333</option>
+                        </select>
+                    </td>
+                    <td width="120px" class="m_r5">
+                        负责人：
+                    </td>
+                    <td >
+                        <input type="text" class="easyui-textbox" style="width:150px;" />
+                    </td>
+                </tr>
+                <tr height="50px">
+                    <td width="120px" class="m_r5">
+                        默认发货地点：
+                    </td>
+                    <td colspan="3">
+                        <input type="text" class="easyui-textbox" style="width:450px;" />
+                    </td>
+                </tr>
+                <tr height="50px">
+                    <td width="120px" class="m_r5">
+                        仓库代码（销区）：
+                    </td>
+                    <td width="160px">
+                        <input type="text" class="easyui-textbox" style="width:150px;" />
+                    </td>
+                    <td width="120px" class="m_r5">
+                        仓库名称（销区）：
+                    </td>
+                    <td >
+                        <input type="text" class="easyui-textbox" style="width:150px;" />
+                    </td>
+                </tr>
+            </table>
+            
+
+        </form>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        driver.init();
+        $('#a_add').click(crud.add);
+        $('#a_save').click(onSave);
+        $('#a_delete').click(onDelete);
+        $('#a_clear').click(onClear);
+        $('#a_search').click(onSearch);
+    });
+
+    var crud = {
+        initData: function (depid) {
+
+            top.$('#userTab').tabs({
+                onSelect: function () {
+                    top.$('.validatebox-tip').remove();
+                }
+            });
+        },
+        //新增/编辑
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/OrganizationalStructure/Add' + '?v=' + Math.random(),
+                width: 1000,
+                height: 600,
+                title: '新增计量单位组',
+                iconCls: 'icon-application_form_add',
+                onLoad: function () {
+                    crud.initData();
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [{
+                    text: '新增',
+                    iconCls: 'icon-add',
+                },
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var query = createParam(0);
+
+                            $.ajaxjson('/Brand/Add', query, function (d) {
+                                if (d.errCode == 0) {
+                                    parent.layer.msg('添加成功');
+                                    grid.reload();
+                                    addDialog.dialog('close');
+                                } else {
+                                    parent.layer.alert(d.errMsg);
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    },
+                },
+                ],
+            });
+        },
+    };
+
+    var driver = {
+        init: function () {
+            $('#driver').tree({
+                lines: true,
+                checkbox: false,
+                url: '/Organize/TreeJson',
+                animate: true,
+                onLoadSuccess: function (node, data) {
+                    $('body').data('depData', data);
+                    //$('#driver').tree('collapseAll');
+                }, onClick: function (node) {
+                    setFormData(node.id);
+                }
+            });
+        },
+        selectRow: function () {
+            var d = $('body').data('depData');
+            var node = $('#driver').tree('getSelected');
+            var children = d[0].children;
+            for (var i = 0; i < children.length; i++) {
+                if (node.id == children[i].id) {
+                    return children[i];
+                }
+            }
+
+            return null;
+        }
+    };
+
+    function setFormData(id) {
+        $.getJSON("/Organize/Data?id=" + id, function (d) {
+            if (d != null) {
+                $("#txtID").val(d.FID);
+                $("#txtCODE").textbox("setValue", d.CODE);
+                $("#txtNAME").textbox("setValue", d.NAME);
+                $("#txtSHORTNAME").textbox("setValue", d.SHORTNAME);
+                $("#txtLINKMAN").textbox("setValue", d.LINKMAN);
+                $("#txtPHONE").textbox("setValue", d.PHONE);
+                $("#txtADDRESS").textbox("setValue", d.ADDRESS);
+                $("#txtFAX").textbox("setValue", d.FAX);
+                $("#txtPOSTCODE").textbox("setValue", d.POSTCODE);
+                $("#txtEMAIL").textbox("setValue", d.EMAIL);
+                $("#txtDESCRIPTION").textbox("setValue", d.DESCRIPTION);
+                $("#txtDISABLED").combobox("setValue", d.DISABLED);
+                $.each($("input[name='TYPE']"), function () {
+                    if ($(this).val() == d.TYPE) {
+                        $(this).attr("checked", "checked");
+                    }
+                });
+
+            }
+
+
+        });
+    }
+
+    function onSave() {
+
+        if ($('#uiform').form('validate')) {
+            jQuery.ajaxjson('/Organize/Save',
+                {
+                    FID: $("#txtID").val(),
+                    CODE: $("#txtCODE").textbox("getValue"),
+                    NAME: $("#txtNAME").textbox("getValue"),
+                    SHORTNAME: $("#txtSHORTNAME").textbox("getValue"),
+                    LINKMAN: $("#txtLINKMAN").textbox("getValue"),
+                    PHONE: $("#txtPHONE").textbox("getValue"),
+                    ADDRESS: $("#txtADDRESS").textbox("getValue"),
+                    FAX: $("#txtFAX").textbox("getValue"),
+                    POSTCODE: $("#txtPOSTCODE").textbox("getValue"),
+                    EMAIL: $("#txtEMAIL").textbox("getValue"),
+                    DESCRIPTION: $("#txtDESCRIPTION").textbox("getValue"),
+                    DISABLED: $("#txtDISABLED").combobox("getValue"),
+                    CODE: $("#txtCODE").textbox("getValue"),
+                    TYPE: $("input[name='TYPE']:checked").val(),
+                }, function (d) {
+                    if (parseInt(d) > 0) {
+                        $("#driver").tree("reload");
+                        msg.ok("保存成功！");
+                        onClear();
+                    } else {
+                        msg.error("保存失败！");
+                    }
+                });
+        }
+    }
+
+    function onClear() {
+        $("#txtID").val("");
+        $("#txtCODE").textbox("setValue", "");
+        $("#txtNAME").textbox("setValue", "");
+        $("#txtSHORTNAME").textbox("setValue", "");
+        $("#txtLINKMAN").textbox("setValue", "");
+        $("#txtPHONE").textbox("setValue", "");
+        $("#txtADDRESS").textbox("setValue", "");
+        $("#txtFAX").textbox("setValue", "");
+        $("#txtPOSTCODE").textbox("setValue", "");
+        $("#txtEMAIL").textbox("setValue", "");
+        $("#txtDESCRIPTION").textbox("setValue", "");
+        $("#txtDISABLED").combobox("setValue", "0");
+    }
+
+    function onDelete() {
+        var node = $('#driver').tree('getSelected');
+        if (node != null) {
+            if (node.id == 0 || node.id == 1) {
+                return;
+            }
+            if (confirm('确认要执行删除操作吗？')) {
+                jQuery.ajaxjson("/Organize/Delete", { id: node.id }, function (d) {
+                    if (parseInt(d) > 0) {
+                        $("#driver").tree("reload");
+                        onClear();
+                    } else {
+                        msg.error("删除失败！");
+                    }
+                });
+            }
+        } else {
+            msg.error('请选择要删除的节点。');
+        }
+    }
+
+    function onSearch() {
+        var drivername = $('#txtDriverName').val()
+        $('#driver').tree('search', drivername);
+    }
+</script>

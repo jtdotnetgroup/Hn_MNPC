@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td>
+                审核组名称：
+            </td>
+            <td>
+                <input type="text" name="FREVIEWTEAMID" id="FREVIEWTEAMID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/EasyUIComboBox/GetApprovalGroups'" style="width:150px;" />
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+            <td>
+                经营场所：
+            </td>
+            <td>
+                <input id="FPREMISEID" name="FPREMISEID" type="hidden" />
+                <input id="FPREMISENAME" name="FPREMISENAME" type="text" class="easyui-searchbox" data-options="editable:false,validType:'length[1,255]',invalidMessage:'最大长度255个字符'" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                品牌名称：
+            </td>
+            <td>
+                <input type="text" name="FBRANDID" id="FBRANDID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/Stock/Brand'" style="width:150px;" />
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+            <td>
+                计划类型：
+            </td>
+            <td>
+                <input id="FTYPE" name="FTYPE" type="text" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.计划类型)',required:true,validType:'length[1,255]',missingMessage:'请选择计划类型',invalidMessage:'最大长度255个字符'" style="width:150px" />
+            </td>
+           
+        </tr>
+        <tr>
+            <td>
+                节点数：
+            </td>
+            <td colspan="3">
+                <select id="FNODECOUNT" name="FNODECOUNT" class="easyui-combobox" style="width:50px;">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>  
+                </select>
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                节点1审批人：
+            </td>
+            <td colspan="3">
+                <input id="FAPPROVER_USERID1" name="FAPPROVER_USERID1" type="hidden" />
+                <input type="text" name="FAPPROVER_USER_NAME1" id="FAPPROVER_USER_NAME1" class="easyui-searchbox"  style="width:150px;" />
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                节点2审批人：
+            </td>
+            <td colspan="3">
+                <input id="FAPPROVER_USERID2" name="FAPPROVER_USERID2" type="hidden" />
+                <input type="text" name="FAPPROVER_USER_NAME2" id="FAPPROVER_USER_NAME2" class="easyui-searchbox" style="width:150px;" />
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                节点3审批人：
+            </td>
+            <td colspan="3">
+                <input id="FAPPROVER_USERID3" name="FAPPROVER_USERID3" type="hidden" />
+                <input type="text" name="FAPPROVER_USER_NAME3" id="FAPPROVER_USER_NAME3" class="easyui-searchbox" style="width:150px;" />
+                &nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                备注：
+            </td>
+            <td colspan="3">
+                <input id="FREMARK" name="FREMARK" class="easyui-textbox" data-options="multiline:true" style="height:40px;width:470px;" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    //经营场所
+    bindMarketLocationDialog($('#FPREMISENAME'), function (row) {
+        $('#FPREMISEID').val(row.FID);
+        $('#FPREMISENAME').searchbox("setValue", row.FNAME);
+    });
+
+    //节点1审批人
+    bindSYS_UserDialog(top.$('#FAPPROVER_USER_NAME1'), function (row) {
+        top.$('#FAPPROVER_USER_NAME1').searchbox("setValue", row.UserName + "/" + row.TrueName);
+        top.$('#FAPPROVER_USERID1').val(row.FID);
+    });
+    //节点2审批人
+    bindSYS_UserDialog(top.$('#FAPPROVER_USER_NAME2'), function (row) {
+        top.$('#FAPPROVER_USER_NAME2').searchbox("setValue", row.UserName + "/" + row.TrueName);
+        
+        top.$('#FAPPROVER_USERID2').val(row.FID);
+    });
+    //节点3审批人
+    bindSYS_UserDialog(top.$('#FAPPROVER_USER_NAME3'), function (row) {
+        top.$('#FAPPROVER_USER_NAME3').searchbox("setValue", row.UserName + "/" + row.TrueName);
+        top.$('#FAPPROVER_USERID3').val(row.FID);
+    });
+
+    
+</script>

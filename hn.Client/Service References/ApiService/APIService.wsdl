@@ -1,0 +1,1857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="APIService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/hn.Core.Model" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api24" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi24" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/hn.Common.Cls_query" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api2" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi2" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api8" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api3" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.bll" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAPIService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ModifyPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyPassword" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ModifyPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDics" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDicsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_Get24_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_Get24" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_Get24_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_Get24Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDics_Area_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDics_Area" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDics_Area_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDics_AreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getTHD_InputMessage">
+    <wsdl:part name="parameters" element="tns:getTHD" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getTHD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getTHDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ZFICPOBILL_InputMessage">
+    <wsdl:part name="parameters" element="tns:ZFICPOBILL" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ZFICPOBILL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ZFICPOBILLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ZFICPRBILLEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:ZFICPRBILLEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ZFICPRBILLEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ZFICPRBILLEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getICPOBillCLientID_InputMessage">
+    <wsdl:part name="parameters" element="tns:getICPOBillCLientID" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getICPOBillCLientID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getICPOBillCLientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getLeftNum_THD_InputMessage">
+    <wsdl:part name="parameters" element="tns:getLeftNum_THD" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getLeftNum_THD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getLeftNum_THDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPremiseList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPremiseList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPremiseList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPremiseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetBrandList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBrandList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetBrandList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBrandListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetClientAccountList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientAccountList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetClientAccountList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientAccountListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetExpressCompanyList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetExpressCompanyList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetExpressCompanyList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetExpressCompanyListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetProductList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetProductList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSrcList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSrcList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSrcList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSrcListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetProvince_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProvince" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetProvince_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProvinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetCity_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCity" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetCity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDistrict_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDistrict" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDistrict_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDistrictResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getProductView_InputMessage">
+    <wsdl:part name="parameters" element="tns:getProductView" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getProductView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getProductViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSingleDics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSingleDics" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSingleDics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSingleDicsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliverBaseList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliverBaseList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliverBaseList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliverBaseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetClientAccountSingle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientAccountSingle" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetClientAccountSingle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientAccountSingleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetClientByAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientByAccount" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetClientByAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientByAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanImport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanImport" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanImport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanImportResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanImport2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanImport2" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanImport2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanImport2Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanImport3_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanImport3" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanImport3_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanImport3Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanModel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanModel" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanModel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanModelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetV_ICPRBILLENTRYMODEL_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetV_ICPRBILLENTRYMODEL" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetV_ICPRBILLENTRYMODEL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetV_ICPRBILLENTRYMODELResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_V_ICPRBILLENTRYMODEL_List_InputMessage">
+    <wsdl:part name="parameters" element="tns:V_ICPRBILLENTRYMODEL_List" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_V_ICPRBILLENTRYMODEL_List_OutputMessage">
+    <wsdl:part name="parameters" element="tns:V_ICPRBILLENTRYMODEL_ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanEntryList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanEntryList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanEntryList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanEntryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Delete_ICPO_InputMessage">
+    <wsdl:part name="parameters" element="tns:Delete_ICPO" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Delete_ICPO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Delete_ICPOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanEntryByDeliveryList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanEntryByDeliveryList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPurchasePlanEntryByDeliveryList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPurchasePlanEntryByDeliveryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ConfirmSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmSave" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ConfirmSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_CloseSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSave" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_CloseSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStockList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStockList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStockListMN_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockListMN" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStockListMN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockListMNResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStockListMN_2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockListMN_2" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStockListMN_2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockListMN_2Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetAttachmentList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttachmentList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetAttachmentList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAttachmentListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateICPRBILL_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateICPRBILL" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateICPRBILL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateICPRBILLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_RefrshPriceNumberList_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefrshPriceNumberList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_RefrshPriceNumberList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefrshPriceNumberListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPriceNumberListByItemID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPriceNumberListByItemID" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPriceNumberListByItemID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPriceNumberListByItemIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPriceNumberListByBrandID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPriceNumberListByBrandID" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetPriceNumberListByBrandID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPriceNumberListByBrandIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateConfirmTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfirmTime" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateConfirmTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfirmTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getTHDList_InputMessage">
+    <wsdl:part name="parameters" element="tns:getTHDList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getTHDList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getTHDListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetNewBillNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewBillNo" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetNewBillNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNewBillNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_DeleteGroupBill_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupBill" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_DeleteGroupBill_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteGroupBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_DeliveryBillSave_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeliveryBillSave" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_DeliveryBillSave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeliveryBillSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateIdentification_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIdentification" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateIdentification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateIdentificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryEntryList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryEntryList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryEntryList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryEntryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_DeleteDeliveryByIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDeliveryByIDs" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_DeleteDeliveryByIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDeliveryByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_AuditDeliveryByIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuditDeliveryByIDs" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_AuditDeliveryByIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuditDeliveryByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_AuditAntiDeliveryByIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuditAntiDeliveryByIDs" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_AuditAntiDeliveryByIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuditAntiDeliveryByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SyncDeliveryByIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:SyncDeliveryByIDs" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SyncDeliveryByIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SyncDeliveryByIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SyncDeliveryByIDsMN_InputMessage">
+    <wsdl:part name="parameters" element="tns:SyncDeliveryByIDsMN" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SyncDeliveryByIDsMN_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SyncDeliveryByIDsMNResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SynDeliveryNot_InputMessage">
+    <wsdl:part name="parameters" element="tns:SynDeliveryNot" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SynDeliveryNot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SynDeliveryNotResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryEntryByGroupNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryEntryByGroupNo" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryEntryByGroupNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryEntryByGroupNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryByGroupNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryByGroupNo" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDeliveryByGroupNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryByGroupNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSrcModelByItemID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSrcModelByItemID" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSrcModelByItemID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSrcModelByItemIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateGetDeliveryEntryData_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGetDeliveryEntryData" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateGetDeliveryEntryData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGetDeliveryEntryDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDismantlingNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDismantlingNo" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetDismantlingNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDismantlingNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateDeliveryGroupStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateDeliveryGroupStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateDeliveryGroupStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateDeliveryGroupStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ContractCar_InputMessage">
+    <wsdl:part name="parameters" element="tns:ContractCar" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ContractCar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ContractCarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SaveICPOBILL_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveICPOBILL" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_SaveICPOBILL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveICPOBILLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetOrderList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrderList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetOrderList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrderListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetOrderEntryList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrderEntryList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetOrderEntryList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrderEntryListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSingleOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSingleOrder" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSingleOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSingleOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLList" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStartDate_syn_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartDate_syn" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStartDate_syn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartDate_synResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStartDate_syn_cc_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartDate_syn_cc" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetStartDate_syn_cc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartDate_syn_ccResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetJYDW_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJYDW" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetJYDW_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJYDWResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getSrc_InputMessage">
+    <wsdl:part name="parameters" element="tns:getSrc" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_getSrc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getSrcResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetArea2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetArea2" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetArea2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetArea2Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLListMN_syn_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListMN_syn" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLListMN_syn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListMN_synResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetLocalSum_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocalSum" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetLocalSum_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocalSumResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLListMN_syn_cc_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListMN_syn_cc" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLListMN_syn_cc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListMN_syn_ccResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetCCD_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCCD" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetCCD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCCDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_v_thdModel_List_InputMessage">
+    <wsdl:part name="parameters" element="tns:v_thdModel_List" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_v_thdModel_List_OutputMessage">
+    <wsdl:part name="parameters" element="tns:v_thdModel_ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_v_thdModelName_List_InputMessage">
+    <wsdl:part name="parameters" element="tns:v_thdModelName_List" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_v_thdModelName_List_OutputMessage">
+    <wsdl:part name="parameters" element="tns:v_thdModelName_ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLListMN_db_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListMN_db" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GeICPO_BOLListMN_db_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeICPO_BOLListMN_dbResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ConfirmSave_ICPO_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmSave_ICPO" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ConfirmSave_ICPO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmSave_ICPOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_CloseSave_ICPO_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSave_ICPO" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_CloseSave_ICPO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSave_ICPOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_AuditSave_ICPO_InputMessage">
+    <wsdl:part name="parameters" element="tns:AuditSave_ICPO" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_AuditSave_ICPO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuditSave_ICPOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UnAuditSave_ICPO_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnAuditSave_ICPO" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UnAuditSave_ICPO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnAuditSave_ICPOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_InsertICPOEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_InsertICPOEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_InsertICPOEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_InsertICPOEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPOEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPOEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPOEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPOEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPO_BOEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPO_BOEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPO_BOEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPO_BOEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_SetICPO_BOEntryStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_SetICPO_BOEntryStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_SetICPO_BOEntryStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_SetICPO_BOEntryStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Save_ICPREntry_List_InputMessage">
+    <wsdl:part name="parameters" element="tns:Save_ICPREntry_List" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Save_ICPREntry_List_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Save_ICPREntry_ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYNStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYNStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYNStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYNStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYN_Remote_Status_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYN_Remote_Status" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYN_Remote_Status_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYN_Remote_StatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_confirm_InputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_confirm" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_confirm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_confirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_delivery_InputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_delivery" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_delivery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_deliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Sync_Today_THD_InputMessage">
+    <wsdl:part name="parameters" element="tns:Sync_Today_THD" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Sync_Today_THD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Sync_Today_THDResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAPIService">
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Login" message="tns:IAPIService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/LoginResponse" message="tns:IAPIService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ModifyPassword" message="tns:IAPIService_ModifyPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ModifyPasswordResponse" message="tns:IAPIService_ModifyPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDics" message="tns:IAPIService_GetDics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDicsResponse" message="tns:IAPIService_GetDics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_Get24">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_Get24" message="tns:IAPIService_Remote_Get24_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_Get24Response" message="tns:IAPIService_Remote_Get24_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDics_Area">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDics_Area" message="tns:IAPIService_GetDics_Area_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDics_AreaResponse" message="tns:IAPIService_GetDics_Area_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getTHD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/getTHD" message="tns:IAPIService_getTHD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/getTHDResponse" message="tns:IAPIService_getTHD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ZFICPOBILL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ZFICPOBILL" message="tns:IAPIService_ZFICPOBILL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ZFICPOBILLResponse" message="tns:IAPIService_ZFICPOBILL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ZFICPRBILLEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ZFICPRBILLEntry" message="tns:IAPIService_ZFICPRBILLEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ZFICPRBILLEntryResponse" message="tns:IAPIService_ZFICPRBILLEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getICPOBillCLientID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/getICPOBillCLientID" message="tns:IAPIService_getICPOBillCLientID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/getICPOBillCLientIDResponse" message="tns:IAPIService_getICPOBillCLientID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getLeftNum_THD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/getLeftNum_THD" message="tns:IAPIService_getLeftNum_THD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/getLeftNum_THDResponse" message="tns:IAPIService_getLeftNum_THD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPremiseList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPremiseList" message="tns:IAPIService_GetPremiseList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPremiseListResponse" message="tns:IAPIService_GetPremiseList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBrandList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetBrandList" message="tns:IAPIService_GetBrandList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetBrandListResponse" message="tns:IAPIService_GetBrandList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientAccountList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetClientAccountList" message="tns:IAPIService_GetClientAccountList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetClientAccountListResponse" message="tns:IAPIService_GetClientAccountList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetExpressCompanyList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetExpressCompanyList" message="tns:IAPIService_GetExpressCompanyList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetExpressCompanyListResponse" message="tns:IAPIService_GetExpressCompanyList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetProductList" message="tns:IAPIService_GetProductList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetProductListResponse" message="tns:IAPIService_GetProductList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSrcList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetSrcList" message="tns:IAPIService_GetSrcList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetSrcListResponse" message="tns:IAPIService_GetSrcList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProvince">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetProvince" message="tns:IAPIService_GetProvince_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetProvinceResponse" message="tns:IAPIService_GetProvince_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetCity" message="tns:IAPIService_GetCity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetCityResponse" message="tns:IAPIService_GetCity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDistrict">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDistrict" message="tns:IAPIService_GetDistrict_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDistrictResponse" message="tns:IAPIService_GetDistrict_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getProductView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/getProductView" message="tns:IAPIService_getProductView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/getProductViewResponse" message="tns:IAPIService_getProductView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleDics">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetSingleDics" message="tns:IAPIService_GetSingleDics_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetSingleDicsResponse" message="tns:IAPIService_GetSingleDics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliverBaseList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDeliverBaseList" message="tns:IAPIService_GetDeliverBaseList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDeliverBaseListResponse" message="tns:IAPIService_GetDeliverBaseList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientAccountSingle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetClientAccountSingle" message="tns:IAPIService_GetClientAccountSingle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetClientAccountSingleResponse" message="tns:IAPIService_GetClientAccountSingle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientByAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetClientByAccount" message="tns:IAPIService_GetClientByAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetClientByAccountResponse" message="tns:IAPIService_GetClientByAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanList" message="tns:IAPIService_GetPurchasePlanList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanListResponse" message="tns:IAPIService_GetPurchasePlanList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanImport">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanImport" message="tns:IAPIService_GetPurchasePlanImport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanImportResponse" message="tns:IAPIService_GetPurchasePlanImport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanImport2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanImport2" message="tns:IAPIService_GetPurchasePlanImport2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanImport2Response" message="tns:IAPIService_GetPurchasePlanImport2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanImport3">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanImport3" message="tns:IAPIService_GetPurchasePlanImport3_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanImport3Response" message="tns:IAPIService_GetPurchasePlanImport3_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanModel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanModel" message="tns:IAPIService_GetPurchasePlanModel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanModelResponse" message="tns:IAPIService_GetPurchasePlanModel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetV_ICPRBILLENTRYMODEL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetV_ICPRBILLENTRYMODEL" message="tns:IAPIService_GetV_ICPRBILLENTRYMODEL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetV_ICPRBILLENTRYMODELResponse" message="tns:IAPIService_GetV_ICPRBILLENTRYMODEL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="V_ICPRBILLENTRYMODEL_List">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/V_ICPRBILLENTRYMODEL_List" message="tns:IAPIService_V_ICPRBILLENTRYMODEL_List_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/V_ICPRBILLENTRYMODEL_ListResponse" message="tns:IAPIService_V_ICPRBILLENTRYMODEL_List_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanEntryList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanEntryList" message="tns:IAPIService_GetPurchasePlanEntryList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanEntryListResponse" message="tns:IAPIService_GetPurchasePlanEntryList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete_ICPO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Delete_ICPO" message="tns:IAPIService_Delete_ICPO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Delete_ICPOResponse" message="tns:IAPIService_Delete_ICPO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanEntryByDeliveryList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanEntryByDeliveryList" message="tns:IAPIService_GetPurchasePlanEntryByDeliveryList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPurchasePlanEntryByDeliveryListResponse" message="tns:IAPIService_GetPurchasePlanEntryByDeliveryList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ConfirmSave" message="tns:IAPIService_ConfirmSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ConfirmSaveResponse" message="tns:IAPIService_ConfirmSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/CloseSave" message="tns:IAPIService_CloseSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/CloseSaveResponse" message="tns:IAPIService_CloseSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetStockList" message="tns:IAPIService_GetStockList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetStockListResponse" message="tns:IAPIService_GetStockList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockListMN">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetStockListMN" message="tns:IAPIService_GetStockListMN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetStockListMNResponse" message="tns:IAPIService_GetStockListMN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockListMN_2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetStockListMN_2" message="tns:IAPIService_GetStockListMN_2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetStockListMN_2Response" message="tns:IAPIService_GetStockListMN_2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachmentList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetAttachmentList" message="tns:IAPIService_GetAttachmentList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetAttachmentListResponse" message="tns:IAPIService_GetAttachmentList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateICPRBILL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateICPRBILL" message="tns:IAPIService_UpdateICPRBILL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateICPRBILLResponse" message="tns:IAPIService_UpdateICPRBILL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefrshPriceNumberList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/RefrshPriceNumberList" message="tns:IAPIService_RefrshPriceNumberList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/RefrshPriceNumberListResponse" message="tns:IAPIService_RefrshPriceNumberList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceNumberListByItemID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPriceNumberListByItemID" message="tns:IAPIService_GetPriceNumberListByItemID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPriceNumberListByItemIDResponse" message="tns:IAPIService_GetPriceNumberListByItemID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceNumberListByBrandID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetPriceNumberListByBrandID" message="tns:IAPIService_GetPriceNumberListByBrandID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetPriceNumberListByBrandIDResponse" message="tns:IAPIService_GetPriceNumberListByBrandID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfirmTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateConfirmTime" message="tns:IAPIService_UpdateConfirmTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateConfirmTimeResponse" message="tns:IAPIService_UpdateConfirmTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getTHDList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/getTHDList" message="tns:IAPIService_getTHDList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/getTHDListResponse" message="tns:IAPIService_getTHDList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewBillNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetNewBillNo" message="tns:IAPIService_GetNewBillNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetNewBillNoResponse" message="tns:IAPIService_GetNewBillNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroupBill">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/DeleteGroupBill" message="tns:IAPIService_DeleteGroupBill_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/DeleteGroupBillResponse" message="tns:IAPIService_DeleteGroupBill_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeliveryBillSave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/DeliveryBillSave" message="tns:IAPIService_DeliveryBillSave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/DeliveryBillSaveResponse" message="tns:IAPIService_DeliveryBillSave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIdentification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateIdentification" message="tns:IAPIService_UpdateIdentification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateIdentificationResponse" message="tns:IAPIService_UpdateIdentification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryList" message="tns:IAPIService_GetDeliveryList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryListResponse" message="tns:IAPIService_GetDeliveryList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryEntryList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryEntryList" message="tns:IAPIService_GetDeliveryEntryList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryEntryListResponse" message="tns:IAPIService_GetDeliveryEntryList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDeliveryByIDs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/DeleteDeliveryByIDs" message="tns:IAPIService_DeleteDeliveryByIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/DeleteDeliveryByIDsResponse" message="tns:IAPIService_DeleteDeliveryByIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AuditDeliveryByIDs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/AuditDeliveryByIDs" message="tns:IAPIService_AuditDeliveryByIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/AuditDeliveryByIDsResponse" message="tns:IAPIService_AuditDeliveryByIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AuditAntiDeliveryByIDs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/AuditAntiDeliveryByIDs" message="tns:IAPIService_AuditAntiDeliveryByIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/AuditAntiDeliveryByIDsResponse" message="tns:IAPIService_AuditAntiDeliveryByIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncDeliveryByIDs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/SyncDeliveryByIDs" message="tns:IAPIService_SyncDeliveryByIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/SyncDeliveryByIDsResponse" message="tns:IAPIService_SyncDeliveryByIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncDeliveryByIDsMN">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/SyncDeliveryByIDsMN" message="tns:IAPIService_SyncDeliveryByIDsMN_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/SyncDeliveryByIDsMNResponse" message="tns:IAPIService_SyncDeliveryByIDsMN_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SynDeliveryNot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/SynDeliveryNot" message="tns:IAPIService_SynDeliveryNot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/SynDeliveryNotResponse" message="tns:IAPIService_SynDeliveryNot_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryEntryByGroupNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryEntryByGroupNo" message="tns:IAPIService_GetDeliveryEntryByGroupNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryEntryByGroupNoResponse" message="tns:IAPIService_GetDeliveryEntryByGroupNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryByGroupNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryByGroupNo" message="tns:IAPIService_GetDeliveryByGroupNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDeliveryByGroupNoResponse" message="tns:IAPIService_GetDeliveryByGroupNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSrcModelByItemID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetSrcModelByItemID" message="tns:IAPIService_GetSrcModelByItemID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetSrcModelByItemIDResponse" message="tns:IAPIService_GetSrcModelByItemID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGetDeliveryEntryData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateGetDeliveryEntryData" message="tns:IAPIService_UpdateGetDeliveryEntryData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateGetDeliveryEntryDataResponse" message="tns:IAPIService_UpdateGetDeliveryEntryData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDismantlingNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetDismantlingNo" message="tns:IAPIService_GetDismantlingNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetDismantlingNoResponse" message="tns:IAPIService_GetDismantlingNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDeliveryGroupStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateDeliveryGroupStatus" message="tns:IAPIService_UpdateDeliveryGroupStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateDeliveryGroupStatusResponse" message="tns:IAPIService_UpdateDeliveryGroupStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ContractCar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ContractCar" message="tns:IAPIService_ContractCar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ContractCarResponse" message="tns:IAPIService_ContractCar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveICPOBILL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/SaveICPOBILL" message="tns:IAPIService_SaveICPOBILL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/SaveICPOBILLResponse" message="tns:IAPIService_SaveICPOBILL_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetOrderList" message="tns:IAPIService_GetOrderList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetOrderListResponse" message="tns:IAPIService_GetOrderList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderEntryList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetOrderEntryList" message="tns:IAPIService_GetOrderEntryList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetOrderEntryListResponse" message="tns:IAPIService_GetOrderEntryList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetSingleOrder" message="tns:IAPIService_GetSingleOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetSingleOrderResponse" message="tns:IAPIService_GetSingleOrder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLList" message="tns:IAPIService_GeICPO_BOLList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListResponse" message="tns:IAPIService_GeICPO_BOLList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStartDate_syn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetStartDate_syn" message="tns:IAPIService_GetStartDate_syn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetStartDate_synResponse" message="tns:IAPIService_GetStartDate_syn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStartDate_syn_cc">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetStartDate_syn_cc" message="tns:IAPIService_GetStartDate_syn_cc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetStartDate_syn_ccResponse" message="tns:IAPIService_GetStartDate_syn_cc_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJYDW">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetJYDW" message="tns:IAPIService_GetJYDW_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetJYDWResponse" message="tns:IAPIService_GetJYDW_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getSrc">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/getSrc" message="tns:IAPIService_getSrc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/getSrcResponse" message="tns:IAPIService_getSrc_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArea2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetArea2" message="tns:IAPIService_GetArea2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetArea2Response" message="tns:IAPIService_GetArea2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLListMN_syn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListMN_syn" message="tns:IAPIService_GeICPO_BOLListMN_syn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListMN_synResponse" message="tns:IAPIService_GeICPO_BOLListMN_syn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocalSum">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetLocalSum" message="tns:IAPIService_GetLocalSum_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetLocalSumResponse" message="tns:IAPIService_GetLocalSum_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLListMN_syn_cc">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListMN_syn_cc" message="tns:IAPIService_GeICPO_BOLListMN_syn_cc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListMN_syn_ccResponse" message="tns:IAPIService_GeICPO_BOLListMN_syn_cc_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCCD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetCCD" message="tns:IAPIService_GetCCD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetCCDResponse" message="tns:IAPIService_GetCCD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="v_thdModel_List">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/v_thdModel_List" message="tns:IAPIService_v_thdModel_List_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/v_thdModel_ListResponse" message="tns:IAPIService_v_thdModel_List_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="v_thdModelName_List">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/v_thdModelName_List" message="tns:IAPIService_v_thdModelName_List_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/v_thdModelName_ListResponse" message="tns:IAPIService_v_thdModelName_List_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLListMN_db">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListMN_db" message="tns:IAPIService_GeICPO_BOLListMN_db_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GeICPO_BOLListMN_dbResponse" message="tns:IAPIService_GeICPO_BOLListMN_db_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSave_ICPO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ConfirmSave_ICPO" message="tns:IAPIService_ConfirmSave_ICPO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ConfirmSave_ICPOResponse" message="tns:IAPIService_ConfirmSave_ICPO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseSave_ICPO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/CloseSave_ICPO" message="tns:IAPIService_CloseSave_ICPO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/CloseSave_ICPOResponse" message="tns:IAPIService_CloseSave_ICPO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AuditSave_ICPO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/AuditSave_ICPO" message="tns:IAPIService_AuditSave_ICPO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/AuditSave_ICPOResponse" message="tns:IAPIService_AuditSave_ICPO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnAuditSave_ICPO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UnAuditSave_ICPO" message="tns:IAPIService_UnAuditSave_ICPO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UnAuditSave_ICPOResponse" message="tns:IAPIService_UnAuditSave_ICPO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_InsertICPOEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntry" message="tns:IAPIService_Remote_InsertICPOEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntryResponse" message="tns:IAPIService_Remote_InsertICPOEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPOEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPOEntry" message="tns:IAPIService_Remote_GetICPOEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPOEntryResponse" message="tns:IAPIService_Remote_GetICPOEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPO_BOEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry" message="tns:IAPIService_Remote_GetICPO_BOEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntryResponse" message="tns:IAPIService_Remote_GetICPO_BOEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_SetICPO_BOEntryStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus" message="tns:IAPIService_Remote_SetICPO_BOEntryStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatusResponse" message="tns:IAPIService_Remote_SetICPO_BOEntryStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Save_ICPREntry_List">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Save_ICPREntry_List" message="tns:IAPIService_Save_ICPREntry_List_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Save_ICPREntry_ListResponse" message="tns:IAPIService_Save_ICPREntry_List_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYNStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Update_FSYNStatus" message="tns:IAPIService_Update_FSYNStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Update_FSYNStatusResponse" message="tns:IAPIService_Update_FSYNStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYN_Remote_Status">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status" message="tns:IAPIService_Update_FSYN_Remote_Status_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_StatusResponse" message="tns:IAPIService_Update_FSYN_Remote_Status_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Forder_confirm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Forder_confirm" message="tns:IAPIService_Forder_confirm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Forder_confirmResponse" message="tns:IAPIService_Forder_confirm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Forder_delivery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Forder_delivery" message="tns:IAPIService_Forder_delivery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Forder_deliveryResponse" message="tns:IAPIService_Forder_delivery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Sync_Today_THD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Sync_Today_THD" message="tns:IAPIService_Sync_Today_THD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Sync_Today_THDResponse" message="tns:IAPIService_Sync_Today_THD_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IAPIService" type="tns:IAPIService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyPassword">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ModifyPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDics">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_Get24">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_Get24" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDics_Area">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDics_Area" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTHD">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/getTHD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZFICPOBILL">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ZFICPOBILL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZFICPRBILLEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ZFICPRBILLEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getICPOBillCLientID">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/getICPOBillCLientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLeftNum_THD">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/getLeftNum_THD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPremiseList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPremiseList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrandList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetBrandList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientAccountList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetClientAccountList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExpressCompanyList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetExpressCompanyList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetProductList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSrcList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetSrcList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProvince">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetProvince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCity">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistrict">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDistrict" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProductView">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/getProductView" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleDics">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetSingleDics" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliverBaseList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDeliverBaseList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientAccountSingle">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetClientAccountSingle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientByAccount">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetClientByAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanImport">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanImport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanImport2">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanImport2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanImport3">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanImport3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanModel">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetV_ICPRBILLENTRYMODEL">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetV_ICPRBILLENTRYMODEL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="V_ICPRBILLENTRYMODEL_List">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/V_ICPRBILLENTRYMODEL_List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanEntryList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanEntryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete_ICPO">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Delete_ICPO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPurchasePlanEntryByDeliveryList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPurchasePlanEntryByDeliveryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSave">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ConfirmSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CloseSave">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/CloseSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetStockList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockListMN">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetStockListMN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockListMN_2">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetStockListMN_2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAttachmentList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetAttachmentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateICPRBILL">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateICPRBILL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefrshPriceNumberList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/RefrshPriceNumberList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceNumberListByItemID">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPriceNumberListByItemID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPriceNumberListByBrandID">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetPriceNumberListByBrandID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfirmTime">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateConfirmTime" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTHDList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/getTHDList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewBillNo">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetNewBillNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteGroupBill">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/DeleteGroupBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeliveryBillSave">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/DeliveryBillSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateIdentification">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateIdentification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDeliveryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryEntryList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDeliveryEntryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDeliveryByIDs">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/DeleteDeliveryByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuditDeliveryByIDs">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/AuditDeliveryByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuditAntiDeliveryByIDs">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/AuditAntiDeliveryByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncDeliveryByIDs">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/SyncDeliveryByIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncDeliveryByIDsMN">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/SyncDeliveryByIDsMN" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SynDeliveryNot">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/SynDeliveryNot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryEntryByGroupNo">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDeliveryEntryByGroupNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryByGroupNo">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDeliveryByGroupNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSrcModelByItemID">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetSrcModelByItemID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGetDeliveryEntryData">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateGetDeliveryEntryData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDismantlingNo">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetDismantlingNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDeliveryGroupStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateDeliveryGroupStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ContractCar">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ContractCar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveICPOBILL">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/SaveICPOBILL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetOrderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderEntryList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetOrderEntryList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleOrder">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetSingleOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLList">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GeICPO_BOLList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStartDate_syn">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetStartDate_syn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStartDate_syn_cc">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetStartDate_syn_cc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJYDW">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetJYDW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSrc">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/getSrc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArea2">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetArea2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLListMN_syn">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GeICPO_BOLListMN_syn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocalSum">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetLocalSum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLListMN_syn_cc">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GeICPO_BOLListMN_syn_cc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCCD">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetCCD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="v_thdModel_List">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/v_thdModel_List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="v_thdModelName_List">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/v_thdModelName_List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeICPO_BOLListMN_db">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GeICPO_BOLListMN_db" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmSave_ICPO">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ConfirmSave_ICPO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CloseSave_ICPO">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/CloseSave_ICPO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuditSave_ICPO">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/AuditSave_ICPO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnAuditSave_ICPO">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UnAuditSave_ICPO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_InsertICPOEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_InsertICPOEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPOEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_GetICPOEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPO_BOEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_SetICPO_BOEntryStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Save_ICPREntry_List">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Save_ICPREntry_List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYNStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Update_FSYNStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYN_Remote_Status">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Forder_confirm">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Forder_confirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Forder_delivery">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Forder_delivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sync_Today_THD">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Sync_Today_THD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="APIService">
+    <wsdl:port name="BasicHttpBinding_IAPIService" binding="tns:BasicHttpBinding_IAPIService">
+      <soap:address location="http://localhost:62036/APIService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

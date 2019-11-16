@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="APIService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:62037/APIService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:62037/APIService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:62037/APIService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:62037/APIService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAPIService_WmStock_InputMessage">
+    <wsdl:part name="parameters" element="tns:WmStock" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_WmStock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WmStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ICSEOUTBILLSync_InputMessage">
+    <wsdl:part name="parameters" element="tns:ICSEOUTBILLSync" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_ICSEOUTBILLSync_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ICSEOUTBILLSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetICSEOUTUpdateData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetICSEOUTUpdateData" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetICSEOUTUpdateData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetICSEOUTUpdateDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateCSEOUTSyncStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCSEOUTSyncStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateCSEOUTSyncStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCSEOUTSyncStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetICSEOUTUpdateData2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetICSEOUTUpdateData2" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetICSEOUTUpdateData2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetICSEOUTUpdateData2Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateCSEOUTSyncStatus2_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCSEOUTSyncStatus2" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateCSEOUTSyncStatus2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCSEOUTSyncStatus2Response" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSTOCKUpdateData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSTOCKUpdateData" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetSTOCKUpdateData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSTOCKUpdateDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetTMP_STOCKBill_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTMP_STOCKBill" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_GetTMP_STOCKBill_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTMP_STOCKBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateTMP_STOCKBillStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTMP_STOCKBillStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UpdateTMP_STOCKBillStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTMP_STOCKBillStatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAPIService">
+    <wsdl:operation name="WmStock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/WmStock" message="tns:IAPIService_WmStock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/WmStockResponse" message="tns:IAPIService_WmStock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ICSEOUTBILLSync">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/ICSEOUTBILLSync" message="tns:IAPIService_ICSEOUTBILLSync_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/ICSEOUTBILLSyncResponse" message="tns:IAPIService_ICSEOUTBILLSync_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetICSEOUTUpdateData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetICSEOUTUpdateData" message="tns:IAPIService_GetICSEOUTUpdateData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetICSEOUTUpdateDataResponse" message="tns:IAPIService_GetICSEOUTUpdateData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCSEOUTSyncStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateCSEOUTSyncStatus" message="tns:IAPIService_UpdateCSEOUTSyncStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateCSEOUTSyncStatusResponse" message="tns:IAPIService_UpdateCSEOUTSyncStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetICSEOUTUpdateData2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetICSEOUTUpdateData2" message="tns:IAPIService_GetICSEOUTUpdateData2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetICSEOUTUpdateData2Response" message="tns:IAPIService_GetICSEOUTUpdateData2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCSEOUTSyncStatus2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateCSEOUTSyncStatus2" message="tns:IAPIService_UpdateCSEOUTSyncStatus2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateCSEOUTSyncStatus2Response" message="tns:IAPIService_UpdateCSEOUTSyncStatus2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSTOCKUpdateData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetSTOCKUpdateData" message="tns:IAPIService_GetSTOCKUpdateData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetSTOCKUpdateDataResponse" message="tns:IAPIService_GetSTOCKUpdateData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTMP_STOCKBill">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/GetTMP_STOCKBill" message="tns:IAPIService_GetTMP_STOCKBill_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/GetTMP_STOCKBillResponse" message="tns:IAPIService_GetTMP_STOCKBill_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTMP_STOCKBillStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UpdateTMP_STOCKBillStatus" message="tns:IAPIService_UpdateTMP_STOCKBillStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UpdateTMP_STOCKBillStatusResponse" message="tns:IAPIService_UpdateTMP_STOCKBillStatus_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IAPIService" type="tns:IAPIService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WmStock">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/WmStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ICSEOUTBILLSync">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/ICSEOUTBILLSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetICSEOUTUpdateData">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetICSEOUTUpdateData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCSEOUTSyncStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateCSEOUTSyncStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetICSEOUTUpdateData2">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetICSEOUTUpdateData2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCSEOUTSyncStatus2">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateCSEOUTSyncStatus2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSTOCKUpdateData">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetSTOCKUpdateData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTMP_STOCKBill">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/GetTMP_STOCKBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTMP_STOCKBillStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UpdateTMP_STOCKBillStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="APIService">
+    <wsdl:port name="BasicHttpBinding_IAPIService" binding="tns:BasicHttpBinding_IAPIService">
+      <soap:address location="http://localhost:62037/APIService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<!-- 引入多功能查询js -->
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.min.js"></script>
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.jquery.js"></script>
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+<body class="easyui-layout">
+    <div region="west" iconcls="icon-chart_organisation" split="true" title="品牌" style="width: 160px;
+        padding: 5px" collapsible="false">
+        <ul id="deptree"></ul>
+    </div>
+    <div region="center" title="库存列表" iconcls="icon-users" style="overflow: hidden">
+        <div id="toolbar" style="padding:1px 2px 0px;" >
+             <div style="float: left; padding-top: 2px;width:100%; margin-bottom:2px;">
+                品牌名称：
+                <input type="text" name="txtBrandName" id="txtBrandName" class="txt04" readonly />
+                @*商品代码：
+                <input type="text" name="txtProductNumber" id="txtProductNumber" class="txt03 easyui-textbox" style="width:100px;"/>*@
+                 商品名称：
+                 <input type="text" name="txtProductName" id="txtProductName" class="txt03 easyui-textbox" style="width:100px;"/>
+                 @*批号：
+                 <input type="text" name="txtBatchNo" id="txtBatchNo" class="txt03 easyui-textbox" style="width:100px;" />*@
+                 规格型号：
+                 <input type="text" name="txtMode" id="txtMode" class="txt03 easyui-textbox" style="width:100px;" />
+                仓库名称：
+                <input type="text" name="txtSotckName" id="txtSotckName" class="txt03 easyui-textbox"  style="width:100px;"/>
+                 色号：
+                 <input type="text" name="txtColorNo" id="txtColorNo" class="txt03 easyui-textbox" style="width:100px;" />
+                 @*WDR：
+                 <input type="text" name="txtWDRID" id="txtWDRID" class="txt03 easyui-textbox" style="width:100px;" />*@
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+            </div>
+        </div>
+        <table id="userGrid" toolbar="#toolbar"></table>
+        </div>
+
+</body>
+    <script type="text/javascript">
+
+        var filterObj
+
+        $(function () {
+            var size = { width: $(window).width(), height: $(window).height() };
+            deptree.init();
+
+            mygrid.databind(size);
+ 
+            $('#a_export').click(onExport);
+            $('#a_search').click(onSearch);
+            $('#a_reset').click(onReset);
+
+           // $("#toolbar").css("height", "60px");
+        });
+
+        function createParam(action, FID) {
+            var o = {};
+            var form = top.$('#uiform');
+            var query = '';
+            if (form) {
+                query = top.$('#uiform').serializeArray();
+                query = convertArray(query);
+                o.jsonEntity = JSON.stringify(query);
+            }
+            o.action = action;
+            o.FID = FID;
+            return "json=" + JSON.stringify(o);
+        }
+
+        //搜索按钮点击
+        function onSearch() {
+            var tree = $('#deptree').tree('getSelected');
+            if (tree) {
+                $('#userGrid').datagrid('load',
+                    {
+                        productname: $('#txtProductName').val(),
+                        stockname: $('#txtSotckName').val(),
+                        //productnumber: $('#txtProductNumber').val(),
+                        //batchno: $('#txtBatchNo').val(),
+                        // wdr: $('#txtWDRID').val(),
+                        mode: $('#txtMode').val(),
+                        colorno: $('#txtColorNo').val(),
+                        brand: $('#deptree').tree('getSelected').number
+                    });
+            } else {
+                $('#userGrid').datagrid('load',
+                    {
+                        productname: $('#txtProductName').val(),
+                        //productnumber: $('#txtProductNumber').val(),
+                        //batchno: $('#txtBatchNo').val(),
+                        //wdr: $('#txtWDRID').val(),
+                        mode: $('#txtMode').val(),
+                        colorno: $('#txtColorNo').val(),
+                        stockname: $('#txtSotckName').val()
+                    });
+            }
+        }
+
+        //重置按钮点击
+        function onReset() {
+           // $("#txtProductName").textbox('setValue', '');
+            $("#txtSotckName").textbox('setValue', '');
+            $("#txtProductName").textbox('setValue', '');
+           // $("#txtBatchNo").textbox('setValue', '');
+            //$("#txtWDRID").textbox('setValue', '');
+            $("#txtMode").textbox('setValue', '');
+            $("#txtColorNo").textbox('setValue', '');
+            onSearch();
+        }
+
+        function onExport() {
+
+            var pform = '<form  id="uiStatus" ><table cellpadding=5 cellspacing=0 width=100% align="center" class="grid2" border=0><tr>';
+            pform += '<td align="left"><input type="radio" value="1" id="rdoStatus" name="rdoStatus" checked />全部导出</td>';
+            pform += '<td align="left"><input type="radio" value="2" id="rdoStatus" name="rdoStatus" />导出选择的</td></tr></table></form>';
+            var hDialog = top.jQuery.hDialog({
+                title: '导出选择',
+                width: 300,
+                height: 150,
+                content: pform,
+                iconCls: 'icon-add',
+                onLoad: function () {
+
+                },
+                showBtns: false,
+                toolbar: [{
+                    text: '导出',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        var type = top.$('input:radio:checked').val();
+                        hDialog.dialog('close');
+
+
+
+                        var ids = "";
+                        if (type == "2") {
+                            var rows = $('#userGrid').datagrid('getChecked');
+                            if (rows.length > 0) {
+                                for (var i = 0; i < rows.length; i++) {
+
+                                    if (ids == "") {
+                                        ids = rows[i].FID;
+                                    }
+                                    else {
+                                        ids += "," + rows[i].FID;
+                                    }
+                                }
+
+                                //filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }], "groups": [] };
+                                filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }] };
+                            }
+                            else {
+                                msgbox('请勾选你要导出的商品。');
+                                return;
+                            }
+                        }
+
+                        var form = $("<form>"); //定义一个form表单
+                        form.attr("style", "display:none");
+                        form.attr("target", "");
+                        form.attr("method", "post");
+                        form.attr("action", "/Goods/Export");
+                        var input1 = $("<input>");
+                        input1.attr("type", "hidden");
+                        input1.attr("name", "filter");
+                        input1.attr("value", JSON.stringify(filterObj));
+
+                        var input2 = $("<input>");
+                        input2.attr("type", "hidden");
+                        input2.attr("name", "ids");
+                        input2.attr("value", ids);
+
+                        $("body").append(form); //将表单放置在web中
+                        form.append(input1);
+                        form.append(input2);
+
+                        form.submit(); //表单提交
+
+                        return false;
+                    }
+                }, {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        hDialog.dialog("close");
+                    }
+                }]
+            });
+
+
+        }
+
+        var deptree = {
+            init: function () {
+                $('#deptree').tree({
+                    lines: true,
+                    url: '/Stock/Brand',
+                    animate: true,
+                    onLoadSuccess: function (node, data) {
+                        $('body').data('categoryData', data);
+                    }, onClick: function (node) {
+
+                        $("#txtBrandName").val(node.text);
+
+                        onSearch();
+                        
+                    }
+                });
+            },
+            data: function () {
+                var d = JSON.stringify($('body').data('categoryData'));
+                d = '[{"id":0,"text":"请选择分类"},' + d.substr(1);
+                return JSON.parse(d);
+            }
+
+        };
+
+        //商品列表
+        var mygrid = {
+            databind: function (size) {
+                $('#userGrid').datagrid({
+                    url: '/Stock/Data',
+                    fit:true,
+                    idField: 'FID',
+                    singleSelect: true,
+                    striped: true,
+                    checkOnSelect: false,
+                    selectOnCheck: false,
+                    rownumbers: true, //行号
+                    columns: [[
+                       // { field: 'FID', checkbox: true },
+                        { title: '代码', field: 'FNumber', width: 130 },
+                        { title: '名称', field: 'FName', width: 150 },
+                        { title: '规格型号', field: 'FModel', width: 100 },
+                        { title: '色号', field: 'FColorNo', width: 70 },
+                        { title: '批号', field: 'FBatchNo', width: 170 },
+                        { title: '等级', field: 'FGrade', width: 70 },                        
+                        { title: '单位', field: 'FUnit', width: 70, align: 'center' },
+                        {
+                             title: '数量', field: 'FQty', width: 80, align: 'right', formatter: function (v, d, i) {
+                                 return fmoney(v, 0);
+                             }
+                         },
+                        { title: '基本单位', field: 'FBasicUnit', width: 70, align: 'center' },
+                           {
+                               title: '基本数量', field: 'FBasicQty', width: 90, align: 'right', formatter: function (v, d, i) {
+                                   return fmoney(v, 0);
+                               }
+                         },
+                        { title: '仓库', field: 'FStockName', width: 100 },
+                        { title: '仓位', field: 'FSPName', width: 100 },                        
+                        { title: 'WDR号', field: 'FWDRID', width: 500 }
+                    ]],
+                    autoRowHeight: true,
+                    //view: scrollview,
+                    pagination: false,
+                    //pageSize: 50
+                });
+            },
+            reload: function () {
+                $('#userGrid').datagrid('clearSelections').datagrid('reload');
+            },
+            selectRow: function () {
+                return $('#userGrid').datagrid('getSelected');
+            }
+        };
+      
+    </script>
+

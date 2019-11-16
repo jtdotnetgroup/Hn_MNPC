@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@model hn.DataAccess.model.TB_DELIVER_BASEModel
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td class="t_r5">品牌厂家：</td>
+            <td>
+                <input type="text" name="FBRAND" id="FBRAND" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/Stock/Brand'" style="width:120px;" />
+            </td>          
+        </tr>
+        <tr>
+            <td class="t_r5">发货基地：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FBASEA_NAME" id="FBASEA_NAME" data-options="required:true,missingMessage:'请输入场所名称'" style="width: 200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">省/市/区县：</td>
+            <td>
+                <select id="FPROVINCEID" class="easyui-combobox" name="FPROVINCEID" data-options="panelHeight:'auto'" style="width: 100px;"></select>
+                <select id="FCITYID" class="easyui-combobox" name="FCITYID" data-options="panelHeight:'auto'" style="width: 100px;"></select>
+                <select id="FDISTRICTID" class="easyui-combobox" name="FDISTRICTID" data-options="panelHeight:'auto'" style="width: 100px;"></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">详细地址：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FADDRESS" id="FADDRESS" data-options="required:true,missingMessage:'请输入详细地址'" style="width: 100%;" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    $('#FPROVINCEID').combobox({
+        url: '/EasyUIComboBox/GetProvince',
+        valueField: 'EBPL_CODE',
+        textField: 'EBPL_NAME_CN',
+        onLoadSuccess: function () {
+            $('#FPROVINCEID').combobox('setValue', '@Model.FPROVINCEID');
+
+            $('#FCITYID').combobox({
+                url: '/EasyUIComboBox/GetCity?provinceid=' + @Model.FPROVINCEID,
+                valueField: 'EBPL_CODE',
+                textField: 'EBPL_NAME_CN',
+                value: '@Model.FCITYID',
+                onLoadSuccess: function () {
+                    $('#FCITYID').combobox('setValue', '@Model.FCITYID');
+                    $('#FDISTRICTID').combobox({
+                        url: '/EasyUIComboBox/GetDistrict?cityid=' + @Model.FCITYID,
+                        valueField: 'EBPL_CODE',
+                        textField: 'EBPL_NAME_CN',
+                        value: '@Model.FDISTRICTID',
+                        onSelect: function (item) {
+
+                        }
+                    });
+                },
+                onSelect: function (item) {
+                    $('#FDISTRICTID').combobox({
+                        url: '/EasyUIComboBox/GetDistrict?cityid=' + item.EBPL_CODE,
+                        valueField: 'EBPL_CODE',
+                        textField: 'EBPL_NAME_CN',
+                        value: '@Model.FDISTRICTID',
+                        onSelect: function (item) {
+
+                        }
+                    });
+                }
+            });
+        },
+        onSelect: function (item) {
+            $('#FCITYID').combobox({
+                url: '/EasyUIComboBox/GetCity?provinceid=' + item.EBPL_CODE,
+                valueField: 'EBPL_CODE',
+                textField: 'EBPL_NAME_CN',
+                value: '@Model.FCITYID',
+                onSelect: function (item) {
+                    $('#FDISTRICTID').combobox({
+                        url: '/EasyUIComboBox/GetDistrict?cityid=' + item.EBPL_CODE,
+                        valueField: 'EBPL_CODE',
+                        textField: 'EBPL_NAME_CN',
+                        value: '@Model.FDISTRICTID',
+                        onSelect: function (item) {
+
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+
+    ////选择一级销区
+    //$('#cboSale1').combotree({
+    //    onChange: function (value1, value2) {
+    //        $('#FCLASSAREA1').val(value1);
+
+    //        ////选择1级销区 从组织架构加载2级销区
+    //        //$('#cboSale2').combobox('reload', '/EasyUIComboBox/TB_ORGANIZATION_Sale?parentID=' + param.id + '&saleLV=2');
+    //    }
+    //});
+    //选择二级销区
+    //$('#cboSale2').combotree({
+    //    onChange: function (value1, value2) {
+    //        $('#FCLASSAREA2').val(value1);
+
+    //        ////选择2级销区 从组织架构加载品牌部
+    //        //$('#cboBrand').combobox('reload', '/EasyUIComboBox/TB_ORGANIZATION_Sale?parentID=' + param.id + '&saleLV=3');
+    //    }
+    //});
+    //选择品牌部
+    //$('#cboBrand').combobox({
+    //    onSelect: function (param) {
+    //        $('#FBRAND').val(param.id);
+    //    }
+    //});
+
+    //$('#cboSale1').combotree({
+    //    url: '/EasyUIComboTree/GetSaleLocation?code=101'
+    //});
+    //$('#cboSale2').combotree({
+    //    url: '/EasyUIComboTree/GetSaleLocation?code=101'
+    //});
+
+
+    $(document).ready(function () {
+
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+    });
+
+
+
+
+</script>
+

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Dialog";
+}
+
+
+<form id="dialog">
+    <div id="toolbar" style="height: 28px; padding: 1px 2px 0px;" class="datagrid-toolbar">
+        <div>
+            编码/名称/二级销区:
+            <input class="easyui-textbox" style="width: 200px" id="txtKeyword" />
+            <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+        </div>
+    </div>
+<table id="grid" toolbar="#toolbar">
+</table>
+</form>
+<script type="text/javascript">
+    document.onkeydown = function (event) {
+        e = event ? event : (window.event ? window.event : null);
+        if (e.keyCode == 13) {
+            $("#a_search").trigger("click");
+        }
+    }
+</script>

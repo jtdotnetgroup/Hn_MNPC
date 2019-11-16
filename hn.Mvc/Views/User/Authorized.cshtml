@@ -1,0 +1,313 @@
+﻿@{
+    ViewBag.Title = "Roles";
+}
+<div id="userTab" style="overflow: hidden;">
+
+    <div title="经营场所授权" style="padding: 2px">
+        <div id="rlayout" >
+            <div region="north" style="height: 50px; overflow: hidden; padding-left: 40px; line-height: 20px;
+        background: url('images/Members.png') no-repeat left center;" border="false">
+                <b>用户名：<label id="uname"></label></b><br />
+                <span style="color: #4B4B4B">已授权经营场所列表。</span>
+            </div>
+            <div id="rCenter" region="center" border="false" style="padding-left: 5px; ">
+                <table id="gridPremise"  border="true"></table>
+            </div>
+        </div>
+    </div>
+    <div title="品牌授权" style="padding: 2px">
+        <div id="rlayout">
+            <div region="north" style="height: 50px; overflow: hidden; padding-left: 40px; line-height: 20px;
+        background: url('images/Members.png') no-repeat left center;" border="false">
+                <b>用户名：<label id="uname"></label></b><br />
+                <span style="color: #4B4B4B">已授权品牌列表。</span>
+            </div>
+            <div id="rCenter" region="center" border="false" style="padding-left: 5px; ">
+                <table id="gridBrand" border="true"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+   
+
+    $("#userTab").css("height", document.documentElement.clientHeight - 355);
+    $("#rlayout").css("height", document.documentElement.clientHeight - 355);
+
+    //$("#rWest").css("width", 500);
+    //$("#rEast").css("width", 500);
+    $('#rlayout').layout();
+
+    $('#userTab').tabs({
+        onSelect: function () {
+            $('.validatebox-tip').remove();
+        }
+    });
+
+  
+    //经营场所
+    $('#gridPremise').datagrid({
+        url: '/User/USERPREMISEData',
+        height: document.body.clientHeight / 1.2-280,
+        idField: 'FPREMISEID',
+        singleSelect: false,
+        checkOnSelect: true,
+        selectOnCheck: true,
+        striped: true,
+        rownumbers: true,
+        columns: [[
+        { field: 'FPREMISEID', checkbox: true },
+        { title: '场所编号', field: 'FPREMISECODE', width: 90, sortable: true },
+        { title: '场所名称', field: 'FPREMISENAME', width: 250, sortable: true },
+        { title: '品牌部', field: 'FPREMISEBRAND', width: 180, sortable: true }
+        ]],
+        pagination: true,
+        pageSize: 20,
+        onDblClickRow: function (rowIndex, rowData) {
+          
+        },
+        queryParams: {
+           userid:'@Request.QueryString["userid"]'
+        },
+        toolbar: [
+          {
+              id:'btnAdd',
+              text: '选择',
+              iconCls: 'icon-add',
+              handler: function () {
+                  var hDialog = top.jQuery.hDialog({
+                      title: '经营场所选择',
+                      width: document.body.clientWidth / 1.1,
+                      height: document.body.clientHeight / 1.1,
+                      href: '/MarketLocation/Dialog',
+                      iconCls: 'icon-add',
+                      showBtns: false,                 
+                      onLoad: function () {
+                          top.$('#grid').datagrid({
+                              url: '/MarketLocation/List',
+                              iconCls: 'icon icon-list',
+                              width: document.body.clientWidth / 1.1 - 20,
+                              height: document.body.clientHeight / 1.1 - 85,
+                              nowrap: false, //折行
+                              rownumbers: true, //行号
+                              striped: true, //隔行变色
+                              idField: 'FID', //主键
+                              singleSelect: false,
+                              checkOnSelect: true,
+                              selectOnCheck: true,
+                              frozenColumns: [[]],
+                              columns: [[
+                                  { field: 'FID', checkbox: true },
+                                  { title: '场所编号', field: 'FCODE', width: 80, sortable: true },
+                                  { title: '场所名称', field: 'FNAME', width: 300, sortable: true },                                  
+                                  { title: '所属组织', field: 'FORGNAME', width: 150, sortable: true },
+                                  { title: '一级销区', field: 'FCLASSAREA1NAME', width: 100, sortable: true },
+                                  { title: '二级销区', field: 'FCLASSAREA2NAME', width: 100, sortable: true },
+                                  { title: '品牌部', field: 'FBRANDNAME', width: 120, sortable: true },
+                                  {
+                                      title: '状态', field: 'FSTATUS', width: 50, sortable: true, align: 'center',
+                                      formatter: function (value, row, index) {
+                                          if (value == "0") {
+                                              return "启用";
+                                          }
+                                          else {
+                                              return "禁用";
+                                          }
+                                      }
+                                  },
+                                  { title: '备注', field: 'FREMARK', width: 120, sortable: false }
+                              ]],
+                              pagination: true,
+                              pageSize: 20,
+                              pageList: [20, 40, 50]
+                          });
+
+                          top.$("#a_search").click(function () {
+                              top.$('#grid').datagrid('load', { keywords: top.$('#txtKeyword').val() });
+                          });
+
+                          top.$("#a_reset").click(function () {
+                              top.$('#txtKeyword').textbox('setValue', '');
+                              top.$('#grid').datagrid('load', {});
+                          });
+                      },
+                      toolbar: [{
+                          text: '确定',
+                          iconCls: 'icon-database_save',
+                          handler: function () {
+                              var rows = top.$('#grid').datagrid('getChecked');
+                              for (var i = 0; i < rows.length; i++) {
+                                  var haved = false;
+                                  var rows2 = $('#gridPremise').datagrid('getRows');
+                                  for (var j = 0; j < rows2.length; j++) {
+                                      if (rows[i].FID == rows2[j].FPREMISEID) {
+                                          haved = true;
+                                          break;
+                                      }
+                                  }
+
+                                  if (!haved) {
+                                      $('#gridPremise').datagrid('appendRow', {
+                                          FPREMISEID: rows[i].FID,
+                                          FPREMISECODE: rows[i].FCODE,
+                                          FPREMISENAME: rows[i].FNAME,
+                                          FPREMISEBRAND: rows[i].FBRANDNAME
+                                      });
+                                  }
+                              }
+                              $('#gridPremise').datagrid('acceptChanges');
+                              hDialog.dialog('close');
+                          }
+                      }, {
+                          text: '关闭',
+                          iconCls: 'icon-cancel',
+                          handler: function () {
+                              hDialog.dialog("close");
+                          }
+                      }]
+                  });
+              }
+          },
+          {
+              text: '行删除',
+              iconCls: 'icon-delete3',
+              handler: function () {
+                  var rows = $('#gridPremise').datagrid('getChecked');
+                  if (rows) {
+                      for (var i = rows.length-1; i>=0; i--) {
+                          var index = $('#gridPremise').datagrid('getRowIndex', rows[i]);
+                          $('#gridPremise').datagrid('deleteRow', index);
+                      }
+                      
+                  }
+              }
+          }
+          ]
+    });
+
+    //品牌
+    $('#gridBrand').datagrid({
+        url: '/User/USERBRANDData',
+        height: document.body.clientHeight / 1.2 - 280,
+        idField: 'FBRANDID',
+        singleSelect: false,
+        checkOnSelect: true,
+        selectOnCheck: true,
+        striped: true,
+        rownumbers: true,
+        columns: [[
+        { field: 'FBRANDID', checkbox: true },
+        { title: '品牌编号', field: 'FBRANDNUMBER', width: 90, sortable: true },
+        { title: '品牌名称', field: 'FBRANDNAME', width: 250, sortable: true },
+        ]],
+        pagination: true,
+        pageSize: 20,
+        queryParams: {
+            userid: '@Request.QueryString["userid"]'
+        },
+        toolbar: [
+          {
+              id: 'btnAdd',
+              text: '选择',
+              iconCls: 'icon-add',
+              handler: function () {
+                  var hDialog = top.jQuery.hDialog({
+                      title: '品牌选择',
+                      width: document.body.clientWidth / 1.1,
+                      height: document.body.clientHeight / 1.1,
+                      href: '/Search/Dialog',
+                      iconCls: 'icon-add',
+                      showBtns: false,
+                      onLoad: function () {
+                          top.$('#grid').datagrid({
+                              url: '/Brand/List',
+                              iconCls: 'icon icon-list',
+                              width: document.body.clientWidth / 1.1 - 20,
+                              height: document.body.clientHeight / 1.1 - 85,
+                              nowrap: false, //折行
+                              rownumbers: true, //行号
+                              striped: true, //隔行变色
+                              idField: 'FID', //主键
+                              singleSelect: false,
+                              checkOnSelect: true,
+                              selectOnCheck: true,
+                              frozenColumns: [[]],
+                              columns: [[
+                                    { field: 'FID', checkbox: true },
+                                    { title: '品牌代码', field: 'FNUMBER', width: 100, sortable: true },
+                                    { title: '品牌', field: 'FNAME', width: 100, sortable: true },
+                                    { title: '厂家名称', field: 'FFACTORY', width: 120, sortable: true },
+                                    { title: '品类', field: 'FTYPE', width: 100, sortable: true },
+                                    { title: '接口地址', field: 'FINTERFACEADD', width: 120, sortable: true },
+                                    { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                              ]],
+                              pagination: true,
+                              pageSize: 20,
+                              pageList: [20, 40, 50]
+                          });
+
+                          top.$("#a_search").click(function () {
+                              top.$('#grid').datagrid('load', { keywords: top.$('#txtKeyword').val() });
+                          });
+
+                          top.$("#a_reset").click(function () {
+                              top.$('#txtKeyword').textbox('setValue', '');
+                              top.$('#grid').datagrid('load', {});
+                          });
+                      },
+                      toolbar: [{
+                          text: '确定',
+                          iconCls: 'icon-database_save',
+                          handler: function () {
+                              var rows = top.$('#grid').datagrid('getChecked');
+                              for (var i = 0; i < rows.length; i++) {
+                                  var haved = false;
+                                  var rows2 = $('#gridBrand').datagrid('getRows');
+                                  for (var j = 0; j < rows2.length; j++) {
+                                      if (rows[i].FID == rows2[j].FBRANDID) {
+                                          haved = true;
+                                          break;
+                                      }
+                                  }
+
+                                  if (!haved) {
+                                      $('#gridBrand').datagrid('appendRow', {
+                                          FBRANDID: rows[i].FID,
+                                          FBRANDNUMBER: rows[i].FNUMBER,
+                                          FBRANDNAME: rows[i].FNAME
+                                      });
+                                  }
+                              }
+                              $('#gridBrand').datagrid('acceptChanges');
+                              hDialog.dialog('close');
+                          }
+                      }, {
+                          text: '关闭',
+                          iconCls: 'icon-cancel',
+                          handler: function () {
+                              hDialog.dialog("close");
+                          }
+                      }]
+                  });
+              }
+          },
+          {
+              text: '行删除',
+              iconCls: 'icon-delete3',
+              handler: function () {
+                  var rows = $('#gridBrand').datagrid('getChecked');
+                  if (rows) {
+                      for (var i = rows.length - 1; i >= 0; i--) {
+                          var index = $('#gridBrand').datagrid('getRowIndex', rows[i]);
+                          $('#gridBrand').datagrid('deleteRow', index);
+                      }
+
+                  }
+              }
+          }
+        ]
+    });
+
+</script>
+

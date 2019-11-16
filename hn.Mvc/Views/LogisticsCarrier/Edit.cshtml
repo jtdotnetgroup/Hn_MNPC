@@ -1,0 +1,50 @@
+﻿
+
+<form id="uiform" method="post">
+    <table class="grid">
+    <tr>
+        <td align="right">
+            承运商编码：
+        </td>
+        <td>
+            <input type="text" class="easyui-textbox" name="FCODE" id="FCODE" data-options="required:true,missingMessage:'请输入物流编码'" style="width: 150px;" value="@Model.FCODE"/>&nbsp;&nbsp;<font color="red">*</font>
+        </td>
+        <td align="right">
+            承运商名称：
+        </td>
+        <td>
+            <input type="text" class="easyui-textbox" name="FNAME" id="FNAME" data-options="required:true,missingMessage:'请输入物流名称'" style="width: 200px;" value="@Model.FNAME" />&nbsp;&nbsp;<font color="red">*</font>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            联系人：
+        </td>
+        <td>
+            <input type="text" class="easyui-textbox" name="FCONTACT" id="FCONTACT"  style="width: 150px;" value="@Model.FCONTACT" />
+        </td>
+        <td align="right">
+            联系电话：
+        </td>
+        <td>
+            <input type="text" class="easyui-textbox" name="FPHONE" id="FPHONE"  style="width: 200px;" value="@Model.FPHONE" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            电子邮箱：
+        </td>
+        <td>
+            <input type="text" class="easyui-textbox" name="FEMAIL" id="FEMAIL"  style="width: 150px;" value="@Model.FEMAIL" />
+        </td>
+        <td align="right">
+            备注：
+        </td>
+        <td>
+            <input type="text" class="easyui-textbox" name="FREMARK" id="FREMARK" style="width: 150px;" value="@Model.FREMARK" />
+        </td>
+    </tr>
+</table>
+</form>
+
+

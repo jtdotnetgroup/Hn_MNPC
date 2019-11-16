@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@*<link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/icon.css">*@
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td class="t_r5">场所编号：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FCODE" id="FCODE" data-options="required:true,missingMessage:'请输入场所编号'"  style="width: 200px;"/>&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+            <td class="t_r5">场所名称：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FNAME" id="FNAME" data-options="required:true,missingMessage:'请输入场所名称'" style="width: 200px;" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">所属组织：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FORGNAME" name="FORGNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择组织'" style="width: 200px" />
+                </div>
+            </td>
+            <td class="t_r5">状态：</td>
+            <td>
+                <select id="FSTATUS" class="easyui-combobox" name="FSTATUS" data-options="panelHeight:'auto'" style="width: 200px;">
+                    <option value="0">启用</option>
+                    <option value="1">禁用</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">一级销区：</td>
+            <td >
+                @*<input id="cboSale1"   style="width: 200px;" class="easyui-combobox" data-options="valueField:'id',textField:'text',method: 'post',url:''" />*@
+                <select id="cboSale1" class="easyui-searchbox" style="width:200px;"
+                        data-options="required:true"></select>
+            </td>
+            <td class="t_r5">二级销区：</td>
+            <td >
+                @*<input id="cboSale2"  style="width: 200px;" class="easyui-combobox" data-options="valueField:'id',textField:'text' ,method: 'post',url:''" />*@
+                <select id="cboSale2" class="easyui-searchbox" style="width:200px;"
+                        data-options="required:true"></select>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">品牌部：</td>
+            <td>
+                <input id="cboBrand" style="width: 200px;" class="easyui-searchbox" data-options="valueField:'id',textField:'text' ,method: 'post',url:''" />
+            </td>
+            <td class="t_r5">公司：</td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FCOMPANY" id="FCOMPANY" data-options="required:true,missingMessage:'请输入公司名称'" style="width: 200px;" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">是否开票：</td>
+            <td colspan="3">
+                <select id="FISTICKET" class="easyui-combobox" name="FISTICKET" data-options="panelHeight:'auto'" style="width: 200px;">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">备注：</td>
+            <td colspan="3">
+                <textarea style="width: 100%; height: 50px;" data-options="multiline:true" class="easyui-textbox" name="FREMARK" id="FREMARK" />
+            </td>
+        </tr>
+    </table>
+    <input id="FORGID" name="FORGID" type="hidden" />
+    <input id="FCLASSAREA1" name="FCLASSAREA1" type="hidden" />
+    <input id="FCLASSAREA2" name="FCLASSAREA2" type="hidden" />
+    <input id="FBRAND" name="FBRAND" type="hidden" />
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    //选择组织架构
+    bindOrganizeDialog2($('#FORGNAME'), function (row) {
+        $('#FORGNAME').searchbox("setValue", row.FORGNAME);
+        $('#FORGID').val(row.FID);
+
+        ////从组织架构加载1级销区
+        //$('#cboSale1').combobox('reload', '/EasyUIComboBox/TB_ORGANIZATION_Sale?parentID=' + row.FID + '&saleLV=1');
+
+    });
+    
+    //销区
+    bindDictionaryDialog($('#cboSale1'), '101', function (row) {
+        $('#cboSale1').searchbox("setValue", row.FNAME);
+        $('#FCLASSAREA1').val(row.FID);
+    });
+
+    //销区
+    bindDictionaryDialog($('#cboSale2'), '101', function (row) {
+        $('#cboSale2').searchbox("setValue", row.FNAME);
+        $('#FCLASSAREA2').val(row.FID);
+    });
+
+    //品牌部
+    bindDictionaryDialog($('#cboBrand'), '109', function (row) {
+        $('#cboBrand').searchbox("setValue", row.FNAME);
+        $('#FBRAND').val(row.FID);
+    });
+
+    ////选择一级销区
+    //$('#cboSale1').combotree({
+    //    onChange: function (value1, value2) {
+    //        $('#FCLASSAREA1').val(value1);
+
+    //        ////选择1级销区 从组织架构加载2级销区 
+    //        //$('#cboSale2').combobox('reload', '/EasyUIComboBox/TB_ORGANIZATION_Sale?parentID=' + param.id + '&saleLV=2');
+    //    }
+    //});
+    //选择二级销区
+    //$('#cboSale2').combotree({
+    //    onChange: function (value1, value2) {
+    //        $('#FCLASSAREA2').val(value1);
+
+    //        ////选择2级销区 从组织架构加载品牌部
+    //        //$('#cboBrand').combobox('reload', '/EasyUIComboBox/TB_ORGANIZATION_Sale?parentID=' + param.id + '&saleLV=3');
+    //    }
+    //});
+    //选择品牌部
+    //$('#cboBrand').combobox({
+    //    onSelect: function (param) {
+    //        $('#FBRAND').val(param.id);
+    //    }   
+    //});
+    
+    //$('#cboSale1').combotree({
+    //    url: '/EasyUIComboTree/GetSaleLocation?code=101'
+    //});
+    //$('#cboSale2').combotree({
+    //    url: '/EasyUIComboTree/GetSaleLocation?code=101'
+    //});
+
+
+    $(document).ready(function () {
+        
+
+    $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+    });
+
+   
+
+
+</script>
+

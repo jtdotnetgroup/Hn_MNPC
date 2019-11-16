@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<form id="uiform">
+    <input id="FID" name="FID" type="hidden" />
+    <table class="grid">
+        <tr>
+            <td class="t_r5">发往销区:</td>
+            <td>
+                <input id="FORGID" name="FORGID" type="text" data-bind="value:FORGID" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.销区)&appendAll=true'" />
+            </td>
+            <td class="t_r5">品牌/厂家：</td>
+            <td>
+                <div style="position:relative;">
+                    <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                    <input id="FBRANDNAME" name="FBRANDNAME" type="text" value="" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌/厂家',invalidMessage:'最大长度255个字符'" style="width:150px" />
+                </div>
+            </td>
+            <td class="t_r5">日期：</td>
+            <td>
+                <input id="FDATE" name="FDATE" type="text" value="" class="easyui-datebox" style="width:150px" />
+            </td>
+            <td class="t_r5">单据编号:</td>
+            <td>
+                <input id="FBILLNO" name="FBILLNO" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">运输方式：</td>
+            <td>
+                <select id="FSTATUS" name="FSTATUS" class="easyui-combobox" data-options="panelHeight:'auto'" style="width:150px;">
+                    <option value="1">汽车</option>
+                    <option value="2">铁路</option>
+                </select>
+            </td>
+            <td class="t_r5">车牌号：</td>
+            <td>
+                <input id="FCARNUMBER" name="FCARNUMBER" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">车型载重：</td>
+            <td>
+                <input id="FLOADCAPACITY" name="FLOADCAPACITY" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">发货方式：</td>
+            <td>
+                <input id="FTRANSID" name="FTRANSID" type="text" value="" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/TreeView/SubDicCategoryByCode?code=@((int)hn.DataAccess.Constant.SysDics.发货方式)&appendAll=true'" />
+            </td>
+        </tr>
+        <tr>
+            <td class="t_r5">提货人：</td>
+            <td>
+                <input id="FDELIVERER" name="FDELIVERER" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">联系电话：</td>
+            <td>
+                <input id="FDELIVERERTEL" name="FDELIVERERTEL" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">身份证号：</td>
+            <td>
+                <input id="FDELIVERERIDNO" name="FDELIVERERIDNO" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">汇总重量：</td>
+            <td><input id="FALLWEIGHT" name="FALLWEIGHT" type="text" value="" class="easyui-textbox" style="width:150px" /> </td>           
+        </tr>
+        <tr>
+            <td class="t_r5">提货地点：</td>
+            <td colspan="3">
+                <input id="FDELIVERERADDR" name="FDELIVERERADDR" type="text" value="" class="easyui-textbox" style="width:424px" />
+            </td>
+            <td class="t_r5">汇总体积：</td>
+            <td>
+                <input id="FALLVOLUME" name="FALLVOLUME" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">制单人：</td>
+            <td><input id="FBILLERID" name="FBILLERID" type="text" value="admin" class="easyui-textbox" style="width:150px" /> </td>
+        </tr>
+        <tr>
+            <td class="t_r5">收货地点：</td>
+            <td colspan="3">
+                <input id="FRECEIVERADDR" name="FRECEIVERADDR" type="text" value="" class="easyui-textbox" style="width:424px" />
+            </td>
+            <td class="t_r5">联系人：</td>
+            <td>
+                <input id="FRECEIVER" name="FRECEIVER" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+            <td class="t_r5">联系电话：</td>
+            <td>
+                <input id="FRECEIVERTEL" name="FRECEIVERTEL" type="text" value="" class="easyui-textbox" style="width:150px" />
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <div id="userTab" style="height: 394px; overflow: hidden;">
+        <div title="信息" style="padding: 2px">
+            <table id="dgConEntry"></table>
+        </div>
+    </div>
+</form>
+
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    bindBrandDialog($('#FBRANDNAME'), function (row) {
+        $('#FBRANDID').val(row.FID);
+        $('#FBRANDNAME').searchbox("setValue", row.FNAME);
+    });
+
+    $(document).ready(function () {
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    });
+
+    function updateMachineIDs() {
+        var table = $('#dgConEntry').datagrid('getData');
+        var ids = '';
+        if (table != null && table.rows != null && table.rows.length > 0) {
+            for (var i = 0; i < table.rows.length; i++) {
+                if (ids == '')
+                    ids = table.rows[i]["FMachineID"];
+                else
+                    ids += ',' + table.rows[i]["FMachineID"];
+            }
+        }
+        $('#txtMachineIDs').textbox('setValue', ids);
+    }
+
+    //信息
+    $('#dgConEntry').datagrid({
+        url: '',
+        iconCls: 'icon icon-list',
+        fit: true,
+        nowrap: false, //折行
+        rownumbers: true, //行号
+        striped: true, //隔行变色
+        idField: 'KeyId', //主键
+        singleSelect: true, //单选
+        frozenColumns: [[]],
+        columns: [[
+            { field: 'FID', checkbox: true },
+            { title: '原单据', field: 'FENTRYID', width: 120 },
+            { title: '产品系列', field: 'FPRODUCTTYPE', width: 120 },
+            { title: '产品代码', field: 'FPRODUCTCODE', width: 120 },
+            { title: '产品名称', field: 'FPRODUCTNAME', width: 150 },
+            { title: '产品型号', field: 'FMODEL', width: 150 },
+            { title: '规格', field: 'FMODEL', width: 120 },
+            { title: '基本单位', field: 'FBASICUNITNAME', width: 100 },
+            { title: '采购单位', field: 'FUNITNAME', width: 100 },
+            { title: 'JDE地址号', field: 'FBATCHNO', width: 100 },
+            { title: '色号', field: 'FCOLORNO', width: 100 },
+            { title: '发货仓库', field: 'FSTOCK', width: 100, editor: { type: 'numberbox', precision: 0, options: { required: true } } },
+            { title: '发货仓位', field: 'FSTOCKPLACE', width: 100, editor: { type: 'numberbox', precision: 0, options: { required: true } } },
+            { title: '发货数量', field: 'FCOMMITQTY', width: 100, editor: { type: 'numberbox', precision: 0, options: { required: true } } },
+            { title: '未发数量', field: 'DWC', width: 100 },
+            { title: '重量', field: 'DWC', width: 100, editor: { type: 'numberbox', precision: 0, options: { required: true } } },
+            { title: '体积', field: 'Speed', width: 100, editor: { type: 'numberbox', precision: 0, options: { required: true } } },
+            { title: '备注', field: 'FNote', width: 300, editor: { type: 'textbox', precision: 0, options: { } } },
+        ]],
+        pagination: true,
+        //toolbar: [
+        //    {
+        //        text: '查看原单据',
+        //        iconCls: 'icon-application_form_magnify'
+        //    },
+        //    {
+        //        text: '行删除',
+        //        iconCls: 'icon-delete3'
+        //    },
+        //    {
+        //        text: '提交',
+        //        iconCls: 'icon-tick'
+        //    },
+        //    {
+        //        text: '审核',
+        //        iconCls: 'icon-arrow_branch'
+        //    }
+        //],
+        onLoadSuccess: function () {
+            var rows = $('#dgConEntry').datagrid('getRows');
+            if (rows) {
+                for (var i = 0; i < rows.length; i++) {
+                    $('#dgConEntry').datagrid('updateRow', {
+                        index: i,
+                        row:
+                            {
+                                FSRCID: rows[i].FID
+                            }
+                    });
+                }
+            }
+            $('#dgConEntry').datagrid('acceptChanges');
+        },
+        onClickCell: function (index, field, value) {
+            $(this).datagrid('beginEdit', index);
+            var editor = $(this).datagrid('getEditor', { index: index, field: field });
+        }
+    });
+
+
+
+</script>

@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<body class="easyui-layout">
+
+    <div region="center" border="false" split="true">
+        <div id="toolbar2">
+            日期:
+            <input class="easyui-datebox" style="width: 100px" id="txtDateFrom"> 至 <input class="easyui-datebox" style="width: 100px" id="txtDateTo">
+            
+            <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-control_blank_blue" id="a_reset">重置</a>
+           
+        </div>
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar2"></table>
+    </div>
+</body>
+
+<script type="text/javascript">
+    $('#a_search').click(function () {
+        onSearch();
+    });
+
+
+    $('#a_reset').click(function () {
+        $("#txtDateFrom").datebox("setValue", "");
+        $("#txtDateTo").datebox("setValue", "");
+        onSearch();
+    });
+
+    $('#userTab2').tabs({
+        onLoad: function () {
+            $('.validatebox-tip').remove();
+        }
+    });
+
+
+    function onSearch() {
+        $('#gridView').datagrid('load', {
+            startDate: $("#txtDateFrom").datebox('getValue'),
+            endDate: $("#txtDateTo").datebox('getValue'),            
+        });
+    }
+
+</script>

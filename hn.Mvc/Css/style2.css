@@ -1,0 +1,177 @@
+﻿@charset "utf-8";
+
+
+.alldiv{
+	width:98%;
+	margin:1%;
+	float:left;
+	}
+.content-tab-wrap {
+    height: 42px;
+}
+
+.content-tab {
+    z-index: 3;
+    top: 0;
+    left: 15px;
+    right: 15px;
+    bottom: auto;
+    height: 41px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.content-tab-ul-wrap {
+    position: relative;
+}
+
+.content-tab-ul-wrap:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+.content-tab ul {
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+
+.content-tab ul:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.content-tab ul li {
+	position: relative;
+	display: block;
+	float: left;
+	margin-right: -1px;
+}
+
+.content-tab ul li a {
+	display: block;
+	float: left;
+	padding: 0 25px;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+	height: 30px;
+	line-height: 31px;
+	font-size: 12px;
+	color: #333;
+	text-align: center;
+	background: #fff;
+	white-space: nowrap;
+	word-break: break-all;
+}
+
+.content-tab ul li a:hover {
+	color: #2A72C5;
+	text-decoration: none;
+}
+
+.content-tab ul li a.selected {
+	color: #2A72C5;
+	background: #fff;
+	height: 31px;
+}
+
+.content-tab .tab-title {
+    display: none;
+}
+
+
+
+.div-content {
+    padding: 10px 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.div-content dl dt {
+	display: block;
+	float: left;
+	width: 130px;
+	text-align: right;
+	color: #333;
+}
+
+.div-content dl dd {
+	margin-left: 150px;
+}
+
+.tab-content {
+	padding: 20px 15px;
+	font-size: 12px;
+	color: #666;
+	border: 1px solid #eee;
+	border-top: none;
+	box-sizing: border-box;
+}
+
+.tab-content:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.tab-content dl, .div-content dl {
+	clear: both;
+	display: block;
+	padding: 5px 0;
+	line-height: 30px;
+}
+
+.tab-content dl:after, .div-content dl:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.tab-content dl:first-child {
+	border-top: none;
+}
+
+.tab-content dl dt {
+	display: block;
+	float: left;
+	width: 130px;
+	text-align: right;
+	color: #6d7e86;
+}
+
+.tab-content dl dd {
+	position: relative;
+	margin-left: 150px;
+	*position: static;
+}
+.msg{
+	width:100%;
+	
+	}
+.msg li{
+	width:48%;
+	margin:5px 1%;
+	float:left;
+	display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+	}
+.msg li a{
+	width:100%;
+	line-height:25px;
+	font-size:14px;
+	display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+	}
+.msg li a:hover{
+	color:#06F;
+	text-decoration: underline;
+	}

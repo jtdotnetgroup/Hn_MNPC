@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Category";
+}
+<form id="dicCateForm">
+<table class="grid">
+    <tr>
+        <td>
+            类别名称：
+        </td>
+        <td>
+            <input data-options="required:true,validType:'length[2,20]'" type="text" class="easyui-textbox"
+                name="FClassName" id="FClassName" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            类别编码：
+        </td>
+        <td>
+            <input data-options="required:true,validType:'length[2,20]'" type="text" class="easyui-textbox"
+                name="FClassCode" id="FClassCode" />
+        </td>
+    </tr>
+    @*<tr>
+        <td>
+            排 序：
+        </td>
+        <td>
+            <input type="text" name="sortnum" id="txt_sortnum" value="1" />
+        </td>
+    </tr>*@
+    <tr>
+        <td>
+            备 注：
+        </td>
+        <td>
+            <input data-options="multiline:true,validType:'length[2,200]'" style="width: 200px; height: 50px;" class="easyui-textbox" name="FRemark" id="FRemark" />
+        </td>
+    </tr>
+</table>
+</form>

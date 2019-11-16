@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<script type="text/javascript" src="/Scripts/Business/Biz.Dialog.js"></script>
+<script src="~/Scripts/Uploadify/jquery.uploadify.js" type="text/javascript"></script>
+<link href="~/Scripts/Uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<form id="uiform">
+    <body class="easyui-layout">
+        <div region="north" border="false" split="true" style="height:75px;background:#FFFFFF;">
+            <table class="grid">
+                <tr>
+                    <td>
+                        选择文件：
+                    </td>
+                    <td colspan="5">
+                        <input class="easyui-filebox" name="excelfile" id="excelfile" data-options="prompt:'选择文件...',buttonText:'浏览...'"
+                               style="width: 200px">
+                        <div id="queue" style="margin: 0 auto 5px 0;">
+                        </div>
+                        <input type="text" name="excelfilename" class="txt04" id="excelfilename"
+                               readonly style="width: 300px" />
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+
+    </body>
+
+</form>
+<script type="text/javascript">
+
+    bindUploadFile("excelfile", "excelfilename", "queue");
+
+    function bindUploadFile(obj, filed, queue) {
+        $('#' + obj).uploadify({
+            'formData': { "str1": "", "str2": "" },
+            'swf': '/Scripts/Uploadify/uploadify.swf' + '?ver=' + new Date().toString(),
+            'uploader': '/UploadFiles/UploadXls',
+            'buttonText': '选择文件',
+            'fileTypeDesc': '文件',
+            'fileTypeExts': '*.xlsx;*.xls',
+            'auto': true,
+            'multi': false,
+            'queueID': queue,
+            'onUploadSuccess': function (file, data, response) {
+                $("#" + filed).val(data);
+            },
+            'onSelect': function () {
+
+                $("#" + queue).show();
+            },
+            'onQueueComplete': function () {
+                $("#" + queue).hide(1000);
+            }
+        });
+    }
+
+</script>

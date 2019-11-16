@@ -1,0 +1,412 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<!-- 引入多功能查询js -->
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.min.js"></script>
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.jquery.js"></script>
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+<body class="easyui-layout">
+    <div region="center"  iconcls="icon-users" style="overflow: hidden">
+        <div id="toolbar" style="padding:1px 2px 0px;" >
+             <div style="float: left; padding-top: 2px;width:100%; margin-bottom:2px;">
+                 开单日期：
+                 <input type="text" name="txtStartDate" id="txtStartDate" class="txt03 easyui-datebox" style="width:100px;" />
+                 至
+                 <input type="text" name="txtEndDate" id="txtEndDate" class="txt03 easyui-datebox" style="width:100px;" />
+                 计划类型：
+                 <input type="text" name="txtTypeName" id="txtTypeName" class="txt03 easyui-textbox" style="width:100px;" />
+                 品牌：
+                 <input type="text" name="txtBrandName" id="txtBrandName" class="txt03 easyui-textbox" style="width:100px;" />
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+                 <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-page_excel" id="a_export">导出</a>
+            </div>
+        </div>
+        <table id="userGrid" toolbar="#toolbar"></table>
+        </div>
+
+</body>
+    <script type="text/javascript">
+
+        var filterObj
+
+        $(function () {
+            var size = { width: $(window).width(), height: $(window).height() };
+ 
+            mygrid.databind(size);
+ 
+            $('#a_export').click(onExport);
+            $('#a_search').click(onSearch);
+            $('#a_reset').click(onReset);
+
+           // $("#toolbar").css("height", "60px");
+        });
+
+        //搜索按钮点击
+        function onSearch() {
+            $('#userGrid').datagrid('load',
+             {
+                 startdate: $('#txtStartDate').datebox('getValue'),
+                 enddate: $('#txtEndDate').datebox('getValue'),
+                 typename: $('#txtTypeName').textbox('getValue'),
+                 fbrandname: $('#txtBrandName').textbox('getValue')
+             });
+        }
+
+        //重置按钮点击
+        function onReset() {
+            $("#txtStartDate").datebox('setValue', '');
+            $("#txtEndDate").datebox('setValue', '');
+            $("#txtTypeName").textbox('setValue', '');
+            $("#txtBrandName").textbox('setValue', '');
+            onSearch();
+        }
+
+        function onExport() {
+
+            var form = $("<form>"); //定义一个form表单
+            form.attr("style", "display:none");
+            form.attr("target", "");
+            form.attr("method", "post");
+            form.attr("action", "/Report/Export3");
+
+            var startdate = $("<input>");
+            startdate.attr("type", "hidden");
+            startdate.attr("name", "startdate");
+            startdate.attr("value", $('#txtStartDate').datebox('getValue'));
+
+            var enddate = $("<input>");
+            enddate.attr("type", "hidden");
+            enddate.attr("name", "enddate");
+            enddate.attr("value", $('#txtEndDate').datebox('getValue'));
+
+            var typename = $("<input>");
+            typename.attr("type", "hidden");
+            typename.attr("name", "typename");
+            typename.attr("value", $('#txtTypeName').textbox('getValue'));
+
+            var brandname = $("<input>");
+            brandname.attr("type", "hidden");
+            brandname.attr("name", "brandname");
+            brandname.attr("value", $('#txtBrandName').textbox('getValue'));
+
+            $("body").append(form); //将表单放置在web中
+            form.append(startdate);
+            form.append(enddate);
+            form.append(typename);
+            form.append(brandname);
+
+            form.submit(); //表单提交
+
+            return false;
+
+            //var pform = '<form  id="uiStatus" ><table cellpadding=5 cellspacing=0 width=100% align="center" class="grid2" border=0><tr>';
+            //pform += '<td align="left"><input type="radio" value="1" id="rdoStatus" name="rdoStatus" checked />全部导出</td>';
+            //pform += '<td align="left"><input type="radio" value="2" id="rdoStatus" name="rdoStatus" />导出选择的</td></tr></table></form>';
+            //var hDialog = top.jQuery.hDialog({
+            //    title: '导出选择',
+            //    width: 300,
+            //    height: 150,
+            //    content: pform,
+            //    iconCls: 'icon-add',
+            //    onLoad: function () {
+
+            //    },
+            //    showBtns: false,
+            //    toolbar: [{
+            //        text: '导出',
+            //        iconCls: 'icon-database_save',
+            //        handler: function () {
+            //            var type = top.$('input:radio:checked').val();
+            //            hDialog.dialog('close');
+
+
+
+            //            var ids = "";
+            //            if (type == "2") {
+            //                var rows = $('#userGrid').datagrid('getChecked');
+            //                if (rows.length > 0) {
+            //                    for (var i = 0; i < rows.length; i++) {
+
+            //                        if (ids == "") {
+            //                            ids = rows[i].FID;
+            //                        }
+            //                        else {
+            //                            ids += "," + rows[i].FID;
+            //                        }
+            //                    }
+
+            //                    //filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }], "groups": [] };
+            //                    filterObj = { "groupOp": "AND", "rules": [{ "field": "FID", "op": "in", "data": ids }] };
+            //                }
+            //                else {
+            //                    msgbox('请勾选你要导出的商品。');
+            //                    return;
+            //                }
+            //            }
+
+            //            var form = $("<form>"); //定义一个form表单
+            //            form.attr("style", "display:none");
+            //            form.attr("target", "");
+            //            form.attr("method", "post");
+            //            form.attr("action", "/Goods/Export");
+            //            var input1 = $("<input>");
+            //            input1.attr("type", "hidden");
+            //            input1.attr("name", "filter");
+            //            input1.attr("value", JSON.stringify(filterObj));
+
+            //            var input2 = $("<input>");
+            //            input2.attr("type", "hidden");
+            //            input2.attr("name", "ids");
+            //            input2.attr("value", ids);
+
+            //            $("body").append(form); //将表单放置在web中
+            //            form.append(input1);
+            //            form.append(input2);
+
+            //            form.submit(); //表单提交
+
+            //            return false;
+            //        }
+            //    }, {
+            //        text: '关闭',
+            //        iconCls: 'icon-cancel',
+            //        handler: function () {
+            //            hDialog.dialog("close");
+            //        }
+            //    }]
+            //});
+
+
+        }
+
+      
+        //商品列表
+        var mygrid = {
+            databind: function (size) {
+                $('#userGrid').datagrid({
+                    url: '/Report/Report3Data',
+                    fit:true,
+                    idField: 'FID',
+                    singleSelect: true,
+                    striped: true,
+                    checkOnSelect: false,
+                    selectOnCheck: false,
+                    rownumbers: true, //行号
+                    columns: [[
+                       // { field: 'FID', checkbox: true },
+                        {
+                            title: '厂家型号', field: '厂家型号', width: 110
+                        },
+                        {
+                            title: '规格', field: '规格', width: 110
+                        },
+                        {
+                            title: '张家口', field: '张家口', width: 90, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '德州', field: '德州', width: 230, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '淄博', field: '淄博', width: 70, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '秦皇岛', field: '秦皇岛', width: 170, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '北京', field: '北京', width: 120, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '沧州', field: '沧州', width: 120, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '唐山', field: '唐山', width: 120, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '太原', field: '太原', width: 70, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '离石', field: '离石', width: 90, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '聊城', field: '聊城', width: 120, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '潍坊', field: '潍坊', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '广州', field: '广州', width: 80, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                         {
+                             title: '泰安', field: '泰安', width: 90, align: 'right', width: 100, formatter: function (v, d, i) {
+                                 return fmoney(v, 0);
+                             }
+                         },
+                         {
+                             title: '无锡', field: '无锡', width: 90, align: 'right', width: 100, formatter: function (v, d, i) {
+                                 return fmoney(v, 0);
+                             }
+                         },
+                        {
+                            title: '青岛', field: '青岛', width: 90, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '山东本部', field: '山东本部', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '滇西', field: '滇西', width: 80, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '保定', field: '保定', width: 80, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '整合营销中心', field: '整合营销中心', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '成都', field: '成都', width: 90, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        {
+                            title: '济南', field: '济南', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '石家庄', field: '石家庄', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '昆明', field: '昆明', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '总部', field: '总部', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '东营', field: '东营', width: 130, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        {
+                            title: '爱驰家居', field: '爱驰家居', width: 150, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        } },
+                        {
+                            title: '邢台', field: '邢台', align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '廊坊', field: '廊坊', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }},
+                        {
+                            title: '承德', field: '承德', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '菏泽', field: '菏泽', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '滨州', field: '滨州', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '哈尔滨', field: '哈尔滨', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '天津市', field: '天津市', width: 10, align: 'right', width: 100, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '衡水', field: '衡水', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '南京', field: '南京', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '邯郸', field: '邯郸', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '芜湖', field: '芜湖', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '安庆', field: '安庆', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '合计', field: '合计', width: 100, align: 'right', width: 100, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        
+                    ]],
+                    autoRowHeight: true,
+                    //view: scrollview,
+                    pagination: false,
+                    //pageSize: 50
+                });
+            },
+            reload: function () {
+                $('#userGrid').datagrid('clearSelections').datagrid('reload');
+            },
+            selectRow: function () {
+                return $('#userGrid').datagrid('getSelected');
+            }
+        };
+      
+    </script>
+

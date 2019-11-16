@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfV_ICSEOUTBILLMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="V_ICSEOUTBILLMODEL" nillable="true" type="tns:V_ICSEOUTBILLMODEL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfV_ICSEOUTBILLMODEL" nillable="true" type="tns:ArrayOfV_ICSEOUTBILLMODEL" />
+  <xs:complexType name="V_ICSEOUTBILLMODEL">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ICSEOUTBILLMODEL">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FACCOUNT" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FBASEA_NAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FBRANDNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FCHECK" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FCHECKERNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FCLASSAREA2NAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FCLIENTNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FDELIVERY_METHODNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FDELIVERY_METHODNUMBER" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FEXPRESSCOMPANYNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPREMISEBRANDNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FRECEIVER_CITY_NAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FRECEIVER_DISTRICT_NAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FRECEIVER_PROVINCE_NAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FTRANSNAME" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="V_ICSEOUTBILLMODEL" nillable="true" type="tns:V_ICSEOUTBILLMODEL" />
+  <xs:complexType name="ICSEOUTBILLMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FALLVOLUME" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FALLWEIGHT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FBILLDATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FBILLERID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FBILLING_TYPE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FBILLNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FBRANDID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FBRAND_DEPART" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCARNUMBER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCAR_STATUS" type="xs:int" />
+      <xs:element minOccurs="0" name="FCENTER_WAREHOUSE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCHECKDATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FCHECKERID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCITYID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCLIENTELE_PHONE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCLIENTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCOMPANY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCONSIGNEE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCONSIGNEE_TEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERDATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FDELIVERER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERERADDR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERERIDNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERERTEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERY_METHOD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERY_REQUIRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVERY_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDELIVER_BASE_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDISTRICTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FESTIMATED_DELIVERY_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEXPRESSCOMPANYID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FFACTORYSTATUS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FFREIGHTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FGROUP_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FIDENTIFICATION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FISTICKET" type="xs:int" />
+      <xs:element minOccurs="0" name="FIS_CONSIGN" type="xs:int" />
+      <xs:element minOccurs="0" name="FIS_SIGN_BACK" type="xs:int" />
+      <xs:element minOccurs="0" name="FLOADCAPACITY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPLANDESC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPLAN_INFO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPREMISEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPROJECTNAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPROVINCEID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPURCHASE_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FRECEIVER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FRECEIVERADDR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FRECEIVERTEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FREMARK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FREQUEST_DELIVERY_DATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FSETTLE_ORG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSRCBILLNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSTATUS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FSYNCSTATUS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FTRANSID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FTRANSPORT_PRICE_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FTRANSTYPE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ICSEOUTBILLMODEL" nillable="true" type="tns:ICSEOUTBILLMODEL" />
+  <xs:complexType name="ArrayOfV_ICSEOUTBILLENTRYMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="V_ICSEOUTBILLENTRYMODEL" nillable="true" type="tns:V_ICSEOUTBILLENTRYMODEL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfV_ICSEOUTBILLENTRYMODEL" nillable="true" type="tns:ArrayOfV_ICSEOUTBILLENTRYMODEL" />
+  <xs:complexType name="V_ICSEOUTBILLENTRYMODEL">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ICSEOUTBILLENTRYMODEL">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FACCOUNTPRICE" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FASKQTY" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FCATEGORYCODE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FCATEGORYNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FCHECK" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FCLASSAREAREMARK" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FCLIENTNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FFACTORYNO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FICPRENTRYID" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FLEFTAMOUNT" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FMODEL" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FORDERUNIT" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FORDERUNITLEFTQTY" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FORDERUNITQTY" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FPOLICYBILLNO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPOLICYNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPREMISEBRANDNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPREMISENAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPRODUCTCODE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPRODUCTNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FPRODUCTTYPE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FRATE" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FSRCCODE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FSRCMODEL" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FSRCNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FSRCUNIT" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FUNITID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FUNITNAME" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ICPRBILLNO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="JDE" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="V_ICSEOUTBILLENTRYMODEL" nillable="true" type="tns:V_ICSEOUTBILLENTRYMODEL" />
+  <xs:complexType name="ICSEOUTBILLENTRYMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FAMOUNT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FBATCHNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FBRAND" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCLIENTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCOLORNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCOMMITQTY" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FDESCRIPTION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDISMANTLING" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FENTRYID" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FERR_MESSAGE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FGROUP_STATUS" type="xs:int" />
+      <xs:element minOccurs="0" name="FHNAMOUNT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FICPRID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FICSEOUTID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FINFO_RE_QTY" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FINFO_RE_STATUS" type="xs:int" />
+      <xs:element minOccurs="0" name="FITEMID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FLEVEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FLOCATION_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FNEEDDATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FORDERREMARK1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FORDERREMARK2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPRICE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FPRICENUMBER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FPRICEPOLICYENTRYID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FREMARK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSRCID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSTOCK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSTOCKNUMBER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FSTOCKPLACE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FTRUSTEESHIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FVOLUME" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FWDR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FWEIGHT" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ICSEOUTBILLENTRYMODEL" nillable="true" type="tns:ICSEOUTBILLENTRYMODEL" />
+  <xs:complexType name="ArrayOfSALES_ORDER_DATAMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SALES_ORDER_DATAMODEL" nillable="true" type="tns:SALES_ORDER_DATAMODEL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSALES_ORDER_DATAMODEL" nillable="true" type="tns:ArrayOfSALES_ORDER_DATAMODEL" />
+  <xs:complexType name="SALES_ORDER_DATAMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FID" type="xs:int" />
+      <xs:element minOccurs="0" name="FQTY" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FTIME" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FUNIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PART_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PRIME_COMMODITY_NAME" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SALES_ORDER_DATAMODEL" nillable="true" type="tns:SALES_ORDER_DATAMODEL" />
+  <xs:complexType name="ArrayOfSALESOUT_DATAMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SALESOUT_DATAMODEL" nillable="true" type="tns:SALESOUT_DATAMODEL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSALESOUT_DATAMODEL" nillable="true" type="tns:ArrayOfSALESOUT_DATAMODEL" />
+  <xs:complexType name="SALESOUT_DATAMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="COLOR_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FDATE" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FID" type="xs:int" />
+      <xs:element minOccurs="0" name="FQTY" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FUNIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PART_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PRIME_COMMODITY_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SHIPPING_DATE" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SALESOUT_DATAMODEL" nillable="true" type="tns:SALESOUT_DATAMODEL" />
+  <xs:complexType name="ArrayOfTP_INVENTORYMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TP_INVENTORYMODEL" nillable="true" type="tns:TP_INVENTORYMODEL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTP_INVENTORYMODEL" nillable="true" type="tns:ArrayOfTP_INVENTORYMODEL" />
+  <xs:complexType name="TP_INVENTORYMODEL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="COLOR_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FID" type="xs:int" />
+      <xs:element minOccurs="0" name="FQTY" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FTIME" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FUNIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PART_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PRIME_COMMODITY_NAME" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TP_INVENTORYMODEL" nillable="true" type="tns:TP_INVENTORYMODEL" />
+</xs:schema>

@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<script type="text/javascript" src="/Scripts/Business/Biz.Dialog.js"></script>
+<script src="~/Scripts/Uploadify/jquery.uploadify.js?v=@DateTime.Now.Ticks" type="text/javascript"></script>
+<link href="~/Scripts/Uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+<form id="uiform" method="post">
+    <div  fit="true" style="height: 180px; overflow: hidden;">
+        <div title="基本信息" style="overflow: hidden;">
+            <table class="grid">
+                <tr>
+                    <td>
+                        品牌名称：
+                    </td>
+                    <td>
+                        <input id="FBRANDID" name="FBRANDID" type="hidden" />
+                        <input id="FBRANDNAME" name="FBRANDNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择品牌',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    <td>
+                        品类：
+                    </td>
+                    <td>
+                        <input id="FCATEGORYID" name="FCATEGORYID" type="hidden" />
+                        <input id="FCATEGORYNAME" name="FCATEGORYNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择商品类别',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        产品代码：
+                    </td>
+                    <td>
+                        <input id="FPRODUCTCODE" name="FPRODUCTCODE" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入产品代码',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    <td>
+                        产品名称：
+                    </td>
+                    <td>
+                        <input id="FPRODUCTNAME" name="FPRODUCTNAME" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入产品名称',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>
+                        规格型号：
+                    </td>
+                    <td>
+                        <input id="FMODEL" name="FMODEL" type="text" class="easyui-textbox" data-options="required:true,validType:'length[1,255]',missingMessage:'请输入规格型号',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    <td>
+                        包装规格：
+                    </td>
+                    <td>
+                        <input id="FPKGFORMAT" name="FPKGFORMAT" type="text" class="easyui-textbox" />
+                    </td>
+                    
+                </tr>
+                @*<tr>
+                    <td>
+                        基本单位：
+                    </td>
+                    <td>
+                        <input id="FBASICUNIT" name="FBASICUNIT" type="hidden" />
+                        <input id="FBASICUNITNAME" name="FBASICUNITNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择商品类别',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                    <td>
+                        常用单位：
+                    </td>
+                    <td>
+                        <input id="FOFTENUNIT" name="FOFTENUNIT" type="hidden" />
+                        <input id="FOFTENUNITNAME" name="FOFTENUNITNAME" type="text" class="easyui-searchbox" data-options="editable:false,required:true,validType:'length[1,255]',missingMessage:'请选择商品类别',invalidMessage:'最大长度255个字符'" />
+                    </td>
+                </tr>*@
+                <tr>
+                    <td>
+                        重量：
+                    </td>
+                    <td>
+                        <input id="FWEIGHT" name="FWEIGHT" type="text" class="easyui-numberbox" data-options="precision:2,required:true,missingMessage:'请输入重量'" />
+                    </td>
+                    <td>
+                        体积：
+                    </td>
+                    <td>
+                        <input id="FVOLUME" name="FVOLUME" type="text" class="easyui-numberbox" data-options="precision:2,required:true,missingMessage:'请输入体积'" />
+                    </td>
+                   
+
+                </tr>
+                <tr>
+                    <td>
+                        状态：
+                    </td>
+                    <td>
+                        <input id="FSTATUS" name="FSTATUS" type="text" class="easyui-combobox"
+                               data-options="editable:false,valueField:'id',textField:'text',url:'/SysDics/GetProductStatusForCombobox',required:true,missingMessage:'请选择商品状态'" />
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                @*<tr>
+                    <td>
+                        厂家代码：
+                    </td>
+                    <td>
+                        <input id="FSRCNUMBER" name="FSRCNUMBER" type="text" class="easyui-textbox"  />
+                    </td>
+                    <td>
+                        厂家名称：
+                    </td>
+                    <td>
+                        <input id="FSRCNAME" name="FSRCNAME" type="text" class="easyui-textbox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        厂家规格：
+                    </td>
+                    <td>
+                        <input id="FSRCMODEL" name="FSRCMODEL" type="text" class="easyui-textbox" />
+                    </td>
+                    <td>
+                        产品系列：
+                    </td>
+                    <td colspan="3">
+                        <input id="FPRODUCTTYPE" name="FPRODUCTTYPE" type="text" class="easyui-textbox" />
+                    </td>
+                </tr>
+             
+                <tr>
+                    <td>
+                        备注：
+                    </td>
+                    <td colspan="3">
+                        <input id="FREMARK" name="FREMARK" type="text" class="easyui-textbox" data-options="multiline:true" style="height:40px;width:450px;" />
+                    </td>
+                </tr>*@
+            </table>
+        </div>
+    </div>
+    <div id="userTab" style="height:350px; overflow: hidden;">
+
+        <div title="厂家编码" style="padding: 2px">
+            <table id="dgConEntry"></table>
+        </div>
+
+    </div>
+    <button id="easyui-submit" type="submit" style="display:none;">保存</button>
+</form>
+
+<script type="text/javascript">
+    $('#userTab').tabs({
+        onSelect: function () {
+            $('.validatebox-tip').remove();
+        }
+    });
+</script>

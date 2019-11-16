@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12E57DEC-71C4-47BD-B3B3-C3B389F4B173}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>hn.Client.Service</RootNamespace>
+    <AssemblyName>hn.Client.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VSS\99_代码\Bin\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="scripts\ai.0.15.0-build58334.js" />
+    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="APIService.svc" />
+    <Content Include="Properties\DataSources\hn.Core.Model.User.datasource" />
+    <Content Include="Properties\DataSources\hn.DataAccess.Model.SYS_SUBDICSMODEL.datasource" />
+    <Content Include="Properties\DataSources\hn.DataAccess.Model.TB_BrandModel.datasource" />
+    <Content Include="Properties\DataSources\hn.DataAccess.Model.V_ICPRBILLENTRYMODEL.datasource" />
+    <Content Include="Properties\DataSources\hn.DataAccess.Model.V_ICPRBILLMODEL.datasource" />
+    <Content Include="Properties\DataSources\hn.DataAccess.model.V_PREMISEModel.datasource" />
+    <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <Compile Include="APIService.蒙厂同步.cs" />
+    <Compile Include="APIService.金牌华耐对接.cs" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
+    <None Include="Service References\FactoryService\APIService.disco" />
+    <None Include="Service References\FactoryService\APIService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FactoryService\configuration91.svcinfo" />
+    <None Include="Service References\FactoryService\configuration.svcinfo" />
+    <Content Include="Service References\FactoryService\hn.Client.Service.FactoryService.ICPOBILLENTRYModel_MHLS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\FactoryService\hn.Client.Service.FactoryService.ICPO_BOLentryModel_MNLS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\FactoryService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIService.svc.cs">
+      <DependentUpon>APIService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="APIService.基础资料.cs" />
+    <Compile Include="APIService.发货计划.cs" />
+    <Compile Include="APIService.采购订单.cs" />
+    <Compile Include="APIService.请购计划.cs" />
+    <Compile Include="APIService.登录.cs" />
+    <Compile Include="AutoSync\BaseRequest.cs" />
+    <Compile Include="AutoSync\MC_GetToken.cs" />
+    <Compile Include="AutoSync\MC_OutOfStore.cs" />
+    <Compile Include="AutoSync\MC_PickUpGoods.cs" />
+    <Compile Include="AutoSync\Model\CommonParams.cs" />
+    <Compile Include="AutoSync\Model\CommonRequestParams.cs" />
+    <Compile Include="AutoSync\Model\MC_getToken_Params.cs" />
+    <Compile Include="AutoSync\Model\MC_getToken_Result.cs" />
+    <Compile Include="AutoSync\Model\MC_OutOfStore_Params.cs" />
+    <Compile Include="AutoSync\Model\MC_OutOfStore_Result.cs" />
+    <Compile Include="AutoSync\Model\MC_PickUpGoods_Params.cs" />
+    <Compile Include="AutoSync\Model\MC_PickUpGoods_Result.cs" />
+    <Compile Include="AutoSync\Model\MC_Request_BaseParams.cs" />
+    <Compile Include="AutoSync\Model\MC_Request_BaseResult.cs" />
+    <Compile Include="Common\ADLogin.cs" />
+    <Compile Include="Common\DBHelper.cs" />
+    <Compile Include="Common\JsonHelper.cs" />
+    <Compile Include="Common\PublicMethod.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IAPIService.cs" />
+    <Compile Include="LogHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\FactoryService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Pages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\publish.pubxml" />
+    <None Include="Service References\FactoryService\APIService.wsdl" />
+    <None Include="Service References\FactoryService\APIService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FactoryService\APIService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FactoryService\APIService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FactoryService\APIService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\hn.Common\hn.Common.csproj">
+      <Project>{16183c27-23be-4335-ae94-f12bb57421ff}</Project>
+      <Name>hn.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hn.Core\hn.Core.csproj">
+      <Project>{a2ee0c6c-76c5-49c5-bca6-0bc862eca195}</Project>
+      <Name>hn.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\hn.DataAccess\hn.DataAccess.csproj">
+      <Project>{8ecc21f8-31d6-4cee-98e6-36f1eaff4087}</Project>
+      <Name>hn.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MApiAccess\MApiAccess.csproj">
+      <Project>{8f38b471-9aab-4f13-9691-a49ca80fd0bb}</Project>
+      <Name>MApiAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model_MNLS\MApiModel.csproj">
+      <Project>{8b6f907f-6c89-4ab8-8dda-b59398831fe4}</Project>
+      <Name>MApiModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FactoryService\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62036</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:62036/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

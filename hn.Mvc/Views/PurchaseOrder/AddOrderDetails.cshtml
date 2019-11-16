@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+<form id="uiform">
+    <table class="grid">
+        <tr>
+            <td style="width: 90px;">
+                商品名称包含：
+            </td>
+            <td colspan="3">
+                <input type="text" name="txt_Goods" id="txt_Goods" class="txt03 easyui-textbox" style="width:98%" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                商品分类：
+            </td>
+            <td>
+                <input type="text" id="txt_Category" name="txt_Category" class="txt04 easyui-textbox" readonly />
+            </td>
+            <td>
+                分类编码：
+            </td>
+            <td>
+                <input type="text" name="txt_CategoryNumber" class="txt04 easyui-textbox" id="txt_CategoryNumber" readonly />
+            </td>
+        </tr>
+    </table>
+    <br />
+    <div id="userTab1" style="height: 470px; overflow: hidden;">
+        <div title="商品列表" style="padding: 2px;height:470px;">
+            <table id="dgGoodsItem"></table>
+        </div>
+    </div>
+</form>

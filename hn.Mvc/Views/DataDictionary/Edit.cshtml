@@ -1,0 +1,100 @@
+﻿<form id="dicForm">
+    <input id="FID" name="FID" type="hidden" />
+    <input id="FCLASSID" name="FCLASSID" type="hidden" />
+    <table class="grid">
+        <tr>
+            <td align="right">
+                编号：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="FNUMBER" id="FNUMBER" data-options="required:true,missingMessage:'请输入编码'" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                名称：
+            </td>
+            <td>
+                <input type="text" data-options="required:true,missingMessage:'请输入名称'" class="easyui-textbox"
+                       name="FNAME" id="FNAME" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+                <td align="right">
+                    类别：
+                </td>
+                <td>
+                    <input type="text" class="txt03" name="categoryid" id="txt_category" />
+                    <input type="hidden" class="txt03" name="categorycode" id="txt_categorycode" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    上级：
+                </td>
+                <td>
+                    <input name="FPARENTID" id="FPARENTID" type="text" class="easyui-combotree" data-options="panelHeight:'auto'" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    排序：
+                </td>
+                <td>
+                    <input type="text" value="1" class="easyui-numberbox" name="SORTNUM" id="SORTNUM" />
+                </td>
+            </tr>
+        <tr>
+            <td align="right">
+                状态：
+            </td>
+            <td>
+                <select name="FSTATUS" id="FSTATUS" class="easyui-combobox">
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                备注：
+            </td>
+            <td>
+                <input id="FREMARK" name="FREMARK" type="text" class="easyui-textbox" data-options="multiline:true" style="height:40px;width:150px;" />
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //编码校验
+        $('#txt_code').textbox({
+            onChange: function () {
+                var flag = $('#txtFlag').textbox('getValue');
+                if (flag != '1') {
+                    var code = $('#txt_code').textbox('getValue');
+                    var fid = $('#txtFID').textbox('getValue');
+                    //alert(fid + " - " + code);
+                    if (fid == "" || fid == null) {
+                        fid = 0;
+                    }
+                    $.ajax({
+                        url: "/DataDictionary/CheckCode",
+                        data: { code: code, id: fid },
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (e) {
+                            if (e.errCode != 0) {
+                                parent.layer.alert(e.errMsg);
+                            }
+                        }
+                    })
+                }
+                $('#txtFlag').textbox('setValue', '');
+            }
+        });
+    });
+
+</script>
+

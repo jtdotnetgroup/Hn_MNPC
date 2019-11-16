@@ -1,0 +1,934 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@*<body class="easyui-layout">
+        <div region="center" border="false" split="true">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <table id="gridView" toolbar="#toolbar"></table>
+        </div>
+    </body>*@
+
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+
+<body class="easyui-layout" onload="initData()">
+    <div region="south" split="true" style="height:230px;background:#FFFFFF;">
+        <div id="deliveryTab" title="采购管理计划明细" fit="true">
+            <div title="发货明细" style="padding: 2px; overflow: hidden;">
+                <table id="conentry"></table>
+            </div>
+        </div>
+    </div>
+    <div region="center" border="false" split="true">
+        <div id="toolbar" style="padding: 1px 2px 0px;" class="datagrid-toolbar">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <div>
+                发货日期:
+                <input class="easyui-datebox" style="width: 100px" id="txtDateFrom"> 至 <input class="easyui-datebox" style="width: 100px" id="txtDateTo">
+                状态:
+                <input id="txtSTATUS" name="txtSTATUS" type="text" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/EasyUICombobox/BILL_FSTATUS?isall=true'" style="width:90px" />
+                @*经营场所：
+                <input id="FPREMISEID" name="FPREMISEID" type="hidden" />
+                <input id="FPREMISENAME" name="FPREMISENAME" type="text" class="easyui-searchbox" data-options="editable:false,validType:'length[1,255]',invalidMessage:'最大长度255个字符'" style="width:150px" />*@
+                二级销区：
+                <input type="text" name="txtFCLASSAREA2NAME" id="txtFCLASSAREA2NAME" class="easyui-textbox" style="width:100px" />
+                车牌号：
+                <input type="text" name="txtFCARNUMBER" id="txtFCARNUMBER" class="easyui-textbox" style="width:100px" />
+                <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-control_blank_blue" id="a_reset">重置</a>
+
+                <input type="checkbox" id="chkClose" value="1" checked />不显示已关闭的数据
+            </div>
+        </div>
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.update);
+        $('#a_accept').click(crud.accept);
+        $('#a_audit').click(crud.audit);
+        $('#a_audit_anti').click(crud.audit_anti);
+        $('#a_edit').click(crud.edit);
+        $('#a_finish').click(crud.finish);
+        $('#a_closecontract').click(crud.closecontract);
+        $('#a_contractview').click(crud.contractview);
+        $('#a_editRecord').click(crud.editRecord);
+        $('#a_delete').click(crud.del);
+        $('#a_uploadmanufacturer').click(crud.sync);
+        
+
+        conentry.bind();
+        //careplan.bind();
+        //payplan.bind();
+        //collection.bind();
+        //invoice.bind();
+
+        $('#a_search').click(onSearch);
+        $('#a_reset').click(onReset);
+
+        grid.databind();
+
+        $(window).resize(function () { //浏览器窗口变化
+            cover();
+        });
+
+        $("#toolbar").css("height", "60px");
+        ////经营场所
+        //bindMarketLocationDialog($('#FPREMISENAME'), function (row) {
+        //    $('#FPREMISEID').val(row.FID);
+        //    $('#FPREMISENAME').searchbox("setValue", row.FNAME);
+        //});
+
+    });
+
+    function cover() {
+        var win_width = $(window).width();
+        var win_height = $(window).height();
+        //$("#bigpic").attr({ width: win_width, height: win_height });
+    }
+
+    function onSearch() {
+        $('#gridView').datagrid('load', {
+            startDate: $("#txtDateFrom").datebox('getValue'),
+            endDate: $("#txtDateTo").datebox('getValue'),
+            status: $("#txtSTATUS").combobox('getValue'),
+            //FPREMISEID: $("#FPREMISEID").val(),            
+            FCLASSAREA2NAME: $("#txtFCLASSAREA2NAME").textbox('getValue'),
+            FCARNUMBER: $("#txtFCARNUMBER").textbox('getValue'),
+            chkclose: $("#chkClose").attr('checked') != "checked",
+        });
+    }
+
+    function onReset() {
+        //$("#FPREMISEID").val("");
+        //$("#FPREMISENAME").searchbox("setValue", "");
+
+        $("#txtFCLASSAREA2NAME").textbox("setValue", "");
+        $("#txtFCARNUMBER").textbox("setValue", "");
+
+        $("#txtDateFrom").datebox("setValue", "");
+        $("#txtDateTo").datebox("setValue", "");
+
+        $("#txtSTATUS").combobox("setValue", "");
+
+        $("#chkClose").attr('checked', 'checked');
+
+        $('#gridView').datagrid('load', { filter: {} });
+    }
+
+    function initData() {
+        $('#deliveryTab').tabs({
+            onLoad: function () {
+                $('.validatebox-tip').remove();
+            }
+        });
+    }
+
+    //=====================================
+    //根据Form上的控件绑定的data-bind属性
+    //自动将控件的值转成json格式
+    //=====================================
+    function createParam(id) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+        if (form) {
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+            var data = top.$('#dgPlanEntry').datagrid('getData');
+            if (data != null && data != "" && data.rows != null && data.rows.length > 0) {
+                o.data1 = JSON.stringify(data);
+            }
+            //var data2 = top.$('#dgConPayment').datagrid('getData');
+            //if (data2 != null && data2 != "" && data2.rows != null && data2.rows.length > 0) {
+            //    o.data2 = JSON.stringify(data2);
+            //}
+            //var data3 = top.$('#dgConCollection').datagrid('getData');
+            //if (data3 != null && data3 != "" && data3.rows != null && data3.rows.length > 0) {
+            //    o.data3 = JSON.stringify(data3);
+            //}
+            //var data4 = top.$('#dgConInvoice').datagrid('getData');
+            //if (data4 != null && data4 != "" && data4.rows != null && data4.rows.length > 0) {
+            //    o.data4 = JSON.stringify(data4);
+            //}
+        }
+        o.FID = id;
+        return "json=" + JSON.stringify(o);
+    }
+
+    //=====================================
+    //列表界面上的Grid控件对象
+    //=====================================
+    var grid = {
+        databind: function (size) {
+            $('#gridView').datagrid({
+                url: '/ICSEOUTBILL/Data',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                checkOnSelect: false,
+                selectOnCheck: false,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { field: 'FID', checkbox: true },
+                    //{ title: '经营场所', field: 'FPREMISENAME', width: 200, sortable: true },
+                    { title: '二级销区', field: 'FCLASSAREA2NAME', width: 100, sortable: true },
+                   // { title: '品牌部', field: 'FPREMISEBRANDNAME', width: 120, sortable: true },
+                    { title: '发货日期', field: 'FDELIVERDATESTR', width: 90, sortable: true },
+                    { title: '品牌', field: 'FBRANDNAME', width: 110, sortable: true },
+                    { title: '单据编号', field: 'FBILLNO', width: 115, sortable: true },
+                    {
+                        title: '审核状态', field: 'FSTATUSNAME', width: 80, sortable: true, align: 'center', formatter: function (v, d, i) {
+                            return statuscolor(d.FSTATUS, v);
+                        }
+                    },
+                    { title: '运输方式', field: 'FTRANSNAME', width: 90, sortable: true },
+                    { title: '车牌号', field: 'FCARNUMBER', width: 200, sortable: true },
+                    { title: '载重', field: 'FLOADCAPACITY', width: 90, sortable: true },
+                    { title: '承运公司', field: 'FEXPRESSCOMPANYNAME', width: 120, sortable: true },
+                    { title: '工程名称', field: 'FPROJECTNAME', width: 100, sortable: true },
+                    { title: '中心仓', field: 'FCENTER_WAREHOUSE', width: 90, sortable: true },
+                    {
+                        title: '同步状态', field: 'FSYNCSTATUS', width: 110, sortable: true, formatter: function (v, d, i) {
+                            if (v == 0) {
+                                return '等待上传';
+                            }
+                            else if (v == 1) {
+                                return '已上传到厂家';
+                            }
+                            else if (v == -1) {
+                                return '厂家检查不通过';
+                            }
+                            else if (v == 2) {
+                                return '厂家更新成功';
+                            }
+                            else if (v == 3) {
+                                return '上传完成';
+                            }
+                        }
+                    },
+                    { title: '采购订单', field: 'FPURCHASE_NO', width: 100, sortable: true },
+                    { title: '厂家单号', field: 'FSRCBILLNO', width: 100, sortable: true },
+                    { title: '描述', field: 'FPLANDESC', width: 200, sortable: true },
+                ]],
+                autoRowHeight: true,
+                view: scrollview,
+                //pagination: true,
+                pageSize: 50,
+                onClickRow: function (rowIndex, rowData) {
+                    $('#conentry').datagrid('reload', { FICSEOUTID: rowData.FID });
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                    //if (rowData.FStatus != 1 && rowData.FStatus != 4) {
+                    //    crud.contractview();
+                    //}
+                    //else {
+                    //    crud.update();
+                    //}
+                },
+                queryParams: {
+                    chkclose: $("#chkClose").attr('checked') != "checked",
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+    };
+
+    //=====================================
+    //发货明细列表界面上的Grid控件对象
+    //=====================================
+    var conentry = {
+        bind: function (winSize) {
+            $('#conentry').datagrid({
+                url: "/ICSEOUTBILL/ENTRYData/",
+                iconCls: 'icon icon-list',
+                fit: true,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                    { title: '所属系列', field: 'FPRODUCTTYPE', width: 100 },
+                    { title: '品牌部', field: 'FBRAND', width: 90 },
+                    { title: '厂家代码', field: 'FSRCCODE', width: 120 },
+                    { title: '厂家名称', field: 'FSRCNAME', width: 120 },
+                    { title: '厂家规格', field: 'FSRCMODEL', width: 120 },
+                    { title: '发货数量', field: 'FCOMMITQTY', width: 90, align: 'right' },
+                    { title: '厂家单位', field: 'FSRCUNIT', width: 60, align: 'center' },
+                    { title: '计划数量', field: 'FASKQTY', width: 90, align: 'right' },
+                    { title: '采购单位', field: 'FORDERUNIT', width: 60, align: 'center' },
+                    { title: '色号', field: 'FCOLORNO', width: 90 },
+                    { title: '等级', field: 'FLEVEL', width: 90 },
+                    { title: '仓库', field: 'FSTOCK', width: 110 },
+                    { title: '备注', field: 'FREMARK', width: 300 },
+                    { title: '采购备注1', field: 'FDESCRIPTION', width: 200 },
+                    { title: '采购备注2', field: 'FDESCRIPTION', width: 200 },
+                    { title: '销区备注', field: 'FDESCRIPTION', width: 200 },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 100 },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 250 },
+                    { title: '规格型号', field: 'FMODEL', width: 120 },                    
+                    { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center' },                    
+                     {
+                         title: '主单位数量', field: 'FHNAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+                             return fmoney(v, 0);
+                         }
+                     },
+
+                    {
+                        title: '请购剩余数量', field: 'FLEFTAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center' },
+                     {
+                         title: '单价', field: 'FPRICE', width: 80, align: 'right', formatter: function (v, d, i) {
+                             return fmoney(v, 6);
+                         }
+                     },
+                    {
+                        title: '金额', field: 'FAMOUNT', width: 80, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                      { title: '价格政策编号', field: 'FPOLICYBILLNO', width: 100 },
+                    { title: '价格政策名称', field: 'FPOLICYNAME', width: 100 },
+
+                    { title: '重量', field: 'FWEIGHT', width: 60 },
+                    { title: '体积', field: 'FVOLUME', width: 60 },
+                    { title: '请购计划号', field: 'ICPRBILLNO', width: 150 },
+                    { title: '发货日期', field: 'FNEEDDATESTR', width: 95 },
+                    { title: '检查错误描述', field: 'FERR_MESSAGE', width: 300 },
+                   
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#conentry').datagrid('getSelected');
+        },
+        reload: function (fid) {
+            $('#conentry').datagrid('load', { conid: fid });
+        }
+    };
+
+
+    var crud = {
+        initData: function (depid) {
+
+            top.$('#deliveryTab').tabs({
+                onSelect: function () {
+                    top.$('.validatebox-tip').remove();
+                }
+            });
+
+            //bindDictionary(top.$('#txtFContractType'), DIC_CONST_017);
+            //bindDictionary(top.$('#txtFPayMethod'), DIC_CONST_018);
+            //top.$('#txtFSerialNum').textbox('disable', false);
+
+            ////项目
+            //bindProjectsDialog(top.$('#txtItemName'), function (row) {
+            //    top.$('#txtItemName').searchbox("setValue", row.FName);
+            //    top.$('#txtFItemID').textbox("setValue", row.FID);
+            //});
+            //top.$('#txtCustName').textbox('disable', true);
+
+            ////客户
+            ////bindCustomerDialog(top.$('#txtCustName'), function (row) {
+            ////    top.$('#txtCustName').searchbox("setValue", row.FName);
+            ////    top.$('#txtFCustID').textbox("setValue", row.FID);
+            ////});
+
+            //bindOrganizeDialog(top.$('#txtBrName'), '签约公司选择', "1,5", null, function (row) {
+            //    top.$('#txtBrName').searchbox("setValue", row.FName);
+            //    top.$('#txtFBrID').textbox("setValue", row.FID);
+            //});
+
+            //bindEmployeeDialogByCompany(top.$('#txtEmpName'), top.$('#txtFBrID'), function (row) {
+            //    top.$('#txtEmpName').searchbox("setValue", row.FName);
+            //    top.$('#txtFEmpID').textbox("setValue", row.FID);
+            //});
+
+            //bindEmployeeDialog(top.$('#txtEmpName'), null, function (row) {
+            //    top.$('#txtEmpName').searchbox("setValue", row.FName);
+            //    top.$('#txtFEmpID').textbox("setValue", row.FID);
+            //});
+        },
+        //新增/编辑
+        add: function () {
+            var addDialog = top.$.hDialog({
+                href: '/DeliveryRelease/Add' + '?v=' + Math.random(),
+                width: parent.document.body.clientWidth,
+                height: parent.document.body.clientHeight,
+                title: '发货计划',
+                iconCls: 'icon-application_form_add',
+                onLoad: function () {
+                    crud.initData();
+
+                    jQuery.ajaxjson("/Base/GetBillNo", { billtype: 'DP' }, function (d) {
+                        top.$('#FBILLNO').textbox('setValue', d);
+                    });
+
+                    top.$('#dgPlanEntry').datagrid({ url: "/ICSEOUTBILL/ENTRYData/", queryParams: { FICSEOUTID: "" } });
+                },
+                closed: false,
+                showBtns: false,
+                toolbar: [                   
+                {
+                    text: '保存',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                     
+                        //提交保存请购计划
+                        top.$('#dgPlanEntry').datagrid('acceptChanges');
+                        var valid = top.$('#uiform').form('validate');
+                        if (!valid) {
+                            parent.layer.alert('表单填写未完成', { icon: 0 });
+                        } else {
+                            var conEntry = top.$('#dgPlanEntry').datagrid('getRows');
+             
+                            var ff = {
+                                FPREMISEID: top.$('#FPREMISEID').val(),
+                                FBRANDID: top.$('#FBRANDID').val(),
+                                FCLIENTID: top.$('#FCLIENTID').val(),
+                                FBILLNO: top.$('#FBILLNO').textbox('getValue'),
+                                FTRANSID: top.$('#FTRANSID').combobox('getValue'),
+                                FCARNUMBER: top.$('#FCARNUMBER').textbox('getValue'),
+                                FLOADCAPACITY: top.$('#FLOADCAPACITY').textbox('getValue'),
+                                FDELIVERDATE: top.$('#FDELIVERDATE').datebox('getValue'),
+                                FDELIVERER: top.$('#FDELIVERER').textbox('getValue'),
+                                FDELIVERERTEL: top.$('#FDELIVERERTEL').textbox('getValue'),
+                                //FDELIVERERIDNO: top.$('#FDELIVERERIDNO').textbox('getValue'),
+                                FALLWEIGHT: top.$('#FALLWEIGHT').textbox('getValue'),
+                                FDELIVERERADDR: top.$('#FDELIVERERADDR').textbox('getValue'),
+                                FALLVOLUME: top.$('#FALLVOLUME').textbox('getValue'),
+                                FRECEIVERADDR: top.$('#FRECEIVERADDR').textbox('getValue'),
+                                FRECEIVER: top.$('#FRECEIVER').textbox('getValue'),
+                                FRECEIVERTEL: top.$('#FRECEIVERTEL').textbox('getValue'),
+                                //FBILLERID: top.$('#FBILLERID').textbox('getValue'),
+                                //FCHECKERID: top.$('#FCHECKERID').textbox('getValue'),
+                                FRECEIVERADDR: top.$('#FRECEIVERADDR').textbox('getValue'),
+                                FCENTER_WAREHOUSE: top.$('#FCENTER_WAREHOUSE').textbox('getValue'),
+                                FDELIVERY_METHOD: top.$('#FDELIVERY_METHOD').combobox('getValue'),
+                                FEXPRESSCOMPANYID: top.$('#FEXPRESSCOMPANYID').val(),
+                                FPROJECTNAME: top.$('#FPROJECTNAME').textbox('getValue'),
+                                FEETOTAL: top.$('#FEETOTAL').textbox('getValue'),
+                                FPURCHASE_NO: top.$('#FPURCHASE_NO').textbox('getValue'),
+                                FPLANDESC: top.$('#FPLANDESC').textbox('getValue'),
+                                FIS_CONSIGN: top.$('#FIS_CONSIGN').combobox('getValue'),
+                                FBILLING_TYPE: top.$('#FBILLING_TYPE').combobox('getValue'),
+                            };
+                            $.ajax({
+                                url: '/ICSEOUTBILL/Save',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    ICSEOUTBILLJson: JSON.stringify(ff),
+                                    ICSEOUTBILLENTRYListJson: JSON.stringify(conEntry)
+                                },
+                                success: function (result) {
+                                    if (result.Success) {
+                                        parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                            parent.layer.close(index);
+                                            addDialog.dialog('close');
+                                            //var tree = $("#brandTree").tree('getSelected');
+                                            $('#gridView').datagrid('load', {
+                                                //salesTerritoryID: tree == null ? null : tree.id,
+                                                // keywords: $('#keyword').textbox('getValue')
+                                            });
+                                        });
+                                    } else {
+                                        parent.layer.alert(result.Message, { icon: 0 });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    }
+                }],
+
+            });
+        },
+        edit: function () {
+            var row = $('#gridView').datagrid('getSelected');                    
+            if (row) {
+                var addDialog = top.$.hDialog({
+                    href: '/DeliveryRelease/Add' + '?v=' + Math.random(),
+                    width: parent.document.body.clientWidth,
+                    height: parent.document.body.clientHeight,
+                    title: '发货计划',
+                    iconCls: 'icon-application_form_add',
+                    onLoad: function () {
+
+                        //根据审核状态，判断按钮权限
+                        //if (row.FSTATUS == 1) {
+                        //    //草稿状态下，审核按钮不可用
+                        //    top.$('#btnAudit').hide();
+                        //}
+                 
+                        crud.initData();
+
+                        top.$('#FID').val(row.FID);
+                        top.$('#FPREMISEID').val(row.FPREMISEID);
+                        top.$('#FCLASSAREA2NAME').searchbox('setValue', row.FCLASSAREA2NAME);
+                        top.$('#FBRANDID').val(row.FBRANDID);
+                        top.$('#FBRANDNAME').searchbox('setValue', row.FBRANDNAME);
+                        top.$('#FCLIENTID').val(row.FCLIENTID);
+                        top.$('#FCLIENTACCOUNT').searchbox('setValue', row.FCLIENTNAME);
+                        top.$('#FBILLNO').textbox('setValue', row.FBILLNO);
+                        top.$('#FTRANSID').textbox('setValue', row.FTRANSID);
+                        top.$('#FCARNUMBER').textbox('setValue', row.FCARNUMBER);
+                        top.$('#FLOADCAPACITY').textbox('setValue', row.FLOADCAPACITY);
+                        top.$('#FDELIVERER').textbox('setValue', row.FDELIVERER);
+                        top.$('#FDELIVERERTEL').textbox('setValue', row.FDELIVERERTEL);
+                        top.$('#FDELIVERERIDNO').textbox('setValue', row.FDELIVERERIDNO);
+                        top.$('#FALLWEIGHT').textbox('setValue', row.FALLWEIGHT);
+                        top.$('#FDELIVERERADDR').textbox('setValue', row.FDELIVERERADDR);
+                        top.$('#FALLVOLUME').textbox('setValue', row.FALLVOLUME);
+                        top.$('#FRECEIVERADDR').textbox('setValue', row.FRECEIVERADDR);
+                        //top.$('#FRECEIVER').textbox('setValue', row.FRECEIVER);
+                        //top.$('#FRECEIVERTEL').textbox('setValue', row.FRECEIVERTEL);
+
+                        top.$('#FCENTER_WAREHOUSE').textbox('setValue', row.FCENTER_WAREHOUSE);
+                        top.$('#FDELIVERY_METHOD').textbox('setValue', row.FDELIVERY_METHOD);
+                        top.$('#FEXPRESSCOMPANYID').val(row.FEXPRESSCOMPANYID);
+                        top.$('#FEXPRESSCOMPANYNAME').searchbox('setValue', row.FEXPRESSCOMPANYNAME);
+                        top.$('#FPROJECTNAME').textbox('setValue', row.FPROJECTNAME);
+                        top.$('#FREMARK').textbox('setValue', row.FREMARK);
+                        top.$('#FPURCHASE_NO').textbox('setValue', row.FPURCHASE_NO);
+                        top.$('#FPLANDESC').textbox('setValue', row.FPLANDESC);
+
+                        top.$('#FCHECKERID').textbox('setValue', row.FCHECKERNAME);
+
+                        top.$('#FIS_CONSIGN').combobox('setValue', row.FIS_CONSIGN);
+                        top.$('#FBILLING_TYPE').combobox('setValue', row.FBILLING_TYPE);
+                       
+                        top.$('#dgPlanEntry').datagrid({ url: "/ICSEOUTBILL/ENTRYData/", queryParams: { FICSEOUTID: row.FID } });
+
+                        if (row.FSTATUS > 1) {
+                            top.$('#btnSave').hide();
+                            top.$('#btnDel').hide();
+                            top.$('#btnAdd').hide();
+                            top.$('#btnCalc').hide();
+                            //top.$('#btnPrice').hide();
+                            //top.$('#btnPriceAdjust').hide();
+                        }
+
+
+                        //var rows = $('#conentry').datagrid('getRows');
+                        //for (var i = 0; i < rows.length; i++) {
+                        //    top.$('#dgPlanEntry').datagrid('appendRow', {
+                        //        FID: rows[i].FID,
+                        //        FENTRYID: rows[i].FENTRYID,
+                        //        FMODEL: rows[i].FMODEL,
+                        //        FPRODUCTNAME: rows[i].FPRODUCTNAME,
+                        //        FPRODUCTTYPE: rows[i].FPRODUCTTYPE,
+                        //        FPRODUCTCODE: rows[i].FPRODUCTCODE,
+                        //        FUNITNAME: rows[i].FUNITNAME,
+                        //        FBATCHNO: rows[i].FBATCHNO,
+                        //        FCOLORNO: rows[i].FCOLORNO,
+                        //        FREMARK: rows[i].FREMARK,
+                        //        FSRCID: rows[i].FSRCID,
+                        //        FSRCNAME: rows[i].FSRCNAME,
+                        //        FSRCCODE: rows[i].FSRCCODE,
+                        //        FSRCMODEL: rows[i].FSRCMODEL,
+                        //        FSRCUNIT: rows[i].FSRCUNIT,
+                        //        FORDERUNIT: rows[i].FORDERUNIT,
+                        //        FSTOCK: rows[i].FSTOCK,
+                        //        FSTOCKPLACE: rows[i].FSTOCKPLACE,
+                        //        FASKQTY: rows[i].FASKQTY,
+                        //        FCOMMITQTY: rows[i].FCOMMITQTY,
+                        //        FHNAMOUNT: rows[i].FHNAMOUNT,
+                        //        FNEEDDATE: rows[i].FNEEDDATE,
+                        //        FPRICEPOLICYENTRYID: rows[i].FNEEDDATE,
+                        //        FICPRID: rows[i].FICPRID,
+                        //        FWEIGHT: rows[i].FWEIGHT,
+                        //        FVOLUME: rows[i].FVOLUME,
+                        //        FITEMID: rows[i].FITEMID,
+                        //        FACCOUNTPRICE: rows[i].FACCOUNTPRICE,
+                        //        ICPRBILLNO: rows[i].ICPRBILLNO,
+                        //        FITEMID: rows[i].FITEMID,
+                        //        FPOLICYNAME: rows[i].FPOLICYNAME,
+                        //        FPOLICYBILLNO: rows[i].FPOLICYBILLNO,
+                        //        FPRICEPOLICYENTRYID: rows[i].FPRICEPOLICYENTRYID,
+                        //        FLEVEL: rows[i].FLEVEL,
+                        //        FWDR: rows[i].FWDR,
+                        //        FPREMISENAME: rows[i].FPREMISENAME,
+                        //        FORDERREMARK1: rows[i].FORDERREMARK1,
+                        //        FORDERREMARK2: rows[i].FORDERREMARK2,
+                        //    });
+                        //}
+
+                        //top.$('#dgPlanEntry').datagrid('acceptChanges');
+
+
+                    },
+                    closed: false,
+                    showBtns: false,
+                    toolbar: [
+                    {
+                        id:'btnSave',
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            //提交保存请购计划
+                            top.$('#dgPlanEntry').datagrid('acceptChanges');
+                            var conEntry = top.$('#dgPlanEntry').datagrid('getRows');
+
+                            var ff = {
+                                FID: top.$('#FID').val(),
+                                FPREMISEID: top.$('#FPREMISEID').val(),
+                                FBRANDID: top.$('#FBRANDID').val(),
+                                FCLIENTID: top.$('#FCLIENTID').val(),
+                                FBILLNO: top.$('#FBILLNO').textbox('getValue'),
+                                FTRANSID: top.$('#FTRANSID').combobox('getValue'),
+                                FCARNUMBER: top.$('#FCARNUMBER').textbox('getValue'),
+                                FLOADCAPACITY: top.$('#FLOADCAPACITY').textbox('getValue'),
+                                FDELIVERDATE: top.$('#FDELIVERDATE').datebox('getValue'),
+                                FDELIVERER: top.$('#FDELIVERER').textbox('getValue'),
+                                FDELIVERERTEL: top.$('#FDELIVERERTEL').textbox('getValue'),
+                                //FDELIVERERIDNO: top.$('#FDELIVERERIDNO').textbox('getValue'),
+                                FALLWEIGHT: top.$('#FALLWEIGHT').textbox('getValue'),
+                                FDELIVERERADDR: top.$('#FDELIVERERADDR').textbox('getValue'),
+                                FALLVOLUME: top.$('#FALLVOLUME').textbox('getValue'),
+                               // FRECEIVERADDR: top.$('#FRECEIVERADDR').textbox('getValue'),
+                               // FRECEIVER: top.$('#FRECEIVER').textbox('getValue'),
+                               // FRECEIVERTEL: top.$('#FRECEIVERTEL').textbox('getValue'),
+                                //FBILLERID: top.$('#FBILLERID').textbox('getValue'),
+                                //FCHECKERID: top.$('#FCHECKERID').textbox('getValue'),
+                                FRECEIVERADDR: top.$('#FRECEIVERADDR').textbox('getValue'),
+
+                                FCENTER_WAREHOUSE: top.$('#FCENTER_WAREHOUSE').textbox('getValue'),
+                                FDELIVERY_METHOD: top.$('#FDELIVERY_METHOD').combobox('getValue'),
+                                FEXPRESSCOMPANYID: top.$('#FEXPRESSCOMPANYID').val(),
+                                FPROJECTNAME: top.$('#FPROJECTNAME').textbox('getValue'),
+                                FREMARK: top.$('#FREMARK').textbox('getValue'),
+                                FPURCHASE_NO: top.$('#FPURCHASE_NO').textbox('getValue'),
+                                FPLANDESC: top.$('#FPLANDESC').textbox('getValue'),
+                                FIS_CONSIGN: top.$('#FIS_CONSIGN').combobox('getValue'),
+                                FBILLING_TYPE: top.$('#FBILLING_TYPE').combobox('getValue'),
+                                FEETOTAL: top.$('#FEETOTAL').textbox('getValue')
+                            };
+
+                            $.ajax({
+                                url: '/ICSEOUTBILL/Save',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    ICSEOUTBILLJson: JSON.stringify(ff),
+                                    ICSEOUTBILLENTRYListJson: JSON.stringify(conEntry)
+                                },
+                                success: function (result) {
+                                    if (result.Success) {
+                                        parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                            parent.layer.close(index);
+                                            addDialog.dialog('close');
+                                            //var tree = $("#brandTree").tree('getSelected');
+                                            $('#gridView').datagrid('load', {
+                                                //salesTerritoryID: tree == null ? null : tree.id,
+                                                // keywords: $('#keyword').textbox('getValue')
+                                            });
+                                        });
+                                    } else {
+                                        parent.layer.alert(result.Message, { icon: 0 });
+                                    }
+                                }
+                            });
+                        }
+
+                    },
+                 
+                {
+                    id:'btnClose',
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        addDialog.dialog('close');
+                    }
+                }],
+
+                });
+            } else {
+                parent.layer.alert('请选择编辑项', { icon: 1 });
+            }
+        },
+        //提交审核
+        accept: function () {
+            var rows = $('#gridView').datagrid('getChecked');
+            if (rows.length > 0) {
+
+                var ids = "";
+                for (var i = 0; i < rows.length; i++) {
+                    if (rows[i].FSTATUS == 1 || rows[i].FSTATUS == 4) {
+                        if (ids == "") {
+                            ids = rows[i].FID;
+                        }
+                        else {
+                            ids += "," + rows[i].FID;
+                        }
+                    }
+                }
+
+                if (ids == "") {
+                    parent.layer.msg("请选择单据状态为【草稿】的数据进行提交审核");
+                    return;
+                }
+
+                    parent.layer.confirm('点击确定提交单据进行审核', {
+                        area: ['380px', 'auto'],
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/ICSEOUTBILL/Accept",
+                            data: { ids: ids },
+                            dataType: "json",
+                            success: function (d) {
+                                if (d.errCode == 0) {
+                                    parent.layer.msg('提交成功');
+                                    grid.reload();
+                                }
+                                else {
+                                    parent.layer.alert(d.errMsg);
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(message);
+                            }
+                        });
+                    });
+    
+            } else {
+                parent.layer.alert('请勾选要提交审核的单据。');
+            }
+        },
+        //完成
+        finish: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FStatus == 3) {
+                    parent.layer.confirm('确认将合同【' + row.FContractNo + '】状态改为“完成”吗？', {
+                        area: ['400px', 'auto'],
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: "POST",
+                            url: "/CareContract/Finish",
+                            data: { id: row.FID },
+                            dataType: "json",
+                            success: function (message) {
+                                if (message > 0) {
+                                    parent.layer.msg('状态修改成功');
+                                    grid.reload();
+                                }
+                            },
+                            error: function (message) {
+                                parent.layer.alert(d.errMsg);
+                            }
+                        });
+                    });
+                }
+                else {
+                    parent.layer.alert('只有“审核通过”的状态才能进行完成操作。');
+                }
+            } else {
+                parent.layer.alert('请选择要完成的保养合同。');
+            }
+        },
+        //删除
+        del: function () {
+            var row = grid.selectRow();
+            if (row) {
+                if (row.FSTATUS == 1 || row.FSTATUS == 2 || row.FSTATUS == 4 || row.FSTATUS == 6) {
+                    parent.layer.confirm('确认要删除选中的单据，以及删除对应的其他关联信息吗?', {
+                        icon: 3,
+                        btn: ['确认', '取消']
+                    }, function () {
+                        $.ajaxjson('/ICSEOUTBILL/Delete', { id: row.FID }, function (result) {
+                            if (result.Success) {
+                                parent.layer.msg('删除成功');
+                                grid.reload();
+                                $('#conentry').datagrid('loadData', { total: 0, rows: [] });
+                            } else {
+                                parent.layer.alert(result.Message, { icon: 0 });
+                            }
+                            });
+                        }
+                    );
+                }
+                else {
+                    parent.layer.msg('当前的状态无法进行删除。');
+                }
+            } else {
+                parent.layer.msg('请选择要删除的数据。');
+            }
+        },
+        //审核
+        audit: function () {
+            var rows = $('#gridView').datagrid('getChecked');
+            if (rows.length > 0) {
+
+                var ids = "";
+                for (var i = 0; i < rows.length; i++) {
+                    if (rows[i].FSTATUS == 2) {
+                        if (ids == "") {
+                            ids = rows[i].FID;
+                        }
+                        else {
+                            ids += "," + rows[i].FID;
+                        }
+                    }
+                }
+
+                if (ids == "") {
+                    parent.layer.msg("审核只能针对待审核的数据，请确认您选择数据是否正确");
+                    return;
+                }
+
+                var dlgAudit = top.$.hDialog({
+                    href: '/PleasePurchasePlan/Audit',
+                    width: 700,
+                    height: 180,
+                    title: '单据审核',
+                    iconCls: 'icon-user_add',
+                    onLoad: function () {
+                    },
+                    submit: function () {
+                        if (top.$('#uiform').form('validate')) {
+                            var status = top.$('input:radio:checked').val();
+                            var remark = top.$("#txtFREMARK").val();
+                            jQuery.ajaxjson("/ICSEOUTBILL/Audit", { ids: ids, status: status, remark: remark }, function (d) {
+                                if (d.errCode == 0) {
+                                    parent.layer.msg("处理完成");
+                                    dlgAudit.dialog('close');
+                                    grid.reload();
+                                } else {
+                                    parent.layer.alert(d.errMsg);
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                parent.layer.msg('请勾选要审核的数据。');
+            }
+        },
+        //反审核
+        audit_anti: function () {
+            var rows = $('#gridView').datagrid('getChecked');
+            if (rows.length > 0) {
+
+                var ids = "";
+                for (var i = 0; i < rows.length; i++) {
+                    if (rows[i].FSYNCSTATUS <1) {
+                        if (ids == "") {
+                            ids = rows[i].FID;
+                        }
+                        else {
+                            ids += "," + rows[i].FID;
+                        }
+                    }
+                }
+                
+                if (ids == "") {
+                    parent.layer.msg("反审核只能针对已审核并且未同步到厂家的数据，请确认您选择数据是否正确");
+                    return;
+                }
+
+                parent.layer.confirm('点击确认退回到待审核状态，可修改资料！', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+
+                    jQuery.ajaxjson("/ICSEOUTBILL/AuditAnti", { ids: ids }, function (d) {
+                        if (d.errCode == 0) {
+                            parent.layer.msg("处理完成");
+                            // hDialog.dialog('close');
+                            grid.reload();
+                        } else {
+                            parent.layer.alert(d.errMsg);
+                        }
+                    });
+                });
+            } else {
+                parent.layer.msg('请勾选要反审核的数据。');
+            }
+        },
+        //上传厂家
+        sync: function () {
+            var rows = $('#gridView').datagrid('getChecked');
+            if (rows.length > 0) {
+
+                var ids = "";
+                for (var i = 0; i < rows.length; i++) {
+                    if (rows[i].FSTATUS == 3 && (rows[i].FSYNCSTATUS == 0 || rows[i].FSYNCSTATUS == -1)) {
+                        if (ids == "") {
+                            ids = rows[i].FID;
+                        }
+                        else {
+                            ids += "," + rows[i].FID;
+                        }
+                    }
+                }
+
+                if (ids == "") {
+                    parent.layer.msg("只能上传已审核的单据到厂家, 已上传到厂家的单据将自动跳过！");
+                    return;
+                }
+
+
+                //if (row.FSYNCSTATUS != 0 && row.FSYNCSTATUS != -1) {
+                //    parent.layer.msg("数据已上传到厂家，不能重复上传");
+                //    return;
+                //}
+
+                parent.layer.confirm('点击确认开始提交数据到厂家系统！', {
+                    icon: 3,
+                    btn: ['确认', '取消']
+                }, function () {
+
+                    jQuery.ajaxjson("/ICSEOUTBILL/Sync", { ids: ids }, function (d) {
+                        if (d.errCode == 0) {
+                            parent.layer.msg("处理完成");
+                            // hDialog.dialog('close');
+                            grid.reload();
+                        } else {
+                            parent.layer.msg("处理失败");
+                        }
+                    });
+                });
+            }
+            else {
+                parent.layer.msg('请勾选要上传的数据。');
+            }
+        }
+    };
+
+    
+</script>

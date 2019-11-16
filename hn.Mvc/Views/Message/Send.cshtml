@@ -1,0 +1,669 @@
+﻿@{
+    ViewBag.Title = "Config";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Css/css3btn.css" />
+<script src="/Scripts/Ueditor/ueditor.config.js" type="text/javascript"></script>
+<script src="/Scripts/Ueditor/ueditor.all.min.js" type="text/javascript"></script>
+<script src="/Scripts/Ueditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
+
+<body class="easyui-layout">
+    <div id="layout" style="overflow:hidden;">
+        <div region="west" style="width: 300px; border: 1px solid #95B8E7; overflow:hidden;" border="true">
+            <div id="txtTitleDiv" style="border-bottom: 1px solid #95B8E7;background-color: #E0ECFF; width: 100%;">
+                <div class="panel-title" style="padding: 5px;">人员列表</div>
+            </div>
+            <div id="txtQueryDiv" style="padding-top:5px; padding-bottom:5px; padding-left:20px;">
+                姓名：
+                <input class="easyui-textbox" style="width: 110px" id="txtQuery" />
+                <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">搜索</a>
+            </div>
+            <div id="txtDataDiv" style="width: 100%; height:100%; overflow:auto;">
+                @*<div class="easyui-panel" border="false" iconcls="icon-book_red" style="height:100%;">*@
+                @*<div style="padding: 5px; width: 268px; height:100%;">*@
+                <ul id="dataEmployee" style="padding: 5px;" class="easyui-tree" data-options="checkbox:true"></ul>
+                @*</div>*@
+                @*</div>*@
+            </div>
+        </div>
+        <div region="center" style="overflow: auto; border-top: 1px solid #95B8E7;border-bottom: 1px solid #95B8E7;border-right: 1px solid #95B8E7">
+            <div class="panel-header" style="width: 100%; border-top: 1px solid #95B8E7;border-right: 1px solid #95B8E7">
+                <div class="panel-title">编辑消息</div>
+            </div>
+            <div style="width:1000px;">
+                <form id="uiform" style="margin-top:40px;margin-left:10px;" method="post">
+                    <div style="margin-top:40px">
+                        <a id="a_clear" class="easyui-linkbutton" style="width:90px;height:35px;margin-left:10px">清空</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a id="a_send" class="easyui-linkbutton" style="width:90px;height:35px">发送</a>
+                    </div>
+                    <br /><br />
+
+                    <table class="grid" style="width:1000px;">
+                        <tr height="50px">
+                            <td width="80px">
+                                接收人：
+                            </td>
+                            <td>
+                                <span class="textbox" style="width: 100%; height: 100%;">
+                                    <div class="out1" id="out1" exp="">
+                                        <div class="in1" id="in1" exp="" onmousemove="">
+                                        </div>
+                                    </div>
+                                </span>
+                                @*<input id="txt_RECEIVE_NAME" class="easyui-textbox" style="width:500px;height:60px;" data-options="multiline:true">*@
+                                <input type="hidden" name="RECEIVE_ID" id="txt_RECEIVE_ID" class="txt03" />
+                                <input type="hidden" name="RECEIVE_NAME" id="txt_RECEIVE_NAME" class="txt03" />
+                                <input type="hidden" name="RECEIVE_NAME" id="txt_PARENT_ID" class="txt03" />
+                            </td>
+                        </tr>
+                        <tr height="50px">
+                            <td>
+                                标题：
+                            </td>
+                            <td>
+                                <input class="easyui-textbox" value="" style="width:100%;" id="txt_TITLE">
+                            </td>
+                        </tr>
+                        <tr height="150px">
+                            <td>
+                                内容描述：
+                            </td>
+                            <td>
+                                <script id="functionApp" name="functionApp" type="text/plain" style="height:300px;width:100%;">
+                                </script>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search2.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+        var size = { width: $(window).width(), height: $(window).height() };
+        mylayout.init(size);
+        $(window).resize(function () {
+            SetDivHeight();
+
+            size = { width: $(window).width(), height: $(window).height() };
+            mylayout.resize(size);
+        });
+
+        EmployeeCategory.bindTree(0);
+    });
+
+    function SetDivHeight() {
+        var h = $("#txtTitleDiv").outerHeight() + $("#txtQueryDiv").outerHeight();
+        $("#txtDataDiv").height($("#layout").height() - h - 3);
+    }
+
+    var mylayout = {
+        init: function (size) {
+            $('#layout').width(size.width - 4).height(size.height - 4).layout();
+            //var center = $('#layout').layout('panel', 'center');
+            //center.panel({
+            //    onResize: function (w, h) {
+            //        //$('#uiform').form('resize', { width: w, height: h });
+            //    }
+            //});
+
+            SetDivHeight();
+        },
+        resize: function (size) {
+            mylayout.init(size);
+            $('#layout').layout('resize');
+        }
+    };
+
+    var EmployeeCategory = {
+        bindTree: function (id) {
+            $('#dataEmployee').tree({
+                lines: true,
+                url: '/TreeView/TB_ORGANIZATIONWithUser?showDisable=' + false,
+                animate: true,
+                onLoadSuccess: function (node, data) {
+                    if (data) {
+                        $('body').data('categoryData', data);
+                    }
+                },
+                onCheck: function (node, checked) {
+                    if (checked) {
+                        if (node.id != null && node.id != "") {
+                            var children = $('#dataEmployee').tree('getChildren', node.target);
+
+                            if (children.length > 0) {
+                                for (var i = 0; i < children.length; i++) {
+                                    if (children[i].IsUser) {
+                                        selectedParent(children[i].text, children[i].id, node.id);
+                                    }
+                                }
+
+                            } else {
+                                //点击子节点
+                                var ParentNode = $(this).tree('getParent', node.target);
+                                var ParentID = ParentNode.id;
+                                if (node.IsUser) {
+                                    selectedParent(node.text, node.id, ParentID);
+                                }
+                            }
+
+                        }
+                        //else {
+                        //    debugger;
+                        //    var children = $('#dataEmployee').tree('getChildren', node.target);
+                        //    for (var i = 0; i < children.length; i++) {
+                        //        if (children[i].id > 0) {
+                        //            selected(children[i].text, children[i].id);
+                        //        }
+                        //    }
+                        //}
+
+                        //var nodes = $('#dataEmployee').tree('getChecked');
+                        //for (var i = 0; i < nodes.length; i++) {
+                        //    if (nodes[i].id > 0) {
+                        //        //alert(nodes[i].id);
+                        //        selected(nodes[i].text, nodes[i].id);
+                        //    }
+                        //}
+                    }
+                    else {
+
+                        var children = $('#dataEmployee').tree('getChildren', node.target);
+                        debugger;
+                        if (children.length > 0) {
+                            for (var i = 0; i < children.length; i++) {
+                                deleteCodeByNodeParent(children[i].id, children[i].text);
+                            }
+                        } else {
+
+                            deleteCodeByNodeParent(node.id, node.text);
+                        }
+
+                        //if (node.id == null || node.id == "") {
+                        //    var children = $('#dataEmployee').tree('getChildren', node.target);
+                        //    for (var i = 0; i < children.length; i++) {
+                        //        if (children[i].id > 0) {
+                        //            deleteCodeByNode(children[i].id, children[i].text);
+                        //        }
+                        //    }
+                        //}
+                        //else {
+                        //    deleteCodeByNode(node.id, node.text);
+                        //}
+                    }
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').treegrid('loadData', { total: 0, rows: [] });
+            var sel = $('#dataEmployee').tree('getSelected');
+            if (sel != null) {
+                EmployeeCategory.bindTree(sel.id);
+            }
+            else {
+                EmployeeCategory.bindTree(0);
+            }
+        },
+        getSelected: function () {
+            return $('#dataEmployee').tree('getSelected');
+        },
+        clearCheck: function () {
+            var nodes = $('#dataEmployee').tree('getChecked');
+            for (var i = 0; i < nodes.length; i++) {
+                $('#dataEmployee').tree('uncheck', nodes[i].target);   //取消选中指定节点。
+            }
+        }
+    };
+
+    var ue = null;
+    $(function () {
+        ue = UE.getEditor('functionApp');
+
+        //搜索
+        $('#a_search').click(function () {
+            $("#dataEmployee").tree("collapseAll");
+            //获取根节点
+            var rooNode = $("#dataEmployee").tree("getRoot");
+            //调用expand方法
+            $("#dataEmployee").tree("expand", rooNode.target);
+            $("#dataEmployee").tree("select", null);
+
+            var query = $("#txtQuery").textbox('getValue');
+            if (query != null && query != "") {
+                recursionQueryTree(rooNode, query);
+                //alert("查找完毕！");
+            }
+        });
+
+        //清空
+        $('#a_clear').click(function () {
+            $("#txt_RECEIVE_NAME").val("");
+            $("#txt_RECEIVE_ID").val("");
+
+            $("#txt_TITLE").textbox("setValue", "");
+            ue.setContent("");
+            $("#in1").html("");
+
+            EmployeeCategory.clearCheck();
+
+        });
+
+        //发送消息
+        function Send() {
+            var ids = $("#txt_RECEIVE_ID").val();
+            var title = $("#txt_TITLE").textbox("getValue");
+            var content = ue.getContent();
+
+            if (ids == "") {
+                parent.layer.alert("请选择收件人");
+                return;
+            }
+
+            if (title == "") {
+                parent.layer.alert("请输入标题");
+                return;
+            }
+
+            if (content == "") {
+                parent.layer.alert("请输入内容");
+                return;
+            }
+
+            parent.layer.confirm('点击确定开始发送消息?', {
+                btn: ['确定', '取消']
+            }, function () {
+                var postData = {
+                    "FReceiverIDList": ids,
+                    "title": title,
+                    "content": content,
+                };
+                var url = '/Message/Add';
+
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    data: postData,
+                    dataType: "json",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        parent.layer.alert('尝试发送失败，错误信息：' + errorThrown);
+                    },
+                    success: function (data, textStatus) {
+                        if (data.Success) {
+                            parent.layer.alert(data.Message, { icon: 1 }, function (index) {
+                                $("#txt_RECEIVE_NAME").val("");
+                                $("#txt_RECEIVE_ID").val("");
+
+                                $("#txt_TITLE").textbox("setValue", "");
+                                ue.setContent("");
+                                $("#in1").html("");
+                            });
+
+                        } else {
+                            parent.layer.alert(data.Message, { icon: 2 });
+                        }
+                    }
+                });
+            });
+        }
+
+        //发送
+        $('#a_send').click(function () {
+
+            Send();
+
+            return;
+            var ids = $("#txt_RECEIVE_ID").val();
+            if (ids == "") {
+                parent.layer.alert("请选择收件人");
+                return;
+            }
+
+            var title = $("#txt_TITLE").textbox("getValue");
+            if (title == "") {
+                parent.layer.alert("请输入标题");
+                return;
+            }
+
+            var content = ue.getContent();
+            if (content == "") {
+                parent.layer.alert("请输入内容");
+                return;
+            }
+
+            parent.layer.confirm('点击确定开始发送消息?', {
+                btn: ['确定', '取消']
+            }, function () {
+
+                var title = $("#txt_TITLE").val();
+
+                var content = ue.getContent();
+                var names = $("#txt_RECEIVE_NAME").val();
+                var Parentids = $("#txt_PARENT_ID").val();
+                var o = {};
+
+
+                //消息类型
+
+                //子消息类型
+
+                o = { type: 0, fstate: 0, parentids: Parentids, ids: ids, names: names, title: title, content: content };
+
+                var json = JSON.stringify(o);
+
+                var str = encodeURI(encodeURI(json));
+
+                json = "json=" + str;
+
+                debugger;
+
+                $.ajaxjson('/Message/SendMessage', json, function (d) {
+
+                    parent.layer.msg(d.errMsg);
+                    $("#txt_RECEIVE_NAME").val("");
+                    $("#txt_RECEIVE_ID").val("");
+
+                    $("#txt_TITLE").textbox("setValue", "");
+                    ue.setContent("");
+                    $("#in1").html("");
+
+
+                    EmployeeCategory.clearCheck();
+                });
+            });
+
+
+        });
+
+        $('#a_addman').click(function () {
+            var hDialog = top.jQuery.hDialog({
+                title: '选择收件人',
+                width: document.body.clientWidth / 1.5,
+                height: document.body.clientHeight / 1.5,
+                href: '/Search/Dialog',
+                iconCls: 'icon-add',
+                showBtns: false,
+                onLoad: function () {
+                    top.$('#grid').datagrid({
+                        url: "/User/List",
+                        iconCls: 'icon icon-list',
+                        width: document.body.clientWidth / 1.5 - 20,
+                        height: document.body.clientHeight / 1.5 - 85,
+                        nowrap: false, //折行
+                        rownumbers: true, //行号
+                        striped: true, //隔行变色
+                        idField: 'ID', //主键
+                        singleSelect: false,
+                        checkOnSelect: true,
+                        selectOnCheck: true,
+                        frozenColumns: [[]],
+                        columns: [[
+                            { title: '用户名', field: 'UserName', width: 140, sortable: true },
+                            { title: '真实姓名', field: 'TrueName', width: 120, sortable: true },
+                        ]],
+                        pagination: true,
+                        pageSize: 20,
+                        pageList: [20, 40, 50, 100, 500, 5000],
+                        onDblClickRow: function (rowIndex, rowData) {
+                            var rows = top.$('#grid').datagrid('getSelections');
+                            if (rows) {
+                                var names = "";
+                                var ids = "";
+
+                                for (var i = 0; i < rows.length; i++) {
+                                    names += (names == "" ? "" : ",") + rows[i].TrueName;
+                                    ids += (ids == "" ? "" : ",") + rows[i].FID;
+
+                                    selected(rows[i].TrueName, rows[i].FID);
+                                }
+
+                                // $('#txt_RECEIVE_NAME').textbox("setValue", names);
+                                //$('#txt_RECEIVE_ID').val(ids);
+                            }
+
+                            hDialog.dialog('close');
+                        }
+                    });
+
+                },
+                toolbar: [{
+                    text: '确定',
+                    iconCls: 'icon-database_save',
+                    handler: function () {
+                        var rows = top.$('#grid').datagrid('getSelections');
+                        if (rows) {
+                            var names = "";
+                            var ids = "";
+
+                            for (var i = 0; i < rows.length; i++) {
+
+                                names += (names == "" ? "" : ",") + rows[i].TrueName;
+                                ids += (ids == "" ? "" : ",") + rows[i].FID;
+
+                                selected(rows[i].TrueName, rows[i].FID);
+                            }
+
+                            //  $('#txt_RECEIVE_NAME').textbox("setValue", names);
+                            // $('#txt_RECEIVE_ID').val(ids);
+                        }
+                        hDialog.dialog('close');
+                    }
+                }, {
+                    text: '过滤',
+                    iconCls: 'icon-search',
+                    handler: function () {
+                        search.go('grid');
+                    }
+                }, {
+                    text: '关闭',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        hDialog.dialog("close");
+                    }
+                }]
+            });
+        });
+    });
+
+
+    function selectedParent(name, code, ParentID) {
+        debugger;
+        var ids = $("#txt_RECEIVE_ID").val();
+        var names = $("#txt_RECEIVE_NAME").val();
+        var parents = $("#txt_PARENT_ID").val();
+
+        var isExist = false;
+        var arrayID = ids.split(',');
+        for (var i = 0; i < arrayID.length; i++) {
+            if (arrayID[i] == code) {
+                isExist = true;
+            }
+        }
+
+        //if (ids.indexOf(code) == -1) {  //没有找到匹配的id
+        if (!isExist) {  //没有找到匹配的id
+            $("#in1").append("<div style='width:auto;float:left;' id=" + code + ">" + name + " <a href=# onclick=javascript:deleteCode('" + code + "','" + name + "');><img src='/Images/close_x.png'/></a>;&nbsp;&nbsp;</div>");
+            $("#" + code).hover(function () {
+                $(this).css("background", "yellow");
+            }, function () {
+                $(this).css("background", "white");
+            });
+            //添加隐藏域的值
+            if (ids == null || ids == "") {
+                ids = code;
+                parents = ParentID;
+            }
+            else {
+                ids += "," + code;
+                parents += "," + ParentID;
+            }
+            //ids += code + ",";
+            $("#txt_RECEIVE_ID").val(ids);
+            $("#txt_PARENT_ID").val(parents);
+
+            if (names == null || names == "") {
+                names = name;
+            }
+            else {
+                names += "," + name;
+            }
+            //names += name + ",";
+            $("#txt_RECEIVE_NAME").val(names);
+        }
+    }
+
+
+    function selected(name, code) {
+        debugger;
+        var ids = $("#txt_RECEIVE_ID").val();
+        var names = $("#txt_RECEIVE_NAME").val();
+
+        var isExist = false;
+        var arrayID = ids.split(',');
+        for (var i = 0; i < arrayID.length; i++) {
+            if (arrayID[i] == code) {
+                isExist = true;
+            }
+        }
+
+        //if (ids.indexOf(code) == -1) {  //没有找到匹配的id
+        if (!isExist) {  //没有找到匹配的id
+            $("#in1").append("<div style='width:auto;float:left;' id=" + code + ">" + name + " <a href=# onclick=javascript:deleteCode('" + code + "','" + name + "');><img src='/Images/close_x.png'/></a>;&nbsp;&nbsp;</div>");
+            $("#" + code).hover(function () {
+                $(this).css("background", "yellow");
+            }, function () {
+                $(this).css("background", "white");
+            });
+            //添加隐藏域的值
+            if (ids == null || ids == "") {
+                ids = code;
+            }
+            else {
+                ids += "," + code;
+            }
+            //ids += code + ",";
+            $("#txt_RECEIVE_ID").val(ids);
+
+            if (names == null || names == "") {
+                names = name;
+            }
+            else {
+                names += "," + name;
+            }
+            //names += name + ",";
+            $("#txt_RECEIVE_NAME").val(names);
+        }
+    }
+
+    function deleteCode(code, name) {
+        //var ids = $("#txt_RECEIVE_ID").val();
+        //var names = $("#txt_RECEIVE_NAME").val();
+
+        //$("#txt_RECEIVE_ID").val(ids.replace(code + ",", ""));
+        //$("#txt_RECEIVE_NAME").val(names.replace(name + ",", ""));
+
+        //$("#" + code).remove();
+
+
+        var nodes = $('#dataEmployee').tree('getChecked');
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].id == code) {
+                $('#dataEmployee').tree('uncheck', nodes[i].target);   //取消选中指定节点。
+            }
+        }
+
+
+    }
+
+    function deleteCodeByNodeParent(code, name) {
+        var ids = $("#txt_RECEIVE_ID").val();
+        var names = $("#txt_RECEIVE_NAME").val();
+        var Parentids = $("#txt_PARENT_ID").val();
+
+        var arrayID = ids.split(',');
+        var arrayName = names.split(',');
+        var arrayParentID = Parentids.split(',');
+        ids = '';
+        names = '';
+        Parentids = '';
+
+        for (var i = 0; i < arrayID.length; i++) {
+            if (arrayID[i] != code) {
+                //alert(arrayID[i] + " - " + arrayName[i]);
+                if (ids == "") {
+                    ids = arrayID[i];
+                    names = arrayName[i];
+                    Parentids = arrayParentID[i];
+                }
+                else {
+                    ids += "," + arrayID[i];
+                    names += "," + arrayName[i];
+                    Parentids += "," + arrayParentID[i];
+                }
+            }
+        }
+        //alert("names = " + names);
+        $("#txt_RECEIVE_ID").val(ids);
+        $("#txt_RECEIVE_NAME").val(names);
+        $("#txt_PARENT_ID").val(Parentids);
+
+        //$("#txt_RECEIVE_ID").val(ids.replace(code + ",", ""));
+        //$("#txt_RECEIVE_NAME").val(names.replace(name + ",", ""));
+
+        $("#" + code).remove();
+    }
+
+
+    function deleteCodeByNode(code, name) {
+        var ids = $("#txt_RECEIVE_ID").val();
+        var names = $("#txt_RECEIVE_NAME").val();
+
+        var arrayID = ids.split(',');
+        var arrayName = names.split(',');
+        ids = '';
+        names = '';
+        for (var i = 0; i < arrayID.length; i++) {
+            if (arrayID[i] != code) {
+                //alert(arrayID[i] + " - " + arrayName[i]);
+                if (ids == "") {
+                    ids = arrayID[i];
+                    names = arrayName[i];
+                }
+                else {
+                    ids += "," + arrayID[i];
+                    names += "," + arrayName[i];
+                }
+            }
+        }
+        //alert("names = " + names);
+        $("#txt_RECEIVE_ID").val(ids);
+        $("#txt_RECEIVE_NAME").val(names);
+
+        //$("#txt_RECEIVE_ID").val(ids.replace(code + ",", ""));
+        //$("#txt_RECEIVE_NAME").val(names.replace(name + ",", ""));
+
+        $("#" + code).remove();
+    }
+
+    function recursionQueryTree(node, query) {
+        var children = $('#dataEmployee').tree('getChildren', node.target);
+        if (children != null && children.length > 0) {
+
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].id != '0' && children[i].text.indexOf(query) > -1) {
+                    $("#dataEmployee").tree("expand", node.target);
+                    if ($("#dataEmployee").tree("getSelected") == null) {
+                        //alert("选中 = " + children[i].text);
+                        $("#dataEmployee").tree("select", children[i].target);
+                    }
+                }
+                recursionQueryTree(children[i], query);
+            }
+        }
+    }
+
+</script>

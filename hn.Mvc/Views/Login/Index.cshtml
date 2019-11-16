@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "华耐家居·采购管理平台";
+    Page.BodyStyle = "style='background:#cccbc6; overflow:hidden;'";
+    Page.CheckApp = false;
+}
+<style>
+
+
+
+.bgbox {
+    width: 100%;
+    height: 100%;
+    text-align:center;
+}
+.login_tab_box {
+    width: 930px;
+    height: 485px;
+    top: 20%;
+    background-image: url('../../Images/loginbg.png');
+}
+
+.login_tab {
+    width: 370px;
+    float: right;
+    margin-right:70px;
+    background:none;
+    margin-top:100px;
+}
+.login_tab li a {
+    color: #000;
+    font-size:24px;
+    font-weight:bold;
+}
+.login_box {
+    height: 252px;
+    background: none;
+    padding: 0;
+}
+.login_input01 {
+    width: 330px;
+    background: url(/images/input01.png) no-repeat #ecedef;
+    line-height: 37px;
+    height:37px;
+}
+.login_input02 {
+    width: 330px;
+    background: url(/images/input02.png) no-repeat #ecedef;
+    line-height: 37px;
+    height:37px;
+}
+.login_input03 {
+    width: 370px;
+    background: url(/images/input03.png) no-repeat #ecedef;
+    line-height: 37px;
+    height:37px;
+}
+
+.input_l_i {
+    width:330px;
+    background:#ecedef;
+}
+.but03 {
+    width: 100%;
+    float: left;
+    margin-right: 0;
+    height: 37px;
+    line-height: 37px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    border: 0;
+    margin-top:20px;
+    background:#00a949;
+}
+a.but03{ color:#00a949; color:#fff;  text-decoration:none;}
+a.but03:hover{ display:block; color:#fff; background:#00a949; text-decoration:none;}
+</style>
+
+<form method="post" id="form1">
+<div class="login_tab_box">
+    <div class="login_tab">
+        <h2 class="overflow_h ">
+            <ul class="idTabs"> 
+                <li><a href="">用户登录</a></li>
+            </ul>
+        </h2>
+        <div class="login_box" id="member">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td height="60" align="left">
+                            <span class="login_input01">
+                                <input name="Account" type="text" class="input_l_i" id="Account" placeholder="帐号"
+                                    maxlength="50" /></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="60" align="left">
+                            <span class="login_input02">
+                                <input name="Password" type="password" class="input_l_i" id="Password" placeholder="密码" /></span>
+                        </td>
+                    </tr>
+                    @*<tr id="novcode" >
+                        <td height="60" align="left" style="display:none;">
+                            <input name="VCode" type="text" class="login_input03" id="VCode" placeholder="验证码" />
+                            <span class="login_in_yzm">
+                                <img alt="" src="/Login/VCode?@DateTime.Now.Ticks" onclick="cngimg();" style="vertical-align:middle;" id="VcodeImg" width="80" height="37" /></span>
+                        </td>
+                    </tr>*@
+                    <tr>
+                        <td height="48">
+                            <a href="javascript:void(0);" class="but03" id="btnLogin" onclick="checkForm();">
+                                登录</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</form>
+<div class="bgbox">
+    <img src="/Images/bgimg.jpg" />
+</div>
+<script type="text/javascript">
+    var isVcode = '1' == '@Session[ViewBag.IsVcodeSessionKey]';
+
+    $(function () {
+        if (isVcode)
+        {
+            $("#novcode").show();
+        }
+        @Html.Raw(ViewBag.ErrMsg)
+        @Html.Raw(ViewBag.Forcescript)
+    });
+
+
+
+    document.onkeydown=function(event){ 
+        e = event ? event :(window.event ? window.event : null); 
+        if(e.keyCode==13){ 
+            $("#btnLogin").trigger("click");
+        } 
+    }
+
+    function checkForm() {
+        var form1 = document.forms[0];
+        if ($.trim(form1.Account.value).length == 0) {
+            alert("帐号不能为空!");
+            form1.Account.focus();
+            return false;
+        }
+        if ($.trim(form1.Password.value).length == 0) {
+            alert("密码不能为空!");
+            form1.Password.focus();
+            return false;
+        }
+        //if (isVcode && form1.VCode && $.trim(form1.VCode.value).length == 0) {
+        //    alert("验证码不能为空!");
+        //    form1.VCode.focus();
+        //    return false;
+        //}
+        $("#form1").submit();
+        return true;
+    }
+    function cngimg() {
+        $('#VcodeImg').attr('src', '/Login/VCode?' + new Date().toString());
+    }
+    function appDownload() {
+        var hDialog = top.$.hDialog({
+            href: '/Login/App',
+            title: 'APP下载',
+            showBtns: false,
+            toolbar: [{
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    hDialog.dialog("close");
+                }
+            }],
+            width: 370,
+            height: 300
+        });
+    }
+</script>

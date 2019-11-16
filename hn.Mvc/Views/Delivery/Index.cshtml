@@ -1,0 +1,335 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+
+<body class="easyui-layout" onload="initData()">
+    <div region="south" split="true" style="height:230px;background:#FFFFFF;">
+        <div id="deliveryTab" title="采购管理计划明细" fit="true">
+            <div title="发货明细" style="padding: 2px; overflow: hidden;">
+                <table id="conentry"></table>
+            </div>
+        </div>
+    </div>
+    <div region="center" border="false" split="true">
+        <div id="toolbar" style="padding: 1px 2px 0px;" class="datagrid-toolbar">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <div>
+                品牌/厂家：
+                <input type="text" name="txtBrand" id="txtBrand" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/Stock/Brand'" style="width:120px;" />
+                销区：
+                <input type="text" name="txtFCLASSAREA2NAME" id="txtFCLASSAREA2NAME" class="easyui-textbox" style="width:100px" />
+                组柜编号：
+                <input type="text" name="txtGroupNo" id="txtGroupNo" class="easyui-textbox" style="width:100px" />
+                运输方式：
+                <input id="txtTransID" name="txtTransID" type="text" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/EasyUICombobox/SubDicsTRANS?isall=true'" style="width:90px" />
+                状态：
+                <input id="txtStatus" name="txtStatus" type="text" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/EasyUICombobox/BILL_DELIVERY_FSTATUS?isall=true'" style="width:90px" />
+                日期:
+                <input class="easyui-datebox" style="width: 100px" id="txtDateFrom"> 至 <input class="easyui-datebox" style="width: 100px" id="txtDateTo">
+                <a href="#" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-control_blank_blue" id="a_reset">重置</a>
+            </div>
+        </div>
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script src="~/Scripts/Business/Biz.Dialog.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+       // $('#a_add').click(crud.add);
+        //$('#a_edit').click(crud.update);
+        $('#a_save').click(onsave);
+      
+        conentry.bind();
+
+        $('#a_search').click(onSearch);
+        $('#a_reset').click(onReset);
+
+        grid.databind();
+
+        $(window).resize(function () { //浏览器窗口变化
+            cover();
+        });
+
+        $("#toolbar").css("height", "60px");
+
+    });
+
+    function cover() {
+        var win_width = $(window).width();
+        var win_height = $(window).height();
+        //$("#bigpic").attr({ width: win_width, height: win_height });
+    }
+
+    function onSearch() {
+        $('#gridView').datagrid('load', {
+            brandid: $("#txtBrand").combobox('getValue'),
+            groupno: $("#txtGroupNo").textbox('getValue'),
+            startDate: $("#txtDateFrom").datebox('getValue'),
+            endDate: $("#txtDateTo").datebox('getValue'),
+            classarea2name: $("#txtFCLASSAREA2NAME").textbox('getValue'),
+            status: $("#txtStatus").combobox('getValue'),
+            transid: $("#txtTransID").combobox('getValue'),
+        });
+    }
+
+    function onReset() {
+        $("#txtFCLASSAREA2NAME").textbox("setValue", "");
+        $("#txtGroupNo").textbox("setValue", "");
+        $("#txtDateFrom").datebox("setValue", "");
+        $("#txtDateTo").datebox("setValue", "");
+        $("#txtBrand").combobox("setValue", "");
+        $("#txtTransID").combobox("setValue", "");
+        $("#txtStatus").combobox("setValue", "");
+        $('#gridView').datagrid('load', { filter: {} });
+    }
+
+    function initData() {
+        $('#deliveryTab').tabs({
+            onLoad: function () {
+                $('.validatebox-tip').remove();
+            }
+        });
+    }
+
+     //=====================================
+    //列表界面上的Grid控件对象
+    //=====================================
+    var grid = {
+        databind: function (size) {
+            $('#gridView').datagrid({
+                url: '/Delivery/Data',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                checkOnSelect: false,
+                selectOnCheck: false,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    { field: 'FID', checkbox: true },
+                    { title: '组柜编号', field: 'FGROUP_NO', width: 120, sortable: true },
+                    { title: '日期', field: 'FDATESTR', width: 120, sortable: true, align: 'center' },
+                    { title: '计划信息', field: 'FPLAN_INFO', width: 90, sortable: true },
+                    { title: '品牌/厂家', field: 'FBRANDNAME', width: 90, sortable: true },
+                    { title: '二级销区', field: 'FCLASSAREA2NAME', width: 100, sortable: true },
+                    { title: '运输方式', field: 'FTRANSNAME', width: 90, sortable: true },
+                    { title: '发货方', field: 'FDELIVERERADDR', width: 200, sortable: true },
+                    { title: '收货方', field: 'FRECEIVERADDR', width: 200, sortable: true },
+                    {
+                        title: '总重量', field: 'FALLWEIGHT', width: 90, sortable: true, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                   
+                    { title: '承运公司', field: 'FEXPRESSCOMPANYNAME', width: 90, sortable: true, editor: { type: 'textbox', options: {} } },
+                     {
+                         title: '', field: 'FEXPRESSCOMPANYID', width: 30, formatter: function (value, row, i) {
+                             return '<img style="cursor:pointer" onclick="openExpressCompanyForm(' + i + ');" src="/css/icon/16/search.png" />';
+                         }
+                     },
+                    { title: '车牌号', field: 'FCARNUMBER', width: 90, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '运单号', field: 'FWAYBILLNO', width: 90, sortable: true, editor: { type: 'textbox', options: {} } },
+                    {
+                        title: '运费金额', field: 'FAMOUNT', width: 120, sortable: true, align: 'right', editor: { type: 'textbox', options: {} }, formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    {
+                        title: '状态', field: 'FSTATUS', width: 80, sortable: true, align: 'center', formatter: function (v, d, i) {
+                            if (v == 0) {
+                                return '草稿';
+                            }
+                            else if (v == 1) {
+                                return '确认';
+                            }                           
+                        }
+                    }
+                ]],
+                autoRowHeight: true,
+                view: scrollview,
+                //pagination: true,
+                pageSize: 50,
+                onClickRow: function (rowIndex, rowData) {
+                    $('#conentry').datagrid('reload', { groupno: rowData.FGROUP_NO });
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+          
+                },
+                queryParams: {
+                    chkclose: $("#chkClose").attr('checked') != "checked",
+                },
+                onLoadSuccess: function (data) {
+                    var rows = $('#gridView').datagrid('getRows');
+                    for (var i = 0; i < rows.length; i++) {
+                        $('#gridView').datagrid('beginEdit', i);
+                    }
+
+                    //$('.datagrid-cell-c2-FEXPRESSCOMPANYNAME').find('.textbox-text').on('click', function () {
+                        
+                    //    openExpressCompanyDialog(function (row) {
+                    //        var selectrow = $('#gridView').datagrid('getSelected');
+                            
+                    //        if (selectrow) {
+                    //            var index = $('#gridView').datagrid('getRowIndex', selectrow);
+                    //            var editor = $('#gridView').datagrid('getEditor', { index: index, field: 'FEXPRESSCOMPANYNAME' });
+                    //            $(editor.target).textbox('setValue', row.FNAME);
+
+                    //            $('#gridView').datagrid('getRows')[index]['FEXPRESSCOMPANYID'] = row.FID;
+                    //        }
+                    //    });
+                    //});
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+    };
+
+    //=====================================
+    //发货明细列表界面上的Grid控件对象
+    //=====================================
+    var conentry = {
+        bind: function (winSize) {
+            $('#conentry').datagrid({
+                url: "/Delivery/GroupData/",
+                iconCls: 'icon icon-list',
+                fit: true,
+                nowrap: false, //折行
+                rownumbers: true, //行号
+                striped: true, //隔行变色
+                idField: 'FID', //主键
+                singleSelect: true, //单选
+                frozenColumns: [[]],
+                columns: [[
+                    { title: '所属系列', field: 'FPRODUCTTYPE', width: 90 },
+                    { title: '品牌部', field: 'FBRAND', width: 120 },
+                    { title: '厂家代码', field: 'FSRCCODE', width: 120 },
+                    { title: '厂家名称', field: 'FSRCNAME', width: 120 },
+                    { title: '厂家规格', field: 'FSRCMODEL', width: 120 },
+                    { title: '发货数量', field: 'FCOMMITQTY', width: 90, align: 'right' },
+                    { title: '厂家单位', field: 'FSRCUNIT', width: 60, align: 'center' },
+                    { title: '计划数量', field: 'FASKQTY', width: 90, align: 'right' },
+                    { title: '采购单位', field: 'FORDERUNIT', width: 60, align: 'center' },
+                    { title: '色号', field: 'FCOLORNO', width: 90 },
+                    { title: '等级', field: 'FLEVEL', width: 90 },
+                    { title: '仓库', field: 'FSTOCK', width: 110 },
+                    { title: '备注', field: 'FREMARK', width: 300 },
+                    { title: '采购备注1', field: 'FDESCRIPTION', width: 200 },
+                    { title: '采购备注2', field: 'FDESCRIPTION', width: 200 },
+                    { title: '销区备注', field: 'FDESCRIPTION', width: 200 },
+                    { title: '商品代码', field: 'FPRODUCTCODE', width: 100 },
+                    { title: '商品名称', field: 'FPRODUCTNAME', width: 250 },
+                    { title: '规格型号', field: 'FMODEL', width: 120 },                    
+                    { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center' },                    
+                     {
+                         title: '主单位数量', field: 'FHNAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+                             return fmoney(v, 0);
+                         }
+                     },
+
+                    {
+                        title: '请购剩余数量', field: 'FLEFTAMOUNT', width: 100, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    { title: '主单位', field: 'FUNITNAME', width: 60, align: 'center' },
+                     {
+                         title: '单价', field: 'FPRICE', width: 80, align: 'right', formatter: function (v, d, i) {
+                             return fmoney(v, 6);
+                         }
+                     },
+                    {
+                        title: '金额', field: 'FAMOUNT', width: 80, align: 'right', formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                      { title: '价格政策编号', field: 'FPOLICYBILLNO', width: 100 },
+                    { title: '价格政策名称', field: 'FPOLICYNAME', width: 100 },
+
+                    { title: '重量', field: 'FWEIGHT', width: 60 },
+                    { title: '体积', field: 'FVOLUME', width: 60 },
+                    { title: '请购计划号', field: 'ICPRBILLNO', width: 150 },
+                    { title: '发货日期', field: 'FNEEDDATESTR', width: 95 },
+                    { title: '检查错误描述', field: 'FERR_MESSAGE', width: 300 },
+                   
+                ]]
+            });
+        },
+        getSelectedRow: function () {
+            return $('#conentry').datagrid('getSelected');
+        },
+        reload: function (groupno) {
+            $('#conentry').datagrid('load', { groupno: groupno });
+        }
+    };
+
+    function openExpressCompanyForm(rowIndex) {
+        openExpressCompanyDialog(function (row) {
+            //var index = $('#gridView').datagrid('getRowIndex', rowIndex);
+            var editor = $('#gridView').datagrid('getEditor', { index: rowIndex, field: 'FEXPRESSCOMPANYNAME' });
+            $(editor.target).textbox('setValue', row.FNAME);
+
+            $('#gridView').datagrid('getRows')[rowIndex]['FEXPRESSCOMPANYID'] = row.FID;
+        });
+    }
+
+    function onsave() {
+        $('#gridView').datagrid('acceptChanges');
+
+        var rows = $('#gridView').datagrid('getChecked');
+
+        var datas =  new Array();
+        for (var i = 0; i < rows.length; i++) {
+            datas.push({
+                FID: rows[i].FID,
+                FEXPRESSCOMPANYID: rows[i].FEXPRESSCOMPANYID,
+                FCARNUMBER: rows[i].FCARNUMBER,
+                FWAYBILLNO: rows[i].FWAYBILLNO,
+                FAMOUNT: rows[i].FAMOUNT
+            });
+        }
+
+        if (datas.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/Delivery/Save",
+                data: { data: JSON.stringify(datas) },
+                dataType: "json",
+                success: function (d) {
+                    if (d.errCode == 0) {
+                        parent.layer.msg('保存成功');
+                        grid.reload();
+
+                        var rows = $('#gridView').datagrid('getRows');
+                        for (var i = 0; i < rows.length; i++) {
+                            $('#gridView').datagrid('beginEdit', i);
+                        }
+                    }
+                    else {
+                        parent.layer.alert(d.Message);
+                    }
+                },
+                error: function (message) {
+                    parent.layer.alert(message);
+                }
+            });
+        }
+        else {
+            parent.layer.alert("请勾选你要保存的数据！");
+        }
+    }
+</script>

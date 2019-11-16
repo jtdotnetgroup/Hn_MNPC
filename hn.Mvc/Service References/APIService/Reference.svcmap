@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="692e02b5-6038-4223-852e-5d4a91b39397" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:62037/APIService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="APIService2.xsd" MetadataType="Schema" ID="b4190bf6-3fc2-41fc-9ece-77564d395970" SourceId="1" SourceUrl="http://localhost:62037/APIService.svc?xsd=xsd3" />
+    <MetadataFile FileName="APIService21.xsd" MetadataType="Schema" ID="dafb2830-a9c0-42ca-b710-d47b895bc9e6" SourceId="1" SourceUrl="http://localhost:62037/APIService.svc?xsd=xsd2" />
+    <MetadataFile FileName="APIService22.xsd" MetadataType="Schema" ID="dd74a201-8e1f-4b77-956c-bd1ec48e7472" SourceId="1" SourceUrl="http://localhost:62037/APIService.svc?xsd=xsd1" />
+    <MetadataFile FileName="APIService23.xsd" MetadataType="Schema" ID="d1897162-8499-4136-b477-038b65010a77" SourceId="1" SourceUrl="http://localhost:62037/APIService.svc?xsd=xsd0" />
+    <MetadataFile FileName="APIService.wsdl" MetadataType="Wsdl" ID="1de08504-ffe1-4b8d-b2be-57fd0db4e8b7" SourceId="1" SourceUrl="http://localhost:62037/APIService.svc?wsdl" />
+    <MetadataFile FileName="APIService.disco" MetadataType="Disco" ID="47d836d6-16b2-4f8e-8f2c-858b866769b6" SourceId="1" SourceUrl="http://localhost:62037/APIService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

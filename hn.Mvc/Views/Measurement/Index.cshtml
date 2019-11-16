@@ -1,0 +1,525 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@*<body class="easyui-layout">
+        <div region="center" border="false" split="true">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <table id="gridView" toolbar="#toolbar"></table>
+        </div>
+    </body>*@
+
+
+<body class="easyui-layout" onload="initData()">
+    <div region="center" border="false" split="true">
+        <div class="datagrid-toolbar" id="toolbar" style="height: 28px; padding-top: 1px; padding-right: 2px; padding-bottom: 0px; padding-left: 2px;">
+            @Html.Raw(ViewBag.ToolBar)
+        </div>
+        <!-- datagrid 列表 -->
+        <table id="gridView" toolbar="#toolbar"></table>
+    </div>
+</body>
+
+<script type="text/javascript" src="/Scripts/Business/Search.js?v=3"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#a_add').click(crud.add);
+        $('#a_edit').click(crud.edit);
+        $('#a_delete').click(crud.del);
+        
+        $('#a_search').click(function () {
+            search.go('gridView');
+        });
+        $('#a_search2').click(onSearch);
+        $('#a_reset').click(onReset);
+        $('#a_syncjde').click(onSync);
+
+        grid.databind();
+
+        $(window).resize(function () { //浏览器窗口变化
+            cover();
+        });
+    });
+
+    function cover() {
+        var win_width = $(window).width();
+        var win_height = $(window).height();
+        //$("#bigpic").attr({ width: win_width, height: win_height });
+    }
+
+    function onSearch() {
+        var number = $('#txtNUMBER').val();
+        var custname = $('#txtCUST_NAME').val();
+        var status = $('#txtSTATUS').combobox("getValue");
+        var datefrom = $('#txtDateFrom').datebox('getValue');
+        var dateto = $('#txtDateTo').datebox('getValue');
+
+        var ruleArr = [];
+        if (number != "")
+            ruleArr.push({ "field": "FContractNo", "op": "cn", "data": number });
+        if (custname != "")
+            ruleArr.push({ "field": "CustName", "op": "cn", "data": custname });
+        if (status != "") {
+            ruleArr.push({ "field": "FStatus", "op": "eq", "data": status });
+        }
+        if (datefrom != '' && dateto == '') {
+            ruleArr.push({ "field": "Date", "op": "cn", "data": datefrom });
+        }
+        else if (dateto != '' && datefrom == '') {
+            ruleArr.push({ "field": "Date", "op": "cn", "data": dateto });
+        }
+        else if (dateto != '' && datefrom != '') {
+            ruleArr.push({ "field": "Date", "op": "ge", "data": datefrom });
+            ruleArr.push({ "field": "Date", "op": "le", "data": dateto });
+        }
+
+
+        if (ruleArr != null && ruleArr.length > 0) {
+            filterObj = { groupOp: 'AND', rules: ruleArr };
+            $('#gridView').datagrid('load', { filter: JSON.stringify(filterObj) });
+        } else {
+            $('#gridView').datagrid('load', { filter: {} });
+        }
+    }
+
+    function onReset() {
+        $('#txtNUMBER').textbox("setValue", "");
+        $('#txtCUST_NAME').textbox("setValue", "");
+        $('#txtSTATUS').textbox("setValue", "");
+        $('#txtDateFrom').datebox("setValue", "");
+        $('#txtDateTo').datebox("setValue", "");
+
+        $('#gridView').datagrid('load', { filter: {} });
+    }
+
+    function initData() {
+   
+    }
+
+
+    function getAddParam(action, FID) {
+
+        var o = {};
+        var form = top.$('#dicForm');
+        var query = {};
+        if (form) {
+            var FNumber = top.$('#lblNumber').val();
+            if (FNumber != null && FNumber == "") {
+                top.$('#lblName').focus();
+                return "";
+            }
+
+
+            var FName = top.$('#lblName').textbox('getValue');
+            if (FName != null && FName == "") {
+                top.$('#lblName').focus();
+                return "";
+            }
+
+            //var FGroupID = top.$('#lblUnitGroup').textbox('getValue');
+            //if (FGroupID != null && FGroupID == "弹出商品选择界面" || FGroupID == "") {
+            //    alert("单位组不能为空");
+            //    top.$('#lblName').focus();
+            //    return "";
+            //}
+
+
+            //var FRate = top.$('#lblMatrixing').textbox('getValue');
+            //if (FRate != null && FRate == "") {
+            //    top.$('#lblMatrixing').focus();
+            //    return "";
+            //}
+
+            var FDefault = top.$("#txtSTATUS").combobox('getValue');
+            query.FName = FName;
+            query.FNumber = FNumber;
+            query.FGroupID = FGroupID;
+            query.FDefault = FDefault;
+            query.FRate = FRate;
+            query.FUpdateTime = "";
+            query.action = action;
+            query.FID = FID;
+
+            var data7 = top.$('#txt_remark').val();
+            if (data7 != null) {
+                query.FRemark = data7;
+            }
+
+            var jsonArrayFinal = JSON.stringify(query)
+            o.jsonEntity = jsonArrayFinal;
+        }
+
+
+        return "json=" + JSON.stringify(o);
+    }
+
+
+    //=====================================
+    //根据Form上的控件绑定的data-bind属性
+    //自动将控件的值转成json格式
+    //=====================================
+    function createParam(id) {
+        var o = {};
+        var form = top.$('#uiform');
+        var query = '';
+        if (form) {
+            query = top.$('#uiform').serializeArray();
+            query = convertArray(query);
+            o.jsonEntity = JSON.stringify(query);
+
+            var data = top.$('#dgConEntry').datagrid('getData');
+            if (data != null && data != "" && data.rows != null && data.rows.length > 0) {
+                o.data1 = JSON.stringify(data);
+            }
+            var data2 = top.$('#dgConPayment').datagrid('getData');
+            if (data2 != null && data2 != "" && data2.rows != null && data2.rows.length > 0) {
+                o.data2 = JSON.stringify(data2);
+            }
+            var data3 = top.$('#dgConCollection').datagrid('getData');
+            if (data3 != null && data3 != "" && data3.rows != null && data3.rows.length > 0) {
+                o.data3 = JSON.stringify(data3);
+            }
+            var data4 = top.$('#dgConInvoice').datagrid('getData');
+            if (data4 != null && data4 != "" && data4.rows != null && data4.rows.length > 0) {
+                o.data4 = JSON.stringify(data4);
+            }
+        }
+        o.FID = id;
+        return "json=" + JSON.stringify(o);
+    }
+
+    //=====================================
+    //列表界面上的Grid控件对象
+    //=====================================
+    var grid = {
+        databind: function (size) {
+            $('#gridView').datagrid({
+                url: 'Measurement/List',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                rownumbers: true, //行号
+                columns: [[
+                    //{ field: 'FID', checkbox: true },
+                    //{ title: 'JDE系统ID', field: 'FID', width: 120, sortable: true },
+                    { title: '编号', field: 'FNUMBER', width: 100, sortable: true },
+                    { title: '名称', field: 'FNAME', width: 250, sortable: true },
+                    //{
+                    //    title: '单位组名称', field: 'FGROUPID', width: 150, sortable: true, formatter: function (value, row, index) {
+                    //        return row.FGROUPNAME;
+                    //    }
+                    //},
+                    //{
+                    //    title: '是否默认', field: 'FDEFAULT', width: 150, sortable: true
+                    //    , formatter: function (value, row, index) {
+                    //        return row.FDEFAULTNAME;
+                    //    }
+                    //},
+                    //{ title: '换算率', field: 'FRATE', width: 150, sortable: true },
+                    { title: '更新时间', field: 'FUPDATETIME', width: 150, sortable: true },
+                    { title: '备注', field: 'FREMARK', width: 300, sortable: true }
+                ]],
+                pagination: true,
+                pageSize: PAGESIZE,
+                onClickRow: function (rowIndex, rowData) {
+
+                },
+                onDblClickRow: function (rowIndex, rowData) {
+                    crud.edit();
+                }
+            });
+        },
+        reload: function () {
+            $('#gridView').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#gridView').datagrid('getSelected');
+        }
+    };
+
+    var crud = {
+        initData: function () {
+            top.$()
+        },
+        initData: function (depid) {
+
+            //top.$('#userTab').tabs({
+            //    onSelect: function () {
+            //        top.$('.validatebox-tip').remove();
+            //    }
+            //});
+
+
+            //bindDictionary(top.$('#txtFContractType'), DIC_CONST_017);
+            //bindDictionary(top.$('#txtFPayMethod'), DIC_CONST_018);
+            //top.$('#txtFSerialNum').textbox('disable', false);
+
+            //项目
+            //bindProjectsDialog(top.$('#txtItemName'), function (row) {
+            //    top.$('#txtItemName').searchbox("setValue", row.FName);
+            //    top.$('#txtFItemID').textbox("setValue", row.FID);
+            //});
+            //top.$('#txtCustName').textbox('disable', true);
+
+            //客户
+            //bindCustomerDialog(top.$('#txtCustName'), function (row) {
+            //    top.$('#txtCustName').searchbox("setValue", row.FName);
+            //    top.$('#txtFCustID').textbox("setValue", row.FID);
+            //});
+
+            //bindOrganizeDialog(top.$('#txtBrName'), '签约公司选择', "1,5", null, function (row) {
+            //    top.$('#txtBrName').searchbox("setValue", row.FName);
+            //    top.$('#txtFBrID').textbox("setValue", row.FID);
+            //});
+
+            //bindEmployeeDialogByCompany(top.$('#txtEmpName'), top.$('#txtFBrID'), function (row) {
+            //    top.$('#txtEmpName').searchbox("setValue", row.FName);
+            //    top.$('#txtFEmpID').textbox("setValue", row.FID);
+            //});
+
+            //bindEmployeeDialog(top.$('#txtEmpName'), null, function (row) {
+            //    top.$('#txtEmpName').searchbox("setValue", row.FName);
+            //    top.$('#txtFEmpID').textbox("setValue", row.FID);
+            //});
+        },
+        //新增/编辑
+        add: function () {
+            var addDialog = top.$.hDialog(
+                {
+                    href: '/Measurement/Add' + '?v=' + Math.random(),
+                    width: 400,
+                    height: 380,
+                    title: '新增计量单位组',
+                    iconCls: 'icon-application_form_add',
+                    onLoad: function () {
+                        //绑定单位组弹窗
+                        bindMeasurementGroupDialog(top.$('#FGROUPNAME'), function (row) {
+                            top.$('#FGROUPNAME').searchbox("setValue", row.FNAME);
+                            top.$('#FGROUPID').val(row.FID);
+                        });
+
+                        //绑定是否下拉框
+                        bindYesOrNoComboBox(top.$('#FDEFAULT'), 0, function (item) {
+
+                        });
+                    },
+                    closed: false,
+                    showBtns: false,
+                    toolbar: [{
+                        text: '新增',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            top.$('#uiform').form({
+                                url: '/Measurement/Save',
+                                onSubmit: function () {
+                                    //return $(this).form('enableValidation').form('validate');
+                                },
+                                success: function (data) {
+                                    var result = $.parseJSON(data);
+                                    if (result.Success) {
+                                        parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                            grid.reload();
+                                            top.$('#FNUMBER').textbox('setValue', '');
+                                            top.$('#FNAME').textbox('setValue', '');
+                                            top.$('#FGROUPNAME').searchbox('setValue', '');
+                                            top.$('#FGROUPID').val('');
+                                            top.$('#FDEFAULT').combobox('setValue', '0');
+                                            top.$('#FRATE').numberbox('setValue', '0');
+                                            top.$('#FREMARK').textbox('setValue', '');
+                                            //editDialog.dialog('close');
+                                            parent.layer.close(index);
+                                        });
+
+                                    } else {
+                                        parent.layer.alert(result.Message, { icon: 2 });
+                                    }
+                                }
+                            });
+
+                            top.$('#uiform').submit();
+                        }
+                    },
+                    {
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            top.$('#uiform').form({
+                                url: '/Measurement/Save',
+                                onSubmit: function () {
+                                    //return $(this).form('enableValidation').form('validate');
+                                },
+                                success: function (data) {
+                                    var result = $.parseJSON(data);
+                                    if (result.Success) {
+                                        parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                            grid.reload();
+                                            addDialog.dialog('close');
+                                            parent.layer.close(index);
+                                        });
+
+                                    } else {
+                                        parent.layer.alert(result.Message, { icon: 2 });
+                                    }
+                                }
+                            });
+
+                            top.$('#uiform').submit();
+                        }
+                    },
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            addDialog.dialog('close');
+                        },
+                    },
+                    ],
+                });
+        },
+        edit: function (row) {
+            var editDialog = top.$.hDialog(
+                {
+                    href: '/Measurement/Edit' + '?v=' + Math.random(),
+                    width: 400,
+                    height: 380,
+                    title: '编辑计量单位组',
+                    iconCls: 'icon-application_form_edit',
+                    onLoad: function () {
+                        //绑定单位组弹窗
+                        bindMeasurementGroupDialog(top.$('#FGROUPNAME'), function (row) {
+                            top.$('#FGROUPNAME').searchbox("setValue", row.FGROUPNAME);
+                            top.$('#FGROUPID').val(row.FID);
+                        });
+                        
+                        var row = $('#gridView').datagrid('getSelected');
+
+                        if (!row) {
+                            parent.layer.alert('请选择要编辑的计量单位！');
+                            return;
+                        }
+
+                        top.$('#FID').val(row.FID);
+                        top.$('#FNUMBER').textbox('setValue', row.FNUMBER);
+                        top.$('#FNAME').textbox('setValue', row.FNAME);
+                        top.$('#FGROUPNAME').searchbox('setValue', row.FGROUPNAME);
+                        top.$('#FGROUPID').val(row.FGROUPID);
+                        top.$('#FRATE').textbox('setValue', row.FRATE);
+                        top.$('#FREMARK').textbox('setValue', row.FREMARK);
+                        top.$('#FDEFAULT').combobox('setValue', row.FDEFAULT);
+
+                        top.$('#uiform').form({
+                            url: '/Measurement/Save',
+                            onSubmit: function () {
+                                //return $(this).form('enableValidation').form('validate');
+                            },
+                            success: function (data) {
+                                var result = $.parseJSON(data);
+                                if (result.Success) {
+                                    parent.layer.alert(result.Message, { icon: 1 }, function (index) {
+                                        grid.reload();
+                                        parent.layer.close(index);
+                                        editDialog.dialog('close');
+                                    });
+
+                                } else {
+                                    parent.layer.alert(result.Message, { icon: 2 });
+                                }
+                            }
+                        });
+                    },
+                    closed: false,
+                    showBtns: false,
+                    toolbar: [{
+                        text: '保存',
+                        iconCls: 'icon-database_save',
+                        handler: function () {
+                            top.$('#uiform').submit();
+                        }
+                    },
+                    {
+                        text: '关闭',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            editDialog.dialog('close');
+                        },
+                    },
+                    ],
+                });
+        },
+        //删除
+        del: function () {
+            var row = grid.selectRow();
+            if (row) {
+                var o = {}
+                o.FID = row.FID;
+                var query = "json=" + JSON.stringify(o);
+
+                top.$.messager.confirm('删除', '您确定要删除这行内容嘛?', function (r) {
+                    if (r) {
+                        $.ajaxjson('/Measurement/Delete', query, function (d) {
+                            if (d.errCode == 0) {
+                                parent.layer.alert('删除成功', { icon: 2 });;
+                                grid.reload();
+                            } else {
+                                parent.layer.alert(d.errMsg, { icon: 2 });
+                            }
+                        });
+                    }
+                });
+            } else {
+                parent.layer.msg('请选中你要删除的行');
+            }
+        }
+    };
+
+    function downloadFile(url) {
+
+        var form = $("<form>");//定义一个form表单
+        form.attr("style", "display:none");
+        form.attr("target", "");
+        form.attr("method", "post");
+        form.attr("action", "/DownloadFiles/Dowmload");
+        var input1 = $("<input>");
+        input1.attr("type", "hidden");
+        input1.attr("name", "strUrl");
+        input1.attr("value", url);
+        $("body").append(form);//将表单放置在web中
+        form.append(input1);
+
+        form.submit();//表单提交
+
+        //if (typeof (download_file.iframe) == "undefined") {
+        //    var iframe = document.createElement("iframe");
+        //    download_file.iframe = iframe;
+        //    document.body.appendChild(download_file.iframe);
+        //}
+        ////alert(download_file.iframe);
+        //download_file.iframe.src = url;
+        //download_file.iframe.style.display = "none";
+    }
+
+    //从JDE系统同步单位数据
+    function onSync() {
+
+        parent.layer.confirm('点击确定开始从JDE同步数据?', {
+            icon: 3,
+            btn: ['确认', '取消']
+        }, function () {
+            parent.layer.load();
+            $.ajaxjson('/BranMeasurementd/Sync', query, function (d) {
+                if (parseInt(d) > 0) {
+                    parent.layer.closeAll();
+                    parent.layer.msg("同步完成！");
+                    grid.reload();
+                } else {
+                    parent.layer.alert('同步失败', { icon: 2 });
+                }
+            });
+        });
+       
+    }
+</script>

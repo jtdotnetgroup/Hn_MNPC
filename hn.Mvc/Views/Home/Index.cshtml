@@ -1,0 +1,228 @@
+﻿@{
+    ViewBag.Title = "华耐家居·采购管理平台";
+    Page.BodyStyle = " class=\"easyui-layout\" style=\"overflow-y: hidden;\" fit=\"true\" scroll=\"no\"";
+}
+
+
+<link href="~/Css/style2.css" rel="stylesheet" />
+<script type="text/javascript">
+    var theme = '@hn.Core.SysVisitor.Theme';
+
+    $(function () {
+        //$.hLoading.show();
+        //setTimeout($('#loading-mask').fadeOut(),500000);
+        $('#loginOut').click(function () {
+            $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function (r) {
+                if (r) {
+                    location.href = '/Login/Quit';
+                }
+            });
+        });
+        $('#notity').jnotifyInizialize({
+            oneAtTime: true,
+            appendType: 'append'
+        }).css({
+            'position': 'absolute',
+            '-top': '2px', 'left': '50%',
+            'margin': '20px 0px 0px -120px',
+            '-margin': '0px 0px 0px -120px',
+            //'right': '20px',
+            'width': '240px',
+            'z-index': '9999'
+        });
+
+
+        $(window).load(function () {
+            $('#loading').fadeOut();
+        });
+
+    });
+
+    function callBackToIframe(data) {
+        var pp = $('#tabs').tabs('getSelected');
+        pp.find("#iframeMain")[0].contentWindow.deliveryData(data);
+
+    }
+
+</script>
+
+<style type="text/css">
+    .admin-content-list {
+        border: 1px solid #e9ecf1;
+        margin-top: 0;
+        overflow: hidden;
+    }
+
+        .admin-content-list li {
+            width: 25%;
+            height: 120px;
+            margin-top: 20px;
+            float: left;
+            text-align: center;
+            font-size: 14px;
+            line-height: 23px;
+        }
+
+    .am-text-success {
+        color: #5eb95e;
+    }
+
+    .am-icon-btn {
+        box-sizing: border-box;
+        width: 100%;
+        height: 64px;
+        font-size: 24px;
+        line-height: 64px;
+        color: #555;
+        overflow: hidden;
+        display: block;
+    }
+
+    .am-icon-btn, .am-responsive-width, .ath-viewport * {
+        -webkit-box-sizing: border-box;
+    }
+    /*.tree-lines .tree-expanded, .tree-lines .tree-root-first .tree-expanded {
+        background: none;
+    }
+    .tree-lines .tree-node-last .tree-expanded, .tree-lines .tree-root-one .tree-expanded {
+        background: none;
+    }
+    .tree-lines .tree-collapsed, .tree-lines .tree-root-first .tree-collapsed {
+        background: none;
+    }
+    .tree-lines .tree-node-last .tree-collapsed, .tree-lines .tree-root-one .tree-collapsed {
+        background: none;
+    }*/
+</style>
+
+<div id="loading" style="position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 100; overflow: hidden;">
+    <img src="/Images/ajax-loader.gif" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;" />
+</div>
+<noscript>
+    <div style="position: absolute; z-index: 100000; height: 2046px; top: 0px; left: 0px;
+     width: 100%; background: white; text-align: center;">
+        <img src="/Images/noscript.
+<noscript>
+    <div style="position: absolute; z-index: 100000; height: 2046px; top: 0px; left: 0px; width: 100%; background: white; text-align: center;">
+        <img src="/Images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+    </div>
+</noscript>
+@Html.Raw(ViewBag.NavContent)
+<div region="south" split="false" style="height: 30px; " border="true">
+    <div class="footer">
+        登录系统时间：@System.DateTime.Now.ToString()
+        版本号：v1.0.1
+
+    </div>
+</div>
+<div id="mainPanle" region="center" style="background: #eee; overflow-y: hidden"
+     border="false">
+    <div id="tabs" class="easyui-tabs" fit="true">
+        <div title="首页" style="padding: 20px; height: auto;" id="home">
+            <div class="alldiv">
+                <div class="content-tab-wrap">
+                    <div class="content-tab">
+                        <div class="content-tab-ul-wrap">
+                            <ul>
+                                <li><a href="javascript:void(0);" onclick="tabs(this);" class="selected">未读消息</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="msg">
+                        <ul>
+                            <li><a href="#">1、2016.06.08 12:30 新订单（PO20160608-1）</a></li>
+                            <li><a href="#">2、2016.06.08 12:30 新订单（PO20160608-1）</a></li>
+                            <li><a href="#">3、2016.06.08 12:30 新订单（PO20160608-1）</a></li>
+                            <li><a href="#">4、2016.06.08 12:30 新订单（PO20160608-1）</a></li>
+                            <li><a href="#">5、2016.06.08 12:30 新订单（PO20160608-1）</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="alldiv">
+                <div class="content-tab-wrap">
+                    <div class="content-tab">
+                        <div class="content-tab-ul-wrap">
+                            <ul>
+                                <li><a href="javascript:void(0);" onclick="tabs(this);" class="selected">新增业务</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    新增业务内容
+                </div>
+            </div>
+            <div class="alldiv">
+                <div class="content-tab-wrap">
+                    <div class="content-tab">
+                        <div class="content-tab-ul-wrap">
+                            <ul>
+                                <li><a href="javascript:void(0);" onclick="tabs(this);" class="selected">系统更新日志</a></li>
+                                <li style="line-height: 28px;margin-left: 5px;"><span>&nbsp;共@(ViewBag.UpdateLogCount)条记录</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="msg">
+                        @{IEnumerable<hn.DataAccess.Model.SYS_UPDATELOGMODEL> list = (IEnumerable<hn.DataAccess.Model.SYS_UPDATELOGMODEL>)ViewBag.UpdateLogList;
+                            int index = 1;
+                        }
+                        <ul>
+                            @foreach (var item in list)
+                            {
+                                <li><a href="#">@(index)、@item.FContent</a></li>
+                                index++;
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="closeMenu" class="easyui-menu" style="width: 150px;">
+    <div id="refresh" iconcls="icon-arrow_refresh">
+        刷新
+    </div>
+    <div class="menu-sep">
+    </div>
+    <div id="close">
+        关闭
+    </div>
+    <div id="closeall">
+        全部关闭
+    </div>
+    <div id="closeother">
+        除此之外全部关闭
+    </div>
+    <div class="menu-sep">
+    </div>
+    <div id="closeright">
+        关闭右侧标签
+    </div>
+    <div id="closeleft">
+        关闭左侧标签
+    </div>
+    <div class="menu-sep">
+    </div>
+    <div id="exit">
+        退出
+    </div>
+</div>
+<div id="notity">
+</div>
+<!-- 加入隐藏的帧，用于检查用户的登录状态是否已过期 -->
+@*<iframe height="0" width="0" src="CheckUserState.aspx"></iframe>*@
+<script type="text/javascript" src="/Scripts/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/Scripts/validate/jQuery.Validate.message_cn.js"></script>
+@*<script type="text/javascript" src="/Scripts/Editor/xhEditor/xheditor-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/Scripts/Editor/xhEditor/xheditor_lang/zh-cn.js"></script>*@
+<script type="text/javascript" src="/Scripts/knockout/knockout-2.1.0.js"></script>
+<script type="text/javascript" src="/Scripts/knockout/knockout.mapping-latest.js"></script>
+<script type="text/javascript" src='/Home/MenuData'> </script>
+<script type="text/javascript" src='/Scripts/business/newlayout.js?v=3'> </script>

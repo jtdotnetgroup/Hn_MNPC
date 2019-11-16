@@ -1,0 +1,79 @@
+﻿
+
+<form id="dicForm">
+    <table class="grid">
+        <tr>
+            <td align="right">
+                品牌代码：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="" id="" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                品牌：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="" id="" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                厂家名称：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="" id="" />&nbsp;&nbsp;<font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px;" align="right">
+                接口地址：
+            </td>
+            <td>
+                <input type="text" class="easyui-textbox" name="" id="" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                备注：
+            </td>
+            <td>
+                <textarea style="width: 180px; height: 50px;" class="easyui-textbox" name="remark" id="txt_remark" />
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //编码校验
+        $('#txt_code').textbox({
+            onChange: function () {
+                var flag = $('#txtFlag').textbox('getValue');
+                if (flag != '1') {
+                    var code = $('#txt_code').textbox('getValue');
+                    var fid = $('#txtFID').textbox('getValue');
+                    //alert(fid + " - " + code);
+                    if (fid == "" || fid == null) {
+                        fid = 0;
+                    }
+                    $.ajax({
+                        url: "/DataDictionary/CheckCode",
+                        data: { code: code, id: fid },
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (e) {
+                            if (e.errCode != 0) {
+                                parent.layer.alert(e.errMsg);
+                            }
+                        }
+                    })
+                }
+                $('#txtFlag').textbox('setValue', '');
+            }
+        });
+    });
+
+</script>
+

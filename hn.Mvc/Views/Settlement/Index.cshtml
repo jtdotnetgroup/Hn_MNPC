@@ -1,0 +1,412 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<!-- 引入多功能查询js -->
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.min.js"></script>
+<script type="text/javascript" src="/Scripts/UI/Linqjs/linq.jquery.js"></script>
+<script type="text/javascript" src="/Scripts/easyui/datagrid-scrollview.js"></script>
+<body class="easyui-layout">
+    <div region="center" border="false" split="true">
+        <div id="toolbar" style="padding:1px 2px 0px;">
+            <div id="toolbar">
+                @Html.Raw(ViewBag.ToolBar)
+            </div>
+            <div>
+                品牌：
+                <input type="text" name="txtBrand" id="txtBrand" class="easyui-combobox" data-options="editable:false,valueField:'id',textField:'text',url:'/Stock/Brand'" style="width:120px;" />
+                发运日期：
+                <input type="text" name="txtStartDate" id="txtStartDate" class="txt03 easyui-datebox" style="width:100px;" />
+                至
+                <input type="text" name="txtEndDate" id="txtEndDate" class="txt03 easyui-datebox" style="width:100px;" />
+                结算分部号：
+                <input type="text" name="txtSettleOrg" id="txtSettleOrg" class="txt03 easyui-textbox" style="width:100px;" />
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-search" id="a_search">查询</a>
+                <a href="#" class="easyui-linkbutton" iconcls="icon-zoom_out" id="a_reset">重置</a>
+                <a href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-page_excel" id="a_export">导出</a>
+            </div>
+        </div>
+        <table id="userGrid" toolbar="#toolbar"></table>
+    </div>
+
+</body>
+<script type="text/javascript">
+
+    var filterObj
+
+    $(function () {
+
+        mygrid.databind();
+
+        $('#a_export').click(onExport);
+        $('#a_search').click(onSearch);
+        $('#a_reset').click(onReset);
+        $('#a_inport').click(onImport);
+        $('#a_save').click(onSave);
+
+        $("#toolbar").css("height", "60px");
+
+    });
+
+    //搜索按钮点击
+    function onSearch() {
+        $('#userGrid').datagrid('load',
+         {
+             settleorg: $('#txtSettleOrg').val(),
+             brand: $('#txtBrand').combobox('getText'),
+             startdate: $('#txtStartDate').datebox('getValue'),
+             enddate: $('#txtEndDate').datebox('getValue')
+         });
+    }
+
+    //重置按钮点击
+    function onReset() {
+        $("#txtBrand").combobox('setValue', '');
+        $("#txtSettleOrg").textbox('setValue', '');
+        $("#txtStartDate").datebox('setValue', '');
+        $("#txtEndDate").datebox('setValue', '');
+        onSearch();
+    }
+
+    function onImport() {
+        var BIDialog = top.$.hDialog({
+            href: '/Settlement/Import?brandno',
+            width: document.documentElement.clientWidth / 1.25,
+            height: document.documentElement.clientHeight / 1.25,
+            title: '引入',
+            iconCls: 'icon-user_add',
+            showBtns: false,
+            onLoad: function () {
+                top.$('#gridView').datagrid({
+                    url: '/Settlement/ImportData',
+                    height: document.documentElement.clientHeight / 1.25 - 90,
+                    idField: 'FID',
+                    singleSelect: true,
+                    checkOnSelect: false,
+                    selectOnCheck: false,
+                    striped: true,
+                    rownumbers: true, //行号
+                    columns: [[
+                        { field: 'fid', checkbox: true },
+                        { title: '品牌/厂家', field: 'FBRAND', width: 115, sortable: true },
+                        { title: '客户号', field: 'CUSTOMER_NO', width: 70, sortable: true },
+                        { title: '客户名称', field: 'CUSTOMER_NAME', width: 220, sortable: true },
+                        { title: 'JDE账号', field: 'FJDE', width: 120, sortable: true },
+                        { title: '厂家订单号', field: 'ORDER_NO', width: 120, sortable: true },
+                        { title: '厂家开单号', field: 'FPLAN_NO', width: 135, sortable: true },
+                        { title: '申请日期', field: 'FDATE_ENTERED', width: 90, sortable: true },
+                        { title: '提货日期', field: 'FDATE_APPLIED', width: 90, align: 'center', sortable: true },
+                        { title: '商品代码', field: 'FPRODUCTID', width: 90 },
+                        { title: '厂家型号', field: 'PART_NAME', width: 95, align: 'center', sortable: true },
+                        { title: '主计量单位', field: 'FUNITNAME', width: 90, align: 'center' },
+                        { title: '等级', field: 'GRADE', width: 70, align: 'center' },
+                        { title: '厂家仓库', field: 'WAREHOUSE', width: 110 },
+                        {
+                            title: '数量', field: 'PIC_TOTAL', width: 90, align: 'right', width: 90, sortable: true, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '单价', field: 'FPRICE', width: 90, align: 'right', width: 90, sortable: true, formatter: function (v, d, i) {
+                                return fmoney(v, 2);
+                            }
+                        },
+                        {
+                            title: '金额', field: 'FAMOUNT', width: 90, align: 'right', width: 90, sortable: true, formatter: function (v, d, i) {
+                                return fmoney(v, 2);
+                            }
+                        },
+                        { title: '参考信息', field: 'CUST_REF', width: 300 },
+                        { title: '库位', field: 'FSPID', width: 150, sortable: true },
+                        { title: '组柜编号', field: 'FGROUP_NO', width: 120, sortable: true },
+                        { title: '结算分部号', field: 'FCODE', width: 100 },
+                        { title: '二级销区', field: 'FAREA', width: 100 },
+                        { title: '收货方', field: 'FRECEIVERADDR', width: 300 },
+                        { title: '运输方式', field: 'FTRANSNAME', width: 80, sortable: true, align: 'center' },
+                        {
+                            title: '托盘数', field: 'PIC_TP', width: 100, sortable: true, align: "right", sortable: true, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '拖带数', field: 'PIC_TD', width: 100, sortable: true, align: "right", sortable: true, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        {
+                            title: '铁架数', field: 'PIC_TJ', width: 100, align: "right", sortable: true, formatter: function (v, d, i) {
+                                return fmoney(v, 0);
+                            }
+                        },
+                        { title: '记录类型', field: 'FTYPE', width: 100, align: "center" }
+                    ]],
+                    pagination: false,
+                    queryParams: {
+                    }
+                });
+            },
+            toolbar: [{
+                text: '确定',
+                iconCls: 'icon-add',
+                handler: function () {
+                    var rows = top.$('#gridView').datagrid('getChecked');
+                    var rowsNow = $('#userGrid').datagrid('getRows');
+                    var index = 1;
+
+                    for (var i = 0; i < rows.length; i++) {
+                        var flag = true;    //不相等
+                        //for (var j = 0; j < rowsNow.length; j++) {
+                        //    if (rows[i].FID == rowsNow[j].FID) {
+                        //        flag = false;   //有重复的数据
+                        //    }
+                        //}
+                        if (flag) {
+                            $('#userGrid').datagrid('appendRow', {
+                                // FID: rows[i].FID,
+                                FID: i,
+                                FBRANDNAME: rows[i].FBRAND,
+                                FSETTLE_ORG: rows[i].FCODE,
+                                FCUSTOMER_NO: rows[i].CUSTOMER_NO,
+                                FCUSTOMER_NAME: rows[i].CUSTOMER_NAME,
+                                FJDE: rows[i].FJDE,
+                                FORDER_NO: rows[i].ORDER_NO,
+                                FDATE_APPLIED: rows[i].FDATE_APPLIED,
+                                FTYPENAME: rows[i].PART_NAME,
+                                FGRADE: rows[i].GRADE,
+                                FQTY: rows[i].PIC_TOTAL,
+                                FUNIT: rows[i].FUNITNAME,
+                                FPRICE: rows[i].FPRICE,
+                                FAMOUNT: rows[i].FAMOUNT,
+                                FWAREHOUSE: rows[i].WAREHOUSE,
+                                FTRANSNAME: rows[i].FTRANSNAME,
+                                FSPID: rows[i].FSPID,
+                                //FBATCH_NO: rows[i].FBATCH_NO,
+                                //FBATCH_EXPLAIN: rows[i].FBATCH_EXPLAIN,
+                                //FSHIPPING_NO: rows[i].FSHIPPING_NO,
+                                FCONFIRM_PRICE: rows[i].FPRICE,
+                                FCONFIRM_AMOUNT: rows[i].FAMOUNT,
+                                //FJDE_ORDER: rows[i].FJDE_ORDER,
+                                FPOLICY_PRICE_NO: rows[i].FPOLICY_PRICE_NO,
+                                FPOLICY_PRICE: rows[i].FPOLICY_PRICE,
+                                FCOST_RULES: rows[i].FCOST_RULES,
+                                //FPLAN_FREIGHT_PRICE: rows[i].FPRODUCTNAME,
+                                //FPLAN_FREIGHT_AMOUNT: rows[i].FPRODUCTNAME,
+                                //FWAYBILL_NO: rows[i].FPRODUCTNAME,
+                                //FFREIGHT: rows[i].FPRODUCTNAME,
+                                //FREMARK1: rows[i].FPRODUCTNAME,
+                                //FREMARK2: rows[i].FPRODUCTNAME,
+                                //FREMARK3: rows[i].FPRODUCTNAME,
+                                FTYPE: rows[i].FTYPE,
+                                FSTATUS: 0,
+                            });
+
+
+
+                            index++;
+                        }
+                    }
+
+
+
+                    var rows = $('#userGrid').datagrid('getRows');
+                    for (var i = 0; i < rows.length; i++) {
+                        $('#userGrid').datagrid('beginEdit', i);
+                    }
+
+                    BIDialog.dialog("close");
+                }
+            },
+            {
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    BIDialog.dialog('close');
+                }
+            }]
+        });
+    }
+
+    function onExport() {
+
+        var form = $("<form>"); //定义一个form表单
+        form.attr("style", "display:none");
+        form.attr("target", "");
+        form.attr("method", "post");
+        form.attr("action", "/Report/Export1");
+
+        var billno = $("<input>");
+        billno.attr("type", "hidden");
+        billno.attr("name", "billno");
+        billno.attr("value", $('#txtBillNo').val());
+
+        var classarea2Name = $("<input>");
+        classarea2Name.attr("type", "hidden");
+        classarea2Name.attr("name", "classarea2Name");
+        classarea2Name.attr("value", $('#txtClassarea2Name').val());
+
+        var brand = $("<input>");
+        brand.attr("type", "hidden");
+        brand.attr("name", "brand");
+        brand.attr("value", $('#txtBrand').val());
+
+        var startdate = $("<input>");
+        startdate.attr("type", "hidden");
+        startdate.attr("name", "startdate");
+        startdate.attr("value", $('#txtStartDate').datebox('getValue'));
+
+        var enddate = $("<input>");
+        enddate.attr("type", "hidden");
+        enddate.attr("name", "enddate");
+        enddate.attr("value", $('#txtEndDate').datebox('getValue'));
+
+        $("body").append(form); //将表单放置在web中
+        form.append(billno);
+        form.append(classarea2Name);
+        form.append(brand);
+        form.append(startdate);
+        form.append(enddate);
+
+        form.submit(); //表单提交
+
+        return false;
+
+    }
+
+    function onSave() {
+        $('#userGrid').datagrid('acceptChanges');
+
+        var rows = $('#userGrid').datagrid('getRows');
+
+        if (rows.length == 0) {
+            parent.layer.alert("没有需要保存的数据！");
+            return;
+        }    
+
+        $.ajax({
+            type: "POST",
+            url: "/Settlement/Save",
+            data: {
+                data: JSON.stringify(rows)
+            },
+            dataType: "json",
+            success: function (d) {
+                if (d.errCode == 0) {
+                    parent.layer.msg('保存成功');
+                    mygrid.reload();
+
+                    var rows = $('#userGrid').datagrid('getRows');
+                    for (var i = 0; i < rows.length; i++) {
+                        $('#userGrid').datagrid('beginEdit', i);
+                    }
+                }
+                else {
+                    parent.layer.alert(d.Message);
+                }
+            },
+            error: function (message) {
+                parent.layer.alert(message);
+            }
+        });
+    }
+
+    var mygrid = {
+        databind: function (size) {
+            $('#userGrid').datagrid({
+                url: '/Settlement/Data',
+                fit: true,
+                idField: 'FID',
+                singleSelect: true,
+                striped: true,
+                checkOnSelect: false,
+                selectOnCheck: false,
+                rownumbers: true, //行号
+                columns: [[
+                   // { field: 'FID', checkbox: true },
+                    { title: '品牌厂家', field: 'FBRANDNAME', width: 115, sortable: true },
+                    { title: '结算分部号', field: 'FSETTLE_ORG', width: 90, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '厂家账户号', field: 'FCUSTOMER_NO', width: 110, sortable: true },
+                    { title: '厂家账户名称', field: 'FCUSTOMER_NAME', width: 180, sortable: true },
+                    { title: 'JDE账户编号', field: 'FJDE', width: 80, sortable: true },
+                    { title: '厂家订单号', field: 'FORDER_NO', width: 120, sortable: true },
+                    { title: '发运日期', field: 'FDATE_APPLIED', width: 100, sortable: true },
+                    { title: '厂家型号名称', field: 'FTYPENAME', width: 100, sortable: true },
+                    { title: '等级', field: 'FGRADE', width: 90, sortable: true },
+                    {
+                        title: '主单位数量', field: 'FQTY', width: 120, sortable: true, formatter: function (v, d, i) {
+                            return fmoney(v, 0);
+                        }
+                    },
+                    { title: '主计量单位', field: 'FUNIT', width: 80, sortable: true },
+                    {
+                        title: '单价', field: 'FPRICE', width: 100, sortable: true, align: "right", formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    {
+                        title: '金额', field: 'FAMOUNT', width: 100, sortable: true, align: "right", formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    { title: '发货基地', field: 'FWAREHOUSE', width: 100, sortable: true },
+                    { title: '运输方式', field: 'FTRANSNAME', width: 100, sortable: true },
+                    { title: '库位', field: 'FSPID', width: 130, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '批次序号', field: 'FBATCH_NO', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '批次说明', field: 'FBATCH_EXPLAIN', width: 150, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '发运号', field: 'FSHIPPING_NO', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    {
+                        title: '确认单价', field: 'FCONFIRM_PRICE', width: 250, sortable: true, align: "right", editor: { type: 'textbox', options: {} }, formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    {
+                        title: '确认总金额', field: 'FCONFIRM_AMOUNT', width: 100, sortable: true, align: "right", editor: { type: 'textbox', options: {} }, formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    { title: 'JDE订单号', field: 'FJDE_ORDER', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '价格政策编号', field: 'FPOLICY_PRICE_NO', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '价格政策取值/价格', field: 'FPOLICY_PRICE', width: 100, sortable: true, align: "right", editor: { type: 'textbox', options: {} } },
+                    { title: '卸按成本规则', field: 'FCOST_RULES', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    {
+                        title: '计划运费单价', field: 'FPLAN_FREIGHT_PRICE', width: 100, sortable: true, editor: { type: 'textbox', options: {} }, formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    {
+                        title: '计划运费金额', field: 'FPLAN_FREIGHT_AMOUNT', width: 100, sortable: true, align: "right", editor: { type: 'textbox', options: {} }, formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    { title: '运单号', field: 'FWAYBILL_NO', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    {
+                        title: '实际运费（分摊）', field: 'FFREIGHT', width: 100, sortable: true, align: "right", editor: { type: 'textbox', options: {} }, formatter: function (v, d, i) {
+                            return fmoney(v, 2);
+                        }
+                    },
+                    { title: '备注1', field: 'FREMARK1', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '备注2', field: 'FREMARK2', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '备注3', field: 'FREMARK3', width: 100, sortable: true, editor: { type: 'textbox', options: {} } },
+                    { title: '类型', field: 'FTYPE', width: 100, sortable: true },
+                    { title: '状态', field: 'FSTATUS', width: 100, sortable: true },
+                ]],
+                autoRowHeight: true,
+                //view: scrollview,
+                pagination: true,
+                onLoadSuccess: function (data) {
+                    var rows = $('#userGrid').datagrid('getRows');
+                    for (var i = 0; i < rows.length; i++) {
+                        $('#userGrid').datagrid('beginEdit', i);
+                    }
+                }
+                //pageSize: 50
+            });
+        },
+        reload: function () {
+            $('#userGrid').datagrid('clearSelections').datagrid('reload');
+        },
+        selectRow: function () {
+            return $('#userGrid').datagrid('getSelected');
+        }
+    };
+
+</script>
+
