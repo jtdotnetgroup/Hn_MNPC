@@ -334,15 +334,13 @@ namespace hn.Client
             string ids = "";
             List<string> list = new List<string>();
 
-            for (int i = 0; i < gridView发货计划列表.RowCount; i++)
+            var selectRowIndexs = gridView发货计划列表.GetSelectedRows();
+
+            foreach (var index in selectRowIndexs)
             {
-                bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
-                if (b)
-                {
-                    var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
-                    var rowData = _dataSrouce[rowIndex];
-                    list.Add(rowData.FID);
-                }
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
+                list.Add(rowData.FID);
+                
             }
 
             if (list.Count > 0)
@@ -585,19 +583,33 @@ namespace hn.Client
             string ids = "";
             List<string> list = new List<string>();
 
-            for (int i = 0; i < gridView发货计划列表.RowCount; i++)
+            var selectRowIndexs = gridView发货计划列表.GetSelectedRows();
+
+            foreach (var index in selectRowIndexs)
             {
-                bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
-                if (b)
+                //var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(index);
+                //var rowData = _dataSrouce[rowIndex];
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
+                if ( rowData!=null&&(rowData.FSTATUS == 1 || rowData.FSTATUS == 2 || rowData.FSTATUS == 4 || rowData.FSTATUS == 6))
                 {
-                    var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
-                    var rowData = _dataSrouce[rowIndex];
-                    if (rowData.FSTATUS == 1 || rowData.FSTATUS == 2 || rowData.FSTATUS == 4 || rowData.FSTATUS == 6)
-                    {
-                        list.Add(rowData.FID);
-                    }
+                    list.Add(rowData.FID);
                 }
+
             }
+
+            //for (int i = 0; i < gridView发货计划列表.RowCount; i++)
+            //{
+            //    bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
+            //    if (b)
+            //    {
+            //        var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
+            //        var rowData = _dataSrouce[rowIndex];
+            //        if (rowData.FSTATUS == 1 || rowData.FSTATUS == 2 || rowData.FSTATUS == 4 || rowData.FSTATUS == 6)
+            //        {
+            //            list.Add(rowData.FID);
+            //        }
+            //    }
+            //}
 
             if (list.Count > 0)
             {
@@ -631,20 +643,21 @@ namespace hn.Client
             string ids = "";
              list = new List<string>();
 
-            for (int i = 0; i < gridView发货计划列表.RowCount; i++)
-            {
-                bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
-                if (b)
+             var selectRowIndexs = gridView发货计划列表.GetSelectedRows();
+
+             foreach (var index in selectRowIndexs)
+             {
+                //var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(index);
+                //var rowData = _dataSrouce[rowIndex];
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
+                if ( rowData!=null&&(rowData.FSTATUS == 1 || rowData.FSTATUS == 2) && !string.IsNullOrEmpty(rowData.FBILLNO))
                 {
-                    var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
-                    var rowData = _dataSrouce[rowIndex];
-                    if ((rowData.FSTATUS == 1 || rowData.FSTATUS == 2) && !string.IsNullOrEmpty(rowData.FBILLNO))
-                    {
-                        list.Add(rowData.FID);
-                    }
+                    list.Add(rowData.FID);
                 }
+
             }
 
+           
             if (list.Count > 0)
             {
                 ids_sh = string.Join(",", list.ToArray());
@@ -669,6 +682,17 @@ namespace hn.Client
             }
         }
 
+        /// <summary>
+        /// 根据行索引获取行数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private T GetRowByIndex<T>(int index) where T:class
+        {
+            var result = gridView发货计划列表.GetRow(index) as T;
+            return result;
+        }
 
 
         private void btn反审_Click(object sender, EventArgs e)
@@ -676,20 +700,31 @@ namespace hn.Client
             string ids = "";
             list = new List<string>();
 
-            for (int i = 0; i < gridView发货计划列表.RowCount; i++)
-            {
-                bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
-                if (b)
-                {
-                    var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
-                    var rowData = _dataSrouce[rowIndex];
-                    if (rowData.FSYNCSTATUS < 1)
-                    {
-                        list.Add(rowData.FID);
-                    }
-                }
-            }
+            //for (int i = 0; i < gridView发货计划列表.RowCount; i++)
+            //{
+            //    bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
+            //    if (b)
+            //    {
+            //        var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
+            //        var rowData = _dataSrouce[rowIndex];
+            //        if (rowData.FSYNCSTATUS < 1)
+            //        {
+            //            list.Add(rowData.FID);
+            //        }
+            //    }
+            //}
 
+            var selectRowIndexs = gridView发货计划列表.GetSelectedRows();
+
+            foreach (var index in selectRowIndexs)
+            {
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
+                if (rowData!=null&&rowData.FSYNCSTATUS < 1)
+                {
+                    list.Add(rowData.FID);
+                }
+
+            }
 
             if (list.Count > 0)
             {
@@ -734,20 +769,30 @@ namespace hn.Client
 
 
             string comid = "2";
-            for (int i = 0; i < gridView发货计划列表.RowCount; i++)
-            {
-               
-                bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
-                if (b)
-                {
-                    
-                    var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
-                    var rowData = _dataSrouce[rowIndex];
-                    if (rowData.FSTATUS == 3 && (rowData.FSYNCSTATUS == 0 || rowData.FSYNCSTATUS == -1))
-                    {
-                        listModels.Add(rowData);  
-                    }
+            //for (int i = 0; i < gridView发货计划列表.RowCount; i++)
+            //{
 
+            //    bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
+            //    if (b)
+            //    {
+
+            //        var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
+            //        var rowData = _dataSrouce[rowIndex];
+            //        if (rowData.FSTATUS == 3 && (rowData.FSYNCSTATUS == 0 || rowData.FSYNCSTATUS == -1))
+            //        {
+            //            listModels.Add(rowData);  
+            //        }
+
+            //    }
+            //}
+            var selectRowIndexs = gridView发货计划列表.GetSelectedRows();
+
+            foreach (var index in selectRowIndexs)
+            {
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
+                if (rowData!=null&&(rowData.FSTATUS == 3 && (rowData.FSYNCSTATUS == 0 || rowData.FSYNCSTATUS == -1)))
+                {
+                    listModels.Add(rowData);
                 }
             }
 
@@ -1069,12 +1114,11 @@ namespace hn.Client
 
             foreach (var index in selectRowIndexs)
             {
-                var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(index);
-                var rowData = _dataSrouce[rowIndex];
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
 
                 //发货计划单处于草稿状态，并且约车状态为待发布的时候用户即可勾选多条记录进行约车
                 //if (rowData.FSTATUS == 1 && rowData.FCAR_STATUS == 1)
-                if (rowData.FCAR_STATUS == 1)
+                if (rowData!=null&&rowData.FCAR_STATUS == 1)
                 {
                     list.Add(rowData.FID);
                 }
@@ -1221,17 +1265,25 @@ namespace hn.Client
             //    }
             //}
 
-        
-            for (int i = 0; i < gridView发货计划列表.RowCount; i++)
-            {
-                bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
-                if (b)
-                {
-                    var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
-                    var rowData = _dataSrouce[rowIndex];
-                    _service.SynDeliveryNot(rowData.FID);
 
-                }
+            //for (int i = 0; i < gridView发货计划列表.RowCount; i++)
+            //{
+            //    bool b = gridView发货计划列表.GetRowCellValue(i, "FCHECK").ToBool();
+            //    if (b)
+            //    {
+            //        var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(i);
+            //        var rowData = _dataSrouce[rowIndex];
+            //        _service.SynDeliveryNot(rowData.FID);
+
+            //    }
+            //}
+
+            var selectRowIndexs = gridView发货计划列表.GetSelectedRows();
+
+            foreach (var index in selectRowIndexs)
+            {
+                var rowData = GetRowByIndex<V_ICSEOUTBILLMODEL>(index);
+                _service.SynDeliveryNot(rowData.FID);
             }
 
             this.onSearch();

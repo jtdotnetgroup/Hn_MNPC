@@ -538,9 +538,10 @@ namespace hn.Client
             int index = 1;
             List<V_ICSEOUTBILLENTRYMODEL> list = new List<V_ICSEOUTBILLENTRYMODEL>();
             var listTHD = gridControl库存查询.DataSource as v_thdModel[];
-
+            var selectedRowIndexs = gridView库存查询.GetSelectedRows();
             // 如果不等于空，则赋值给根据请购单id获取默认信息
-            var m = listTHD.Where(w => w.FCHECK).FirstOrDefault() ?? new v_thdModel();
+
+            var m = gridView库存查询.GetRow(selectedRowIndexs.First()) as v_thdModel;
             if (m != new v_thdModel())
             {
                 // m.icprbillentryid
@@ -642,10 +643,12 @@ namespace hn.Client
             {
                 f.FENTRYID = 0;
             });
-            foreach (var sub in listTHD.Where(w => w.FCHECK).ToList())
+            foreach (var rowIndex in selectedRowIndexs)
             {
                 v_thdModel selectTHD = new v_thdModel();
-                selectTHD = sub;
+                var sub=gridView库存查询.GetRow(rowIndex) as v_thdModel;
+                if(sub!=null)
+                    selectTHD = sub;
 
 
                 if (string.IsNullOrEmpty(selectTHD.cpdj))
@@ -1353,9 +1356,12 @@ namespace hn.Client
 
         private void btn删除行_Click(object sender, EventArgs e)
         {
-            List<V_ICSEOUTBILLENTRYMODEL> selrow = gridControl组柜明细.DataSource as List<V_ICSEOUTBILLENTRYMODEL>; // 获取选中行号 删除时需要 不然会错位删除数据 
-            gridControl组柜明细.DataSource = selrow.Where(w => !w.FCHECK).ToList();
-            gridControl组柜明细.RefreshDataSource();
+            //List<V_ICSEOUTBILLENTRYMODEL> selrow = gridControl组柜明细.DataSource as List<V_ICSEOUTBILLENTRYMODEL>; // 获取选中行号 删除时需要 不然会错位删除数据 
+
+           gridView组柜明细.DeleteSelectedRows();
+           
+            //gridControl组柜明细.DataSource = selrow.Where(w => !w.FCHECK).ToList();
+            //
             JS();
         }
 
@@ -2239,43 +2245,7 @@ namespace hn.Client
             return view.DataController.GetAllFilteredAndSortedRows();
         }
 
-        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-            System.Collections.IList list = GetGridViewFilteredAndSortedData(gridView库存查询);
-            List<string> listAutoID = new List<string>();
-
-            //Regex regID = new Regex("\"AUTOID\":(\\d+)");
-            //foreach (var sub in list)
-            //{
-            //    if (regID.IsMatch(sub.ToStr()))
-            //    {
-            //        listAutoID.Add(regID.Match(sub.ToStr()).Groups[1].Value.ToStr());
-            //    }
-            //}
-
-
-
-
-            var listTHD = gridControl库存查询.DataSource as v_thdModel[];
-            foreach (var sub in listTHD)
-            {
-
-                sub.FCHECK = checkBox1.Checked;
-            }
-
-            //foreach (var sub in listTHD)
-            //{
-            //    if (listAutoID.Any(x => x == sub.AUTOID.ToStr()))
-            //        sub.FCHECK = checkBox1.Checked;
-            //}
-
-
-
-
-            gridControl库存查询.DataSource = listTHD;
-            gridControl库存查询.RefreshDataSource();
-        }
+       
 
         private void textTHD_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -2519,6 +2489,15 @@ namespace hn.Client
         private void 收货方信息()
         {
             txt收货方信息.Text = cbo省.Text + cbo市.Text + cbo区.Text + cbo县.Text + txt收货方地址.Text + " " + txt收货人.Text + " " + txt收货人电话.Text;
+        }
+
+        private void gridView库存查询_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+        {
+            var selectRowIndexs = gridView库存查询.GetSelectedRows();
+            foreach (var i in selectRowIndexs)
+            {
+                gridView库存查询.SetRowCellValue(i,"FCHECK",true);
+            }
         }
     }
 }

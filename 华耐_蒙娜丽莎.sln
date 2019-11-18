@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hn.Core", "hn.Core\hn.Core.csproj", "{A2EE0C6C-76C5-49C5-BCA6-0BC862ECA195}"
 EndProject
@@ -86,8 +86,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "query", "query\", "{4C2F537
 		SlnRelativePath = "query\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hn.Client.ServiceTests", "hn.Client.ServiceTests\hn.Client.ServiceTests.csproj", "{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -275,18 +273,6 @@ Global
 		{4C2F537E-9D83-448F-9430-56548C8652C0}.Release|x64.Build.0 = Debug|Any CPU
 		{4C2F537E-9D83-448F-9430-56548C8652C0}.Release|x86.ActiveCfg = Debug|Any CPU
 		{4C2F537E-9D83-448F-9430-56548C8652C0}.Release|x86.Build.0 = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Debug|x64.Build.0 = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Debug|x86.Build.0 = Debug|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Release|x64.ActiveCfg = Release|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Release|x64.Build.0 = Release|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Release|x86.ActiveCfg = Release|Any CPU
-		{0DF6C459-7283-4FBA-9A40-510A9D47CFF0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,6 +286,9 @@ Global
 		{C1390A2B-7B6F-42F4-ABA0-0A98AED66F34} = {9816E871-0638-46A8-9713-1D1ABC5FEA50}
 		{F0759158-9F05-4270-9260-945236F23E75} = {9816E871-0638-46A8-9713-1D1ABC5FEA50}
 		{4C2F537E-9D83-448F-9430-56548C8652C0} = {9816E871-0638-46A8-9713-1D1ABC5FEA50}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF82920B-E682-4F01-BD6B-2062BA28B183}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

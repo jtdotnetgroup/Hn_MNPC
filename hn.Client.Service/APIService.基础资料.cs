@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
+using hn.Common;
 
 namespace hn.Client.Service
 {

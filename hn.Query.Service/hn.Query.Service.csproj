@@ -31,6 +31,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,9 +51,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Bin\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -107,6 +107,7 @@
     <Content Include="Properties\DataSources\hn.DataAccess.Model.V_ICPRBILLMODEL.datasource" />
     <Content Include="Properties\DataSources\hn.DataAccess.model.V_PREMISEModel.datasource" />
     <Content Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="packages.config" />
     <None Include="Service References\FactoryService\APIService.disco" />
     <None Include="Service References\FactoryService\APIService4.xsd">
       <SubType>Designer</SubType>

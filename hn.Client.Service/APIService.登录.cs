@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using hn.Common;
 
 namespace hn.Client.Service
 {

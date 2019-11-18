@@ -51,7 +51,7 @@ namespace hn.Core.Dal
 
         public User GetUserBy(string userName)
         {
-            return GetAll().ToList().Find(n => n.UserName == userName);
+            return GetWhere(new {USERNAME = userName}).SingleOrDefault();
         }
 
         public User GetUser(string FID) {

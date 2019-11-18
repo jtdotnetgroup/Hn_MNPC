@@ -120,6 +120,8 @@
       <xs:element minOccurs="0" name="FBRANDNAME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FCITYID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FCITYNAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCOUNTYID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FCOUNTYNAME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FDISTRICTID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FDISTRICTNAME" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FID" nillable="true" type="xs:string" />

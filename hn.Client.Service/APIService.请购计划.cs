@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using hn;
+using hn.Common;
 using hn.Common.Data;
 
 namespace hn.Client.Service

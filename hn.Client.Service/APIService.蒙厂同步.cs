@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using hn.AutoSyncLib;
+using hn.Common;
 
 namespace hn.Client.Service
 {

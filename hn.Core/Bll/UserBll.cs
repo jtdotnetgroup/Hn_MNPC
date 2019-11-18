@@ -469,17 +469,13 @@ namespace hn.Core.Bll
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
                 return false;
-
-            User u = UserDal.Instance.GetUserBy(userName);
+            string md5pass = StringHelper.MD5string(password/* + u.PassSalt*/);
+            User u = UserDal.Instance.GetWhere(new{USERNAME=userName,PASSWORD=md5pass}).SingleOrDefault();
             if (u == null)
                 return false;
 
-            string md5pass = StringHelper.MD5string(password/* + u.PassSalt*/);
-            if (u.Password.Equals(md5pass, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-            return false;
+
+            return true;
         }
 
         /// <summary>

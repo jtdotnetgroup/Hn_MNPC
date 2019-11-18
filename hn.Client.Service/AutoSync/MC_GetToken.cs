@@ -1,6 +1,7 @@
 ﻿using System;
 using hn.AutoSyncLib.Model;
 using hn.Client.Service;
+using hn.Common;
 
 namespace hn.AutoSyncLib
 {

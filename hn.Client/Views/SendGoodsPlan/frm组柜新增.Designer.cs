@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSGPGroupCounter));
-            DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition3 = new DevExpress.XtraGrid.StyleFormatCondition();
             DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraGrid.StyleFormatCondition();
+            DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition2 = new DevExpress.XtraGrid.StyleFormatCondition();
             this.gridColumn19 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.imageList3 = new System.Windows.Forms.ImageList(this.components);
             this.pnl跑龙套3 = new System.Windows.Forms.Panel();
@@ -165,7 +165,6 @@
             this.splitContainerControl2 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gridControl组柜明细 = new DevExpress.XtraGrid.GridControl();
             this.gridView组柜明细 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.钩稽请购计划 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.SelectICPR = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gridColumn73 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -189,6 +188,7 @@
             this.repositoryItemCheckEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.repositoryItemButtonEdit厂家代码 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemButtonEdit厂家账户 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.repositoryItemCheckEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
@@ -200,10 +200,8 @@
             this.panel右 = new System.Windows.Forms.Panel();
             this.splitContainerControl3 = new DevExpress.XtraEditors.SplitContainerControl();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.gridControl库存查询 = new DevExpress.XtraGrid.GridControl();
             this.gridView库存查询 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -324,11 +322,11 @@
             this.splitContainerControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl组柜明细)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView组柜明细)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SelectICPR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家代码)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家账户)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
@@ -431,10 +429,10 @@
             this.btn行复制.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn行复制.AppearancePressed.Options.UseFont = true;
             this.btn行复制.AutoSize = true;
-            this.btn行复制.ImageIndex = 11;
-            this.btn行复制.ImageList = this.imageList3;
-            this.btn行复制.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn行复制.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn行复制.ImageOptions.ImageIndex = 11;
+            this.btn行复制.ImageOptions.ImageList = this.imageList3;
+            this.btn行复制.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn行复制.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn行复制.Location = new System.Drawing.Point(2, 2);
             this.btn行复制.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn行复制.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -459,10 +457,10 @@
             this.btn取消作废.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn取消作废.AppearancePressed.Options.UseFont = true;
             this.btn取消作废.AutoSize = true;
-            this.btn取消作废.ImageIndex = 4;
-            this.btn取消作废.ImageList = this.imageList3;
-            this.btn取消作废.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn取消作废.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn取消作废.ImageOptions.ImageIndex = 4;
+            this.btn取消作废.ImageOptions.ImageList = this.imageList3;
+            this.btn取消作废.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn取消作废.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn取消作废.Location = new System.Drawing.Point(75, 2);
             this.btn取消作废.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn取消作废.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -486,10 +484,10 @@
             this.btn反作废.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn反作废.AppearancePressed.Options.UseFont = true;
             this.btn反作废.AutoSize = true;
-            this.btn反作废.ImageIndex = 4;
-            this.btn反作废.ImageList = this.imageList3;
-            this.btn反作废.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn反作废.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn反作废.ImageOptions.ImageIndex = 4;
+            this.btn反作废.ImageOptions.ImageList = this.imageList3;
+            this.btn反作废.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn反作废.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn反作废.Location = new System.Drawing.Point(167, 2);
             this.btn反作废.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn反作废.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -513,10 +511,10 @@
             this.btn变更.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn变更.AppearancePressed.Options.UseFont = true;
             this.btn变更.AutoSize = true;
-            this.btn变更.ImageIndex = 4;
-            this.btn变更.ImageList = this.imageList3;
-            this.btn变更.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn变更.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn变更.ImageOptions.ImageIndex = 4;
+            this.btn变更.ImageOptions.ImageList = this.imageList3;
+            this.btn变更.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn变更.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn变更.Location = new System.Drawing.Point(240, 2);
             this.btn变更.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn变更.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -541,10 +539,10 @@
             this.btn关闭.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn关闭.AppearancePressed.Options.UseFont = true;
             this.btn关闭.AutoSize = true;
-            this.btn关闭.ImageIndex = 10;
-            this.btn关闭.ImageList = this.imageList3;
-            this.btn关闭.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn关闭.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn关闭.ImageOptions.ImageIndex = 10;
+            this.btn关闭.ImageOptions.ImageList = this.imageList3;
+            this.btn关闭.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn关闭.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn关闭.Location = new System.Drawing.Point(300, 2);
             this.btn关闭.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn关闭.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -583,10 +581,10 @@
             this.btn保存.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn保存.AppearancePressed.Options.UseFont = true;
             this.btn保存.AutoSize = true;
-            this.btn保存.ImageIndex = 1;
-            this.btn保存.ImageList = this.imageList3;
-            this.btn保存.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn保存.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn保存.ImageOptions.ImageIndex = 1;
+            this.btn保存.ImageOptions.ImageList = this.imageList3;
+            this.btn保存.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn保存.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn保存.Location = new System.Drawing.Point(2, 2);
             this.btn保存.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn保存.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -610,10 +608,10 @@
             this.btn生成发货计划.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn生成发货计划.AppearancePressed.Options.UseFont = true;
             this.btn生成发货计划.AutoSize = true;
-            this.btn生成发货计划.ImageIndex = 20;
-            this.btn生成发货计划.ImageList = this.imageList3;
-            this.btn生成发货计划.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn生成发货计划.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn生成发货计划.ImageOptions.ImageIndex = 20;
+            this.btn生成发货计划.ImageOptions.ImageList = this.imageList3;
+            this.btn生成发货计划.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn生成发货计划.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn生成发货计划.Location = new System.Drawing.Point(62, 2);
             this.btn生成发货计划.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn生成发货计划.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -637,10 +635,10 @@
             this.btn删除行.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn删除行.AppearancePressed.Options.UseFont = true;
             this.btn删除行.AutoSize = true;
-            this.btn删除行.ImageIndex = 11;
-            this.btn删除行.ImageList = this.imageList3;
-            this.btn删除行.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.btn删除行.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn删除行.ImageOptions.ImageIndex = 11;
+            this.btn删除行.ImageOptions.ImageList = this.imageList3;
+            this.btn删除行.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn删除行.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn删除行.Location = new System.Drawing.Point(174, 2);
             this.btn删除行.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn删除行.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -664,10 +662,10 @@
             this.simpleButton2.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.simpleButton2.AppearancePressed.Options.UseFont = true;
             this.simpleButton2.AutoSize = true;
-            this.simpleButton2.ImageIndex = 11;
-            this.simpleButton2.ImageList = this.imageList3;
-            this.simpleButton2.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
-            this.simpleButton2.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.simpleButton2.ImageOptions.ImageIndex = 11;
+            this.simpleButton2.ImageOptions.ImageList = this.imageList3;
+            this.simpleButton2.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.simpleButton2.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.simpleButton2.Location = new System.Drawing.Point(247, 2);
             this.simpleButton2.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.simpleButton2.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -710,6 +708,7 @@
             // 
             // tabPane1
             // 
+            this.tabPane1.AllowCollapse = DevExpress.Utils.DefaultBoolean.Default;
             this.tabPane1.Controls.Add(this.tabNavigationPage1);
             this.tabPane1.Controls.Add(this.tabNavigationPage2);
             this.tabPane1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -721,7 +720,6 @@
             this.tabNavigationPage2});
             this.tabPane1.RegularSize = new System.Drawing.Size(1240, 703);
             this.tabPane1.SelectedPage = this.tabNavigationPage2;
-            this.tabPane1.SelectedPageIndex = 1;
             this.tabPane1.Size = new System.Drawing.Size(1240, 703);
             this.tabPane1.TabIndex = 104;
             this.tabPane1.Text = "tabPane1";
@@ -2090,7 +2088,7 @@
             this.tabNavigationPage2.Controls.Add(this.splitContainerControl2);
             this.tabNavigationPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabNavigationPage2.Name = "tabNavigationPage2";
-            this.tabNavigationPage2.Size = new System.Drawing.Size(1222, 657);
+            this.tabNavigationPage2.Size = new System.Drawing.Size(1240, 675);
             // 
             // splitContainerControl2
             // 
@@ -2104,7 +2102,7 @@
             this.splitContainerControl2.Panel1.Text = "Panel1";
             this.splitContainerControl2.Panel2.Controls.Add(this.xtraTabControl1);
             this.splitContainerControl2.Panel2.Text = "Panel2";
-            this.splitContainerControl2.Size = new System.Drawing.Size(1222, 657);
+            this.splitContainerControl2.Size = new System.Drawing.Size(1240, 675);
             this.splitContainerControl2.SplitterPosition = 498;
             this.splitContainerControl2.TabIndex = 8892;
             this.splitContainerControl2.Text = "splitContainerControl2";
@@ -2124,7 +2122,7 @@
             this.repositoryItemButtonEdit厂家账户,
             this.repositoryItemCheckEdit6,
             this.SelectICPR});
-            this.gridControl组柜明细.Size = new System.Drawing.Size(1222, 154);
+            this.gridControl组柜明细.Size = new System.Drawing.Size(1240, 172);
             this.gridControl组柜明细.TabIndex = 0;
             this.gridControl组柜明细.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView组柜明细});
@@ -2182,13 +2180,13 @@
             this.gridColumn15,
             this.gridColumn102,
             this.gridColumn28});
-            styleFormatCondition3.Appearance.ForeColor = System.Drawing.Color.Red;
-            styleFormatCondition3.Appearance.Options.UseForeColor = true;
-            styleFormatCondition3.ApplyToRow = true;
-            styleFormatCondition3.Condition = DevExpress.XtraGrid.FormatConditionEnum.Equal;
-            styleFormatCondition3.Value1 = "离线";
+            styleFormatCondition1.Appearance.ForeColor = System.Drawing.Color.Red;
+            styleFormatCondition1.Appearance.Options.UseForeColor = true;
+            styleFormatCondition1.ApplyToRow = true;
+            styleFormatCondition1.Condition = DevExpress.XtraGrid.FormatConditionEnum.Equal;
+            styleFormatCondition1.Value1 = "离线";
             this.gridView组柜明细.FormatConditions.AddRange(new DevExpress.XtraGrid.StyleFormatCondition[] {
-            styleFormatCondition3});
+            styleFormatCondition1});
             this.gridView组柜明细.GridControl = this.gridControl组柜明细;
             this.gridView组柜明细.Name = "gridView组柜明细";
             this.gridView组柜明细.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
@@ -2204,11 +2202,6 @@
             this.gridView组柜明细.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView组柜明细_RowCellStyle);
             this.gridView组柜明细.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.gridView组柜明细_CustomSummaryCalculate);
             this.gridView组柜明细.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView组柜明细_CellValueChanged);
-            // 
-            // repositoryItemCheckEdit6
-            // 
-            this.repositoryItemCheckEdit6.AutoHeight = false;
-            this.repositoryItemCheckEdit6.Name = "repositoryItemCheckEdit6";
             // 
             // 钩稽请购计划
             // 
@@ -2233,6 +2226,8 @@
             this.gridColumn73.FieldName = "FBRAND";
             this.gridColumn73.Name = "gridColumn73";
             this.gridColumn73.OptionsColumn.AllowEdit = false;
+            this.gridColumn73.Visible = true;
+            this.gridColumn73.VisibleIndex = 1;
             this.gridColumn73.Width = 100;
             // 
             // gridColumn2
@@ -2240,12 +2235,16 @@
             this.gridColumn2.Caption = "提货单";
             this.gridColumn2.FieldName = "thdbm";
             this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 2;
             // 
             // gridColumn10
             // 
             this.gridColumn10.Caption = "提货单号";
             this.gridColumn10.FieldName = "pzhm";
             this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 3;
             this.gridColumn10.Width = 80;
             // 
             // gridColumn12
@@ -2253,6 +2252,8 @@
             this.gridColumn12.Caption = "开单日期";
             this.gridColumn12.FieldName = "kdrq";
             this.gridColumn12.Name = "gridColumn12";
+            this.gridColumn12.Visible = true;
+            this.gridColumn12.VisibleIndex = 4;
             this.gridColumn12.Width = 90;
             // 
             // gridColumn100
@@ -2262,6 +2263,8 @@
             this.gridColumn100.Caption = "客户代码";
             this.gridColumn100.FieldName = "khhm";
             this.gridColumn100.Name = "gridColumn100";
+            this.gridColumn100.Visible = true;
+            this.gridColumn100.VisibleIndex = 5;
             // 
             // gridColumn101
             // 
@@ -2270,6 +2273,8 @@
             this.gridColumn101.Caption = "客户名称";
             this.gridColumn101.FieldName = "khmc";
             this.gridColumn101.Name = "gridColumn101";
+            this.gridColumn101.Visible = true;
+            this.gridColumn101.VisibleIndex = 6;
             // 
             // gridColumn103
             // 
@@ -2278,6 +2283,8 @@
             this.gridColumn103.Caption = "产品规格";
             this.gridColumn103.FieldName = "gg";
             this.gridColumn103.Name = "gridColumn103";
+            this.gridColumn103.Visible = true;
+            this.gridColumn103.VisibleIndex = 7;
             this.gridColumn103.Width = 130;
             // 
             // gridColumn104
@@ -2287,6 +2294,8 @@
             this.gridColumn104.Caption = "产品型号";
             this.gridColumn104.FieldName = "xh";
             this.gridColumn104.Name = "gridColumn104";
+            this.gridColumn104.Visible = true;
+            this.gridColumn104.VisibleIndex = 8;
             this.gridColumn104.Width = 150;
             // 
             // gridColumn13
@@ -2297,6 +2306,8 @@
             this.gridColumn13.FieldName = "cpdj";
             this.gridColumn13.Name = "gridColumn13";
             this.gridColumn13.OptionsColumn.AllowEdit = false;
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 9;
             this.gridColumn13.Width = 70;
             // 
             // gridColumn11
@@ -2306,6 +2317,8 @@
             this.gridColumn11.Caption = "色号";
             this.gridColumn11.FieldName = "cpsh";
             this.gridColumn11.Name = "gridColumn11";
+            this.gridColumn11.Visible = true;
+            this.gridColumn11.VisibleIndex = 10;
             this.gridColumn11.Width = 70;
             // 
             // gridColumn14
@@ -2316,6 +2329,8 @@
             this.gridColumn14.FieldName = "cpcm";
             this.gridColumn14.Name = "gridColumn14";
             this.gridColumn14.OptionsColumn.AllowEdit = false;
+            this.gridColumn14.Visible = true;
+            this.gridColumn14.VisibleIndex = 11;
             this.gridColumn14.Width = 83;
             // 
             // gridColumn4
@@ -2325,6 +2340,8 @@
             this.gridColumn4.Caption = "采购单位";
             this.gridColumn4.FieldName = "dw";
             this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 12;
             this.gridColumn4.Width = 70;
             // 
             // gridColumn发货数量
@@ -2339,6 +2356,8 @@
             this.gridColumn发货数量.Name = "gridColumn发货数量";
             this.gridColumn发货数量.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "FCOMMITQTY", "数量={0:0.##}")});
+            this.gridColumn发货数量.Visible = true;
+            this.gridColumn发货数量.VisibleIndex = 13;
             this.gridColumn发货数量.Width = 90;
             // 
             // gridColumn59
@@ -2353,6 +2372,8 @@
             this.gridColumn59.OptionsColumn.AllowEdit = false;
             this.gridColumn59.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "FWEIGHT", "重量={0:0.##}")});
+            this.gridColumn59.Visible = true;
+            this.gridColumn59.VisibleIndex = 14;
             this.gridColumn59.Width = 80;
             // 
             // gridColumn52
@@ -2363,6 +2384,8 @@
             this.gridColumn52.FieldName = "FDESCRIPTION";
             this.gridColumn52.Name = "gridColumn52";
             this.gridColumn52.OptionsColumn.AllowEdit = false;
+            this.gridColumn52.Visible = true;
+            this.gridColumn52.VisibleIndex = 15;
             this.gridColumn52.Width = 150;
             // 
             // gridColumn15
@@ -2375,6 +2398,8 @@
             this.gridColumn15.Caption = "备注";
             this.gridColumn15.FieldName = "FREMARK";
             this.gridColumn15.Name = "gridColumn15";
+            this.gridColumn15.Visible = true;
+            this.gridColumn15.VisibleIndex = 16;
             this.gridColumn15.Width = 150;
             // 
             // gridColumn102
@@ -2384,6 +2409,8 @@
             this.gridColumn102.Caption = "产品品种";
             this.gridColumn102.FieldName = "pz";
             this.gridColumn102.Name = "gridColumn102";
+            this.gridColumn102.Visible = true;
+            this.gridColumn102.VisibleIndex = 17;
             // 
             // gridColumn28
             // 
@@ -2393,6 +2420,8 @@
             this.gridColumn28.OptionsColumn.AllowEdit = false;
             this.gridColumn28.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "FVOLUME", "体积={0:0.##}")});
+            this.gridColumn28.Visible = true;
+            this.gridColumn28.VisibleIndex = 18;
             // 
             // repositoryItemCheckEdit2
             // 
@@ -2419,6 +2448,11 @@
             this.repositoryItemButtonEdit厂家账户.Name = "repositoryItemButtonEdit厂家账户";
             this.repositoryItemButtonEdit厂家账户.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemButtonEdit厂家账户_ButtonClick);
             // 
+            // repositoryItemCheckEdit6
+            // 
+            this.repositoryItemCheckEdit6.AutoHeight = false;
+            this.repositoryItemCheckEdit6.Name = "repositoryItemCheckEdit6";
+            // 
             // xtraTabControl1
             // 
             this.xtraTabControl1.Appearance.BackColor = System.Drawing.Color.Transparent;
@@ -2444,7 +2478,7 @@
             this.xtraTabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1222, 498);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1240, 498);
             this.xtraTabControl1.TabIndex = 8890;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1});
@@ -2454,7 +2488,7 @@
             this.xtraTabPage1.Controls.Add(this.splitContainerControl1);
             this.xtraTabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1219, 467);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1237, 467);
             this.xtraTabPage1.Text = "提货单明细";
             // 
             // splitContainerControl1
@@ -2468,7 +2502,7 @@
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.pnl请购计划明细);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1219, 467);
+            this.splitContainerControl1.Size = new System.Drawing.Size(1237, 467);
             this.splitContainerControl1.SplitterPosition = 136;
             this.splitContainerControl1.TabIndex = 0;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -2485,8 +2519,8 @@
             this.simpleButton3.AppearanceHovered.Options.UseFont = true;
             this.simpleButton3.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.simpleButton3.AppearancePressed.Options.UseFont = true;
-            this.simpleButton3.ImageIndex = 3;
-            this.simpleButton3.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            this.simpleButton3.ImageOptions.ImageIndex = 3;
+            this.simpleButton3.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.simpleButton3.Location = new System.Drawing.Point(80, 2);
             this.simpleButton3.LookAndFeel.SkinName = "Office 2010 Silver";
             this.simpleButton3.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -2572,7 +2606,7 @@
             this.pnl请购计划明细.Location = new System.Drawing.Point(0, 0);
             this.pnl请购计划明细.Margin = new System.Windows.Forms.Padding(2);
             this.pnl请购计划明细.Name = "pnl请购计划明细";
-            this.pnl请购计划明细.Size = new System.Drawing.Size(1078, 467);
+            this.pnl请购计划明细.Size = new System.Drawing.Size(1096, 467);
             this.pnl请购计划明细.TabIndex = 1;
             // 
             // panel右
@@ -2582,7 +2616,7 @@
             this.panel右.Location = new System.Drawing.Point(0, 0);
             this.panel右.Margin = new System.Windows.Forms.Padding(2);
             this.panel右.Name = "panel右";
-            this.panel右.Size = new System.Drawing.Size(1078, 467);
+            this.panel右.Size = new System.Drawing.Size(1096, 467);
             this.panel右.TabIndex = 10;
             // 
             // splitContainerControl3
@@ -2595,11 +2629,10 @@
             this.splitContainerControl3.Name = "splitContainerControl3";
             this.splitContainerControl3.Panel1.Controls.Add(this.panel2);
             this.splitContainerControl3.Panel1.Text = "Panel1";
-            this.splitContainerControl3.Panel2.Controls.Add(this.checkBox1);
             this.splitContainerControl3.Panel2.Controls.Add(this.gridControl库存查询);
             this.splitContainerControl3.Panel2.Controls.Add(this.pnl跑龙套2);
             this.splitContainerControl3.Panel2.Text = "Panel2";
-            this.splitContainerControl3.Size = new System.Drawing.Size(1078, 467);
+            this.splitContainerControl3.Size = new System.Drawing.Size(1096, 467);
             this.splitContainerControl3.SplitterPosition = 462;
             this.splitContainerControl3.TabIndex = 109;
             this.splitContainerControl3.Text = "splitContainerControl3";
@@ -2614,16 +2647,6 @@
             this.panel2.Size = new System.Drawing.Size(0, 29);
             this.panel2.TabIndex = 111;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(48, 74);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 112;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
-            // 
             // gridControl库存查询
             // 
             this.gridControl库存查询.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2637,7 +2660,7 @@
             this.gridControl库存查询.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1,
             this.repositoryItemCheckEdit3});
-            this.gridControl库存查询.Size = new System.Drawing.Size(1078, 393);
+            this.gridControl库存查询.Size = new System.Drawing.Size(1096, 393);
             this.gridControl库存查询.TabIndex = 111;
             this.gridControl库存查询.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView库存查询});
@@ -2670,7 +2693,6 @@
             this.gridView库存查询.Appearance.Row.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.gridView库存查询.Appearance.Row.Options.UseFont = true;
             this.gridView库存查询.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
             this.gridColumn17,
             this.gridColumn18,
             this.gridColumn19,
@@ -2700,37 +2722,25 @@
             this.gridColumn99,
             this.gridColumn22,
             this.gridColumn7});
-            styleFormatCondition1.Appearance.ForeColor = System.Drawing.Color.Red;
-            styleFormatCondition1.Appearance.Options.UseForeColor = true;
-            styleFormatCondition1.ApplyToRow = true;
-            styleFormatCondition1.Column = this.gridColumn19;
-            styleFormatCondition1.Condition = DevExpress.XtraGrid.FormatConditionEnum.Equal;
-            styleFormatCondition1.Value1 = "离线";
+            styleFormatCondition2.Appearance.ForeColor = System.Drawing.Color.Red;
+            styleFormatCondition2.Appearance.Options.UseForeColor = true;
+            styleFormatCondition2.ApplyToRow = true;
+            styleFormatCondition2.Column = this.gridColumn19;
+            styleFormatCondition2.Condition = DevExpress.XtraGrid.FormatConditionEnum.Equal;
+            styleFormatCondition2.Value1 = "离线";
             this.gridView库存查询.FormatConditions.AddRange(new DevExpress.XtraGrid.StyleFormatCondition[] {
-            styleFormatCondition1});
+            styleFormatCondition2});
             this.gridView库存查询.GridControl = this.gridControl库存查询;
             this.gridView库存查询.Name = "gridView库存查询";
             this.gridView库存查询.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView库存查询.OptionsClipboard.CopyColumnHeaders = DevExpress.Utils.DefaultBoolean.False;
             this.gridView库存查询.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView库存查询.OptionsSelection.MultiSelect = true;
-            this.gridView库存查询.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CellSelect;
+            this.gridView库存查询.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridView库存查询.OptionsView.ColumnAutoWidth = false;
             this.gridView库存查询.OptionsView.EnableAppearanceEvenRow = true;
             this.gridView库存查询.OptionsView.ShowGroupPanel = false;
-            this.gridView库存查询.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumn1, DevExpress.Data.ColumnSortOrder.Ascending)});
-            // 
-            // gridColumn1
-            // 
-            this.gridColumn1.Caption = " ";
-            this.gridColumn1.ColumnEdit = this.repositoryItemCheckEdit3;
-            this.gridColumn1.FieldName = "FCHECK";
-            this.gridColumn1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            this.gridColumn1.Width = 50;
+            this.gridView库存查询.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView库存查询_SelectionChanged);
             // 
             // repositoryItemCheckEdit3
             // 
@@ -3043,7 +3053,7 @@
             this.pnl跑龙套2.Margin = new System.Windows.Forms.Padding(2);
             this.pnl跑龙套2.Name = "pnl跑龙套2";
             this.pnl跑龙套2.Padding = new System.Windows.Forms.Padding(2);
-            this.pnl跑龙套2.Size = new System.Drawing.Size(1078, 69);
+            this.pnl跑龙套2.Size = new System.Drawing.Size(1096, 69);
             this.pnl跑龙套2.TabIndex = 110;
             // 
             // cekContain
@@ -3126,9 +3136,9 @@
             this.btn添加到组柜.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn添加到组柜.AppearancePressed.Options.UseFont = true;
             this.btn添加到组柜.AutoSize = true;
-            this.btn添加到组柜.ImageIndex = 19;
-            this.btn添加到组柜.ImageList = this.imageList3;
-            this.btn添加到组柜.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            this.btn添加到组柜.ImageOptions.ImageIndex = 19;
+            this.btn添加到组柜.ImageOptions.ImageList = this.imageList3;
+            this.btn添加到组柜.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn添加到组柜.Location = new System.Drawing.Point(8, 41);
             this.btn添加到组柜.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.btn添加到组柜.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -3151,8 +3161,8 @@
             this.simpleButton1.AppearanceHovered.Options.UseFont = true;
             this.simpleButton1.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.simpleButton1.AppearancePressed.Options.UseFont = true;
-            this.simpleButton1.ImageIndex = 3;
-            this.simpleButton1.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            this.simpleButton1.ImageOptions.ImageIndex = 3;
+            this.simpleButton1.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.simpleButton1.Location = new System.Drawing.Point(992, 0);
             this.simpleButton1.LookAndFeel.SkinName = "Office 2010 Silver";
             this.simpleButton1.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -3282,8 +3292,8 @@
             this.btn库存查询.AppearanceHovered.Options.UseFont = true;
             this.btn库存查询.AppearancePressed.Font = new System.Drawing.Font("微软雅黑", 9.75F);
             this.btn库存查询.AppearancePressed.Options.UseFont = true;
-            this.btn库存查询.ImageIndex = 3;
-            this.btn库存查询.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
+            this.btn库存查询.ImageOptions.ImageIndex = 3;
+            this.btn库存查询.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btn库存查询.Location = new System.Drawing.Point(935, 0);
             this.btn库存查询.LookAndFeel.SkinName = "Office 2010 Silver";
             this.btn库存查询.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -3394,11 +3404,11 @@
             this.splitContainerControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl组柜明细)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView组柜明细)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SelectICPR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家代码)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家账户)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
             this.xtraTabControl1.ResumeLayout(false);
             this.xtraTabPage1.ResumeLayout(false);
@@ -3550,7 +3560,6 @@
         private System.Windows.Forms.Label label43;
         private DevExpress.XtraGrid.GridControl gridControl库存查询;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView库存查询;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn17;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn18;
@@ -3602,7 +3611,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label labSum;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit3;
-        private System.Windows.Forms.CheckBox checkBox1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox1;
