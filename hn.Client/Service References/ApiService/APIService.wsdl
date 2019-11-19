@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="APIService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="APIService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/hn.Core.Model" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api24" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi24" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/hn.Common.Cls_query" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api2" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi2" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api8" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api3" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.bll" />
-      <xsd:import schemaLocation="http://10.0.125.3:8081/APIService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.Model" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/hn.Core.Model" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api3" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.bll" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api24" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi24" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/hn.DataAccess.model" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/hn.Common.Cls_query" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api2" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/MApiModel.recApi2" />
+      <xsd:import schemaLocation="http://localhost:62036/APIService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/MApiModel.api8" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IAPIService_UnAuditSave_ICPO_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnAuditSave_ICPO" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_UnAuditSave_ICPO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnAuditSave_ICPOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_InsertICPOEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_InsertICPOEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_InsertICPOEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_InsertICPOEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPOEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPOEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPOEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPOEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPO_BOEntry_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPO_BOEntry" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_GetICPO_BOEntry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_GetICPO_BOEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_SetICPO_BOEntryStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_SetICPO_BOEntryStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Remote_SetICPO_BOEntryStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Remote_SetICPO_BOEntryStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Save_ICPREntry_List_InputMessage">
+    <wsdl:part name="parameters" element="tns:Save_ICPREntry_List" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Save_ICPREntry_List_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Save_ICPREntry_ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYNStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYNStatus" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYNStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYNStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYN_Remote_Status_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYN_Remote_Status" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Update_FSYN_Remote_Status_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Update_FSYN_Remote_StatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_confirm_InputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_confirm" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_confirm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_confirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_delivery_InputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_delivery" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Forder_delivery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Forder_deliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Sync_Today_THD_InputMessage">
+    <wsdl:part name="parameters" element="tns:Sync_Today_THD" />
+  </wsdl:message>
+  <wsdl:message name="IAPIService_Sync_Today_THD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Sync_Today_THDResponse" />
+  </wsdl:message>
   <wsdl:message name="IAPIService_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -530,73 +596,51 @@
   <wsdl:message name="IAPIService_AuditSave_ICPO_OutputMessage">
     <wsdl:part name="parameters" element="tns:AuditSave_ICPOResponse" />
   </wsdl:message>
-  <wsdl:message name="IAPIService_UnAuditSave_ICPO_InputMessage">
-    <wsdl:part name="parameters" element="tns:UnAuditSave_ICPO" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_UnAuditSave_ICPO_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UnAuditSave_ICPOResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_InsertICPOEntry_InputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_InsertICPOEntry" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_InsertICPOEntry_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_InsertICPOEntryResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_GetICPOEntry_InputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_GetICPOEntry" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_GetICPOEntry_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_GetICPOEntryResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_GetICPO_BOEntry_InputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_GetICPO_BOEntry" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_GetICPO_BOEntry_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_GetICPO_BOEntryResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_SetICPO_BOEntryStatus_InputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_SetICPO_BOEntryStatus" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Remote_SetICPO_BOEntryStatus_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Remote_SetICPO_BOEntryStatusResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Save_ICPREntry_List_InputMessage">
-    <wsdl:part name="parameters" element="tns:Save_ICPREntry_List" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Save_ICPREntry_List_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Save_ICPREntry_ListResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Update_FSYNStatus_InputMessage">
-    <wsdl:part name="parameters" element="tns:Update_FSYNStatus" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Update_FSYNStatus_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Update_FSYNStatusResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Update_FSYN_Remote_Status_InputMessage">
-    <wsdl:part name="parameters" element="tns:Update_FSYN_Remote_Status" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Update_FSYN_Remote_Status_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Update_FSYN_Remote_StatusResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Forder_confirm_InputMessage">
-    <wsdl:part name="parameters" element="tns:Forder_confirm" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Forder_confirm_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Forder_confirmResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Forder_delivery_InputMessage">
-    <wsdl:part name="parameters" element="tns:Forder_delivery" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Forder_delivery_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Forder_deliveryResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Sync_Today_THD_InputMessage">
-    <wsdl:part name="parameters" element="tns:Sync_Today_THD" />
-  </wsdl:message>
-  <wsdl:message name="IAPIService_Sync_Today_THD_OutputMessage">
-    <wsdl:part name="parameters" element="tns:Sync_Today_THDResponse" />
-  </wsdl:message>
   <wsdl:portType name="IAPIService">
+    <wsdl:operation name="UnAuditSave_ICPO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UnAuditSave_ICPO" message="tns:IAPIService_UnAuditSave_ICPO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UnAuditSave_ICPOResponse" message="tns:IAPIService_UnAuditSave_ICPO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_InsertICPOEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntry" message="tns:IAPIService_Remote_InsertICPOEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntryResponse" message="tns:IAPIService_Remote_InsertICPOEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPOEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPOEntry" message="tns:IAPIService_Remote_GetICPOEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPOEntryResponse" message="tns:IAPIService_Remote_GetICPOEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPO_BOEntry">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry" message="tns:IAPIService_Remote_GetICPO_BOEntry_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntryResponse" message="tns:IAPIService_Remote_GetICPO_BOEntry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remote_SetICPO_BOEntryStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus" message="tns:IAPIService_Remote_SetICPO_BOEntryStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatusResponse" message="tns:IAPIService_Remote_SetICPO_BOEntryStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Save_ICPREntry_List">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Save_ICPREntry_List" message="tns:IAPIService_Save_ICPREntry_List_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Save_ICPREntry_ListResponse" message="tns:IAPIService_Save_ICPREntry_List_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYNStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Update_FSYNStatus" message="tns:IAPIService_Update_FSYNStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Update_FSYNStatusResponse" message="tns:IAPIService_Update_FSYNStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYN_Remote_Status">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status" message="tns:IAPIService_Update_FSYN_Remote_Status_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_StatusResponse" message="tns:IAPIService_Update_FSYN_Remote_Status_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Forder_confirm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Forder_confirm" message="tns:IAPIService_Forder_confirm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Forder_confirmResponse" message="tns:IAPIService_Forder_confirm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Forder_delivery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Forder_delivery" message="tns:IAPIService_Forder_delivery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Forder_deliveryResponse" message="tns:IAPIService_Forder_delivery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Sync_Today_THD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Sync_Today_THD" message="tns:IAPIService_Sync_Today_THD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Sync_Today_THDResponse" message="tns:IAPIService_Sync_Today_THD_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Login" message="tns:IAPIService_Login_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/LoginResponse" message="tns:IAPIService_Login_OutputMessage" />
@@ -937,53 +981,108 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/AuditSave_ICPO" message="tns:IAPIService_AuditSave_ICPO_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/AuditSave_ICPOResponse" message="tns:IAPIService_AuditSave_ICPO_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UnAuditSave_ICPO">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/UnAuditSave_ICPO" message="tns:IAPIService_UnAuditSave_ICPO_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/UnAuditSave_ICPOResponse" message="tns:IAPIService_UnAuditSave_ICPO_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Remote_InsertICPOEntry">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntry" message="tns:IAPIService_Remote_InsertICPOEntry_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntryResponse" message="tns:IAPIService_Remote_InsertICPOEntry_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Remote_GetICPOEntry">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPOEntry" message="tns:IAPIService_Remote_GetICPOEntry_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPOEntryResponse" message="tns:IAPIService_Remote_GetICPOEntry_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Remote_GetICPO_BOEntry">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry" message="tns:IAPIService_Remote_GetICPO_BOEntry_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntryResponse" message="tns:IAPIService_Remote_GetICPO_BOEntry_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Remote_SetICPO_BOEntryStatus">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus" message="tns:IAPIService_Remote_SetICPO_BOEntryStatus_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatusResponse" message="tns:IAPIService_Remote_SetICPO_BOEntryStatus_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Save_ICPREntry_List">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Save_ICPREntry_List" message="tns:IAPIService_Save_ICPREntry_List_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Save_ICPREntry_ListResponse" message="tns:IAPIService_Save_ICPREntry_List_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Update_FSYNStatus">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Update_FSYNStatus" message="tns:IAPIService_Update_FSYNStatus_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Update_FSYNStatusResponse" message="tns:IAPIService_Update_FSYNStatus_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Update_FSYN_Remote_Status">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status" message="tns:IAPIService_Update_FSYN_Remote_Status_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_StatusResponse" message="tns:IAPIService_Update_FSYN_Remote_Status_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Forder_confirm">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Forder_confirm" message="tns:IAPIService_Forder_confirm_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Forder_confirmResponse" message="tns:IAPIService_Forder_confirm_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Forder_delivery">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Forder_delivery" message="tns:IAPIService_Forder_delivery_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Forder_deliveryResponse" message="tns:IAPIService_Forder_delivery_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Sync_Today_THD">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAPIService/Sync_Today_THD" message="tns:IAPIService_Sync_Today_THD_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAPIService/Sync_Today_THDResponse" message="tns:IAPIService_Sync_Today_THD_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAPIService" type="tns:IAPIService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UnAuditSave_ICPO">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/UnAuditSave_ICPO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_InsertICPOEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_InsertICPOEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPOEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_GetICPOEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_GetICPO_BOEntry">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remote_SetICPO_BOEntryStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Save_ICPREntry_List">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Save_ICPREntry_List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYNStatus">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Update_FSYNStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update_FSYN_Remote_Status">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Forder_confirm">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Forder_confirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Forder_delivery">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Forder_delivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Sync_Today_THD">
+      <soap:operation soapAction="http://tempuri.org/IAPIService/Sync_Today_THD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://tempuri.org/IAPIService/Login" style="document" />
       <wsdl:input>
@@ -1749,109 +1848,10 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UnAuditSave_ICPO">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/UnAuditSave_ICPO" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Remote_InsertICPOEntry">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_InsertICPOEntry" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Remote_GetICPOEntry">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_GetICPOEntry" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Remote_GetICPO_BOEntry">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Remote_SetICPO_BOEntryStatus">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Save_ICPREntry_List">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Save_ICPREntry_List" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Update_FSYNStatus">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Update_FSYNStatus" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Update_FSYN_Remote_Status">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Forder_confirm">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Forder_confirm" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Forder_delivery">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Forder_delivery" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Sync_Today_THD">
-      <soap:operation soapAction="http://tempuri.org/IAPIService/Sync_Today_THD" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="APIService">
     <wsdl:port name="BasicHttpBinding_IAPIService" binding="tns:BasicHttpBinding_IAPIService">
-      <soap:address location="http://10.0.125.3:8081/APIService.svc" />
+      <soap:address location="http://localhost:62036/APIService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -15,6 +15,43 @@ namespace hn.Client.ApiService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ApiService.IAPIService")]
     public interface IAPIService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/UnAuditSave_ICPO", ReplyAction="http://tempuri.org/IAPIService/UnAuditSave_ICPOResponse")]
+        bool UnAuditSave_ICPO(hn.DataAccess.Model.ICPOBILLENTRYMODEL[] data, hn.Core.Model.User loginUser, string content);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntry", ReplyAction="http://tempuri.org/IAPIService/Remote_InsertICPOEntryResponse")]
+        string Remote_InsertICPOEntry(MApiModel.api3.Rootobject getapi3);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_GetICPOEntry", ReplyAction="http://tempuri.org/IAPIService/Remote_GetICPOEntryResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPOBILLMODEL))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPOBILLENTRYMODEL))]
+        void Remote_GetICPOEntry(string strFID, string strEntryID, ref hn.DataAccess.Model.ICPOBILLMODEL billModel, ref hn.DataAccess.Model.ICPOBILLENTRYMODEL entryModel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry", ReplyAction="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntryResponse")]
+        hn.DataAccess.Model.ICPO_BOLentryModel[] Remote_GetICPO_BOEntry(string fbillno, string entryid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus", ReplyAction="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatusResponse")]
+        int Remote_SetICPO_BOEntryStatus(string fbillno, string entryid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Save_ICPREntry_List", ReplyAction="http://tempuri.org/IAPIService/Save_ICPREntry_ListResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPRBILLENTRYMODEL))]
+        string Save_ICPREntry_List(hn.DataAccess.Model.ICPRBILLENTRYMODEL tModel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Update_FSYNStatus", ReplyAction="http://tempuri.org/IAPIService/Update_FSYNStatusResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPOBILLMODEL))]
+        int Update_FSYNStatus(hn.DataAccess.Model.ICPOBILLMODEL billMode, int iStatus);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status", ReplyAction="http://tempuri.org/IAPIService/Update_FSYN_Remote_StatusResponse")]
+        int Update_FSYN_Remote_Status(string billMode, int iStatus, string cjbh, System.Collections.Generic.Dictionary<int, string> dic_entry_thdbmdetail);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Forder_confirm", ReplyAction="http://tempuri.org/IAPIService/Forder_confirmResponse")]
+        hn.DataAccess.DataResult Forder_confirm(hn.DataAccess.bll.Forder_confirm_Input input);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Forder_delivery", ReplyAction="http://tempuri.org/IAPIService/Forder_deliveryResponse")]
+        hn.DataAccess.DataResult Forder_delivery(hn.DataAccess.bll.Forder_delivery_Input[] input);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Sync_Today_THD", ReplyAction="http://tempuri.org/IAPIService/Sync_Today_THDResponse")]
+        bool Sync_Today_THD(string rq1, string rq2);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Login", ReplyAction="http://tempuri.org/IAPIService/LoginResponse")]
         hn.Core.Model.User Login(string username, string password);
         
@@ -289,43 +326,6 @@ namespace hn.Client.ApiService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/AuditSave_ICPO", ReplyAction="http://tempuri.org/IAPIService/AuditSave_ICPOResponse")]
         bool AuditSave_ICPO(hn.DataAccess.Model.ICPOBILLENTRYMODEL[] data, hn.Core.Model.User loginUser, string content);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/UnAuditSave_ICPO", ReplyAction="http://tempuri.org/IAPIService/UnAuditSave_ICPOResponse")]
-        bool UnAuditSave_ICPO(hn.DataAccess.Model.ICPOBILLENTRYMODEL[] data, hn.Core.Model.User loginUser, string content);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_InsertICPOEntry", ReplyAction="http://tempuri.org/IAPIService/Remote_InsertICPOEntryResponse")]
-        string Remote_InsertICPOEntry(MApiModel.api3.Rootobject getapi3);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_GetICPOEntry", ReplyAction="http://tempuri.org/IAPIService/Remote_GetICPOEntryResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPOBILLMODEL))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPOBILLENTRYMODEL))]
-        void Remote_GetICPOEntry(string strFID, string strEntryID, ref hn.DataAccess.Model.ICPOBILLMODEL billModel, ref hn.DataAccess.Model.ICPOBILLENTRYMODEL entryModel);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntry", ReplyAction="http://tempuri.org/IAPIService/Remote_GetICPO_BOEntryResponse")]
-        hn.DataAccess.Model.ICPO_BOLentryModel[] Remote_GetICPO_BOEntry(string fbillno, string entryid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatus", ReplyAction="http://tempuri.org/IAPIService/Remote_SetICPO_BOEntryStatusResponse")]
-        int Remote_SetICPO_BOEntryStatus(string fbillno, string entryid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Save_ICPREntry_List", ReplyAction="http://tempuri.org/IAPIService/Save_ICPREntry_ListResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPRBILLENTRYMODEL))]
-        string Save_ICPREntry_List(hn.DataAccess.Model.ICPRBILLENTRYMODEL tModel);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Update_FSYNStatus", ReplyAction="http://tempuri.org/IAPIService/Update_FSYNStatusResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(hn.DataAccess.Model.V_ICPOBILLMODEL))]
-        int Update_FSYNStatus(hn.DataAccess.Model.ICPOBILLMODEL billMode, int iStatus);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Update_FSYN_Remote_Status", ReplyAction="http://tempuri.org/IAPIService/Update_FSYN_Remote_StatusResponse")]
-        int Update_FSYN_Remote_Status(string billMode, int iStatus, string cjbh, System.Collections.Generic.Dictionary<int, string> dic_entry_thdbmdetail);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Forder_confirm", ReplyAction="http://tempuri.org/IAPIService/Forder_confirmResponse")]
-        hn.DataAccess.DataResult Forder_confirm(hn.DataAccess.bll.Forder_confirm_Input input);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Forder_delivery", ReplyAction="http://tempuri.org/IAPIService/Forder_deliveryResponse")]
-        hn.DataAccess.DataResult Forder_delivery(hn.DataAccess.bll.Forder_delivery_Input[] input);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAPIService/Sync_Today_THD", ReplyAction="http://tempuri.org/IAPIService/Sync_Today_THDResponse")]
-        bool Sync_Today_THD(string rq1, string rq2);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -353,6 +353,50 @@ namespace hn.Client.ApiService {
         
         public APIServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public bool UnAuditSave_ICPO(hn.DataAccess.Model.ICPOBILLENTRYMODEL[] data, hn.Core.Model.User loginUser, string content) {
+            return base.Channel.UnAuditSave_ICPO(data, loginUser, content);
+        }
+        
+        public string Remote_InsertICPOEntry(MApiModel.api3.Rootobject getapi3) {
+            return base.Channel.Remote_InsertICPOEntry(getapi3);
+        }
+        
+        public void Remote_GetICPOEntry(string strFID, string strEntryID, ref hn.DataAccess.Model.ICPOBILLMODEL billModel, ref hn.DataAccess.Model.ICPOBILLENTRYMODEL entryModel) {
+            base.Channel.Remote_GetICPOEntry(strFID, strEntryID, ref billModel, ref entryModel);
+        }
+        
+        public hn.DataAccess.Model.ICPO_BOLentryModel[] Remote_GetICPO_BOEntry(string fbillno, string entryid) {
+            return base.Channel.Remote_GetICPO_BOEntry(fbillno, entryid);
+        }
+        
+        public int Remote_SetICPO_BOEntryStatus(string fbillno, string entryid) {
+            return base.Channel.Remote_SetICPO_BOEntryStatus(fbillno, entryid);
+        }
+        
+        public string Save_ICPREntry_List(hn.DataAccess.Model.ICPRBILLENTRYMODEL tModel) {
+            return base.Channel.Save_ICPREntry_List(tModel);
+        }
+        
+        public int Update_FSYNStatus(hn.DataAccess.Model.ICPOBILLMODEL billMode, int iStatus) {
+            return base.Channel.Update_FSYNStatus(billMode, iStatus);
+        }
+        
+        public int Update_FSYN_Remote_Status(string billMode, int iStatus, string cjbh, System.Collections.Generic.Dictionary<int, string> dic_entry_thdbmdetail) {
+            return base.Channel.Update_FSYN_Remote_Status(billMode, iStatus, cjbh, dic_entry_thdbmdetail);
+        }
+        
+        public hn.DataAccess.DataResult Forder_confirm(hn.DataAccess.bll.Forder_confirm_Input input) {
+            return base.Channel.Forder_confirm(input);
+        }
+        
+        public hn.DataAccess.DataResult Forder_delivery(hn.DataAccess.bll.Forder_delivery_Input[] input) {
+            return base.Channel.Forder_delivery(input);
+        }
+        
+        public bool Sync_Today_THD(string rq1, string rq2) {
+            return base.Channel.Sync_Today_THD(rq1, rq2);
         }
         
         public hn.Core.Model.User Login(string username, string password) {
@@ -709,50 +753,6 @@ namespace hn.Client.ApiService {
         
         public bool AuditSave_ICPO(hn.DataAccess.Model.ICPOBILLENTRYMODEL[] data, hn.Core.Model.User loginUser, string content) {
             return base.Channel.AuditSave_ICPO(data, loginUser, content);
-        }
-        
-        public bool UnAuditSave_ICPO(hn.DataAccess.Model.ICPOBILLENTRYMODEL[] data, hn.Core.Model.User loginUser, string content) {
-            return base.Channel.UnAuditSave_ICPO(data, loginUser, content);
-        }
-        
-        public string Remote_InsertICPOEntry(MApiModel.api3.Rootobject getapi3) {
-            return base.Channel.Remote_InsertICPOEntry(getapi3);
-        }
-        
-        public void Remote_GetICPOEntry(string strFID, string strEntryID, ref hn.DataAccess.Model.ICPOBILLMODEL billModel, ref hn.DataAccess.Model.ICPOBILLENTRYMODEL entryModel) {
-            base.Channel.Remote_GetICPOEntry(strFID, strEntryID, ref billModel, ref entryModel);
-        }
-        
-        public hn.DataAccess.Model.ICPO_BOLentryModel[] Remote_GetICPO_BOEntry(string fbillno, string entryid) {
-            return base.Channel.Remote_GetICPO_BOEntry(fbillno, entryid);
-        }
-        
-        public int Remote_SetICPO_BOEntryStatus(string fbillno, string entryid) {
-            return base.Channel.Remote_SetICPO_BOEntryStatus(fbillno, entryid);
-        }
-        
-        public string Save_ICPREntry_List(hn.DataAccess.Model.ICPRBILLENTRYMODEL tModel) {
-            return base.Channel.Save_ICPREntry_List(tModel);
-        }
-        
-        public int Update_FSYNStatus(hn.DataAccess.Model.ICPOBILLMODEL billMode, int iStatus) {
-            return base.Channel.Update_FSYNStatus(billMode, iStatus);
-        }
-        
-        public int Update_FSYN_Remote_Status(string billMode, int iStatus, string cjbh, System.Collections.Generic.Dictionary<int, string> dic_entry_thdbmdetail) {
-            return base.Channel.Update_FSYN_Remote_Status(billMode, iStatus, cjbh, dic_entry_thdbmdetail);
-        }
-        
-        public hn.DataAccess.DataResult Forder_confirm(hn.DataAccess.bll.Forder_confirm_Input input) {
-            return base.Channel.Forder_confirm(input);
-        }
-        
-        public hn.DataAccess.DataResult Forder_delivery(hn.DataAccess.bll.Forder_delivery_Input[] input) {
-            return base.Channel.Forder_delivery(input);
-        }
-        
-        public bool Sync_Today_THD(string rq1, string rq2) {
-            return base.Channel.Sync_Today_THD(rq1, rq2);
         }
     }
 }

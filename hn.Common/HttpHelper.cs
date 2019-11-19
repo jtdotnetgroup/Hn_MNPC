@@ -1,6 +1,7 @@
 ﻿/// <summary>
 /// 类说明：HttpHelper类，用来实现Http访问，Post或者Get方式的，直接访问，带Cookie的，带证书的等方式，可以设置代理
-/// 重要提示：请不要自行修改本类，如果因为你自己修改后将无法升级到新版本。如果确实有什么问题请到官方网站提建议，
+/// 重要提示：请不要自行修改本类，如果因为你自己修改后将无法升级到新版本。如果确实有什么问题请到官方网站提建议，
+
 /// 我们一定会及时修改
 /// 编码日期：2011-09-20
 /// 编 码 人：苏飞
@@ -25,12 +26,14 @@ using hn.Common.Provider;
 namespace hn.Common
 {
     /// <summary>
-    /// Http连接操作帮助类
+    /// Http连接操作帮助类
+
     /// </summary>
     public class HttpHelper
     {
         #region 预定义方变量
-        //默认的编码
+        //默认的编码
+
         private Encoding encoding = Encoding.Default;
         //Post数据编码
         private Encoding postencoding = Encoding.Default;
@@ -38,7 +41,8 @@ namespace hn.Common
         private HttpWebRequest request = null;
         //获取影响流的数据对象
         private HttpWebResponse response = null;
-        //设置本地的出口ip和端口
+        //设置本地的出口ip和端口
+
         private IPEndPoint _IPEndPoint = null;
         #endregion
 
@@ -51,7 +55,8 @@ namespace hn.Common
         #region Public
 
         /// <summary>
-        /// 根据相传入的数据，得到相应页面数据
+        /// 根据相传入的数据，得到相应页面数据
+
         /// </summary>
         /// <param name="item">参数类对象</param>
         /// <returns>返回HttpResult类型</returns>
@@ -66,7 +71,8 @@ namespace hn.Common
             }
             catch (Exception ex)
             {
-                //配置参数时出错
+                //配置参数时出错
+
                 return new HttpResult() { Cookie = string.Empty, Header = null, Html = ex.Message, StatusDescription = "配置参数时出错：" + ex.Message };
             }
             try
@@ -117,7 +123,8 @@ namespace hn.Common
         #region GetData
 
         /// <summary>
-        /// 获取数据的并解析的方法
+        /// 获取数据的并解析的方法
+
         /// </summary>
         /// <param name="item"></param>
         /// <param name="result"></param>
@@ -172,7 +179,8 @@ namespace hn.Common
         {
             //是否返回Byte类型数据
             if (item.ResultType == ResultType.Byte) result.ResultByte = ResponseByte;
-            //从这里开始我们要无视编码了
+            //从这里开始我们要无视编码了
+
             if (encoding == null)
             {
                 Match meta = Regex.Match(Encoding.Default.GetString(ResponseByte), "<meta[^<]*charset=([^<]*)[\"']", RegexOptions.IgnoreCase);
@@ -224,12 +232,14 @@ namespace hn.Common
                 //GZIIP处理
                 if (response.ContentEncoding != null && response.ContentEncoding.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    //开始读取流并设置编码方式
+                    //开始读取流并设置编码方式
+
                     new GZipStream(response.GetResponseStream(), CompressionMode.Decompress).CopyTo(_stream, 10240);
                 }
                 else
                 {
-                    //开始读取流并设置编码方式
+                    //开始读取流并设置编码方式
+
                     response.GetResponseStream().CopyTo(_stream, 10240);
                 }
                 //获取Byte
@@ -244,7 +254,8 @@ namespace hn.Common
         #region SetRequest
 
         /// <summary>
-        /// 为请求准备参数
+        /// 为请求准备参数
+
         /// </summary>
         ///<param name="item">参数列表</param>
         private void SetRequest(HttpItem item)
@@ -255,7 +266,8 @@ namespace hn.Common
             if (item.IPEndPoint != null)
             {
                 _IPEndPoint = item.IPEndPoint;
-                //设置本地的出口ip和端口
+                //设置本地的出口ip和端口
+
                 request.ServicePoint.BindIPEndPointDelegate = new BindIPEndPoint(BindIPEndPointCallback);
             }
             //设置Header参数
@@ -281,7 +293,8 @@ namespace hn.Common
             request.Accept = item.Accept;
             //ContentType返回类型
             request.ContentType = item.ContentType;
-            //UserAgent客户端的访问类型，包括浏览器版本和操作系统信息
+            //UserAgent客户端的访问类型，包括浏览器版本和操作系统信息
+
             request.UserAgent = item.UserAgent;
             // 编码
             encoding = item.Encoding;
@@ -299,7 +312,8 @@ namespace hn.Common
             }
             //设置Post数据
             SetPostData(item);
-            //设置最大连接
+            //设置最大连接
+
             if (item.Connectionlimit > 0) request.ServicePoint.ConnectionLimit = item.Connectionlimit;
         }
         /// <summary>
@@ -310,12 +324,14 @@ namespace hn.Common
         {
             if (!string.IsNullOrWhiteSpace(item.CerPath))
             {
-                //这一句一定要写在创建连接的前面。使用回调的方法进行证书验证。
+                //这一句一定要写在创建连接的前面。使用回调的方法进行证书验证。
+
                 ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
                 //初始化对像，并设置请求的URL地址
                 request = (HttpWebRequest)WebRequest.Create(item.URL);
                 SetCerList(item);
-                //将证书添加到请求里
+                //将证书添加到请求里
+
                 request.ClientCertificates.Add(new X509Certificate(item.CerPath));
             }
             else
@@ -360,7 +376,8 @@ namespace hn.Common
         /// <param name="item">Http参数</param>
         private void SetPostData(HttpItem item)
         {
-            //验证在得到结果时是否有传入数据
+            //验证在得到结果时是否有传入数据
+
             if (!request.Method.Trim().ToLower().Contains("get"))
             {
                 if (item.PostEncoding != null)
@@ -371,7 +388,8 @@ namespace hn.Common
                 //写入Byte类型
                 if (item.PostDataType == PostDataType.Byte && item.PostdataByte != null && item.PostdataByte.Length > 0)
                 {
-                    //验证在得到结果时是否有传入数据
+                    //验证在得到结果时是否有传入数据
+
                     buffer = item.PostdataByte;
                 }//写入文件
                 else if (item.PostDataType == PostDataType.FilePath && !string.IsNullOrWhiteSpace(item.Postdata))
@@ -379,7 +397,8 @@ namespace hn.Common
                     StreamReader r = new StreamReader(item.Postdata, postencoding);
                     buffer = postencoding.GetBytes(r.ReadToEnd());
                     r.Close();
-                } //写入字符串
+                } //写入字符串
+
                 else if (!string.IsNullOrWhiteSpace(item.Postdata))
                 {
                     buffer = postencoding.GetBytes(item.Postdata);
@@ -404,14 +423,16 @@ namespace hn.Common
             }
             if (!string.IsNullOrWhiteSpace(item.ProxyIp) && !isIeProxy)
             {
-                //设置代理服务器
+                //设置代理服务器
+
                 if (item.ProxyIp.Contains(":"))
                 {
                     string[] plist = item.ProxyIp.Split(':');
                     WebProxy myProxy = new WebProxy(plist[0].Trim(), Convert.ToInt32(plist[1].Trim()));
                     //建议连接
                     myProxy.Credentials = new NetworkCredential(item.ProxyUserName, item.ProxyPwd);
-                    //给当前请求对象
+                    //给当前请求对象
+
                     request.Proxy = myProxy;
                 }
                 else
@@ -419,7 +440,8 @@ namespace hn.Common
                     WebProxy myProxy = new WebProxy(item.ProxyIp, false);
                     //建议连接
                     myProxy.Credentials = new NetworkCredential(item.ProxyUserName, item.ProxyPwd);
-                    //给当前请求对象
+                    //给当前请求对象
+
                     request.Proxy = myProxy;
                 }
             }
@@ -456,7 +478,8 @@ namespace hn.Common
         /// <returns></returns>
         private IPEndPoint BindIPEndPointCallback(ServicePoint servicePoint, IPEndPoint remoteEndPoint, int retryCount)
         {
-            return _IPEndPoint;//端口号
+            return _IPEndPoint;//端口号
+
         }
         #endregion
     }
@@ -473,7 +496,8 @@ namespace hn.Common
         public string URL { get; set; }
         string _Method = "GET";
         /// <summary>
-        /// 请求方式默认为GET方式,当为POST方式时必须设置Postdata的值
+        /// 请求方式默认为GET方式,当为POST方式时必须设置Postdata的值
+
         /// </summary>
         public string Method
         {
@@ -491,7 +515,8 @@ namespace hn.Common
         }
         int _ReadWriteTimeout = 30000;
         /// <summary>
-        /// 默认写入Post数据超时间
+        /// 默认写入Post数据超时间
+
         /// </summary>
         public int ReadWriteTimeout
         {
@@ -499,12 +524,14 @@ namespace hn.Common
             set { _ReadWriteTimeout = value; }
         }
         /// <summary>
-        /// 设置Host的标头信息
+        /// 设置Host的标头信息
+
         /// </summary>
         public string Host { get; set; }
         Boolean _KeepAlive = true;
         /// <summary>
-        ///  获取或设置一个值，该值指示是否与 Internet 资源建立持久性连接默认为true。
+        ///  获取或设置一个值，该值指示是否与 Internet 资源建立持久性连接默认为true。
+
         /// </summary>
         public Boolean KeepAlive
         {
@@ -544,7 +571,8 @@ namespace hn.Common
         public Encoding Encoding { get; set; }
         private PostDataType _PostDataType = PostDataType.String;
         /// <summary>
-        /// Post的数据类型
+        /// Post的数据类型
+
         /// </summary>
         public PostDataType PostDataType
         {
@@ -611,7 +639,8 @@ namespace hn.Common
         /// </summary>
         public string ProxyUserName { get; set; }
         /// <summary>
-        /// 代理 服务器密码
+        /// 代理 服务器密码
+
         /// </summary>
         public string ProxyPwd { get; set; }
         /// <summary>
@@ -637,12 +666,14 @@ namespace hn.Common
             set { header = value; }
         }
         /// <summary>
-        //     获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
+        //     获取或设置用于请求的 HTTP 版本。返回结果:用于请求的 HTTP 版本。默认为 System.Net.HttpVersion.Version11。
+
         /// </summary>
         public Version ProtocolVersion { get; set; }
         private Boolean _expect100continue = true;
         /// <summary>
-        ///  获取或设置一个 System.Boolean 值，该值确定是否使用 100-Continue 行为。如果 POST 请求需要 100-Continue 响应，则为 true；否则为 false。默认值为 true。
+        ///  获取或设置一个 System.Boolean 值，该值确定是否使用 100-Continue 行为。如果 POST 请求需要 100-Continue 响应，则为 true；否则为 false。默认值为 true。
+
         /// </summary>
         public Boolean Expect100Continue
         {
@@ -668,7 +699,8 @@ namespace hn.Common
         }
         private ICredentials _ICredentials = CredentialCache.DefaultCredentials;
         /// <summary>
-        /// 获取或设置请求的身份验证信息。
+        /// 获取或设置请求的身份验证信息。
+
         /// </summary>
         public ICredentials ICredentials
         {
@@ -676,12 +708,14 @@ namespace hn.Common
             set { _ICredentials = value; }
         }
         /// <summary>
-        /// 设置请求将跟随的重定向的最大数目
+        /// 设置请求将跟随的重定向的最大数目
+
         /// </summary>
         public int MaximumAutomaticRedirections { get; set; }
         private DateTime? _IfModifiedSince = null;
         /// <summary>
-        /// 获取和设置IfModifiedSince，默认为当前日期和时间
+        /// 获取和设置IfModifiedSince，默认为当前日期和时间
+
         /// </summary>
         public DateTime? IfModifiedSince
         {
@@ -691,7 +725,8 @@ namespace hn.Common
         #region ip-port
         private IPEndPoint _IPEndPoint = null;
         /// <summary>
-        /// 设置本地的出口ip和端口
+        /// 设置本地的出口ip和端口
+
         /// </summary>]
         /// <example>
         ///item.IPEndPoint = new IPEndPoint(IPAddress.Parse("192.168.1.1"),80);
@@ -704,7 +739,8 @@ namespace hn.Common
         #endregion
     }
     /// <summary>
-    /// Http返回参数类
+    /// Http返回参数类
+
     /// </summary>
     public class HttpResult
     {
@@ -718,7 +754,8 @@ namespace hn.Common
         public CookieCollection CookieCollection { get; set; }
         private string _html = string.Empty;
         /// <summary>
-        /// 返回的String类型数据 只有ResultType.String时才返回数据，其它情况为空
+        /// 返回的String类型数据 只有ResultType.String时才返回数据，其它情况为空
+
         /// </summary>
         public string Html
         {
@@ -726,7 +763,8 @@ namespace hn.Common
             set { _html = value; }
         }
         /// <summary>
-        /// 返回的Byte数组 只有ResultType.Byte时才返回数据，其它情况为空
+        /// 返回的Byte数组 只有ResultType.Byte时才返回数据，其它情况为空
+
         /// </summary>
         public byte[] ResultByte { get; set; }
         /// <summary>
@@ -734,7 +772,8 @@ namespace hn.Common
         /// </summary>
         public WebHeaderCollection Header { get; set; }
         /// <summary>
-        /// 返回状态说明
+        /// 返回状态说明
+
         /// </summary>
         public string StatusDescription { get; set; }
         /// <summary>
@@ -783,7 +822,8 @@ namespace hn.Common
     public enum ResultType
     {
         /// <summary>
-        /// 表示只返回字符串 只有Html有数据
+        /// 表示只返回字符串 只有Html有数据
+
         /// </summary>
         String,
         /// <summary>
@@ -801,11 +841,13 @@ namespace hn.Common
         /// </summary>
         String,
         /// <summary>
-        /// Byte类型，需要设置PostdataByte参数的值编码Encoding可设置为空
+        /// Byte类型，需要设置PostdataByte参数的值编码Encoding可设置为空
+
         /// </summary>
         Byte,
         /// <summary>
-        /// 传文件，Postdata必须设置为文件的绝对路径，必须设置Encoding的值
+        /// 传文件，Postdata必须设置为文件的绝对路径，必须设置Encoding的值
+
         /// </summary>
         FilePath
     }
