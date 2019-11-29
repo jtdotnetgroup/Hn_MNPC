@@ -627,56 +627,56 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.ico" />
-    <None Include="Service References\ApiService\APIService.disco" />
+    <None Include="Service References\ApiService\APIService1.disco" />
     <None Include="Resources\min.png" />
     <None Include="Resources\close.png" />
-    <None Include="Service References\ApiService\APIService.wsdl" />
-    <None Include="Service References\ApiService\APIService16.xsd">
+    <None Include="Service References\ApiService\APIService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService161.xsd">
+    <None Include="Service References\ApiService\APIService1.wsdl" />
+    <None Include="Service References\ApiService\APIService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService1610.xsd">
+    <None Include="Service References\ApiService\APIService10.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService1611.xsd">
+    <None Include="Service References\ApiService\APIService11.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService1612.xsd">
+    <None Include="Service References\ApiService\APIService12.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService1613.xsd">
+    <None Include="Service References\ApiService\APIService13.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService1614.xsd">
+    <None Include="Service References\ApiService\APIService14.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService1615.xsd">
+    <None Include="Service References\ApiService\APIService15.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService162.xsd">
+    <None Include="Service References\ApiService\APIService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService163.xsd">
+    <None Include="Service References\ApiService\APIService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService164.xsd">
+    <None Include="Service References\ApiService\APIService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService165.xsd">
+    <None Include="Service References\ApiService\APIService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService166.xsd">
+    <None Include="Service References\ApiService\APIService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService167.xsd">
+    <None Include="Service References\ApiService\APIService7.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService168.xsd">
+    <None Include="Service References\ApiService\APIService8.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ApiService\APIService169.xsd">
+    <None Include="Service References\ApiService\APIService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ApiService\Reference.svcmap">

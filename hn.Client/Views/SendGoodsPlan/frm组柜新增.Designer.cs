@@ -202,7 +202,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.gridControl库存查询 = new DevExpress.XtraGrid.GridControl();
             this.gridView库存查询 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumn17 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn24 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -232,6 +231,7 @@
             this.gridColumn22 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.repositoryItemCheckEdit3 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.pnl跑龙套2 = new System.Windows.Forms.Panel();
             this.cekContain = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -339,8 +339,8 @@
             this.splitContainerControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl库存查询)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView库存查询)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit3)).BeginInit();
             this.pnl跑龙套2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtArea.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textTHD.Properties)).BeginInit();
@@ -840,7 +840,7 @@
             this.tabNavigationPage1.Controls.Add(this.txt其他);
             this.tabNavigationPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabNavigationPage1.Name = "tabNavigationPage1";
-            this.tabNavigationPage1.Size = new System.Drawing.Size(1222, 657);
+            this.tabNavigationPage1.Size = new System.Drawing.Size(1240, 675);
             // 
             // cbo是否需补货
             // 
@@ -1105,6 +1105,7 @@
             this.txt运费单价.Properties.Appearance.Options.UseFont = true;
             this.txt运费单价.Size = new System.Drawing.Size(106, 26);
             this.txt运费单价.TabIndex = 227;
+            this.txt运费单价.EditValueChanged += new System.EventHandler(this.txt实际吨重_EditValueChanged);
             // 
             // label51
             // 
@@ -1126,6 +1127,7 @@
             this.txt实际吨重.Properties.Appearance.Options.UseFont = true;
             this.txt实际吨重.Size = new System.Drawing.Size(106, 26);
             this.txt实际吨重.TabIndex = 225;
+            this.txt实际吨重.EditValueChanged += new System.EventHandler(this.txt实际吨重_EditValueChanged);
             // 
             // label50
             // 
@@ -1466,6 +1468,7 @@
             this.cbo运输计价.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbo运输计价.Size = new System.Drawing.Size(106, 26);
             this.cbo运输计价.TabIndex = 189;
+            this.cbo运输计价.SelectedIndexChanged += new System.EventHandler(this.txt实际吨重_EditValueChanged);
             // 
             // lbl运输计价
             // 
@@ -1778,6 +1781,7 @@
             this.cbo运输方式.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbo运输方式.Size = new System.Drawing.Size(106, 26);
             this.cbo运输方式.TabIndex = 4;
+            this.cbo运输方式.SelectedIndexChanged += new System.EventHandler(this.cbo运输方式_SelectedIndexChanged);
             // 
             // cbo发货方式
             // 
@@ -2202,6 +2206,7 @@
             this.gridView组柜明细.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView组柜明细_RowCellStyle);
             this.gridView组柜明细.CustomSummaryCalculate += new DevExpress.Data.CustomSummaryEventHandler(this.gridView组柜明细_CustomSummaryCalculate);
             this.gridView组柜明细.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView组柜明细_CellValueChanged);
+            this.gridView组柜明细.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView组柜明细_RowUpdated);
             // 
             // 钩稽请购计划
             // 
@@ -2742,11 +2747,6 @@
             this.gridView库存查询.OptionsView.ShowGroupPanel = false;
             this.gridView库存查询.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView库存查询_SelectionChanged);
             // 
-            // repositoryItemCheckEdit3
-            // 
-            this.repositoryItemCheckEdit3.AutoHeight = false;
-            this.repositoryItemCheckEdit3.Name = "repositoryItemCheckEdit3";
-            // 
             // gridColumn17
             // 
             this.gridColumn17.AppearanceCell.Options.UseTextOptions = true;
@@ -2831,7 +2831,7 @@
             this.gridColumn105.FieldName = "cpcm";
             this.gridColumn105.Name = "gridColumn105";
             this.gridColumn105.Visible = true;
-            this.gridColumn105.VisibleIndex = 26;
+            this.gridColumn105.VisibleIndex = 9;
             this.gridColumn105.Width = 70;
             // 
             // gridColumn94
@@ -2842,7 +2842,7 @@
             this.gridColumn94.FieldName = "sl";
             this.gridColumn94.Name = "gridColumn94";
             this.gridColumn94.Visible = true;
-            this.gridColumn94.VisibleIndex = 9;
+            this.gridColumn94.VisibleIndex = 10;
             // 
             // gridColumn3
             // 
@@ -2850,7 +2850,7 @@
             this.gridColumn3.FieldName = "XZSL";
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 10;
+            this.gridColumn3.VisibleIndex = 11;
             // 
             // gridColumn16
             // 
@@ -2860,7 +2860,7 @@
             this.gridColumn16.FieldName = "LEFTNUM1";
             this.gridColumn16.Name = "gridColumn16";
             this.gridColumn16.Visible = true;
-            this.gridColumn16.VisibleIndex = 11;
+            this.gridColumn16.VisibleIndex = 12;
             this.gridColumn16.Width = 100;
             // 
             // gridColumn5
@@ -2869,7 +2869,7 @@
             this.gridColumn5.FieldName = "USENUM";
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 12;
+            this.gridColumn5.VisibleIndex = 13;
             // 
             // gridColumn30
             // 
@@ -2877,7 +2877,7 @@
             this.gridColumn30.FieldName = "bz";
             this.gridColumn30.Name = "gridColumn30";
             this.gridColumn30.Visible = true;
-            this.gridColumn30.VisibleIndex = 14;
+            this.gridColumn30.VisibleIndex = 15;
             this.gridColumn30.Width = 160;
             // 
             // gridColumn23
@@ -2886,7 +2886,7 @@
             this.gridColumn23.FieldName = "FTRANSNAME";
             this.gridColumn23.Name = "gridColumn23";
             this.gridColumn23.Visible = true;
-            this.gridColumn23.VisibleIndex = 15;
+            this.gridColumn23.VisibleIndex = 16;
             this.gridColumn23.Width = 50;
             // 
             // gridColumn20
@@ -2895,7 +2895,7 @@
             this.gridColumn20.FieldName = "FPREMISEBRANDNAME";
             this.gridColumn20.Name = "gridColumn20";
             this.gridColumn20.Visible = true;
-            this.gridColumn20.VisibleIndex = 16;
+            this.gridColumn20.VisibleIndex = 17;
             // 
             // gridColumn9
             // 
@@ -2903,7 +2903,7 @@
             this.gridColumn9.FieldName = "fclassarea2name";
             this.gridColumn9.Name = "gridColumn9";
             this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 13;
+            this.gridColumn9.VisibleIndex = 14;
             // 
             // gridColumn107
             // 
@@ -2922,7 +2922,7 @@
             this.gridColumn95.FieldName = "dj";
             this.gridColumn95.Name = "gridColumn95";
             this.gridColumn95.Visible = true;
-            this.gridColumn95.VisibleIndex = 17;
+            this.gridColumn95.VisibleIndex = 18;
             // 
             // gridColumn96
             // 
@@ -2932,7 +2932,7 @@
             this.gridColumn96.FieldName = "je";
             this.gridColumn96.Name = "gridColumn96";
             this.gridColumn96.Visible = true;
-            this.gridColumn96.VisibleIndex = 18;
+            this.gridColumn96.VisibleIndex = 19;
             this.gridColumn96.Width = 100;
             // 
             // gridColumn81
@@ -2943,7 +2943,7 @@
             this.gridColumn81.FieldName = "ks";
             this.gridColumn81.Name = "gridColumn81";
             this.gridColumn81.Visible = true;
-            this.gridColumn81.VisibleIndex = 19;
+            this.gridColumn81.VisibleIndex = 20;
             this.gridColumn81.Width = 80;
             // 
             // gridColumn8
@@ -2954,7 +2954,7 @@
             this.gridColumn8.FieldName = "gg";
             this.gridColumn8.Name = "gridColumn8";
             this.gridColumn8.Visible = true;
-            this.gridColumn8.VisibleIndex = 20;
+            this.gridColumn8.VisibleIndex = 21;
             // 
             // gridColumn21
             // 
@@ -2964,7 +2964,7 @@
             this.gridColumn21.FieldName = "khmc";
             this.gridColumn21.Name = "gridColumn21";
             this.gridColumn21.Visible = true;
-            this.gridColumn21.VisibleIndex = 21;
+            this.gridColumn21.VisibleIndex = 22;
             this.gridColumn21.Width = 250;
             // 
             // gridColumn6
@@ -2981,7 +2981,7 @@
             this.gridColumn97.FieldName = "khhm1";
             this.gridColumn97.Name = "gridColumn97";
             this.gridColumn97.Visible = true;
-            this.gridColumn97.VisibleIndex = 22;
+            this.gridColumn97.VisibleIndex = 23;
             // 
             // gridColumn98
             // 
@@ -2991,7 +2991,7 @@
             this.gridColumn98.FieldName = "khmc1";
             this.gridColumn98.Name = "gridColumn98";
             this.gridColumn98.Visible = true;
-            this.gridColumn98.VisibleIndex = 23;
+            this.gridColumn98.VisibleIndex = 24;
             // 
             // gridColumn99
             // 
@@ -3011,7 +3011,7 @@
             this.gridColumn22.FieldName = "cppz";
             this.gridColumn22.Name = "gridColumn22";
             this.gridColumn22.Visible = true;
-            this.gridColumn22.VisibleIndex = 24;
+            this.gridColumn22.VisibleIndex = 25;
             this.gridColumn22.Width = 80;
             // 
             // gridColumn7
@@ -3020,12 +3020,17 @@
             this.gridColumn7.FieldName = "icprbillentryid";
             this.gridColumn7.Name = "gridColumn7";
             this.gridColumn7.Visible = true;
-            this.gridColumn7.VisibleIndex = 25;
+            this.gridColumn7.VisibleIndex = 26;
             // 
             // repositoryItemCheckEdit1
             // 
             this.repositoryItemCheckEdit1.AutoHeight = false;
             this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
+            // 
+            // repositoryItemCheckEdit3
+            // 
+            this.repositoryItemCheckEdit3.AutoHeight = false;
+            this.repositoryItemCheckEdit3.Name = "repositoryItemCheckEdit3";
             // 
             // pnl跑龙套2
             // 
@@ -3421,8 +3426,8 @@
             this.splitContainerControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl库存查询)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView库存查询)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit3)).EndInit();
             this.pnl跑龙套2.ResumeLayout(false);
             this.pnl跑龙套2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtArea.Properties)).EndInit();

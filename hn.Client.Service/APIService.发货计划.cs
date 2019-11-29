@@ -187,7 +187,8 @@ namespace hn.Client.Service
                             if (icprModel != null)
                             {
                                 model.FPROJECTNAME = icprModel.FPROJECTNAME;
-                                model.FRECEIVERADDR = icprModel.FRECEIVINGADDR;
+                                //用户修改收地址后如果执行此句，会还原为原值导致修改失效----20191121  改
+                                //model.FRECEIVERADDR = icprModel.FRECEIVINGADDR;
                                 model.FPLANDESC = icprModel.JDE;
                                 model.FPURCHASE_NO = icprModel.FPURCHASE_NO;
                                 model.FREMARK = icprModel.FREMARK;

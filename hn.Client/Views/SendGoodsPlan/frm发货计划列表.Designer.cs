@@ -45,7 +45,6 @@
             this.splitContainerControl1 = new DevExpress.XtraEditors.SplitContainerControl();
             this.gridControl发货计划列表 = new DevExpress.XtraGrid.GridControl();
             this.gridView发货计划列表 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumn888 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn886 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn885 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -62,6 +61,7 @@
             this.gridColumn品牌部 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn40 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEdit888 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.pnl跑龙套2 = new DevExpress.XtraEditors.PanelControl();
             this.dropDownButton1 = new DevExpress.XtraEditors.DropDownButton();
             this.txt发货计划单号 = new DevExpress.XtraEditors.TextEdit();
@@ -94,7 +94,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.gridControl发货计划明细 = new DevExpress.XtraGrid.GridControl();
             this.gridView组柜明细 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumn73 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -115,6 +114,7 @@
             this.repositoryItemCheckEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.repositoryItemButtonEdit厂家代码 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemButtonEdit厂家账户 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.repositoryItemCheckEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.pnl跑龙套1 = new DevExpress.XtraEditors.PanelControl();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btn导出 = new DevExpress.XtraEditors.SimpleButton();
@@ -143,8 +143,8 @@
             this.splitContainerControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl发货计划列表)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView发货计划列表)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit888)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnl跑龙套2)).BeginInit();
             this.pnl跑龙套2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txt发货计划单号.Properties)).BeginInit();
@@ -165,10 +165,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txt日期开始.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl发货计划明细)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView组柜明细)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家代码)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家账户)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnl跑龙套1)).BeginInit();
             this.pnl跑龙套1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -441,12 +441,6 @@
             this.gridView发货计划列表.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView发货计划列表_CustomColumnDisplayText);
             this.gridView发货计划列表.DoubleClick += new System.EventHandler(this.gridView发货计划列表_DoubleClick);
             // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            this.repositoryItemCheckEdit1.CheckedChanged += new System.EventHandler(this.repositoryItemCheckEdit1_CheckedChanged);
-            // 
             // gridColumn888
             // 
             this.gridColumn888.AppearanceCell.Options.UseTextOptions = true;
@@ -627,6 +621,12 @@
             this.repositoryItemCheckEdit888.LookAndFeel.SkinName = "Office 2010 Blue";
             this.repositoryItemCheckEdit888.LookAndFeel.UseDefaultLookAndFeel = false;
             this.repositoryItemCheckEdit888.Name = "repositoryItemCheckEdit888";
+            // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
+            this.repositoryItemCheckEdit1.CheckedChanged += new System.EventHandler(this.repositoryItemCheckEdit1_CheckedChanged);
             // 
             // pnl跑龙套2
             // 
@@ -1104,11 +1104,6 @@
             this.gridView组柜明细.OptionsView.ShowFooter = true;
             this.gridView组柜明细.OptionsView.ShowGroupPanel = false;
             // 
-            // repositoryItemCheckEdit6
-            // 
-            this.repositoryItemCheckEdit6.AutoHeight = false;
-            this.repositoryItemCheckEdit6.Name = "repositoryItemCheckEdit6";
-            // 
             // gridColumn73
             // 
             this.gridColumn73.AppearanceCell.Options.UseTextOptions = true;
@@ -1319,6 +1314,11 @@
             this.repositoryItemButtonEdit厂家账户.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.repositoryItemButtonEdit厂家账户.Name = "repositoryItemButtonEdit厂家账户";
+            // 
+            // repositoryItemCheckEdit6
+            // 
+            this.repositoryItemCheckEdit6.AutoHeight = false;
+            this.repositoryItemCheckEdit6.Name = "repositoryItemCheckEdit6";
             // 
             // pnl跑龙套1
             // 
@@ -1769,8 +1769,8 @@
             this.splitContainerControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl发货计划列表)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView发货计划列表)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit888)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnl跑龙套2)).EndInit();
             this.pnl跑龙套2.ResumeLayout(false);
             this.pnl跑龙套2.PerformLayout();
@@ -1793,10 +1793,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.txt日期开始.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl发货计划明细)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView组柜明细)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家代码)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit厂家账户)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnl跑龙套1)).EndInit();
             this.pnl跑龙套1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

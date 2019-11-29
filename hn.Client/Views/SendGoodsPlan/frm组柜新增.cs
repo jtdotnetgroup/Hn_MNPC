@@ -150,6 +150,19 @@ namespace hn.Client
             bLoad = true;
         }
 
+        //设置实际吨重
+        private void setTotalWeigth()
+        {
+            decimal totalWeight = 0;
+            for (int i = 0; i < gridView组柜明细.RowCount; i++)
+            {
+                var rowWeight =Convert.ToDecimal( gridView组柜明细.GetRowCellValue(i, "FWEIGHT"));
+                totalWeight += rowWeight;
+                txt实际吨重.Text = (totalWeight/1000).ToString();
+            }
+        }
+
+
         private void setFormData()
         {
             if (IcseoutbillModel != null)
@@ -162,7 +175,9 @@ namespace hn.Client
                 }
 
                 txt发货计划号.Text = IcseoutbillModel.FGROUP_NO;
+
                 txt实际吨重.Text = $"{IcseoutbillModel.FACTUAL_WEIGHT/1000}";
+
                 txt运费单价.Text = $"{IcseoutbillModel.FFREIGHT_PRICE}";
                 foreach (var item in cbo品牌.Properties.Items)
                 {
@@ -2498,6 +2513,59 @@ namespace hn.Client
             {
                 gridView库存查询.SetRowCellValue(i,"FCHECK",true);
             }
+        }
+
+        private void txt实际吨重_EditValueChanged(object sender, EventArgs e)
+        {
+            var item = cbo运输计价.SelectedItem as SYS_SUBDICSMODEL;
+            if (item != null&&item.FNAME=="重量计价")
+            {
+                var weigth = Convert.ToDecimal(txt实际吨重.Text);
+                var price = Convert.ToDecimal(string.IsNullOrEmpty(txt运费单价.Text)?"0":txt运费单价.Text);
+                decimal Freight = weigth * price;
+                txt标准运费.Text = Freight.ToString();
+                return;
+            }
+
+            txt标准运费.Text = txt运费单价.Text;
+        }
+
+        private void cbo运输方式_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = cbo运输方式.SelectedItem as SYS_SUBDICSMODEL;
+            var modelList = cbo运输计价.Properties.Items;
+            if (item.FNAME == "海柜")
+            {
+                foreach (var model in modelList)
+                {
+                    var selectModel = model as SYS_SUBDICSMODEL;
+                    if (selectModel.FNAME == "单柜")
+                    {
+                        cbo运输计价.SelectedItem = selectModel;
+                        break;
+                    }
+                }
+                return;
+            }
+
+            if (item.FNAME == "汽运"||item.FNAME=="零担")
+            {
+                foreach (var model in modelList)
+                {
+                    var selectModel = model as SYS_SUBDICSMODEL;
+                    if (selectModel.FNAME == "重量计价")
+                    {
+                        cbo运输计价.SelectedItem = selectModel;
+                        break;
+                    }
+                }
+                return;
+            }
+        }
+
+        private void gridView组柜明细_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {
+            JS();
         }
     }
 }
