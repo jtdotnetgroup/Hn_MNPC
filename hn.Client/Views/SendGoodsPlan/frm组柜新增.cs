@@ -67,33 +67,14 @@ namespace hn.Client
             //初始化品牌列表
             var listBrand = _service.GetBrandList(Global.LoginUser);
             string brandid = IniHelper.ReadString(Global.IniUrl, "CONFIG", "FBRANDID", "");
-            foreach (var item in listBrand)
-            {
-                
-                cbo品牌.Properties.Items.Add(item);
-                 
-                if (item.FID == brandid)
-                {
-                    cbo品牌.SelectedItem = item;
 
-                    //txt委托人.Text = item.FLINKMAN;
-                    //txt委托人电话.Text = item.FLINKPHONE;
-                }
-            }
+            cbo品牌.Properties.Items.AddRange(listBrand);
+            cbo品牌.SelectedItem = listBrand.Where(w => w.FID.Equals(brandid)).FirstOrDefault() ?? new TB_BrandModel(); 
 
-            //初始化运输方式
-            var dicList1 = _service.GetDics("106", "", false);
-            foreach (var item in dicList1)
-            {
-                cbo运输方式.Properties.Items.Add(item);
-            }
-
+            //初始化运输方式 
+            cbo运输方式.Properties.Items.AddRange(_service.GetDics("106", "", false));
             //初始化发货方式
-            var dicList2 = _service.GetDics("113", "", false);
-            foreach (var item in dicList2)
-            {
-                cbo发货方式.Properties.Items.Add(item);
-            }
+            cbo发货方式.Properties.Items.AddRange(_service.GetDics("113", "", false));
 
             cbo发货方式.SelectedIndex = 0;
 
@@ -339,9 +320,11 @@ namespace hn.Client
                 txt公司编码.Text = IcseoutbillModel.FCOMPANY_NO;
                 var listTemp = new List<V_ICSEOUTBILLENTRYMODEL>(_service.GetDeliveryEntryByGroupNo(IcseoutbillModel.FGROUP_NO));
 
+                string[] thdbmList = listTemp.Select(s => s.thdbm).ToArray();
+                List<v_thdModel> tmp = _service.getTHDList(thdbmList).ToList();
                 foreach (var subT in listTemp)
                 {
-                    v_thdModel v = _service.getTHD(subT.thdbm);
+                    v_thdModel v = tmp.Where(w => w.AUTOID == subT.thdbm).FirstOrDefault() ?? new v_thdModel();
                     subT.dw = v.dw;
                     subT.dj = v.dj;
                     subT.pz = v.cppz;
@@ -1571,9 +1554,9 @@ namespace hn.Client
                 catch
                 {
                     labSum.Text = "";
-                }
-
+                } 
                 gridControl库存查询.DataSource = list;
+                
                 this.Cursor = Cursors.Default;
             }
             else
@@ -2088,8 +2071,7 @@ namespace hn.Client
 
         }
 
-
-        string result = "";
+         
         private void simpleButton2_Click(object sender, EventArgs e)
         {
             simpleButton2.Text = "提货单同步中";
@@ -2566,6 +2548,22 @@ namespace hn.Client
         private void gridView组柜明细_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
         {
             JS();
+        }
+
+        private void gridView库存查询_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
+        {
+            DevExpress.XtraGrid.Views.Grid.GridView view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            v_thdModel row = view.GetRow(e.RowHandle) as v_thdModel;
+            if (row == null) return;
+            if (row.sl.Equals(row.USENUM.ToStr()))
+            {
+                e.Appearance.BackColor = Color.Red;
+            } 
+        }
+
+        private void gridView库存查询_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        { 
+             
         }
     }
 }

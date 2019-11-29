@@ -20,7 +20,7 @@ namespace hn.Client
         public event EventHandler SaveAfter;
         private DataTable _table = new DataTable();
 
-        private DataTable _tableMarketArea;
+        //private DataTable _tableMarketArea;
 
         ApiService.APIServiceClient _service;
         V_ICPOBILLMODEL model = new V_ICPOBILLMODEL();

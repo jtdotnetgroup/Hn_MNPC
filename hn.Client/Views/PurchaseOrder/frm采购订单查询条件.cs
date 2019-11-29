@@ -278,10 +278,9 @@ namespace hn.Client
 
         private void onSearch()
         {
-            string xq = "";// txt销区.Text;
+            //string xq = "";// txt销区.Text;
             string brand = "";
-            int status = 0;
-            string premiseid = "";
+            int status = 0; 
             string billno = txt采购单号.Text;
 
             if (cbo品牌.SelectedItem != null)

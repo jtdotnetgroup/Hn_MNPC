@@ -410,8 +410,7 @@ namespace hn.Client
                     if (entry.FSTATUS == 7) //采购确认的状态
                     {
 
-                        decimal rate = entry.FRATE;
-                        string unit = "";
+                        decimal rate = entry.FRATE; 
                         string srcname = entry.FSRCNAME;
                         string srcmodel = entry.FSRCMODEL;
                         string srccode = entry.FSRCCODE;
@@ -1032,14 +1031,7 @@ namespace hn.Client
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
-              
-            }
-            catch (Exception ex)
-            {
-
-            }
+         
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

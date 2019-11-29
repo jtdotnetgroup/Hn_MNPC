@@ -52,9 +52,9 @@ namespace hn.Client
 
                 initComboBox();
 
-                txt日期开始.Text = formatDateTime(DateTime.Now.AddDays(-7));
+                txt日期开始.Text = formatDateTime(DateTime.Now.AddDays(-16));
                 txt日期结束.Text = formatDateTime(DateTime.Now);
-
+                gridView发货计划列表.OptionsView.ColumnAutoWidth = true;
                 foreach (CodeValueClass item in cbo状态.Properties.Items)
                 {
                     if (item.value == status.ToStr())

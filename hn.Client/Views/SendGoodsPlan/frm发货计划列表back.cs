@@ -26,8 +26,7 @@ namespace hn.Client
         private ApiService.APIServiceClient _service;
 
         private V_ICSEOUTBILLMODEL[] _dataSrouce;
-
-        private int _status = 0;
+         
 
         #endregion
 

@@ -20,7 +20,7 @@ namespace hn.Client
 
         private DataTable _table = new DataTable();
 
-        private DataTable _tableMarketArea;
+        //private DataTable _tableMarketArea;
 
         ApiService.APIServiceClient _service;
 
@@ -728,7 +728,7 @@ namespace hn.Client
 
             }
             catch (Exception ee)
-            { }
+            { Console.WriteLine(ee.Message); }
         }
 
         private void simpleButton3_Click(object sender, EventArgs e)
@@ -1313,7 +1313,9 @@ namespace hn.Client
 
                                 }
                                 catch(Exception ee)
-                                { }
+                                {
+                                    Console.WriteLine(ee.Message);
+                                }
 
 
                                 _service.Update_FSYN_Remote_Status(sub22.Key, 4, s,dicEntryID_THDBMDetail);

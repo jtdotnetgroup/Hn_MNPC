@@ -31,7 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSGPGroupCounter));
             DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraGrid.StyleFormatCondition();
-            DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition2 = new DevExpress.XtraGrid.StyleFormatCondition();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            this.gridColumn94 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn19 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.imageList3 = new System.Windows.Forms.ImageList(this.components);
             this.pnl跑龙套3 = new System.Windows.Forms.Panel();
@@ -210,10 +213,8 @@
             this.gridColumn106 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn80 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn105 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn94 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn30 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn23 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn20 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -352,6 +353,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit1.Properties)).BeginInit();
             this.SuspendLayout();
+            // 
+            // gridColumn94
+            // 
+            this.gridColumn94.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn94.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn94.Caption = "开单数";
+            this.gridColumn94.FieldName = "sl";
+            this.gridColumn94.Name = "gridColumn94";
+            this.gridColumn94.Visible = true;
+            this.gridColumn94.VisibleIndex = 10;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "已用数";
+            this.gridColumn5.FieldName = "USENUM";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 13;
             // 
             // gridColumn19
             // 
@@ -2727,14 +2746,17 @@
             this.gridColumn99,
             this.gridColumn22,
             this.gridColumn7});
-            styleFormatCondition2.Appearance.ForeColor = System.Drawing.Color.Red;
-            styleFormatCondition2.Appearance.Options.UseForeColor = true;
-            styleFormatCondition2.ApplyToRow = true;
-            styleFormatCondition2.Column = this.gridColumn19;
-            styleFormatCondition2.Condition = DevExpress.XtraGrid.FormatConditionEnum.Equal;
-            styleFormatCondition2.Value1 = "离线";
-            this.gridView库存查询.FormatConditions.AddRange(new DevExpress.XtraGrid.StyleFormatCondition[] {
-            styleFormatCondition2});
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Column = this.gridColumn94;
+            gridFormatRule1.ColumnApplyTo = this.gridColumn5;
+            gridFormatRule1.Name = "Format0";
+            formatConditionRuleValue1.Appearance.ForeColor = System.Drawing.Color.Red;
+            formatConditionRuleValue1.Appearance.Options.UseForeColor = true;
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue1.Value1 = "";
+            formatConditionRuleValue1.Value2 = "";
+            gridFormatRule1.Rule = formatConditionRuleValue1;
+            this.gridView库存查询.FormatRules.Add(gridFormatRule1);
             this.gridView库存查询.GridControl = this.gridControl库存查询;
             this.gridView库存查询.Name = "gridView库存查询";
             this.gridView库存查询.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
@@ -2745,6 +2767,8 @@
             this.gridView库存查询.OptionsView.ColumnAutoWidth = false;
             this.gridView库存查询.OptionsView.EnableAppearanceEvenRow = true;
             this.gridView库存查询.OptionsView.ShowGroupPanel = false;
+            this.gridView库存查询.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.gridView库存查询_CustomDrawCell);
+            this.gridView库存查询.RowCellStyle += new DevExpress.XtraGrid.Views.Grid.RowCellStyleEventHandler(this.gridView库存查询_RowCellStyle);
             this.gridView库存查询.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView库存查询_SelectionChanged);
             // 
             // gridColumn17
@@ -2820,7 +2844,7 @@
             this.gridColumn80.FieldName = "dw";
             this.gridColumn80.Name = "gridColumn80";
             this.gridColumn80.Visible = true;
-            this.gridColumn80.VisibleIndex = 8;
+            this.gridColumn80.VisibleIndex = 9;
             this.gridColumn80.Width = 45;
             // 
             // gridColumn105
@@ -2831,18 +2855,8 @@
             this.gridColumn105.FieldName = "cpcm";
             this.gridColumn105.Name = "gridColumn105";
             this.gridColumn105.Visible = true;
-            this.gridColumn105.VisibleIndex = 9;
+            this.gridColumn105.VisibleIndex = 8;
             this.gridColumn105.Width = 70;
-            // 
-            // gridColumn94
-            // 
-            this.gridColumn94.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn94.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn94.Caption = "开单数";
-            this.gridColumn94.FieldName = "sl";
-            this.gridColumn94.Name = "gridColumn94";
-            this.gridColumn94.Visible = true;
-            this.gridColumn94.VisibleIndex = 10;
             // 
             // gridColumn3
             // 
@@ -2862,14 +2876,6 @@
             this.gridColumn16.Visible = true;
             this.gridColumn16.VisibleIndex = 12;
             this.gridColumn16.Width = 100;
-            // 
-            // gridColumn5
-            // 
-            this.gridColumn5.Caption = "已用数量";
-            this.gridColumn5.FieldName = "USENUM";
-            this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 13;
             // 
             // gridColumn30
             // 

@@ -120,7 +120,7 @@ namespace hn.AutoSyncLib
 
             var endDate = DateTime.Now.Date.AddDays(-1).ToString("yyyy/MM/dd");
 
-            int pageindex = 1;
+            //int pageindex = 1;
 
             var result= RequestAndWriteData(token, startDate, endDate, pageSize);
 
