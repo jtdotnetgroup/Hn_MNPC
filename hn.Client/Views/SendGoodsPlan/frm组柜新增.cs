@@ -2281,13 +2281,13 @@ namespace hn.Client
                 if (arr.Length == 1)
                 {
                     txt提货人电话.Text = arr[0].Replace("\r", "").Replace("\n", "").Replace("?", "");
-                    txt提货人.Text = arr[1].Replace("\r", "").Replace("\n", "").Replace("?", "");
+                    txt车牌号.Text = arr[1].Replace("\r", "").Replace("\n", "").Replace("?", "");
                 }
                 else if (arr.Length >= 2)
                 {
                     txt提货人电话.Text = arr[0].Replace("\r", "").Replace("\n", "").Replace("?", "");
-                    txt提货人.Text = arr[1].Replace("\r", "").Replace("\n", "").Replace("?", "");
-                    txt车牌号.Text = arr[2].Replace("\r", "").Replace("\n", "").Replace("?", "");
+                    txt提货人.Text = arr[2].Replace("\r", "").Replace("\n", "").Replace("?", "");
+                    txt车牌号.Text = arr[1].Replace("\r", "").Replace("\n", "").Replace("?", "");
 
                     //txt车牌号.Text = textBox1.Text.Replace(arr[0] + " ", "").Replace("\r", "").Replace("\n", "").Replace("?", "");
 
