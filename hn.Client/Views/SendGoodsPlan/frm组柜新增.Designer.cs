@@ -86,8 +86,8 @@
             this.label46 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEmpty = new System.Windows.Forms.Button();
+            this.btnmatching = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -779,8 +779,8 @@
             this.tabNavigationPage1.Controls.Add(this.label46);
             this.tabNavigationPage1.Controls.Add(this.label33);
             this.tabNavigationPage1.Controls.Add(this.numericUpDown1);
-            this.tabNavigationPage1.Controls.Add(this.button2);
-            this.tabNavigationPage1.Controls.Add(this.button1);
+            this.tabNavigationPage1.Controls.Add(this.btnEmpty);
+            this.tabNavigationPage1.Controls.Add(this.btnmatching);
             this.tabNavigationPage1.Controls.Add(this.label11);
             this.tabNavigationPage1.Controls.Add(this.label10);
             this.tabNavigationPage1.Controls.Add(this.textBox1);
@@ -999,6 +999,7 @@
             this.cbo公司主体.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbo公司主体.Size = new System.Drawing.Size(106, 26);
             this.cbo公司主体.TabIndex = 239;
+            this.cbo公司主体.SelectedValueChanged += new System.EventHandler(this.cbo公司主体_SelectedValueChanged);
             // 
             // txt发货类型
             // 
@@ -1219,25 +1220,25 @@
             0,
             0});
             // 
-            // button2
+            // btnEmpty
             // 
-            this.button2.Location = new System.Drawing.Point(581, 389);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 213;
-            this.button2.Text = "清空";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnEmpty.Location = new System.Drawing.Point(581, 389);
+            this.btnEmpty.Name = "btnEmpty";
+            this.btnEmpty.Size = new System.Drawing.Size(75, 23);
+            this.btnEmpty.TabIndex = 213;
+            this.btnEmpty.Text = "清空";
+            this.btnEmpty.UseVisualStyleBackColor = true;
+            this.btnEmpty.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // btnmatching
             // 
-            this.button1.Location = new System.Drawing.Point(671, 389);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 212;
-            this.button1.Text = "匹配";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnmatching.Location = new System.Drawing.Point(671, 389);
+            this.btnmatching.Name = "btnmatching";
+            this.btnmatching.Size = new System.Drawing.Size(75, 23);
+            this.btnmatching.TabIndex = 212;
+            this.btnmatching.Text = "匹配";
+            this.btnmatching.UseVisualStyleBackColor = true;
+            this.btnmatching.Click += new System.EventHandler(this.button1_Click);
             // 
             // label11
             // 
@@ -1246,9 +1247,9 @@
             this.label11.Location = new System.Drawing.Point(110, 516);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(304, 19);
+            this.label11.Size = new System.Drawing.Size(357, 19);
             this.label11.TabIndex = 211;
-            this.label11.Text = "匹配规则：以、分隔——（手机号11位）、(车牌）";
+            this.label11.Text = "匹配规则：以、分隔——（提货电话）、(提货人）、(车牌）";
             // 
             // label10
             // 
@@ -3625,8 +3626,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEmpty;
+        private System.Windows.Forms.Button btnmatching;
         private System.Windows.Forms.Label label11;
         private DevExpress.XtraTreeList.TreeList treeList销区;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn1;
