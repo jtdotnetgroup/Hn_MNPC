@@ -363,6 +363,7 @@
             this.gridColumn94.Name = "gridColumn94";
             this.gridColumn94.Visible = true;
             this.gridColumn94.VisibleIndex = 10;
+            this.gridColumn94.Width = 65;
             // 
             // gridColumn5
             // 
@@ -371,6 +372,7 @@
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
             this.gridColumn5.VisibleIndex = 13;
+            this.gridColumn5.Width = 64;
             // 
             // gridColumn19
             // 
@@ -381,7 +383,7 @@
             this.gridColumn19.Name = "gridColumn19";
             this.gridColumn19.Visible = true;
             this.gridColumn19.VisibleIndex = 3;
-            this.gridColumn19.Width = 80;
+            this.gridColumn19.Width = 62;
             // 
             // imageList3
             // 
@@ -418,7 +420,7 @@
             this.pnl跑龙套3.Location = new System.Drawing.Point(0, 0);
             this.pnl跑龙套3.Margin = new System.Windows.Forms.Padding(2);
             this.pnl跑龙套3.Name = "pnl跑龙套3";
-            this.pnl跑龙套3.Size = new System.Drawing.Size(1240, 26);
+            this.pnl跑龙套3.Size = new System.Drawing.Size(1513, 26);
             this.pnl跑龙套3.TabIndex = 102;
             this.pnl跑龙套3.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl跑龙套3_Paint);
             // 
@@ -430,7 +432,7 @@
             this.flowLayoutPanel2.Controls.Add(this.btn变更);
             this.flowLayoutPanel2.Controls.Add(this.btn关闭);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(876, 0);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(1149, 0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(364, 26);
             this.flowLayoutPanel2.TabIndex = 98;
@@ -583,7 +585,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1240, 26);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1513, 26);
             this.flowLayoutPanel1.TabIndex = 97;
             // 
             // btn保存
@@ -737,9 +739,9 @@
             this.tabPane1.Pages.AddRange(new DevExpress.XtraBars.Navigation.NavigationPageBase[] {
             this.tabNavigationPage1,
             this.tabNavigationPage2});
-            this.tabPane1.RegularSize = new System.Drawing.Size(1240, 703);
+            this.tabPane1.RegularSize = new System.Drawing.Size(1513, 703);
             this.tabPane1.SelectedPage = this.tabNavigationPage2;
-            this.tabPane1.Size = new System.Drawing.Size(1240, 703);
+            this.tabPane1.Size = new System.Drawing.Size(1513, 703);
             this.tabPane1.TabIndex = 104;
             this.tabPane1.Text = "tabPane1";
             // 
@@ -2111,7 +2113,7 @@
             this.tabNavigationPage2.Controls.Add(this.splitContainerControl2);
             this.tabNavigationPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabNavigationPage2.Name = "tabNavigationPage2";
-            this.tabNavigationPage2.Size = new System.Drawing.Size(1240, 675);
+            this.tabNavigationPage2.Size = new System.Drawing.Size(1513, 675);
             // 
             // splitContainerControl2
             // 
@@ -2125,7 +2127,7 @@
             this.splitContainerControl2.Panel1.Text = "Panel1";
             this.splitContainerControl2.Panel2.Controls.Add(this.xtraTabControl1);
             this.splitContainerControl2.Panel2.Text = "Panel2";
-            this.splitContainerControl2.Size = new System.Drawing.Size(1240, 675);
+            this.splitContainerControl2.Size = new System.Drawing.Size(1513, 675);
             this.splitContainerControl2.SplitterPosition = 498;
             this.splitContainerControl2.TabIndex = 8892;
             this.splitContainerControl2.Text = "splitContainerControl2";
@@ -2145,7 +2147,7 @@
             this.repositoryItemButtonEdit厂家账户,
             this.repositoryItemCheckEdit6,
             this.SelectICPR});
-            this.gridControl组柜明细.Size = new System.Drawing.Size(1240, 172);
+            this.gridControl组柜明细.Size = new System.Drawing.Size(1513, 172);
             this.gridControl组柜明细.TabIndex = 0;
             this.gridControl组柜明细.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView组柜明细});
@@ -2502,7 +2504,7 @@
             this.xtraTabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1240, 498);
+            this.xtraTabControl1.Size = new System.Drawing.Size(1513, 498);
             this.xtraTabControl1.TabIndex = 8890;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1});
@@ -2512,7 +2514,7 @@
             this.xtraTabPage1.Controls.Add(this.splitContainerControl1);
             this.xtraTabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(1237, 467);
+            this.xtraTabPage1.Size = new System.Drawing.Size(1510, 467);
             this.xtraTabPage1.Text = "提货单明细";
             // 
             // splitContainerControl1
@@ -2526,7 +2528,7 @@
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.pnl请购计划明细);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(1237, 467);
+            this.splitContainerControl1.Size = new System.Drawing.Size(1510, 467);
             this.splitContainerControl1.SplitterPosition = 136;
             this.splitContainerControl1.TabIndex = 0;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -2630,7 +2632,7 @@
             this.pnl请购计划明细.Location = new System.Drawing.Point(0, 0);
             this.pnl请购计划明细.Margin = new System.Windows.Forms.Padding(2);
             this.pnl请购计划明细.Name = "pnl请购计划明细";
-            this.pnl请购计划明细.Size = new System.Drawing.Size(1096, 467);
+            this.pnl请购计划明细.Size = new System.Drawing.Size(1369, 467);
             this.pnl请购计划明细.TabIndex = 1;
             // 
             // panel右
@@ -2640,7 +2642,7 @@
             this.panel右.Location = new System.Drawing.Point(0, 0);
             this.panel右.Margin = new System.Windows.Forms.Padding(2);
             this.panel右.Name = "panel右";
-            this.panel右.Size = new System.Drawing.Size(1096, 467);
+            this.panel右.Size = new System.Drawing.Size(1369, 467);
             this.panel右.TabIndex = 10;
             // 
             // splitContainerControl3
@@ -2656,7 +2658,7 @@
             this.splitContainerControl3.Panel2.Controls.Add(this.gridControl库存查询);
             this.splitContainerControl3.Panel2.Controls.Add(this.pnl跑龙套2);
             this.splitContainerControl3.Panel2.Text = "Panel2";
-            this.splitContainerControl3.Size = new System.Drawing.Size(1096, 467);
+            this.splitContainerControl3.Size = new System.Drawing.Size(1369, 467);
             this.splitContainerControl3.SplitterPosition = 462;
             this.splitContainerControl3.TabIndex = 109;
             this.splitContainerControl3.Text = "splitContainerControl3";
@@ -2684,7 +2686,7 @@
             this.gridControl库存查询.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1,
             this.repositoryItemCheckEdit3});
-            this.gridControl库存查询.Size = new System.Drawing.Size(1096, 393);
+            this.gridControl库存查询.Size = new System.Drawing.Size(1369, 393);
             this.gridControl库存查询.TabIndex = 111;
             this.gridControl库存查询.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView库存查询});
@@ -2761,6 +2763,7 @@
             this.gridView库存查询.Name = "gridView库存查询";
             this.gridView库存查询.OptionsBehavior.EditorShowMode = DevExpress.Utils.EditorShowMode.MouseDown;
             this.gridView库存查询.OptionsClipboard.CopyColumnHeaders = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView库存查询.OptionsSelection.CheckBoxSelectorColumnWidth = 40;
             this.gridView库存查询.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gridView库存查询.OptionsSelection.MultiSelect = true;
             this.gridView库存查询.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
@@ -2780,7 +2783,7 @@
             this.gridColumn17.Name = "gridColumn17";
             this.gridColumn17.Visible = true;
             this.gridColumn17.VisibleIndex = 1;
-            this.gridColumn17.Width = 100;
+            this.gridColumn17.Width = 76;
             // 
             // gridColumn18
             // 
@@ -2791,7 +2794,7 @@
             this.gridColumn18.Name = "gridColumn18";
             this.gridColumn18.Visible = true;
             this.gridColumn18.VisibleIndex = 2;
-            this.gridColumn18.Width = 100;
+            this.gridColumn18.Width = 127;
             // 
             // gridColumn24
             // 
@@ -2802,7 +2805,6 @@
             this.gridColumn24.Name = "gridColumn24";
             this.gridColumn24.Visible = true;
             this.gridColumn24.VisibleIndex = 4;
-            this.gridColumn24.Width = 100;
             // 
             // gridColumn25
             // 
@@ -2813,7 +2815,7 @@
             this.gridColumn25.Name = "gridColumn25";
             this.gridColumn25.Visible = true;
             this.gridColumn25.VisibleIndex = 5;
-            this.gridColumn25.Width = 180;
+            this.gridColumn25.Width = 134;
             // 
             // gridColumn26
             // 
@@ -2824,6 +2826,7 @@
             this.gridColumn26.Name = "gridColumn26";
             this.gridColumn26.Visible = true;
             this.gridColumn26.VisibleIndex = 6;
+            this.gridColumn26.Width = 39;
             // 
             // gridColumn106
             // 
@@ -2834,7 +2837,7 @@
             this.gridColumn106.Name = "gridColumn106";
             this.gridColumn106.Visible = true;
             this.gridColumn106.VisibleIndex = 7;
-            this.gridColumn106.Width = 100;
+            this.gridColumn106.Width = 123;
             // 
             // gridColumn80
             // 
@@ -2845,7 +2848,7 @@
             this.gridColumn80.Name = "gridColumn80";
             this.gridColumn80.Visible = true;
             this.gridColumn80.VisibleIndex = 9;
-            this.gridColumn80.Width = 45;
+            this.gridColumn80.Width = 40;
             // 
             // gridColumn105
             // 
@@ -2856,7 +2859,7 @@
             this.gridColumn105.Name = "gridColumn105";
             this.gridColumn105.Visible = true;
             this.gridColumn105.VisibleIndex = 8;
-            this.gridColumn105.Width = 70;
+            this.gridColumn105.Width = 61;
             // 
             // gridColumn3
             // 
@@ -2865,6 +2868,7 @@
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
             this.gridColumn3.VisibleIndex = 11;
+            this.gridColumn3.Width = 51;
             // 
             // gridColumn16
             // 
@@ -2875,7 +2879,7 @@
             this.gridColumn16.Name = "gridColumn16";
             this.gridColumn16.Visible = true;
             this.gridColumn16.VisibleIndex = 12;
-            this.gridColumn16.Width = 100;
+            this.gridColumn16.Width = 62;
             // 
             // gridColumn30
             // 
@@ -2884,7 +2888,7 @@
             this.gridColumn30.Name = "gridColumn30";
             this.gridColumn30.Visible = true;
             this.gridColumn30.VisibleIndex = 15;
-            this.gridColumn30.Width = 160;
+            this.gridColumn30.Width = 104;
             // 
             // gridColumn23
             // 
@@ -2910,6 +2914,7 @@
             this.gridColumn9.Name = "gridColumn9";
             this.gridColumn9.Visible = true;
             this.gridColumn9.VisibleIndex = 14;
+            this.gridColumn9.Width = 49;
             // 
             // gridColumn107
             // 
@@ -3064,7 +3069,7 @@
             this.pnl跑龙套2.Margin = new System.Windows.Forms.Padding(2);
             this.pnl跑龙套2.Name = "pnl跑龙套2";
             this.pnl跑龙套2.Padding = new System.Windows.Forms.Padding(2);
-            this.pnl跑龙套2.Size = new System.Drawing.Size(1096, 69);
+            this.pnl跑龙套2.Size = new System.Drawing.Size(1369, 69);
             this.pnl跑龙套2.TabIndex = 110;
             // 
             // cekContain
@@ -3335,7 +3340,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1240, 729);
+            this.ClientSize = new System.Drawing.Size(1513, 729);
             this.Controls.Add(this.tabPane1);
             this.Controls.Add(this.pnl跑龙套3);
             this.Name = "FrmSGPGroupCounter";
