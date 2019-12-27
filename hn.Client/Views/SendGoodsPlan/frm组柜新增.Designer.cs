@@ -861,7 +861,7 @@
             this.tabNavigationPage1.Controls.Add(this.txt其他);
             this.tabNavigationPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabNavigationPage1.Name = "tabNavigationPage1";
-            this.tabNavigationPage1.Size = new System.Drawing.Size(1240, 675);
+            this.tabNavigationPage1.Size = new System.Drawing.Size(1513, 675);
             // 
             // cbo是否需补货
             // 
@@ -1142,6 +1142,7 @@
             // 
             // txt实际吨重
             // 
+            this.txt实际吨重.EditValue = "0";
             this.txt实际吨重.Location = new System.Drawing.Point(327, 165);
             this.txt实际吨重.Margin = new System.Windows.Forms.Padding(2);
             this.txt实际吨重.Name = "txt实际吨重";

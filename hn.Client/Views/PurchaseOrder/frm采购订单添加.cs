@@ -14,6 +14,7 @@ using System.Windows.Forms;
 
 namespace hn.Client
 {
+
     public partial class FrmPurchaseOrder : FrmBase
     {
         #region ■------------------ 字段相关

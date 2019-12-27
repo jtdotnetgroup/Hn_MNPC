@@ -270,14 +270,18 @@ namespace hn.Client
                     //进入发货计划编辑
                     FrmPPPImmediateSendGoods frm = new FrmPPPImmediateSendGoods();
                     frm.IcseoutbillModel = rowData;
+
                     //frm.IcseoutbillEntrys = new List<V_ICSEOUTBILLENTRYMODEL>(gridControl发货计划明细.DataSource as V_ICSEOUTBILLENTRYMODEL[]);
+
                     frm.IcseoutbillEntrys = gridControl发货计划明细.DataSource as List<V_ICSEOUTBILLENTRYMODEL>;
                     frm.SaveAfter += new EventHandler(FrmPPPImmediateSendGoods_SaveAfter);
                     frm.Show();
+
                     //if (frm.ShowDialog() == DialogResult.OK)
                     //{
                     //    this.onSearch();
                     //}
+
                 }
                 else
                 {
@@ -312,16 +316,13 @@ namespace hn.Client
             {
                 var rowIndex = gridView发货计划列表.GetDataSourceRowIndex(gridView发货计划列表.FocusedRowHandle);
                 var rowData = _dataSrouce[rowIndex];
-
+                
                 //进入组柜编辑
                 FrmSGPGroupCounter frm = new FrmSGPGroupCounter();
                 frm.SaveAfter += new EventHandler(FrmPPPImmediateSendGoods_SaveAfter);
                 frm.IcseoutbillModel = rowData;
                 frm.Show();
-                //if (frm.ShowDialog() == DialogResult.OK)
-                //{
-                //    this.onSearch();
-                //}
+
             }
             else
             {

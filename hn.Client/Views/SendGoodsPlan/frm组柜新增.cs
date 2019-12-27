@@ -52,9 +52,6 @@ namespace hn.Client
 
         }
 
-
-
-
         private void initData()
         {
 
@@ -632,7 +629,7 @@ namespace hn.Client
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                 }
@@ -2527,7 +2524,7 @@ namespace hn.Client
         {
             var item = cbo运输方式.SelectedItem as SYS_SUBDICSMODEL;
             var modelList = cbo运输计价.Properties.Items;
-            if (item.FNAME == "海柜")
+            if (item.FNAME == "海柜"||item.FNAME=="铁路")
             {
                 foreach (var model in modelList)
                 {

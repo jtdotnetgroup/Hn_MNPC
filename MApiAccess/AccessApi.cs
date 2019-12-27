@@ -109,30 +109,10 @@ namespace MApiAccess
 
             string strParam = "comid=" + api12.comid + "&action=" + api12.action + "&token=" + api12.token + "&data=[" + strData + "]";
 
-            LogHelper.WriteLog("POSTDATA:" + strParam);
-
             string result = Helper.PostData(strParam);
             return JsonHelper.ToObject<MApiModel.recApi12.Rootobject>(result);
 
-            //var url = "https://tms.monalisagroup.com.cn/mapi/doAction";
-
-            //HttpClient client = new HttpClient();
-            //client.Timeout = new TimeSpan(0, 0, 10, 0);
-            //HttpContent content = new FormUrlEncodedContent(api12.ModelToDic<MApiModel.api12.Rootobject>());
-            //try
-            //{
-            //    var data = client.PostAsync(url, content).Result;
-            //    string jsonStr = data.Content.ReadAsStringAsync().Result;
-
-            //    var result = JSONhelper.ConvertToObject<MApiModel.recApi12.Rootobject>(jsonStr);
-
-            //    return result;
-
-            //}
-            //catch (Exception e)
-            //{
-            //    throw e;
-            //}
+            
         }
 
     }

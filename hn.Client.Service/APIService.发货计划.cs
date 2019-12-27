@@ -287,6 +287,7 @@ namespace hn.Client.Service
             string enddate,
             bool searchclose = false)
         {
+
             try
             {
                 StringBuilder query = new StringBuilder();
@@ -1140,6 +1141,7 @@ namespace hn.Client.Service
                 //    //sql.AppendLine(" and （fclassarea2= '" + cpgg + "' or fclassarea2name like '%" + area2 + "%') ");
                 //    sql.AppendLine(condition);
                 //}
+
                 if (!string.IsNullOrEmpty(area2))
                 {
                     sql.AppendLine(" and fpremisename = '" + area2 + "'");
