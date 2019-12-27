@@ -861,29 +861,29 @@ namespace hn.Client
                     return false;
                 }
 
-                //if (cbo省.SelectedItem == null)
-                //{
-                //    MsgHelper.ShowError("请选择收货地址（省）！");
-                //    return false;
-                //}
+                if (cbo省.SelectedItem == null)
+                {
+                    MsgHelper.ShowError("请选择收货地址（省）！");
+                    return false;
+                }
 
-                //if (cbo市.SelectedItem == null)
-                //{
-                //    MsgHelper.ShowError("请选择收货地址（市）！");
-                //    return false;
-                //}
+                if (cbo市.SelectedItem == null)
+                {
+                    MsgHelper.ShowError("请选择收货地址（市）！");
+                    return false;
+                }
 
-                //if (cbo区.SelectedItem == null)
-                //{
-                //    MsgHelper.ShowError("请选择收货地址（区/县）！");
-                //    return false;
-                //}
+                if (cbo区.SelectedItem == null)
+                {
+                    MsgHelper.ShowError("请选择收货地址（区/县）！");
+                    return false;
+                }
 
-                //if (cbo县.SelectedItem == null)
-                //{
-                //    MsgHelper.ShowError("请选择收货地址（街道）！");
-                //    return false;
-                //}
+                if (cbo县.SelectedItem == null)
+                {
+                    MsgHelper.ShowError("请选择收货地址（街道）！");
+                    return false;
+                }
 
 
                 //if (string.IsNullOrEmpty(txt收货人.Text))
@@ -902,6 +902,19 @@ namespace hn.Client
                 {
                     MsgHelper.ShowError("请勾选是否报价！");
                     return false;
+                }
+                if (cbo是否报价.Text.Equals("线下报价"))
+                {
+                    if (string.IsNullOrWhiteSpace(txt提货人.Text))
+                    {
+                        MsgHelper.ShowError("提货人不能为空！");
+                        return false;
+                    }
+                    else if(string.IsNullOrWhiteSpace(txt提货人电话.Text))
+                    {
+                        MsgHelper.ShowError("提货人电话不能为空！");
+                        return false;
+                    } 
                 }
                 #endregion
             }
@@ -2263,37 +2276,38 @@ namespace hn.Client
             IniHelper.WriteString(Global.IniUrl, "CONFIG", "cph", ((int)numericUpDown1.Value).ToStr());
             if (textBox1.Text != "")
             {
-                string[] arr = textBox1.Text.Split(new string[] { " ", "\r\n", "、" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] arr = textBox1.Text.Split(new string[] { " ", "\r\n", "、" }, StringSplitOptions.RemoveEmptyEntries); 
 
                 if (arr.Length == 1)
                 {
                     txt提货人电话.Text = arr[0].Replace("\r", "").Replace("\n", "").Replace("?", "");
+                    txt车牌号.Text = arr[1].Replace("\r", "").Replace("\n", "").Replace("?", "");
                 }
                 else if (arr.Length >= 2)
                 {
                     txt提货人电话.Text = arr[0].Replace("\r", "").Replace("\n", "").Replace("?", "");
-                    txt车牌号.Text = textBox1.Text.Replace(arr[0] + " ", "").Replace("\r", "").Replace("\n", "").Replace("?", "");
+                    txt提货人.Text = arr[2].Replace("\r", "").Replace("\n", "").Replace("?", "");
+                    txt车牌号.Text = arr[1].Replace("\r", "").Replace("\n", "").Replace("?", "");
 
-                    if (txt车牌号.Text != "")
-                    {
-                        try
-                        {
-                            while (txt车牌号.Text.StartsWith(" "))
-                            {
-                                if (txt车牌号.Text == "") break;
-                                txt车牌号.Text = txt车牌号.Text.Substring(1, txt车牌号.Text.Length - 1);
+                    //txt车牌号.Text = textBox1.Text.Replace(arr[0] + " ", "").Replace("\r", "").Replace("\n", "").Replace("?", "");
 
-                                if (txt车牌号.Text.Length > (int)numericUpDown1.Value) txt车牌号.Text = txt车牌号.Text.Substring(0, (int)numericUpDown1.Value - 1);
-                            }
-                        }
-                        catch
-                        { }
-                    }
-                }
+                    //if (txt车牌号.Text != "")
+                    //{
+                    //    try
+                    //    {
+                    //        while (txt车牌号.Text.StartsWith(" "))
+                    //        {
+                    //            if (txt车牌号.Text == "") break;
+                    //            txt车牌号.Text = txt车牌号.Text.Substring(1, txt车牌号.Text.Length - 1);
 
-
-
-            }
+                    //            if (txt车牌号.Text.Length > (int)numericUpDown1.Value) txt车牌号.Text = txt车牌号.Text.Substring(0, (int)numericUpDown1.Value - 1);
+                    //        }
+                    //    }
+                    //    catch
+                    //    { }
+                    //}
+                } 
+            } 
         }
 
         private void treeList销区_FocusedNodeChanged(object sender, FocusedNodeChangedEventArgs e)
@@ -2385,25 +2399,22 @@ namespace hn.Client
 
         private void txt发货类型_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (txt发货类型.Text == "直发工地")
-            {
-                // chk是否报价.Enabled = true;
-                //chk是否报价.Checked = true;
-
+            if (txt发货类型.Text == "直发工地"|| txt发货类型.Text == "直发仓库")
+            { 
                 foreach (var item in cbo是否报价.Properties.Items)
                 {
-                    if (((CodeValueClass)item).value.ToInt() == 1)
+                    if (((CodeValueClass)item).text.Equals("是"))
                     {
                         cbo是否报价.SelectedItem = item;
                         break;
                     }
-                }
-
-            }
-            if (txt发货类型.Text == "直发仓库")
-            {
-                // chk是否报价.Enabled = false;
-            }
+                    else if (((CodeValueClass)item).text.Equals("否"))
+                    {
+                        cbo是否报价.SelectedItem = item;
+                        break;
+                    }
+                } 
+            } 
         }
 
         private void txt实际重量_EditValueChanged(object sender, EventArgs e)
@@ -2564,6 +2575,13 @@ namespace hn.Client
         private void gridView库存查询_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         { 
              
+        }
+
+        private void cbo公司主体_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var item = cbo公司主体.SelectedItem as SYS_SUBDICSMODEL ?? new SYS_SUBDICSMODEL(); 
+            chk是否开票.Checked = item.FNAME == "华耐家居";
+            chk是否开票.ReadOnly = item.FNAME == "华耐家居";
         }
     }
 }

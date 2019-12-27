@@ -135,6 +135,7 @@
             this.bgw加载数据 = new System.ComponentModel.BackgroundWorker();
             this.splitContainerControl2 = new DevExpress.XtraEditors.SplitContainerControl();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit88)).BeginInit();
             this.panel左.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeList销区)).BeginInit();
@@ -184,7 +185,7 @@
             this.gridColumn887.FieldName = "FCLASSAREA2NAME";
             this.gridColumn887.Name = "gridColumn887";
             this.gridColumn887.Visible = true;
-            this.gridColumn887.VisibleIndex = 3;
+            this.gridColumn887.VisibleIndex = 4;
             this.gridColumn887.Width = 89;
             // 
             // repositoryItemCheckEdit88
@@ -397,6 +398,7 @@
             this.gridView发货计划列表.Appearance.SelectedRow.Options.UseBackColor = true;
             this.gridView发货计划列表.Appearance.SelectedRow.Options.UseForeColor = true;
             this.gridView发货计划列表.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn3,
             this.gridColumn888,
             this.gridColumn887,
             this.gridColumn886,
@@ -450,7 +452,7 @@
             this.gridColumn888.Name = "gridColumn888";
             this.gridColumn888.OptionsColumn.AllowEdit = false;
             this.gridColumn888.Visible = true;
-            this.gridColumn888.VisibleIndex = 2;
+            this.gridColumn888.VisibleIndex = 3;
             this.gridColumn888.Width = 125;
             // 
             // gridColumn886
@@ -463,7 +465,7 @@
             this.gridColumn886.FieldName = "FBILLNO";
             this.gridColumn886.Name = "gridColumn886";
             this.gridColumn886.Visible = true;
-            this.gridColumn886.VisibleIndex = 4;
+            this.gridColumn886.VisibleIndex = 5;
             this.gridColumn886.Width = 123;
             // 
             // gridColumn885
@@ -476,7 +478,7 @@
             this.gridColumn885.FieldName = "FSTATUSNAME";
             this.gridColumn885.Name = "gridColumn885";
             this.gridColumn885.Visible = true;
-            this.gridColumn885.VisibleIndex = 6;
+            this.gridColumn885.VisibleIndex = 7;
             this.gridColumn885.Width = 80;
             // 
             // gridColumn879
@@ -489,7 +491,7 @@
             this.gridColumn879.FieldName = "FSYNCSTATUS_NAME";
             this.gridColumn879.Name = "gridColumn879";
             this.gridColumn879.Visible = true;
-            this.gridColumn879.VisibleIndex = 5;
+            this.gridColumn879.VisibleIndex = 6;
             this.gridColumn879.Width = 106;
             // 
             // gridColumn884
@@ -500,7 +502,7 @@
             this.gridColumn884.FieldName = "FTRANSNAME";
             this.gridColumn884.Name = "gridColumn884";
             this.gridColumn884.Visible = true;
-            this.gridColumn884.VisibleIndex = 7;
+            this.gridColumn884.VisibleIndex = 8;
             this.gridColumn884.Width = 85;
             // 
             // gridColumn883
@@ -511,7 +513,7 @@
             this.gridColumn883.FieldName = "FCARNUMBER";
             this.gridColumn883.Name = "gridColumn883";
             this.gridColumn883.Visible = true;
-            this.gridColumn883.VisibleIndex = 9;
+            this.gridColumn883.VisibleIndex = 10;
             this.gridColumn883.Width = 233;
             // 
             // gridColumn882
@@ -522,7 +524,7 @@
             this.gridColumn882.FieldName = "FLOADCAPACITY";
             this.gridColumn882.Name = "gridColumn882";
             this.gridColumn882.Visible = true;
-            this.gridColumn882.VisibleIndex = 13;
+            this.gridColumn882.VisibleIndex = 14;
             this.gridColumn882.Width = 80;
             // 
             // gridColumn881
@@ -533,7 +535,7 @@
             this.gridColumn881.FieldName = "FPROJECTNAME";
             this.gridColumn881.Name = "gridColumn881";
             this.gridColumn881.Visible = true;
-            this.gridColumn881.VisibleIndex = 10;
+            this.gridColumn881.VisibleIndex = 11;
             this.gridColumn881.Width = 150;
             // 
             // gridColumn880
@@ -544,7 +546,7 @@
             this.gridColumn880.FieldName = "FCENTER_WAREHOUSE";
             this.gridColumn880.Name = "gridColumn880";
             this.gridColumn880.Visible = true;
-            this.gridColumn880.VisibleIndex = 12;
+            this.gridColumn880.VisibleIndex = 13;
             this.gridColumn880.Width = 112;
             // 
             // gridColumn8
@@ -555,7 +557,7 @@
             this.gridColumn8.FieldName = "FSRCBILLNO";
             this.gridColumn8.Name = "gridColumn8";
             this.gridColumn8.Visible = true;
-            this.gridColumn8.VisibleIndex = 14;
+            this.gridColumn8.VisibleIndex = 15;
             this.gridColumn8.Width = 123;
             // 
             // gridColumn33
@@ -566,7 +568,7 @@
             this.gridColumn33.FieldName = "FBILLDATE";
             this.gridColumn33.Name = "gridColumn33";
             this.gridColumn33.Visible = true;
-            this.gridColumn33.VisibleIndex = 11;
+            this.gridColumn33.VisibleIndex = 12;
             this.gridColumn33.Width = 87;
             // 
             // gridColumn34
@@ -577,7 +579,7 @@
             this.gridColumn34.FieldName = "FPLAN_INFO";
             this.gridColumn34.Name = "gridColumn34";
             this.gridColumn34.Visible = true;
-            this.gridColumn34.VisibleIndex = 8;
+            this.gridColumn34.VisibleIndex = 9;
             this.gridColumn34.Width = 89;
             // 
             // gridColumn35
@@ -588,7 +590,7 @@
             this.gridColumn35.FieldName = "FIDENTIFICATION";
             this.gridColumn35.Name = "gridColumn35";
             this.gridColumn35.Visible = true;
-            this.gridColumn35.VisibleIndex = 1;
+            this.gridColumn35.VisibleIndex = 2;
             this.gridColumn35.Width = 58;
             // 
             // gridColumn品牌部
@@ -599,7 +601,7 @@
             this.gridColumn品牌部.FieldName = "FBRAND_DEPART";
             this.gridColumn品牌部.Name = "gridColumn品牌部";
             this.gridColumn品牌部.Visible = true;
-            this.gridColumn品牌部.VisibleIndex = 15;
+            this.gridColumn品牌部.VisibleIndex = 16;
             this.gridColumn品牌部.Width = 82;
             // 
             // gridColumn40
@@ -612,7 +614,7 @@
             this.gridColumn40.FieldName = "FCAR_STATUS_NAME";
             this.gridColumn40.Name = "gridColumn40";
             this.gridColumn40.Visible = true;
-            this.gridColumn40.VisibleIndex = 16;
+            this.gridColumn40.VisibleIndex = 17;
             this.gridColumn40.Width = 85;
             // 
             // repositoryItemCheckEdit888
@@ -1751,6 +1753,14 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "运输商";
+            this.gridColumn3.FieldName = "FEXPRESSCOMPANYNAME";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 1;
+            // 
             // FrmSendGoodsPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1912,5 +1922,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit2;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit厂家代码;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit厂家账户;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
     }
 }
